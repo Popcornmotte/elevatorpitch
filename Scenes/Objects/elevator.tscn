@@ -1,14 +1,19 @@
-[gd_scene load_steps=19 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=25 format=3 uid="uid://bjgjo60texco1"]
 
+[ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
+[ext_resource type="Script" path="res://Scripts/Legs.gd" id="2_2h7m3"]
 [ext_resource type="Texture2D" uid="uid://cjlhqwo5wcan7" path="res://Assets/Sprites/ElevatorBody/Gear1.png" id="2_cbxhb"]
+[ext_resource type="Texture2D" uid="uid://ppjssqnijl1p" path="res://Assets/Sprites/ElevatorBody/Wheel0.png" id="2_o1aa6"]
 [ext_resource type="Texture2D" uid="uid://bgkjkvklvto1i" path="res://Assets/Sprites/Claws/Test0/TestArm.png" id="3_2k2nk"]
+[ext_resource type="Texture2D" uid="uid://cdocs2sd6mf" path="res://Assets/Sprites/Cable.png" id="3_lmxla"]
 [ext_resource type="Texture2D" uid="uid://sb47ud24jhmx" path="res://Assets/Sprites/Claws/Test0/TestClaw1.png" id="4_hs0s2"]
 [ext_resource type="Texture2D" uid="uid://cps0xktem8rbd" path="res://Assets/Sprites/Claws/Test0/TestClaw0.png" id="5_xhuq0"]
 [ext_resource type="Script" path="res://Scripts/Target.gd" id="6_06d2c"]
 [ext_resource type="Texture2D" uid="uid://dhl16w2kryxft" path="res://Assets/Sprites/ElevatorBody/Gear0.png" id="7_xkf6p"]
 [ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="8_8ih1r"]
 [ext_resource type="Script" path="res://Scripts/EffectGear.gd" id="9_3heke"]
+[ext_resource type="Script" path="res://Scripts/Claw.gd" id="9_ltb0c"]
 [ext_resource type="Material" uid="uid://dsthfo1lhc5ao" path="res://ParticleEffects/Sparks.tres" id="10_psx2i"]
 [ext_resource type="Texture2D" uid="uid://bb36mwhht2hya" path="res://Assets/Sprites/spark.png" id="11_eb7jo"]
 
@@ -52,8 +57,8 @@ bone_index = 3
 bone2d_node = NodePath("GearBone/UpperArmBone/LowerArmBone/ClawBone")
 target_nodepath = NodePath("../Targets/RightTarget")
 enable_constraint = true
-constraint_angle_min = -130.0
-constraint_angle_max = 130.0
+constraint_angle_min = -25.789
+constraint_angle_max = 100.0
 constraint_angle_invert = true
 constraint_in_localspace = true
 
@@ -82,9 +87,51 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qo5xh"]
+radius = 16.3336
+height = 38.2461
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qaus"]
 
 [node name="Elevator" type="Node2D"]
+
+[node name="Legs" type="Sprite2D" parent="."]
+position = Vector2(0, 176)
+texture = ExtResource("1_cufjr")
+script = ExtResource("2_2h7m3")
+
+[node name="wheelL" type="Sprite2D" parent="Legs"]
+z_index = -1
+position = Vector2(-29, 31)
+texture = ExtResource("2_o1aa6")
+
+[node name="wheelR" type="Sprite2D" parent="Legs"]
+z_index = -1
+position = Vector2(29, 31)
+texture = ExtResource("2_o1aa6")
+
+[node name="Cable" type="Node2D" parent="Legs"]
+z_index = -2
+position = Vector2(0, -176)
+
+[node name="Cable0" type="Sprite2D" parent="Legs/Cable"]
+texture = ExtResource("3_lmxla")
+
+[node name="Cable1" type="Sprite2D" parent="Legs/Cable"]
+position = Vector2(0, 240)
+texture = ExtResource("3_lmxla")
+
+[node name="Cable2" type="Sprite2D" parent="Legs/Cable"]
+position = Vector2(0, -240)
+texture = ExtResource("3_lmxla")
+
+[node name="Cable3" type="Sprite2D" parent="Legs/Cable"]
+position = Vector2(0, -480)
+texture = ExtResource("3_lmxla")
+
+[node name="Cable4" type="Sprite2D" parent="Legs/Cable"]
+position = Vector2(0, 480)
+texture = ExtResource("3_lmxla")
 
 [node name="HullBody" type="StaticBody2D" parent="."]
 metadata/_edit_lock_ = true
@@ -93,6 +140,7 @@ metadata/_edit_lock_ = true
 shape = SubResource("CapsuleShape2D_ohd1j")
 
 [node name="Hull" type="Sprite2D" parent="HullBody"]
+z_index = 1
 texture = ExtResource("1_dtexf")
 
 [node name="RightArmDeadzone" type="StaticBody2D" parent="."]
@@ -128,6 +176,7 @@ texture = ExtResource("3_2k2nk")
 [node name="LowerArmBone" type="Bone2D" parent="Skeleton2D/GearBone/UpperArmBone"]
 position = Vector2(128, 0)
 rotation = -0.740823
+scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
 metadata/_local_pose_override_enabled_ = true
 
@@ -142,14 +191,21 @@ texture = ExtResource("7_xkf6p")
 [node name="ClawBone" type="Bone2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone"]
 position = Vector2(128, 0)
 rotation = 0.289078
-scale = Vector2(1, 1)
 rest = Transform2D(0.930478, 0.366254, -0.366254, 0.930478, 128.007, 0.000183105)
 metadata/_local_pose_override_enabled_ = true
 
-[node name="ClawSprite" type="AnimatedSprite2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
-position = Vector2(26, 0)
+[node name="Claw" type="AnimatableBody2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("9_ltb0c")
+
+[node name="ClawSprite" type="AnimatedSprite2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone/Claw"]
+position = Vector2(26, 3.8147e-06)
 sprite_frames = SubResource("SpriteFrames_ae1xk")
-animation = &"close"
+animation = &"open"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone/Claw"]
+shape = SubResource("CapsuleShape2D_qo5xh")
 
 [node name="TipBone" type="Bone2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 position = Vector2(26.1027, -0.368178)
