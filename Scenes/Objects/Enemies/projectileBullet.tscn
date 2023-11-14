@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwxdwntyg1141"]
+
+[ext_resource type="Texture2D" uid="uid://dcuvblejjrqg8" path="res://Assets/Sprites/Enemies/projectileBullet.png" id="1_f3msc"]
+[ext_resource type="Script" path="res://Scripts/Enemies/bullet.gd" id="1_wprt0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pa5kx"]
+radius = 5.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8o7tq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f3msc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="projectileBullet" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("1_wprt0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_pa5kx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+sprite_frames = SubResource("SpriteFrames_8o7tq")

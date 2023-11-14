@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://wp5nevq6p1rb"]
+
+[ext_resource type="Texture2D" uid="uid://bjcthtw5x1nhp" path="res://Assets/Sprites/Enemies/low_drone_body.png" id="1_6yoii"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6yoii")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

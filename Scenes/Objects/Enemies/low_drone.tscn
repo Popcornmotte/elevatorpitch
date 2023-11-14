@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2n3djnmvwdr5"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/genericEnemy.gd" id="1_c1b1c"]
+[ext_resource type="SpriteFrames" uid="uid://wp5nevq6p1rb" path="res://Assets/Sprites/Enemies/low_drone_body_sprite.tres" id="2_ehnj2"]
+[ext_resource type="Script" path="res://Scripts/Enemies/enemyPart.gd" id="2_f0bph"]
+[ext_resource type="SpriteFrames" uid="uid://epfxhosnp353" path="res://Assets/Sprites/Enemies/low_drone_balloon_sprite.tres" id="4_lg6ku"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q32vo"]
+radius = 36.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g8qgo"]
+radius = 19.0
+height = 82.0
+
+[node name="low_drone" type="Node2D"]
+
+[node name="Rigidbody" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
+script = ExtResource("1_c1b1c")
+
+[node name="mainCollision" type="CollisionShape2D" parent="Rigidbody"]
+position = Vector2(-8, 13)
+shape = SubResource("CircleShape2D_q32vo")
+
+[node name="balloonCollision" type="CollisionShape2D" parent="Rigidbody"]
+position = Vector2(0, -33)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_g8qgo")
+
+[node name="parts" type="Node2D" parent="Rigidbody"]
+
+[node name="main" type="Node2D" parent="Rigidbody/parts"]
+script = ExtResource("2_f0bph")
+acceleration = 500.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Rigidbody/parts/main"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("2_ehnj2")
+
+[node name="balloon" type="Node2D" parent="Rigidbody/parts"]
+script = ExtResource("2_f0bph")
+mass = -1.0
+destroyOnGrab = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Rigidbody/parts/balloon"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("4_lg6ku")
+
+[node name="DebugMarker" type="Polygon2D" parent="Rigidbody"]
+visible = false
+position = Vector2(-105, -49)
+polygon = PackedVector2Array(-19, -17, 17, -17, 17, 19, -19, 19)
