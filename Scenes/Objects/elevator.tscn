@@ -380,6 +380,7 @@ bone_angle = 0.0
 position = Vector2(128, 0)
 rotation = 0.289078
 rest = Transform2D(0.930478, 0.366254, -0.366254, 0.930478, 128.007, 0.000183105)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="Claw" type="AnimatableBody2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 collision_layer = 0

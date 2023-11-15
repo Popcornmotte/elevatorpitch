@@ -176,7 +176,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ha5a3"]
 radius = 36.3456
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["Climber"]]
 script = ExtResource("1_mnd8j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -199,3 +199,6 @@ animation = &"walk_right"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-2, -27)
 shape = SubResource("CircleShape2D_ha5a3")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
