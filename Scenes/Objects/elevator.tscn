@@ -270,6 +270,7 @@ acceleration = 500.0
 
 [node name="UpperArm" type="RigidBody2D" parent="PhysicalArm"]
 position = Vector2(96, 0)
+mass = 50.0
 gravity_scale = 0.0
 
 [node name="PinJoint2D" type="PinJoint2D" parent="PhysicalArm/UpperArm"]
@@ -289,6 +290,7 @@ polygon = PackedVector2Array(138.375, 10.125, 137, -3.00002, -6.00001, -2.99998,
 
 [node name="LowerArm" type="RigidBody2D" parent="PhysicalArm/UpperArm"]
 position = Vector2(146, 0)
+mass = 50.0
 gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicalArm/UpperArm/LowerArm"]
