@@ -27,7 +27,7 @@ radius = 40.0
 
 [sub_resource type="SkeletonModification2DCCDIK" id="SkeletonModification2DCCDIK_mcf4w"]
 target_nodepath = NodePath("../Targets/RightTarget")
-tip_nodepath = NodePath("GearBone/UpperArmBone/LowerArmBone/ClawBone/TipBone")
+tip_nodepath = NodePath("GearBone/UpperArmBone/LowerArmBone/TipBone")
 ccdik_data_chain_length = 3
 joint_data/0/bone_index = 0
 joint_data/0/bone2d_node = NodePath("GearBone")
@@ -198,11 +198,20 @@ texture = ExtResource("3_2k2nk")
 [node name="GearSprite" type="Sprite2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone"]
 texture = ExtResource("7_xkf6p")
 
+[node name="TipBone" type="Bone2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone"]
+position = Vector2(154, 2.33574)
+rotation = 0.103699
+scale = Vector2(0.999995, 0.999995)
+rest = Transform2D(1, 0, 0, 1, 26.1027, -0.368178)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+metadata/_local_pose_override_enabled_ = true
+
 [node name="ClawBone" type="Bone2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone"]
 position = Vector2(128, 0)
 rotation = 0.289078
 rest = Transform2D(0.930478, 0.366254, -0.366254, 0.930478, 128.007, 0.000183105)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Claw" type="AnimatableBody2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 collision_layer = 2
@@ -216,13 +225,6 @@ animation = &"open"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone/Claw"]
 shape = SubResource("CapsuleShape2D_qo5xh")
-
-[node name="TipBone" type="Bone2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
-position = Vector2(26.1027, -0.368178)
-rest = Transform2D(1, 0, 0, 1, 26.1027, -0.368178)
-auto_calculate_length_and_angle = false
-length = 16.0
-bone_angle = 0.0
 
 [node name="Targets" type="Node2D" parent="."]
 
