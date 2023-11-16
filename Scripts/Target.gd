@@ -13,6 +13,8 @@ var decelerate = false
 func move(delta):
 	#mouse position that the target moves towards
 	var mousePos = get_viewport().get_mouse_position()
+	global_position = mousePos
+	return
 	
 	#If distance is greater than [thresholdDist]+speed*2 and
 	#not already decelerating then accelerate

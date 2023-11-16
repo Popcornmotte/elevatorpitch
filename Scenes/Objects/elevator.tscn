@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=28 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -98,6 +98,9 @@ height = 38.2461
 radius = 5.00012
 height = 126.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xb8wr"]
+radius = 13.3417
+
 [node name="Elevator" type="Node2D"]
 
 [node name="Legs" type="Sprite2D" parent="."]
@@ -156,6 +159,7 @@ shape = SubResource("CircleShape2D_kdskv")
 disabled = true
 
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
+visible = false
 modification_stack = SubResource("SkeletonModificationStack2D_hu4nd")
 metadata/_edit_lock_ = true
 
@@ -170,7 +174,7 @@ z_index = -1
 texture = ExtResource("2_cbxhb")
 
 [node name="UpperArmBone" type="Bone2D" parent="Skeleton2D/GearBone"]
-position = Vector2(7, 0)
+position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
 metadata/_local_pose_override_enabled_ = true
 
@@ -180,8 +184,8 @@ position = Vector2(64, 0)
 texture = ExtResource("3_2k2nk")
 
 [node name="LowerArmBone" type="Bone2D" parent="Skeleton2D/GearBone/UpperArmBone"]
-position = Vector2(128, 0)
-rotation = -0.740823
+position = Vector2(128.002, 5.72205e-05)
+rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
 metadata/_local_pose_override_enabled_ = true
@@ -229,6 +233,7 @@ Emitter = NodePath("../../VisualEffects/Sparks")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Targets/RightTarget"]
 shape = SubResource("CircleShape2D_4qaus")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Targets/RightTarget"]
 texture = ExtResource("8_8ih1r")
@@ -256,14 +261,16 @@ texture = ExtResource("7_xkf6p")
 script = ExtResource("9_3heke")
 TargetGear = NodePath("../../Skeleton2D/GearBone")
 
-[node name="PhysicalArm" type="Node2D" parent="." node_paths=PackedStringArray("upperArmRef", "lowerArmRef")]
+[node name="PhysicalArm" type="Node2D" parent="." node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef")]
 script = ExtResource("17_yi1ig")
 upperArmRef = NodePath("../Skeleton2D/GearBone/UpperArmBone")
 lowerArmRef = NodePath("../Skeleton2D/GearBone/UpperArmBone/LowerArmBone")
+clawRef = NodePath("../Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone")
+acceleration = 500.0
 
 [node name="UpperArm" type="RigidBody2D" parent="PhysicalArm"]
 position = Vector2(96, 0)
-rotation = -1.57079
+gravity_scale = 0.0
 
 [node name="PinJoint2D" type="PinJoint2D" parent="PhysicalArm/UpperArm"]
 rotation = 1.57079
@@ -271,24 +278,42 @@ node_a = NodePath("../../../HullBody")
 node_b = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicalArm/UpperArm"]
-position = Vector2(0.000167847, 74)
+position = Vector2(76, 0)
+rotation = 1.57079
 shape = SubResource("CapsuleShape2D_haxlb")
 
 [node name="Polygon2D" type="Polygon2D" parent="PhysicalArm/UpperArm"]
-polygon = PackedVector2Array(6.0003, 137, 5.99999, -3.00002, -6.00001, -2.99998, -5.9997, 137)
+position = Vector2(1.4, -3.8)
+scale = Vector2(1.06667, 1.06667)
+polygon = PackedVector2Array(138.375, 10.125, 137, -3.00002, -6.00001, -2.99998, -6, 10.125)
 
 [node name="LowerArm" type="RigidBody2D" parent="PhysicalArm/UpperArm"]
-position = Vector2(0.000305176, 135)
+position = Vector2(146, 0)
+gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicalArm/UpperArm/LowerArm"]
-position = Vector2(0.000144958, 68)
+position = Vector2(68, 0)
+rotation = 1.57079
 shape = SubResource("CapsuleShape2D_haxlb")
-disabled = true
 
 [node name="Polygon2D" type="Polygon2D" parent="PhysicalArm/UpperArm/LowerArm"]
 color = Color(0.698039, 0.698039, 0.698039, 1)
-polygon = PackedVector2Array(6.0003, 137, 5.99999, -3.00002, -6.00001, -2.99998, -5.9997, 137)
+polygon = PackedVector2Array(132, 7, 132, -7, -2, -7, -2, 7)
 
 [node name="PinJoint2D" type="PinJoint2D" parent="PhysicalArm/UpperArm/LowerArm"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Claw" type="RigidBody2D" parent="PhysicalArm/UpperArm/LowerArm"]
+position = Vector2(138, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicalArm/UpperArm/LowerArm/Claw"]
+position = Vector2(6, 0)
+shape = SubResource("CircleShape2D_xb8wr")
+
+[node name="Polygon2D" type="Polygon2D" parent="PhysicalArm/UpperArm/LowerArm/Claw"]
+polygon = PackedVector2Array(-8, -8, -8, 8, 1, 14, 17, 19, 39, 2, 17, 13, 3, 8, 2, -8, 14, -14, 38, -8, 14, -24)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="PhysicalArm/UpperArm/LowerArm/Claw"]
 node_a = NodePath("../..")
 node_b = NodePath("..")
