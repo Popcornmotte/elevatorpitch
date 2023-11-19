@@ -17,13 +17,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="projectileBullet" type="Node2D"]
-
-[node name="Area2D" type="Area2D" parent="."]
+[node name="projectileBullet" type="Area2D"]
 script = ExtResource("1_wprt0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pa5kx")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8o7tq")
