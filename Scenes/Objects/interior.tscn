@@ -24,8 +24,9 @@ size = Vector2(498, 20)
 [node name="interior" type="Node2D"]
 script = ExtResource("1_am2or")
 
-[node name="Ladder" parent="." instance=ExtResource("3_uk7bk")]
+[node name="Ladder" parent="." node_paths=PackedStringArray("playerBody") instance=ExtResource("3_uk7bk")]
 position = Vector2(586, 506)
+playerBody = NodePath("../player")
 
 [node name="Engine_button" parent="." node_paths=PackedStringArray("interactionWith", "sprite") instance=ExtResource("4_h1wpf")]
 position = Vector2(885, 330)
