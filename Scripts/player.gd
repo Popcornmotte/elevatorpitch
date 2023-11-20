@@ -39,7 +39,12 @@ func _physics_process(delta):
 	var direction = Input.get_axis("a", "d")
 	if direction:
 		if is_on_floor():
-			anim.play("walk_right")
+			if direction>0:
+				anim.play("walk")
+				$AnimatedSprite2D.flip_h=false
+			else:
+				anim.play("walk")
+				$AnimatedSprite2D.flip_h=true
 		velocity.x = direction * SPEED
 	else:
 		if is_on_floor():
