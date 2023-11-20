@@ -21,8 +21,15 @@ func _ready():
 	pass
 
 func chooseTarget():
-	target = Global.elevator.global_position + Vector2(randi_range(-90,90),randi_range(-90,90))
-
+	if rangedBehavior:
+		target = global_position.direction_to(Global.elevator.global_position).normalized()
+		target = target * global_position.distance_to(target)/2
+	else:
+		target = Global.elevator.global_position + Vector2(randi_range(-90,90),randi_range(-90,90))
+	var debugmarker = load("res://Scenes/UI/debug_marker.tscn")
+	var dbm = debugmarker.instantiate()
+	get_parent().add_child(dbm)
+	dbm.global_position = target
 #called by the claw when grabbed. Will effectivly destory this minion
 #so it can be used as a throwable
 func grab(clawA):
@@ -61,8 +68,14 @@ func move(delta) -> bool:
 func _process(delta):
 	if(reload>0):reload-=delta
 	move(delta)
-	if(weapon.checkMeleeHit()):
-		if (reload<=0):
-			Global.elevator.takeDamage(weapon.damage)
-			reload = weapon.reloadTime
-	
+	if rangedBehavior:
+		if global_position.distance_to(target) <= 10:
+			if (reload<=0):
+				weapon.fire(global_position.direction_to(target).normalized())
+				reload = weapon.reloadTime
+	else:
+		if(weapon.checkMeleeHit()):
+			if (reload<=0):
+				Global.elevator.takeDamage(weapon.damage)
+				reload = weapon.reloadTime
+		

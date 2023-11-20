@@ -1,12 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=5 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
 [ext_resource type="PackedScene" uid="uid://ddahiyydcisjm" path="res://Scenes/Objects/Enemies/drone_saw.tscn" id="2_qlvle"]
+[ext_resource type="PackedScene" uid="uid://deu8xdoktbmf1" path="res://Scenes/Objects/Enemies/drone_rifle.tscn" id="3_0yjb8"]
 
 [node name="TestScenes" type="Node2D"]
+script = ExtResource("1_mtyqn")
 
 [node name="Elevator" parent="." instance=ExtResource("1_kgkqi")]
 position = Vector2(425, 360)
 
 [node name="DroneSaw" parent="." instance=ExtResource("2_qlvle")]
 position = Vector2(1244, 208)
+
+[node name="DroneSaw2" parent="." instance=ExtResource("3_0yjb8")]
+position = Vector2(1262, 572)

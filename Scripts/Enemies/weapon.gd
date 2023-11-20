@@ -18,10 +18,10 @@ var elevatorBodyInRange : bool
 #trajectory for ranged attacks
 var trajectory : Vector2
 
-func fire():
+func fire(trajectory):
 	var projectileInstance = projectile.instantiate()
-	get_tree().root.add_child(projectileInstance)
-	projectileInstance.velocity = get_parent().linear_velocity + trajectory * projectileSpeed
+	get_parent().get_parent().get_parent().add_child(projectileInstance)
+	projectileInstance.velocity = get_parent().get_parent().linear_velocity + trajectory * projectileSpeed
 	projectileInstance.position = global_position
 	
 
