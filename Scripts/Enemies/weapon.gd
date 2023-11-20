@@ -21,7 +21,7 @@ var trajectory : Vector2
 func fire():
 	var projectileInstance = projectile.instantiate()
 	get_tree().root.add_child(projectileInstance)
-	projectileInstance.get_child(0).velocity = get_parent().linear_velocity + trajectory * projectileSpeed
+	projectileInstance.velocity = get_parent().linear_velocity + trajectory * projectileSpeed
 	projectileInstance.position = global_position
 	
 
