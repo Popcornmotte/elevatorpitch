@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://deu8xdoktbmf1"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/genericMinion.gd" id="1_17wnk"]
+[ext_resource type="Texture2D" uid="uid://cgv5jqlk7wv12" path="res://Assets/Sprites/Enemies/low_drone_palette_and_size_adjusted.png" id="2_0d5mq"]
+[ext_resource type="Texture2D" uid="uid://ci3qbmylp6nql" path="res://Assets/Sprites/Enemies/low_drone_body_palette_and_size_adjusted.png" id="3_q6ckb"]
+[ext_resource type="PackedScene" uid="uid://cqt125igrje6t" path="res://Scenes/Objects/Enemies/weapons/rifle.tscn" id="4_s7o0v"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3d6d3"]
+radius = 19.0
+height = 84.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0tloo"]
+radius = 18.0
+height = 76.0
+
+[node name="DroneRifle" type="RigidBody2D" node_paths=PackedStringArray("weapon", "balloon", "balloonShape")]
+z_index = -1
+collision_layer = 3
+gravity_scale = 0.0
+angular_damp = 2.0
+script = ExtResource("1_17wnk")
+rangedBehavior = true
+weapon = NodePath("WeaponMount/Rifle")
+balloon = NodePath("BalloonSprite")
+balloonShape = NodePath("BalloonShape")
+
+[node name="BalloonSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_0d5mq")
+
+[node name="BalloonShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -31)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3d6d3")
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_q6ckb")
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0tloo")
+
+[node name="WeaponMount" type="Marker2D" parent="."]
+
+[node name="Rifle" parent="WeaponMount" instance=ExtResource("4_s7o0v")]

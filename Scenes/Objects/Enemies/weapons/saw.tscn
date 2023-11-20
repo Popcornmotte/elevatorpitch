@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu02lx654uo5r"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/weapon.gd" id="1_4kwva"]
+[ext_resource type="Texture2D" uid="uid://dh61wse7l1kmc" path="res://Assets/Sprites/Enemies/low_drone_Saw.png" id="2_nqp57"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4fv3"]
+radius = 29.0172
+
+[node name="Saw" type="Node2D"]
+script = ExtResource("1_4kwva")
+damage = 1
+reloadTime = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_nqp57")
+
+[node name="MeleeArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
+position = Vector2(-48, 29)
+shape = SubResource("CircleShape2D_b4fv3")
+
+[connection signal="body_entered" from="MeleeArea" to="." method="_on_melee_area_body_entered"]
+[connection signal="body_exited" from="MeleeArea" to="." method="_on_melee_area_body_exited"]

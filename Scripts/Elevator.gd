@@ -9,10 +9,17 @@ var speed = 0.0
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
 
+func _enter_tree():
+	Global.elevator = self
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+func takeDamage(damage:int):
+	health -= damage
+	update_health()
+	pass
 
 func on_area_entered(area : Area2D):
 	if(area.damage != null):

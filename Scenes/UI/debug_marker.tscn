@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqasw4ohy5j0g"]
+
+[ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="1_mpkxx"]
+
+[node name="DebugMarker" type="Node2D"]
+z_index = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mpkxx")

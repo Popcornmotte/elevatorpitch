@@ -18,6 +18,7 @@ animations = [{
 }]
 
 [node name="projectileBullet" type="Area2D"]
+collision_layer = 16
 script = ExtResource("1_wprt0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
