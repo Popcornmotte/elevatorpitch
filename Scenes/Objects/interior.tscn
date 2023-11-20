@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=10 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="1_yu455"]
 [ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="3_f24tw"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
+[ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="4_h1wpf"]
+[ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/fuel.tscn" id="5_eovi8"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_t4oew"]
 size = Vector2(1500, 50)
@@ -10,16 +12,28 @@ size = Vector2(1500, 50)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q64hq"]
 size = Vector2(1503, 55)
 
+[sub_resource type="QuadMesh" id="QuadMesh_n7dvd"]
+size = Vector2(500, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tgg1t"]
+size = Vector2(498, 20)
+
 [node name="interior" type="Node2D"]
 
 [node name="Ladder" parent="." instance=ExtResource("3_uk7bk")]
 position = Vector2(586, 506)
 
+[node name="Engine_button" parent="." instance=ExtResource("4_h1wpf")]
+position = Vector2(885, 330)
+
 [node name="ArmStation" parent="." instance=ExtResource("3_f24tw")]
-position = Vector2(862, 540)
+position = Vector2(864, 578)
 
 [node name="player" parent="." instance=ExtResource("1_yu455")]
 position = Vector2(368, 373)
+
+[node name="Fuel" parent="." instance=ExtResource("5_eovi8")]
+position = Vector2(601, 332)
 
 [node name="LowerPart" type="StaticBody2D" parent="."]
 position = Vector2(625, 664)
@@ -32,4 +46,16 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LowerPart"]
 position = Vector2(-2.5, 1.5)
 shape = SubResource("RectangleShape2D_q64hq")
+metadata/_edit_lock_ = true
+
+[node name="UpperPart" type="StaticBody2D" parent="."]
+position = Vector2(851, 421)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="UpperPart"]
+mesh = SubResource("QuadMesh_n7dvd")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperPart"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_tgg1t")
 metadata/_edit_lock_ = true

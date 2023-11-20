@@ -6,8 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_mox7l"]
 radius = 99.4082
 
-[node name="ArmStation" type="Sprite2D"]
-texture = ExtResource("1_pqm6g")
+[node name="ArmStation" type="Node2D"]
 script = ExtResource("2_e2qor")
 
 [node name="Area2D" type="Area2D" parent="." groups=["ArmStation"]]
@@ -15,4 +14,8 @@ script = ExtResource("2_e2qor")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_mox7l")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pqm6g")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
