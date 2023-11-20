@@ -77,8 +77,8 @@ func shoot(delta):
 	var forward = (target - global_position).normalized()
 	
 	var bullet = projectile.instantiate()
-	bullet.get_child(0).velocity = linear_velocity + forward * 1000.0
-	bullet.get_child(0).position = global_position
+	bullet.velocity = linear_velocity + forward * 1000.0
+	bullet.position = global_position
 	get_parent().get_parent().add_child(bullet)
 	
 	shootCooldown = 1.0/shootFreq

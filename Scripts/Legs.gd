@@ -15,4 +15,5 @@ func _process(delta):
 			child.global_position.y += 40*delta
 			if child.global_position.y >= 960:
 				child.global_position.y = -120
+		get_parent().decrease_fuel(delta * 0.1)
 	pass

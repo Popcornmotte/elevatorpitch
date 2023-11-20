@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=29 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
+[ext_resource type="Script" path="res://Scripts/Elevator.gd" id="1_gs4x1"]
 [ext_resource type="Script" path="res://Scripts/Legs.gd" id="2_2h7m3"]
 [ext_resource type="Texture2D" uid="uid://cjlhqwo5wcan7" path="res://Assets/Sprites/ElevatorBody/Gear1.png" id="2_cbxhb"]
 [ext_resource type="Texture2D" uid="uid://ppjssqnijl1p" path="res://Assets/Sprites/ElevatorBody/Wheel0.png" id="2_o1aa6"]
@@ -101,7 +102,10 @@ height = 126.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_xb8wr"]
 radius = 13.3417
 
-[node name="Elevator" type="Node2D"]
+[node name="Elevator" type="Node2D" node_paths=PackedStringArray("healthBar", "fuelBar")]
+script = ExtResource("1_gs4x1")
+healthBar = NodePath("HealthBar/Polygon2D")
+fuelBar = NodePath("FuelBar/Polygon2D2")
 
 [node name="Legs" type="Sprite2D" parent="."]
 position = Vector2(0, 176)
@@ -151,6 +155,11 @@ shape = SubResource("CapsuleShape2D_ohd1j")
 z_index = 2
 texture = ExtResource("1_dtexf")
 
+[node name="DamageReceiver" type="Area2D" parent="HullBody"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HullBody/DamageReceiver"]
+shape = SubResource("CapsuleShape2D_ohd1j")
+
 [node name="RightArmDeadzone" type="StaticBody2D" parent="."]
 position = Vector2(96, 0)
 
@@ -167,7 +176,6 @@ metadata/_edit_lock_ = true
 position = Vector2(97, 0)
 rotation = 0.387332
 rest = Transform2D(0.92592, 0.377719, -0.377719, 0.92592, 97, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="GearSprite" type="Sprite2D" parent="Skeleton2D/GearBone"]
 z_index = -1
@@ -176,7 +184,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Skeleton2D/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Skeleton2D/GearBone/UpperArmBone"]
 z_index = -2
@@ -188,7 +195,6 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -337,3 +343,37 @@ polygon = PackedVector2Array(-8, -8, -8, 8, 1, 14, 17, 19, 39, 2, 17, 13, 3, 8, 
 [node name="PinJoint2D" type="PinJoint2D" parent="PhysicalArm/UpperArm/LowerArm/Claw"]
 node_a = NodePath("../..")
 node_b = NodePath("..")
+
+[node name="HealthBar" type="Node2D" parent="."]
+position = Vector2(143, -162)
+
+[node name="Polygon2D" type="Polygon2D" parent="HealthBar"]
+color = Color(0, 1, 0, 0.537255)
+polygon = PackedVector2Array(0, -14, 0, 14, 127, 14, 127, -14)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HealthBar"]
+custom_minimum_size = Vector2(70, 0)
+offset_left = -58.0
+offset_top = -14.0
+offset_right = 12.0
+offset_bottom = 26.0
+text = "Health"
+scroll_active = false
+
+[node name="FuelBar" type="Node2D" parent="."]
+position = Vector2(143, -126)
+
+[node name="Polygon2D2" type="Polygon2D" parent="FuelBar"]
+color = Color(0.705882, 0.380392, 0, 0.537255)
+polygon = PackedVector2Array(0, -14, 0, 14, 127, 14, 127, -14)
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="FuelBar"]
+custom_minimum_size = Vector2(70, 0)
+offset_left = -39.0
+offset_top = -13.0
+offset_right = 31.0
+offset_bottom = 27.0
+text = "Fuel"
+scroll_active = false
+
+[connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
