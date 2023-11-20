@@ -9,7 +9,8 @@ size = Vector2(16, 16)
 [sub_resource type="CircleShape2D" id="CircleShape2D_cgooh"]
 radius = 48.0
 
-[node name="Fuel" type="RigidBody2D"]
+[node name="Fuel" type="RigidBody2D" groups=["fuel"]]
+collision_layer = 3
 script = ExtResource("1_ueekk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

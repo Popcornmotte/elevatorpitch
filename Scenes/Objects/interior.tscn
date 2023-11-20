@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=13 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Script" path="res://Scripts/interior.gd" id="1_am2or"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="1_yu455"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
 [ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="4_h1wpf"]
 [ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/fuel.tscn" id="5_eovi8"]
+[ext_resource type="PackedScene" uid="uid://bkgkwoq7n22lu" path="res://Scenes/Objects/drop_zone.tscn" id="7_7lxq4"]
+[ext_resource type="PackedScene" uid="uid://cuiln8pt5xl01" path="res://Scenes/Objects/engine.tscn" id="8_8g66s"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_t4oew"]
 size = Vector2(1500, 50)
@@ -25,11 +27,17 @@ script = ExtResource("1_am2or")
 [node name="Ladder" parent="." instance=ExtResource("3_uk7bk")]
 position = Vector2(586, 506)
 
-[node name="Engine_button" parent="." instance=ExtResource("4_h1wpf")]
+[node name="Engine_button" parent="." node_paths=PackedStringArray("interactionWith", "sprite") instance=ExtResource("4_h1wpf")]
 position = Vector2(885, 330)
+interactionWith = NodePath("../engine")
+sprite = NodePath(".")
 
-[node name="ArmStation" parent="." instance=ExtResource("3_f24tw")]
+[node name="ArmStation" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("3_f24tw")]
 position = Vector2(864, 578)
+sprite = NodePath(".")
+
+[node name="DropZone" parent="." instance=ExtResource("7_7lxq4")]
+position = Vector2(702, 383)
 
 [node name="player" parent="." instance=ExtResource("1_yu455")]
 position = Vector2(363, 632)
@@ -61,3 +69,7 @@ metadata/_edit_lock_ = true
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_tgg1t")
 metadata/_edit_lock_ = true
+
+[node name="engine" parent="." node_paths=PackedStringArray("drop_zone") instance=ExtResource("8_8g66s")]
+position = Vector2(586, 65)
+drop_zone = NodePath("../DropZone")
