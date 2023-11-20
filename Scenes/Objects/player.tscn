@@ -181,11 +181,9 @@ collision_layer = 16
 script = ExtResource("1_mnd8j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -18)
 shape = SubResource("RectangleShape2D_r4fgv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_8543d")
 animation = &"walk"
 
@@ -195,3 +193,5 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-2, -27)
 shape = SubResource("CircleShape2D_ha5a3")
+
+[node name="target" type="Node2D" parent="."]
