@@ -15,6 +15,8 @@ var speed : float
 var reload = 0.0
 var target : Vector2
 
+var dbm
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	chooseTarget()
@@ -23,13 +25,9 @@ func _ready():
 func chooseTarget():
 	if rangedBehavior:
 		target = global_position.direction_to(Global.elevator.global_position).normalized()
-		target = target * global_position.distance_to(target)/2
+		target = global_position + target * global_position.distance_to(Global.elevator.global_position)/2
 	else:
 		target = Global.elevator.global_position + Vector2(randi_range(-90,90),randi_range(-90,90))
-	var debugmarker = load("res://Scenes/UI/debug_marker.tscn")
-	var dbm = debugmarker.instantiate()
-	get_parent().add_child(dbm)
-	dbm.global_position = target
 #called by the claw when grabbed. Will effectivly destory this minion
 #so it can be used as a throwable
 func grab(clawA):
@@ -66,6 +64,11 @@ func move(delta) -> bool:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if(dbm == null):
+		var debugmarker = load("res://Scenes/UI/debug_marker.tscn")
+		dbm = debugmarker.instantiate()
+		get_parent().add_child(dbm)
+		dbm.global_position = target
 	if(reload>0):reload-=delta
 	move(delta)
 	if rangedBehavior:
