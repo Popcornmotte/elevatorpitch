@@ -14,7 +14,7 @@ damage = 2
 reloadTime = 3.0
 ranged = true
 projectile = ExtResource("2_jqlub")
-projectileSound = ExtResource("3_i6yp5")
+weaponSound = ExtResource("3_i6yp5")
 projectileSpeed = 1000.0
 weaponNozzle = NodePath("Nozzle")
 
@@ -22,7 +22,6 @@ weaponNozzle = NodePath("Nozzle")
 texture = ExtResource("3_jylbf")
 
 [node name="MeleeArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 256
 

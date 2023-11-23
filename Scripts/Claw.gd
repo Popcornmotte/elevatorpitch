@@ -16,6 +16,9 @@ func grab():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if grabbing:
+		grabbable.rotation = rotation
+	
 	if Input.is_action_pressed("Grab"):
 		$ClawSprite.play("close")
 	else:

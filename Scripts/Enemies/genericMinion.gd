@@ -7,7 +7,8 @@ const POP = preload("res://Assets/Audio/sfx/pop.wav")
 @export var maxSpeed = 50
 @export var balloon : Node2D
 @export var balloonShape : Node2D
-@export var despawnOnScreenExitTimer = 30
+@export var despawnOnScreenExitTimer = 30.0
+@export var attacksPerTurn = 2
 #if debug mode enabled, draw target positions
 @export var DebugMode = false
 
@@ -29,7 +30,13 @@ var dbm
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Timer.wait_time = despawnOnScreenExitTimer
+	$BalloonSprite.play("default")
+	$BodySprite.play("default")
+	if(has_node("DeathTimer")):
+		$DeathTimer.set_wait_time(despawnOnScreenExitTimer)
+	if(has_node("$AttackTimer")):
+		$AttackTimer.one_shot = true
+		$AttackTimer.set_wait_time(weapon.reloadTime * attacksPerTurn)  
 	elevatorPos = Global.elevator.global_position
 	chooseTarget()
 	pass
@@ -108,19 +115,20 @@ func _process(delta):
 				weapon.fire(global_position.direction_to(elevatorPos).normalized())
 				reload = weapon.reloadTime
 	else:
-		if(weapon.checkMeleeHit()):
+		if(weapon.checkMeleeHit() && state == STATE.Attacking):
+			if $AttackTimer.time_left == 0:
+				$AttackTimer.start()
 			if (reload<=0):
 				Global.elevator.takeDamage(weapon.damage)
+				Audio.playSfx(weapon.weaponSound)
 				reload = weapon.reloadTime
-				state = STATE.Repositioning
-				chooseTarget()
 		
 
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	if popped:
-		$Timer.start()
+		$DeathTimer.start()
 	pass # Replace with function body.
 
 
@@ -128,4 +136,10 @@ func _on_timer_timeout():
 	if(dbm != null):
 		dbm.queue_free()
 	queue_free()
+	pass # Replace with function body.
+
+#AttackTimer needs to be OneShot = true!
+func _on_attack_timer_timeout():
+	state = STATE.Repositioning
+	chooseTarget()
 	pass # Replace with function body.

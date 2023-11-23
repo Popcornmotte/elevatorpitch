@@ -14,6 +14,7 @@ func _enter_tree():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$HullBody/AnimationPlayer.play("EngineJiggle")
 	pass # Replace with function body.
 
 func takeDamage(damage:int):
@@ -57,3 +58,8 @@ func _process(delta):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
 	pass
+
+
+func _on_engine_sound_finished():
+	$HullBody/EngineSound.play()
+	pass # Replace with function body.
