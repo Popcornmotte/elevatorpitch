@@ -20,8 +20,8 @@
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
-radius = 96.0
-height = 256.0
+radius = 112.0
+height = 272.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4i8w"]
 size = Vector2(192, 224)
@@ -36,7 +36,11 @@ ccdik_data_chain_length = 3
 joint_data/0/bone_index = 0
 joint_data/0/bone2d_node = NodePath("GearBone")
 joint_data/0/rotate_from_joint = false
-joint_data/0/enable_constraint = false
+joint_data/0/enable_constraint = true
+joint_data/0/constraint_angle_min = -219.375
+joint_data/0/constraint_angle_max = -101.25
+joint_data/0/constraint_angle_invert = true
+joint_data/0/constraint_in_localspace = true
 joint_data/0/editor_draw_gizmo = true
 joint_data/1/bone_index = 1
 joint_data/1/bone2d_node = NodePath("GearBone/UpperArmBone")
@@ -171,7 +175,8 @@ position = Vector2(0, 480)
 texture = ExtResource("3_lmxla")
 
 [node name="HullBody" type="StaticBody2D" parent="."]
-collision_layer = 257
+collision_layer = 524545
+collision_mask = 524289
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HullBody"]
@@ -207,6 +212,7 @@ rest = Transform2D(0.92592, 0.377719, -0.377719, 0.92592, 97, 0)
 metadata/_local_pose_override_enabled_ = true
 
 [node name="GearSprite" type="Sprite2D" parent="Skeleton2D/GearBone"]
+visible = false
 z_index = -1
 texture = ExtResource("2_cbxhb")
 
@@ -264,14 +270,20 @@ shape = SubResource("CapsuleShape2D_qo5xh")
 
 [node name="Targets" type="Node2D" parent="."]
 
-[node name="RightTarget" type="CharacterBody2D" parent="Targets" node_paths=PackedStringArray("Emitter")]
+[node name="RestingPos" type="Marker2D" parent="Targets"]
+position = Vector2(0, -256)
+
+[node name="RightTarget" type="CharacterBody2D" parent="Targets" node_paths=PackedStringArray("restingPosition")]
 position = Vector2(501, 53)
+collision_layer = 524288
+collision_mask = 524288
+motion_mode = 1
+safe_margin = 0.2
 script = ExtResource("6_06d2c")
-Emitter = NodePath("../../VisualEffects/Sparks")
+restingPosition = NodePath("../RestingPos")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Targets/RightTarget"]
 shape = SubResource("CircleShape2D_4qaus")
-disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Targets/RightTarget"]
 texture = ExtResource("8_8ih1r")
@@ -308,6 +320,8 @@ acceleration = 500.0
 
 [node name="UpperArm" type="RigidBody2D" parent="PhysicalArm"]
 position = Vector2(96, 0)
+collision_layer = 2
+collision_mask = 2
 mass = 50.0
 gravity_scale = 0.0
 
@@ -339,6 +353,8 @@ polygon = PackedVector2Array(138.375, 10.125, 137, -3.00002, -6.00001, -2.99998,
 
 [node name="LowerArm" type="RigidBody2D" parent="PhysicalArm/UpperArm"]
 position = Vector2(146, 0)
+collision_layer = 2
+collision_mask = 2
 mass = 50.0
 gravity_scale = 0.0
 

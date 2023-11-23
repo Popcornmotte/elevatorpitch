@@ -11,6 +11,7 @@ class_name Weapon
 @export var ranged = false
 #if ranged, what projectile to fire
 @export var projectile : PackedScene
+@export var projectileSound : AudioStream
 @export var projectileSpeed : float
 @export var weaponNozzle : Node2D
 
@@ -24,7 +25,7 @@ func fire(trajectory):
 	get_parent().get_parent().get_parent().add_child(projectileInstance)
 	projectileInstance.velocity = get_parent().get_parent().linear_velocity + trajectory * projectileSpeed
 	projectileInstance.position = weaponNozzle.global_position
-	
+	Audio.playSfx(projectileSound)
 
 func checkMeleeHit() -> bool:
 	return elevatorBodyInRange

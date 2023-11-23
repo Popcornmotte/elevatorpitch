@@ -1,43 +1,54 @@
 extends CharacterBody2D
 
-@export var SPEED = 10.0
-@export var LERP_WEIGHT = 0.05
-@export var thresholdDist = 10
+@export var restingPosition : Node2D
+@export var rightTarget = true
 
-@export var Emitter : Node2D
+var SPEED = 10.0
+var LERP_WEIGHT = 0.05
+var thresholdDist = 0
+var Emitter : Node2D
 
 var speed = 0.0
 var motion = Vector2(0,0)
 var decelerate = false
 
-func move(delta):
-	#mouse position that the target moves towards
-	var mousePos = get_viewport().get_mouse_position()
-	global_position = mousePos
-	return
-	
-	#If distance is greater than [thresholdDist]+speed*2 and
-	#not already decelerating then accelerate
-	if global_position.distance_to(mousePos) > (thresholdDist+speed*2) && !decelerate:
-		speed = lerp(speed, SPEED, LERP_WEIGHT)
-		Emitter.emitting = true
-	#otherwise deccelerate 
+var armAnchorPos : Vector2
+
+func _ready():
+	armAnchorPos = Global.elevator.global_position
+	if rightTarget:
+		armAnchorPos += Vector2(96,0)
 	else:
-		if(speed>0):
-			decelerate = true
-			Emitter.emitting = false
-		speed = lerp(speed, 0.0, LERP_WEIGHT)
-		#hot-fix to stop 'jittering' at very slow speeds and reset 'decelerate'
-		if(global_position.distance_to(mousePos) > (5)):
-			speed = 0.0
-			decelerate = false
-		#motion = lerp(motion, Vector2(0,0),delta * LERP_WEIGHT*10)
-	motion = global_position.direction_to(mousePos).normalized() * speed
+		armAnchorPos -= Vector2(96,0)
+
+func move(delta):
+	
+	#mouse position that the target moves towards
+	var mousePos = get_global_mouse_position()
+	velocity = global_position.direction_to(mousePos).normalized() * 600
+	return
 
 func _physics_process(delta):
-
-	#print(str(speed))
+	
+	#if mouse is on other side of elevator reset target to rest pos
+	#if mouse is near the elevator(or the arm base) move with physics and collision
+	#if mouse is a little further then just attach target to mouse pos
+	if(rightTarget):
+		if(Global.elevator.get_local_mouse_position().x <= 0):
+			global_position = restingPosition.global_position
+			return
+		elif(armAnchorPos.distance_to(get_global_mouse_position()) > 200):
+			global_position = get_global_mouse_position()
+			return
+	else:
+		if(Global.elevator.get_local_mouse_position().x >= 0):
+			global_position = restingPosition.global_position
+			return
+		elif(armAnchorPos.distance_to(get_global_mouse_position()) > 200):
+			global_position = get_global_mouse_position()
+			return
+			
 	move(delta)
+	move_and_slide()
 	#print(str(motion))
-	move_and_collide(motion)
-	pass
+	#move_and_collide(motion)

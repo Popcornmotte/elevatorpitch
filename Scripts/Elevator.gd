@@ -48,6 +48,11 @@ func update_fuel():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+#	if(get_local_mouse_position().y < 0):
+#		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,true)
+#	else:
+#		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,false)
 	if(lost):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta

@@ -16,10 +16,12 @@ height = 76.0
 [node name="DroneSaw" type="RigidBody2D" node_paths=PackedStringArray("weapon", "balloon", "balloonShape")]
 z_index = -1
 collision_layer = 3
+collision_mask = 3
 gravity_scale = 0.0
 angular_damp = 2.0
 script = ExtResource("1_vlnaw")
 weapon = NodePath("WeaponMount/Saw")
+maxSpeed = 100
 balloon = NodePath("BalloonSprite")
 balloonShape = NodePath("BalloonShape")
 
@@ -42,3 +44,12 @@ shape = SubResource("CapsuleShape2D_0tloo")
 [node name="WeaponMount" type="Marker2D" parent="."]
 
 [node name="Saw" parent="WeaponMount" instance=ExtResource("4_04cwc")]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

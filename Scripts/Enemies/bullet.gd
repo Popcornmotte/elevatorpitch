@@ -21,3 +21,8 @@ func _process(delta):
 	if(global_position.length() > 1000):
 		queue_free()
 	pass
+
+#Self-destruct after timeout
+func _on_timer_timeout():
+	queue_free()
+	pass # Replace with function body.

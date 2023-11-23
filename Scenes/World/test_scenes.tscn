@@ -13,6 +13,7 @@ position = Vector2(425, 360)
 
 [node name="DroneSaw" parent="." instance=ExtResource("2_qlvle")]
 position = Vector2(1244, 208)
+DebugMode = true
 
 [node name="DroneRifle" parent="." instance=ExtResource("3_0yjb8")]
 position = Vector2(1262, 572)

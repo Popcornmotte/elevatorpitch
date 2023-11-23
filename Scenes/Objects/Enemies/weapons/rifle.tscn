@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqt125igrje6t"]
+[gd_scene load_steps=6 format=3 uid="uid://cqt125igrje6t"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/weapon.gd" id="1_qgjbn"]
 [ext_resource type="PackedScene" uid="uid://dwxdwntyg1141" path="res://Scenes/Objects/Enemies/projectileBullet.tscn" id="2_jqlub"]
+[ext_resource type="AudioStream" uid="uid://yt7khblas5" path="res://Assets/Audio/sfx/shots/shot2.wav" id="3_i6yp5"]
 [ext_resource type="Texture2D" uid="uid://bm0cocpxfg8ba" path="res://Assets/Sprites/Enemies/low_drone_rifle.png" id="3_jylbf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4fv3"]
@@ -13,6 +14,7 @@ damage = 2
 reloadTime = 3.0
 ranged = true
 projectile = ExtResource("2_jqlub")
+projectileSound = ExtResource("3_i6yp5")
 projectileSpeed = 1000.0
 weaponNozzle = NodePath("Nozzle")
 
