@@ -28,11 +28,13 @@ func _process(delta):
 			grabbable.release(self.linear_velocity)
 			grabbable = null
 			grabbing = false
-	pass
+	if Input.is_action_just_pressed("Debug"):
+		print("Claw's current grabbable: "+str(grabbable))
 
 
 func _on_grab_area_body_entered(body):
-	grabbable = body
+	if grabbable == null:
+		grabbable = body
 	pass # Replace with function body.
 
 

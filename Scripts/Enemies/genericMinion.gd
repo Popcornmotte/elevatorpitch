@@ -16,18 +16,23 @@ var reload = 0.0
 var target : Vector2
 
 var dbm
-
+var elevatorPos : Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	elevatorPos = Global.elevator.global_position
 	chooseTarget()
 	pass
 
 func chooseTarget():
+	#ranged enemies should (for now) find a spot roughly in grabbing range and
+	#start shooting from there
 	if rangedBehavior:
-		target = global_position.direction_to(Global.elevator.global_position).normalized()
-		target = global_position + target * global_position.distance_to(Global.elevator.global_position)/2
+		target = global_position.direction_to(elevatorPos).normalized()
+		target = global_position + target * global_position.distance_to(elevatorPos)/1.7
+	#Melee enemies should target a random part on the elevator and move towards that
 	else:
-		target = Global.elevator.global_position + Vector2(randi_range(-90,90),randi_range(-90,90))
+		target = elevatorPos + Vector2(randi_range(-90,90),randi_range(-90,90))
+
 #called by the claw when grabbed. Will effectivly destory this minion
 #so it can be used as a throwable
 func grab(clawA):
@@ -46,17 +51,20 @@ func grab(clawA):
 func release(linVel):
 	grabbed = false
 	linear_velocity = linVel
-	set_collision_layer_value(1,false)
-	set_collision_mask_value(1,false)
+	set_collision_layer_value(1,true)
+	set_collision_mask_value(1,true)
 	gravity_scale = 1
 
 func move(delta) -> bool:
-	if(!popped && !weapon.checkMeleeHit()):
-		angular_velocity = -rotation * 10 * delta
-		var direction = global_position.direction_to(target).normalized()
-		speed = lerpf(linear_velocity.length(),maxSpeed,0.5)
-		linear_velocity = direction * speed
-		return true
+	if(!popped):
+		if rangedBehavior && global_position.distance_to(target) < 10:
+			return false
+		if(!weapon.checkMeleeHit()):
+			angular_velocity = -rotation * 10 * delta
+			var direction = global_position.direction_to(target).normalized()
+			speed = lerpf(linear_velocity.length(),maxSpeed,0.5)
+			linear_velocity = direction * speed
+			return true
 	if(grabbed):
 		global_position = clawArea.global_position
 		return false
@@ -74,7 +82,7 @@ func _process(delta):
 	if rangedBehavior:
 		if global_position.distance_to(target) <= 10:
 			if (reload<=0):
-				weapon.fire(global_position.direction_to(target).normalized())
+				weapon.fire(global_position.direction_to(elevatorPos).normalized())
 				reload = weapon.reloadTime
 	else:
 		if(weapon.checkMeleeHit()):

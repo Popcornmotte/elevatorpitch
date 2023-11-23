@@ -7,13 +7,14 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4fv3"]
 radius = 29.0172
 
-[node name="Rifle" type="Node2D"]
+[node name="Rifle" type="Node2D" node_paths=PackedStringArray("weaponNozzle")]
 script = ExtResource("1_qgjbn")
 damage = 2
 reloadTime = 3.0
 ranged = true
 projectile = ExtResource("2_jqlub")
 projectileSpeed = 1000.0
+weaponNozzle = NodePath("Nozzle")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_jylbf")
@@ -26,6 +27,9 @@ collision_mask = 256
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
 position = Vector2(-48, 29)
 shape = SubResource("CircleShape2D_b4fv3")
+
+[node name="Nozzle" type="Marker2D" parent="."]
+position = Vector2(-60, 19)
 
 [connection signal="body_entered" from="MeleeArea" to="." method="_on_melee_area_body_entered"]
 [connection signal="body_exited" from="MeleeArea" to="." method="_on_melee_area_body_exited"]

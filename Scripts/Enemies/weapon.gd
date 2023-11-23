@@ -12,6 +12,7 @@ class_name Weapon
 #if ranged, what projectile to fire
 @export var projectile : PackedScene
 @export var projectileSpeed : float
+@export var weaponNozzle : Node2D
 
 #is elevator in melee range?
 var elevatorBodyInRange : bool
@@ -22,7 +23,7 @@ func fire(trajectory):
 	var projectileInstance = projectile.instantiate()
 	get_parent().get_parent().get_parent().add_child(projectileInstance)
 	projectileInstance.velocity = get_parent().get_parent().linear_velocity + trajectory * projectileSpeed
-	projectileInstance.position = global_position
+	projectileInstance.position = weaponNozzle.global_position
 	
 
 func checkMeleeHit() -> bool:
