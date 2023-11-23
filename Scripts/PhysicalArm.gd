@@ -28,7 +28,7 @@ func rotatePart(delta : float, phys : RigidBody2D, ref : Bone2D):
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	
 	rotatePart(delta, upperArmPhys, upperArmRef)
 	rotatePart(delta, lowerArmPhys, lowerArmRef)

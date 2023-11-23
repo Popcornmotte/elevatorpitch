@@ -11,7 +11,9 @@ class_name Weapon
 @export var ranged = false
 #if ranged, what projectile to fire
 @export var projectile : PackedScene
+@export var weaponSound : AudioStream
 @export var projectileSpeed : float
+@export var weaponNozzle : Node2D
 
 #is elevator in melee range?
 var elevatorBodyInRange : bool
@@ -22,8 +24,8 @@ func fire(trajectory):
 	var projectileInstance = projectile.instantiate()
 	get_parent().get_parent().get_parent().add_child(projectileInstance)
 	projectileInstance.velocity = get_parent().get_parent().linear_velocity + trajectory * projectileSpeed
-	projectileInstance.position = global_position
-	
+	projectileInstance.position = weaponNozzle.global_position
+	Audio.playSfx(weaponSound)
 
 func checkMeleeHit() -> bool:
 	return elevatorBodyInRange
@@ -31,10 +33,14 @@ func checkMeleeHit() -> bool:
 #make sure to set collision mask and layer in a way
 #that only elevator parts are registered
 func _on_melee_area_body_entered(body):
-	elevatorBodyInRange = true
-	pass # Replace with function body.
+	if(!ranged):
+		$Sprite.play("attack")
+		elevatorBodyInRange = true
+		pass # Replace with function body.
 
 
 func _on_melee_area_body_exited(body):
-	elevatorBodyInRange = false
-	pass # Replace with function body.
+	if(!ranged):
+		$Sprite.play("idle")
+		elevatorBodyInRange = false
+		pass # Replace with function body.

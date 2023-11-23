@@ -14,6 +14,7 @@ func _enter_tree():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$HullBody/AnimationPlayer.play("EngineJiggle")
 	pass # Replace with function body.
 
 func takeDamage(damage:int):
@@ -48,7 +49,17 @@ func update_fuel():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+#	if(get_local_mouse_position().y < 0):
+#		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,true)
+#	else:
+#		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,false)
 	if(lost):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
 	pass
+
+
+func _on_engine_sound_finished():
+	$HullBody/EngineSound.play()
+	pass # Replace with function body.

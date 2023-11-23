@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=47 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -11,20 +11,125 @@
 [ext_resource type="Texture2D" uid="uid://sb47ud24jhmx" path="res://Assets/Sprites/Claws/Test0/TestClaw1.png" id="4_hs0s2"]
 [ext_resource type="Texture2D" uid="uid://cps0xktem8rbd" path="res://Assets/Sprites/Claws/Test0/TestClaw0.png" id="5_xhuq0"]
 [ext_resource type="Script" path="res://Scripts/Target.gd" id="6_06d2c"]
+[ext_resource type="Texture2D" uid="uid://co7ntk2h50nfv" path="res://Assets/Sprites/ElevatorBody/Engine-Sheet.png" id="7_lfbus"]
 [ext_resource type="Texture2D" uid="uid://dhl16w2kryxft" path="res://Assets/Sprites/ElevatorBody/Gear0.png" id="7_xkf6p"]
 [ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="8_8ih1r"]
+[ext_resource type="Texture2D" uid="uid://hi3n6rh8ffcu" path="res://Assets/Sprites/ElevatorBody/TankTest.png" id="8_jksmi"]
 [ext_resource type="Script" path="res://Scripts/EffectGear.gd" id="9_3heke"]
 [ext_resource type="Script" path="res://Scripts/Claw.gd" id="9_ltb0c"]
+[ext_resource type="AudioStream" uid="uid://u6apy8qmdx4q" path="res://Assets/Audio/sfx/engine_clatterEdit.wav" id="9_nhrft"]
 [ext_resource type="Material" uid="uid://dsthfo1lhc5ao" path="res://ParticleEffects/Sparks.tres" id="10_psx2i"]
 [ext_resource type="Texture2D" uid="uid://bb36mwhht2hya" path="res://Assets/Sprites/spark.png" id="11_eb7jo"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
-radius = 96.0
-height = 256.0
+radius = 112.0
+height = 272.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4i8w"]
 size = Vector2(192, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds0lt"]
+atlas = ExtResource("7_lfbus")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olt5w"]
+atlas = ExtResource("7_lfbus")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11nro"]
+atlas = ExtResource("7_lfbus")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c48ig"]
+atlas = ExtResource("7_lfbus")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcu0u"]
+atlas = ExtResource("7_lfbus")
+region = Rect2(0, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_636og"]
+atlas = ExtResource("7_lfbus")
+region = Rect2(0, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo55w"]
+atlas = ExtResource("7_lfbus")
+region = Rect2(0, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7h17j"]
+atlas = ExtResource("7_lfbus")
+region = Rect2(0, 1792, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wehto"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ds0lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olt5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11nro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c48ig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcu0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_636og")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo55w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7h17j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[sub_resource type="Animation" id="Animation_d71to"]
+resource_name = "EngineJiggle"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EngineSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-8, -136), Vector2(-8, -134), Vector2(-8, -136)]
+}
+
+[sub_resource type="Animation" id="Animation_wuymh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EngineSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, -136)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_leylr"]
+_data = {
+"EngineJiggle": SubResource("Animation_d71to"),
+"RESET": SubResource("Animation_wuymh")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kdskv"]
 radius = 40.0
@@ -36,7 +141,11 @@ ccdik_data_chain_length = 3
 joint_data/0/bone_index = 0
 joint_data/0/bone2d_node = NodePath("GearBone")
 joint_data/0/rotate_from_joint = false
-joint_data/0/enable_constraint = false
+joint_data/0/enable_constraint = true
+joint_data/0/constraint_angle_min = -219.375
+joint_data/0/constraint_angle_max = -101.25
+joint_data/0/constraint_angle_invert = true
+joint_data/0/constraint_in_localspace = true
 joint_data/0/editor_draw_gizmo = true
 joint_data/1/bone_index = 1
 joint_data/1/bone2d_node = NodePath("GearBone/UpperArmBone")
@@ -171,7 +280,8 @@ position = Vector2(0, 480)
 texture = ExtResource("3_lmxla")
 
 [node name="HullBody" type="StaticBody2D" parent="."]
-collision_layer = 257
+collision_layer = 524545
+collision_mask = 524289
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HullBody"]
@@ -187,6 +297,27 @@ collision_mask = 16
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HullBody/DamageReceiver"]
 shape = SubResource("RectangleShape2D_t4i8w")
+
+[node name="EngineSprite" type="AnimatedSprite2D" parent="HullBody"]
+z_index = 3
+position = Vector2(-8, -136)
+sprite_frames = SubResource("SpriteFrames_wehto")
+autoplay = "default"
+frame_progress = 0.54027
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HullBody"]
+libraries = {
+"": SubResource("AnimationLibrary_leylr")
+}
+
+[node name="TankSprite" type="Sprite2D" parent="HullBody"]
+z_index = 2
+position = Vector2(-43, -125)
+texture = ExtResource("8_jksmi")
+
+[node name="EngineSound" type="AudioStreamPlayer2D" parent="HullBody"]
+stream = ExtResource("9_nhrft")
+autoplay = true
 
 [node name="RightArmDeadzone" type="StaticBody2D" parent="."]
 position = Vector2(96, 0)
@@ -204,14 +335,17 @@ metadata/_edit_lock_ = true
 position = Vector2(97, 0)
 rotation = 0.387332
 rest = Transform2D(0.92592, 0.377719, -0.377719, 0.92592, 97, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="GearSprite" type="Sprite2D" parent="Skeleton2D/GearBone"]
+visible = false
 z_index = -1
 texture = ExtResource("2_cbxhb")
 
 [node name="UpperArmBone" type="Bone2D" parent="Skeleton2D/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Skeleton2D/GearBone/UpperArmBone"]
 z_index = -2
@@ -223,6 +357,7 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -245,6 +380,7 @@ bone_angle = 0.0
 position = Vector2(128, 0)
 rotation = 0.289078
 rest = Transform2D(0.930478, 0.366254, -0.366254, 0.930478, 128.007, 0.000183105)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="Claw" type="AnimatableBody2D" parent="Skeleton2D/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 collision_layer = 0
@@ -260,14 +396,20 @@ shape = SubResource("CapsuleShape2D_qo5xh")
 
 [node name="Targets" type="Node2D" parent="."]
 
-[node name="RightTarget" type="CharacterBody2D" parent="Targets" node_paths=PackedStringArray("Emitter")]
+[node name="RestingPos" type="Marker2D" parent="Targets"]
+position = Vector2(0, -256)
+
+[node name="RightTarget" type="CharacterBody2D" parent="Targets" node_paths=PackedStringArray("restingPosition")]
 position = Vector2(501, 53)
+collision_layer = 524288
+collision_mask = 524288
+motion_mode = 1
+safe_margin = 0.2
 script = ExtResource("6_06d2c")
-Emitter = NodePath("../../VisualEffects/Sparks")
+restingPosition = NodePath("../RestingPos")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Targets/RightTarget"]
 shape = SubResource("CircleShape2D_4qaus")
-disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Targets/RightTarget"]
 texture = ExtResource("8_8ih1r")
@@ -304,6 +446,8 @@ acceleration = 500.0
 
 [node name="UpperArm" type="RigidBody2D" parent="PhysicalArm"]
 position = Vector2(96, 0)
+collision_layer = 2
+collision_mask = 2
 mass = 50.0
 gravity_scale = 0.0
 
@@ -335,6 +479,8 @@ polygon = PackedVector2Array(138.375, 10.125, 137, -3.00002, -6.00001, -2.99998,
 
 [node name="LowerArm" type="RigidBody2D" parent="PhysicalArm/UpperArm"]
 position = Vector2(146, 0)
+collision_layer = 2
+collision_mask = 2
 mass = 50.0
 gravity_scale = 0.0
 
@@ -422,5 +568,6 @@ text = "Fuel"
 scroll_active = false
 
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
+[connection signal="finished" from="HullBody/EngineSound" to="." method="_on_engine_sound_finished"]
 [connection signal="body_entered" from="PhysicalArm/UpperArm/LowerArm/Claw/GrabArea" to="PhysicalArm/UpperArm/LowerArm/Claw" method="_on_grab_area_body_entered"]
 [connection signal="body_exited" from="PhysicalArm/UpperArm/LowerArm/Claw/GrabArea" to="PhysicalArm/UpperArm/LowerArm/Claw" method="_on_grab_area_body_exited"]
