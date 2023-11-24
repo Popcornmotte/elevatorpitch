@@ -48,7 +48,6 @@ func _move(direction):
 func _fall(direction,delta):
 	velocity.y += gravity * delta
 	$AnimatedSprite2D.play("jump")
-	print("falling")
 	_flip_animation(direction)
 	#cap falling speed
 	if velocity.y>maxFallingSpeed:
@@ -69,8 +68,12 @@ func _physics_process(delta):
 	var direction = Input.get_axis("left", "right")
 	if not climbing and not is_on_floor():
 		_fall(direction,delta)
+		set_collision_mask_value(5,true)
 	elif climbing:
 		_climb(direction)
+		set_collision_mask_value(5,false)#allows player to pass through floor when climbing
+	if not climbing:
+		set_collision_mask_value(5,true)
 	_jump(direction)
 	_move(direction)
 	move_and_slide()

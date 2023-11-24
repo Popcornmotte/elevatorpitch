@@ -178,7 +178,7 @@ radius = 36.3456
 
 [node name="player" type="CharacterBody2D" groups=["Climber"]]
 collision_layer = 16
-collision_mask = 16
+collision_mask = 48
 script = ExtResource("1_mnd8j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
