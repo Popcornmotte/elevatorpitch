@@ -1,23 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://cbnpyi0uo1evc"]
 
-[ext_resource type="Texture2D" uid="uid://b20giq74dmd5u" path="res://icon.svg" id="1_7fiar"]
 [ext_resource type="Script" path="res://Scripts/ladder.gd" id="1_q7pxe"]
+[ext_resource type="Texture2D" uid="uid://hdftyisajsd3" path="res://Assets/Sprites/InteriorObjects/ladder.png" id="2_y801x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhx7o"]
-size = Vector2(20, 260)
+size = Vector2(16, 67)
 
 [node name="Ladder" type="Area2D"]
 collision_mask = 17
 script = ExtResource("1_q7pxe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_vhx7o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.90735e-06, -3.8147e-06)
-scale = Vector2(0.171875, 2.04688)
-texture = ExtResource("1_7fiar")
+texture = ExtResource("2_y801x")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

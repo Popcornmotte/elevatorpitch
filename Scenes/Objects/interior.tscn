@@ -1,76 +1,151 @@
-[gd_scene load_steps=13 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=11 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Script" path="res://Scripts/interior.gd" id="1_am2or"]
-[ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="1_yu455"]
-[ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="3_f24tw"]
-[ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
-[ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="4_h1wpf"]
-[ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/fuel.tscn" id="5_eovi8"]
-[ext_resource type="PackedScene" uid="uid://bkgkwoq7n22lu" path="res://Scenes/Objects/drop_zone.tscn" id="7_7lxq4"]
-[ext_resource type="PackedScene" uid="uid://cuiln8pt5xl01" path="res://Scenes/Objects/engine.tscn" id="8_8g66s"]
+[ext_resource type="Texture2D" uid="uid://cjlhoygxymr1u" path="res://Assets/Sprites/InteriorObjects/interior.png" id="9_mal14"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_t4oew"]
-size = Vector2(1500, 50)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
+size = Vector2(160, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q64hq"]
-size = Vector2(1503, 55)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_raajs"]
+size = Vector2(160, 2)
 
-[sub_resource type="QuadMesh" id="QuadMesh_n7dvd"]
-size = Vector2(500, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vgfb"]
+size = Vector2(3, 192)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tgg1t"]
-size = Vector2(498, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w0cb"]
+size = Vector2(36, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4v27x"]
+size = Vector2(47, 4)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_j1aye"]
+a = Vector2(0, -1.90735e-06)
+b = Vector2(15, 5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_lcqfq"]
+a = Vector2(-1, 0)
+b = Vector2(13, 4)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_h2ash"]
+a = Vector2(1, 0)
+b = Vector2(-13, 4)
 
 [node name="interior" type="Node2D"]
 script = ExtResource("1_am2or")
 
-[node name="Ladder" parent="." node_paths=PackedStringArray("playerBody") instance=ExtResource("3_uk7bk")]
-position = Vector2(586, 506)
-playerBody = NodePath("../player")
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("9_mal14")
 
-[node name="Engine_button" parent="." node_paths=PackedStringArray("interactionWith", "sprite") instance=ExtResource("4_h1wpf")]
-position = Vector2(885, 330)
-interactionWith = NodePath("../engine")
-sprite = NodePath(".")
+[node name="floor" type="Node" parent="."]
 
-[node name="ArmStation" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("3_f24tw")]
-position = Vector2(864, 578)
-sprite = NodePath(".")
+[node name="edges" type="Node" parent="floor"]
 
-[node name="DropZone" parent="." instance=ExtResource("7_7lxq4")]
-position = Vector2(702, 383)
+[node name="Lower" type="StaticBody2D" parent="floor/edges"]
+position = Vector2(0, 96)
 
-[node name="player" parent="." instance=ExtResource("1_yu455")]
-position = Vector2(363, 632)
-
-[node name="Fuel" parent="." instance=ExtResource("5_eovi8")]
-position = Vector2(439, 578)
-
-[node name="LowerPart" type="StaticBody2D" parent="."]
-position = Vector2(625, 664)
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="LowerPart"]
-modulate = Color(0.172549, 0.172549, 0.172549, 1)
-mesh = SubResource("QuadMesh_t4oew")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Lower"]
+shape = SubResource("RectangleShape2D_gqa2i")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LowerPart"]
-position = Vector2(-2.5, 1.5)
-shape = SubResource("RectangleShape2D_q64hq")
+[node name="Upper" type="StaticBody2D" parent="floor/edges"]
+position = Vector2(0, -93)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Upper"]
+shape = SubResource("RectangleShape2D_raajs")
+one_way_collision_margin = 4.0
 metadata/_edit_lock_ = true
 
-[node name="UpperPart" type="StaticBody2D" parent="."]
-position = Vector2(851, 421)
+[node name="Left" type="StaticBody2D" parent="floor/edges"]
+position = Vector2(-78, 1)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="UpperPart"]
-mesh = SubResource("QuadMesh_n7dvd")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Left"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_3vgfb")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperPart"]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_tgg1t")
+[node name="Right" type="StaticBody2D" parent="floor/edges"]
+position = Vector2(79, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Right"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_3vgfb")
 metadata/_edit_lock_ = true
 
-[node name="engine" parent="." node_paths=PackedStringArray("drop_zone") instance=ExtResource("8_8g66s")]
-position = Vector2(586, 65)
-drop_zone = NodePath("../DropZone")
+[node name="firstFloor" type="Node" parent="floor"]
+
+[node name="middle" type="StaticBody2D" parent="floor/firstFloor"]
+position = Vector2(0, 37)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/middle"]
+shape = SubResource("RectangleShape2D_1w0cb")
+metadata/_edit_lock_ = true
+
+[node name="right" type="StaticBody2D" parent="floor/firstFloor"]
+position = Vector2(54, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/right"]
+shape = SubResource("RectangleShape2D_4v27x")
+metadata/_edit_lock_ = true
+
+[node name="left" type="StaticBody2D" parent="floor/firstFloor"]
+position = Vector2(-54, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/left"]
+shape = SubResource("RectangleShape2D_4v27x")
+metadata/_edit_lock_ = true
+
+[node name="slantedRight" type="StaticBody2D" parent="floor/firstFloor"]
+position = Vector2(17, 37)
+rotation = -0.814402
+scale = Vector2(1.15821, 0.849145)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedRight"]
+position = Vector2(0, 1.90735e-06)
+scale = Vector2(0.897469, 1.36591)
+shape = SubResource("SegmentShape2D_j1aye")
+metadata/_edit_lock_ = true
+
+[node name="slantedLeft" type="StaticBody2D" parent="floor/firstFloor"]
+position = Vector2(-31, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedLeft"]
+position = Vector2(0, 1.90735e-06)
+scale = Vector2(0.897469, 1.36591)
+shape = SubResource("SegmentShape2D_j1aye")
+metadata/_edit_lock_ = true
+
+[node name="secondFloor" type="Node" parent="floor"]
+
+[node name="middle" type="StaticBody2D" parent="floor/secondFloor"]
+position = Vector2(0, -38)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/middle"]
+shape = SubResource("RectangleShape2D_1w0cb")
+metadata/_edit_lock_ = true
+
+[node name="right" type="StaticBody2D" parent="floor/secondFloor"]
+position = Vector2(54, -34)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/right"]
+shape = SubResource("RectangleShape2D_4v27x")
+metadata/_edit_lock_ = true
+
+[node name="left" type="StaticBody2D" parent="floor/secondFloor"]
+position = Vector2(-54, -34)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/left"]
+shape = SubResource("RectangleShape2D_4v27x")
+metadata/_edit_lock_ = true
+
+[node name="slantedRight" type="StaticBody2D" parent="floor/secondFloor"]
+position = Vector2(18, -38)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedRight"]
+shape = SubResource("SegmentShape2D_lcqfq")
+metadata/_edit_lock_ = true
+
+[node name="slantedLeft" type="StaticBody2D" parent="floor/secondFloor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedLeft"]
+position = Vector2(-18, -38)
+shape = SubResource("SegmentShape2D_h2ash")
