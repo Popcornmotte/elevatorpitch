@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://3fhftgbdivqn"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/low_bomb_engine.gd" id="1_tcr51"]
+[ext_resource type="Texture2D" uid="uid://ddlnyc5rulqhy" path="res://Assets/Sprites/Enemies/low_bomb_engine.png" id="1_y6c6q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vx6kt"]
+size = Vector2(36, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hily5"]
+atlas = ExtResource("1_y6c6q")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4je1v"]
+atlas = ExtResource("1_y6c6q")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqlsr"]
+atlas = ExtResource("1_y6c6q")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usqvy"]
+atlas = ExtResource("1_y6c6q")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lbiv"]
+atlas = ExtResource("1_y6c6q")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vqhl"]
+atlas = ExtResource("1_y6c6q")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xc5b6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hily5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4je1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqlsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usqvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2lbiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vqhl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 32.0
+}]
+
+[node name="low_bomb_engine" type="RigidBody2D"]
+position = Vector2(315, 327)
+script = ExtResource("1_tcr51")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_vx6kt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xc5b6")
+autoplay = "default"
+frame = 2
+frame_progress = 0.774304
