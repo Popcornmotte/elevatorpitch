@@ -177,9 +177,12 @@ animations = [{
 radius = 36.3456
 
 [node name="player" type="CharacterBody2D" groups=["Climber"]]
-collision_layer = 16
+collision_layer = 48
 collision_mask = 48
 script = ExtResource("1_mnd8j")
+speed = 150.0
+climbSpeed = 80.0
+jumpVelocity = -150.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_tucjc")
