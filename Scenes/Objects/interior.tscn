@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=15 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Script" path="res://Scripts/interior.gd" id="1_am2or"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
@@ -22,20 +22,24 @@ size = Vector2(20, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v27x"]
 size = Vector2(46, 4)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_j1aye"]
-a = Vector2(0, -1.90735e-06)
-b = Vector2(15, 5)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lufa8"]
+radius = 2.24133
+height = 18.4526
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1s1fl"]
+radius = 2.47719
+height = 13.8124
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g3x5y"]
 size = Vector2(20, 4)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_lcqfq"]
-a = Vector2(-1, 0)
-b = Vector2(13, 4)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ecwf1"]
+radius = 1.58753
+height = 15.1554
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_h2ash"]
-a = Vector2(1, 0)
-b = Vector2(-13, 4)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r4uqw"]
+radius = 1.94263
+height = 16.4922
 
 [node name="interior" type="Node2D"]
 script = ExtResource("1_am2or")
@@ -109,6 +113,7 @@ metadata/_edit_lock_ = true
 [node name="rightLeft" type="StaticBody2D" parent="floor/firstFloor"]
 collision_layer = 48
 collision_mask = 48
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="floor/firstFloor/rightLeft"]
 position = Vector2(40, 30)
@@ -130,6 +135,7 @@ metadata/_edit_lock_ = true
 position = Vector2(-63, 30)
 collision_layer = 16
 collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/leftLeft"]
 shape = SubResource("RectangleShape2D_4v27x")
@@ -141,30 +147,28 @@ rotation = -0.814402
 scale = Vector2(1.15821, 0.849145)
 collision_layer = 16
 collision_mask = 16
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedRight"]
-position = Vector2(0, 1.90735e-06)
-scale = Vector2(0.897469, 1.36591)
-shape = SubResource("SegmentShape2D_j1aye")
-metadata/_edit_lock_ = true
+position = Vector2(5.9804, 2.17887)
+rotation = 1.99843
+shape = SubResource("CapsuleShape2D_lufa8")
 
 [node name="slantedLeft" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-31, 30)
 collision_layer = 16
 collision_mask = 16
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedLeft"]
-position = Vector2(0, 1.90735e-06)
+position = Vector2(8, 3)
+rotation = -0.999808
 scale = Vector2(0.897469, 1.36591)
-shape = SubResource("SegmentShape2D_j1aye")
-metadata/_edit_lock_ = true
+shape = SubResource("CapsuleShape2D_1s1fl")
 
 [node name="leftRight" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-39, 30)
 collision_layer = 48
 collision_mask = 48
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/leftRight"]
 shape = SubResource("RectangleShape2D_g3x5y")
@@ -207,11 +211,11 @@ metadata/_edit_lock_ = true
 position = Vector2(18, -38)
 collision_layer = 16
 collision_mask = 16
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedRight"]
-shape = SubResource("SegmentShape2D_lcqfq")
-metadata/_edit_lock_ = true
+position = Vector2(6, 1)
+rotation = -1.26592
+shape = SubResource("CapsuleShape2D_ecwf1")
 
 [node name="slantedLeft" type="StaticBody2D" parent="floor/secondFloor"]
 collision_layer = 16
@@ -219,8 +223,10 @@ collision_mask = 16
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedLeft"]
-position = Vector2(-18, -38)
-shape = SubResource("SegmentShape2D_h2ash")
+position = Vector2(-25, -37)
+rotation = 1.33071
+shape = SubResource("CapsuleShape2D_r4uqw")
+metadata/_edit_lock_ = true
 
 [node name="ladders" type="Node2D" parent="."]
 
