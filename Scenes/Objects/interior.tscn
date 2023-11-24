@@ -24,7 +24,7 @@ size = Vector2(46, 4)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lufa8"]
 radius = 2.24133
-height = 18.4526
+height = 19.688
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1s1fl"]
 radius = 2.47719
@@ -144,12 +144,11 @@ metadata/_edit_lock_ = true
 [node name="slantedRight" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(17, 37)
 rotation = -0.814402
-scale = Vector2(1.15821, 0.849145)
 collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedRight"]
-position = Vector2(5.9804, 2.17887)
+position = Vector2(7.02708, 1.61868)
 rotation = 1.99843
 shape = SubResource("CapsuleShape2D_lufa8")
 
@@ -159,7 +158,7 @@ collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedLeft"]
-position = Vector2(8, 3)
+position = Vector2(8, 4)
 rotation = -0.999808
 scale = Vector2(0.897469, 1.36591)
 shape = SubResource("CapsuleShape2D_1s1fl")
