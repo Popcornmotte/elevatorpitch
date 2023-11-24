@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=12 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Script" path="res://Scripts/interior.gd" id="1_am2or"]
+[ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
 [ext_resource type="Texture2D" uid="uid://cjlhoygxymr1u" path="res://Assets/Sprites/InteriorObjects/interior.png" id="9_mal14"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
@@ -36,12 +37,17 @@ script = ExtResource("1_am2or")
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("9_mal14")
 
-[node name="floor" type="Node" parent="."]
+[node name="floor" type="Node2D" parent="."]
+position = Vector2(-1, 0)
 
-[node name="edges" type="Node" parent="floor"]
+[node name="edges" type="Node2D" parent="floor"]
+metadata/_edit_lock_ = true
 
 [node name="Lower" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(0, 96)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Lower"]
 shape = SubResource("RectangleShape2D_gqa2i")
@@ -49,6 +55,9 @@ metadata/_edit_lock_ = true
 
 [node name="Upper" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(0, -93)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Upper"]
 shape = SubResource("RectangleShape2D_raajs")
@@ -57,6 +66,9 @@ metadata/_edit_lock_ = true
 
 [node name="Left" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(-78, 1)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Left"]
 position = Vector2(-0.5, 0)
@@ -65,16 +77,23 @@ metadata/_edit_lock_ = true
 
 [node name="Right" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(79, 0)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Right"]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_3vgfb")
 metadata/_edit_lock_ = true
 
-[node name="firstFloor" type="Node" parent="floor"]
+[node name="firstFloor" type="Node2D" parent="floor"]
+metadata/_edit_lock_ = true
 
 [node name="middle" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(0, 37)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/middle"]
 shape = SubResource("RectangleShape2D_1w0cb")
@@ -82,6 +101,9 @@ metadata/_edit_lock_ = true
 
 [node name="right" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(54, 30)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/right"]
 shape = SubResource("RectangleShape2D_4v27x")
@@ -89,6 +111,9 @@ metadata/_edit_lock_ = true
 
 [node name="left" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-54, 30)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/left"]
 shape = SubResource("RectangleShape2D_4v27x")
@@ -98,6 +123,9 @@ metadata/_edit_lock_ = true
 position = Vector2(17, 37)
 rotation = -0.814402
 scale = Vector2(1.15821, 0.849145)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedRight"]
 position = Vector2(0, 1.90735e-06)
@@ -107,6 +135,9 @@ metadata/_edit_lock_ = true
 
 [node name="slantedLeft" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-31, 30)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedLeft"]
 position = Vector2(0, 1.90735e-06)
@@ -114,10 +145,14 @@ scale = Vector2(0.897469, 1.36591)
 shape = SubResource("SegmentShape2D_j1aye")
 metadata/_edit_lock_ = true
 
-[node name="secondFloor" type="Node" parent="floor"]
+[node name="secondFloor" type="Node2D" parent="floor"]
+metadata/_edit_lock_ = true
 
 [node name="middle" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(0, -38)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/middle"]
 shape = SubResource("RectangleShape2D_1w0cb")
@@ -125,6 +160,9 @@ metadata/_edit_lock_ = true
 
 [node name="right" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(54, -34)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/right"]
 shape = SubResource("RectangleShape2D_4v27x")
@@ -132,6 +170,9 @@ metadata/_edit_lock_ = true
 
 [node name="left" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(-54, -34)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/left"]
 shape = SubResource("RectangleShape2D_4v27x")
@@ -139,13 +180,33 @@ metadata/_edit_lock_ = true
 
 [node name="slantedRight" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(18, -38)
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedRight"]
 shape = SubResource("SegmentShape2D_lcqfq")
 metadata/_edit_lock_ = true
 
 [node name="slantedLeft" type="StaticBody2D" parent="floor/secondFloor"]
+collision_layer = 16
+collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedLeft"]
 position = Vector2(-18, -38)
 shape = SubResource("SegmentShape2D_h2ash")
+
+[node name="ladders" type="Node2D" parent="."]
+
+[node name="Ladder3" parent="ladders" instance=ExtResource("3_uk7bk")]
+position = Vector2(-40, -3)
+
+[node name="Ladder2" parent="ladders" instance=ExtResource("3_uk7bk")]
+position = Vector2(57, 61)
+
+[node name="Ladder" parent="ladders" instance=ExtResource("3_uk7bk")]
+position = Vector2(-55, 61)
+
+[node name="Ladder" parent="." instance=ExtResource("3_uk7bk")]
+position = Vector2(39, -3)

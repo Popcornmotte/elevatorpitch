@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://do2f84i2pb0f" path="res://Assets/Sprites/Player/PlayerJump.png" id="3_yio8t"]
 [ext_resource type="Texture2D" uid="uid://cio31es8l47vy" path="res://Assets/Sprites/Player/PlayerWalk.png" id="4_7nvss"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4fgv"]
-size = Vector2(16, 16)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tucjc"]
+radius = 5.0
+height = 18.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_suyiv"]
 atlas = ExtResource("2_lc3sb")
@@ -177,10 +178,11 @@ radius = 36.3456
 
 [node name="player" type="CharacterBody2D" groups=["Climber"]]
 collision_layer = 16
+collision_mask = 16
 script = ExtResource("1_mnd8j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_r4fgv")
+shape = SubResource("CapsuleShape2D_tucjc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8543d")

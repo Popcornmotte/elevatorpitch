@@ -48,6 +48,7 @@ func _move(direction):
 func _fall(direction,delta):
 	velocity.y += gravity * delta
 	$AnimatedSprite2D.play("jump")
+	print("falling")
 	_flip_animation(direction)
 	#cap falling speed
 	if velocity.y>maxFallingSpeed:
