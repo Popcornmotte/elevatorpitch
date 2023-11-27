@@ -1,9 +1,9 @@
 extends RigidBody2D
 
 var connected=false
-var collided=true
+var collided=false
 @export var lerpSpeed=5
-var lerpTarget:Node2D
+@onready var lerpTarget= get_node("../player")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -11,7 +11,7 @@ func _ready():
 
 func _connect():
 	#make sure player does not collide with dragged fuel
-	set_collision_layer_value(1,false)
+	set_collision_layer_value(5,false)
 	gravity_scale=0#otherwise we bang onto the floor when disconnecting
 	connected=true
 		
@@ -36,7 +36,7 @@ func _process(delta):
 
 
 func _on_area_2d_body_entered(body):
-	if body.name == "player":
+	if body.name=="player":
 		collided=true
 		lerpTarget=body.get_node("target")
 
