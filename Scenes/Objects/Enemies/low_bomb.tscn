@@ -1,8 +1,8 @@
-[gd_scene load_steps=38 format=3 uid="uid://b3i02sack28ed"]
+[gd_scene load_steps=38 format=3 uid="uid://1vnguekgscoy"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/bombEnemy.gd" id="1_2kgrk"]
-[ext_resource type="Texture2D" uid="uid://cfr4ycsmcfwck" path="res://Assets/Sprites/Enemies/low_bomb_body.png" id="1_66s51"]
-[ext_resource type="Texture2D" uid="uid://dnxhr055pq23p" path="res://Assets/Sprites/Enemies/low_bomb_defuse.png" id="2_a2udm"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/low_bomb_body.png" id="1_66s51"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/low_bomb_defuse.png" id="2_a2udm"]
 [ext_resource type="Script" path="res://Scripts/Enemies/bombEnemyDefuse.gd" id="3_xhmkc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jo11d"]
