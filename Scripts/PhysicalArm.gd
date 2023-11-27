@@ -10,6 +10,7 @@ var clawPhys : RigidBody2D
 
 @export var acceleration = 200.0
 
+@export var left = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -24,6 +25,8 @@ func rotatePart(delta : float, phys : RigidBody2D, ref : Bone2D):
 	if(abs(diff) > PI):
 		diff = (2*PI - diff)
 	phys.angular_velocity = -diff * acceleration * delta
+	if(left):
+		print("left arm diff: "+str(diff))
 	#phys.angular_velocity -= ((PI - diff) / PI) * phys.angular_velocity
 	pass
 

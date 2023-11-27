@@ -65,6 +65,9 @@ func grab(clawA):
 	grabbed = true
 	set_collision_layer_value(1,false)
 	set_collision_mask_value(1,false)
+	#remove Layer 3 collision as fix to not get stuck on arm with violent throws
+	set_collision_layer_value(3,false)
+	set_collision_mask_value(3,false)
 	if !popped:
 		Audio.playSfx(POP)
 		popped = true
