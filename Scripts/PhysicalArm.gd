@@ -20,13 +20,21 @@ func _ready():
 	
 	pass # Replace with function body.
 
+func betterMod(a : float, b : float):
+	var res = fmod(a,b)
+	if(res < 0):
+		res += b
+	return res
+
 func rotatePart(delta : float, phys : RigidBody2D, ref : Bone2D):
-	var diff = (phys.global_rotation - ref.global_rotation)
+	var diff = (betterMod(phys.global_rotation,2*PI) - betterMod(ref.global_rotation,2*PI))
 	if(abs(diff) > PI):
 		diff = (2*PI - diff)
 	phys.angular_velocity = -diff * acceleration * delta
-	if(left):
+	if(left && abs(diff) > 2):
 		print("left arm diff: "+str(diff))
+		if(left && abs(diff) > 12):
+			print(str(phys.global_rotation) + ", " + str(ref.global_rotation))
 	#phys.angular_velocity -= ((PI - diff) / PI) * phys.angular_velocity
 	pass
 
