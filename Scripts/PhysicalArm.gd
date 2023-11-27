@@ -10,6 +10,8 @@ var clawPhys : RigidBody2D
 
 @export var acceleration = 200.0
 
+@export var left = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -19,12 +21,21 @@ func _ready():
 	
 	pass # Replace with function body.
 
+func betterMod(a : float, b : float):
+	var res = fmod(a,b)
+	if(res < 0):
+		res += b
+	return res
+
 func rotatePart(delta : float, phys : RigidBody2D, ref : Bone2D):
-	var diff = (phys.global_rotation - ref.global_rotation)
+	var diff = 0.0
+	if(left):
+		diff = (betterMod(phys.global_rotation,2*PI) - betterMod(ref.global_rotation,2*PI))
+	else:
+		diff = phys.global_rotation - ref.global_rotation
 	if(abs(diff) > PI):
 		diff = (2*PI - diff)
 	phys.angular_velocity = -diff * acceleration * delta
-	#phys.angular_velocity -= ((PI - diff) / PI) * phys.angular_velocity
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -36,7 +36,7 @@ func _process(delta):
 
 
 func _on_grab_area_body_entered(body):
-	if grabbable == null:
+	if grabbable == null && body.has_method("grab"):
 		grabbable = body
 	pass # Replace with function body.
 

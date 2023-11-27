@@ -9,6 +9,8 @@ var speed = 0.0
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
 
+@onready var targets = $Arms/Targets
+
 func _enter_tree():
 	Global.elevator = self
 
@@ -16,6 +18,10 @@ func _enter_tree():
 func _ready():
 	$HullBody/AnimationPlayer.play("EngineJiggle")
 	pass # Replace with function body.
+
+func control(isControlled : bool):
+	for child in targets.get_children():
+		child.control(isControlled)
 
 func takeDamage(damage:int):
 	health -= damage

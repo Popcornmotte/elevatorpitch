@@ -15,9 +15,12 @@ height = 76.0
 
 [node name="DroneSaw" type="RigidBody2D" node_paths=PackedStringArray("weapon", "balloon", "balloonShape")]
 z_index = -1
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
+mass = 10.0
 gravity_scale = 0.0
+max_contacts_reported = 10
+contact_monitor = true
 angular_damp = 2.0
 script = ExtResource("1_vlnaw")
 weapon = NodePath("WeaponMount/Saw")
@@ -60,7 +63,7 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="timeout" from="AttackTimer" to="." method="_on_melee_timer_timeout"]

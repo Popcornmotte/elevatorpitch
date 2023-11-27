@@ -1,7 +1,9 @@
 extends RigidBody2D
 
 const POP = preload("res://Assets/Audio/sfx/pop.wav")
+const THUD = preload("res://Assets/Audio/sfx/metal_thud.wav")
 
+@export var hitPoints = 100.0
 @export var rangedBehavior = false
 @export var weapon : Weapon
 @export var maxSpeed = 50
@@ -15,6 +17,7 @@ const POP = preload("res://Assets/Audio/sfx/pop.wav")
 enum STATE {Attacking, Repositioning}
 var state = STATE.Attacking
 
+var dead = false
 var popped = false
 var grabbed = false
 var clawArea : Node2D
@@ -60,12 +63,19 @@ func chooseTarget():
 #called by the claw when grabbed. Will effectivly destory this minion
 #so it can be used as a throwable
 func grab(clawA):
-	gravity_scale = 0
 	clawArea = clawA
 	grabbed = true
 	set_collision_layer_value(1,false)
 	set_collision_mask_value(1,false)
+	#remove Layer 3 collision as fix to not get stuck on arm with violent throws
+	set_collision_layer_value(3,false)
+	set_collision_mask_value(3,false)
 	if !popped:
+		pop()
+
+func pop():
+	if !popped:
+		gravity_scale = 1
 		Audio.playSfx(POP)
 		popped = true
 		balloon.queue_free()
@@ -80,6 +90,9 @@ func release(linVel):
 	gravity_scale = 1
 
 func move(delta) -> bool:
+#	if(global_position.x <= Global.elevator.global_position.x):
+#		balloon.flip_h = true
+		
 	if(!popped):
 		if rangedBehavior && global_position.distance_to(target) < 10:
 			return false
@@ -104,6 +117,10 @@ func _process(delta):
 		dbm = debugmarker.instantiate()
 		get_parent().add_child(dbm)
 		dbm.global_position = target
+	
+	if(hitPoints <=0 ):
+		dead = true
+		pop()
 	
 	if(reload>0):reload-=delta
 	
@@ -142,4 +159,16 @@ func _on_timer_timeout():
 func _on_attack_timer_timeout():
 	state = STATE.Repositioning
 	chooseTarget()
+	pass # Replace with function body.
+
+#Contact-Monitor needs to be set to true for this signal to work
+#Max_Contact_Reports also needs to be greater than 0
+func _on_body_entered(body):
+	#physical damage on collision if collision speed high enough
+	if(body.is_class("RigidBody2D")):
+		print("collision with speed: "+str(body.linear_velocity.length()))
+		if (body.linear_velocity - linear_velocity).length() > 500.0:
+			hitPoints -= 0.01 * body.mass * body.linear_velocity.length()
+			print("damage produced: "+str(0.1 * body.mass * body.linear_velocity.length()))
+			Audio.playSfx(THUD)
 	pass # Replace with function body.
