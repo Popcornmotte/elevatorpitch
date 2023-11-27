@@ -57,14 +57,14 @@ animations = [{
 }]
 
 [node name="low_bomb_engine" type="RigidBody2D"]
-position = Vector2(315, 327)
 script = ExtResource("1_tcr51")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(0, -51)
 shape = SubResource("RectangleShape2D_vx6kt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -54)
 sprite_frames = SubResource("SpriteFrames_xc5b6")
 autoplay = "default"
 frame = 2

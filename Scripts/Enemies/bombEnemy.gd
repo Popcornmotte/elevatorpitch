@@ -3,7 +3,7 @@ extends RigidBody2D
 @export var maxSpeed = 50
 
 var explosion = preload("res://Scenes/Objects/explosion.tscn")
-var engine = preload("res://Scenes/Objects/engine.tscn")
+var engine = preload("res://Scenes/Objects/Enemies/low_bomb_engine.tscn")
 var barrel = preload("res://Scenes/Objects/Enemies/low_bomb_barrel.tscn")
 
 var elevatorPos : Vector2
@@ -42,7 +42,7 @@ func defuse():
 	newEngine.global_position = global_position
 	get_parent().add_child(newEngine)
 	
-	var newBarrel = engine.instantiate()
+	var newBarrel = barrel.instantiate()
 	newBarrel.global_position = global_position
 	get_parent().add_child(newBarrel)
 	

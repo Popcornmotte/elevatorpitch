@@ -9,5 +9,5 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	super._process(delta)
-	self.linear_velocity += Vector2(0,-100 * delta).rotated(rotation)
+	self.linear_velocity += Vector2(0,-200 * delta).rotated(rotation)
 	pass
