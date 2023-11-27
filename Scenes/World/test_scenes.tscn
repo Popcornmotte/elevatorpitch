@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=6 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
+[ext_resource type="PackedScene" uid="uid://ddahiyydcisjm" path="res://Scenes/Objects/Enemies/drone_saw.tscn" id="4_v5r71"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="5_1gr0d"]
+[ext_resource type="PackedScene" uid="uid://deu8xdoktbmf1" path="res://Scenes/Objects/Enemies/drone_rifle.tscn" id="5_egygk"]
 
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
@@ -13,3 +15,17 @@ position = Vector2(640, 360)
 [node name="player" parent="." instance=ExtResource("5_1gr0d")]
 z_index = 4
 position = Vector2(603, 349)
+
+[node name="DroneSaw" parent="." instance=ExtResource("4_v5r71")]
+position = Vector2(152, 96)
+
+[node name="DroneSaw2" parent="." instance=ExtResource("4_v5r71")]
+
+[node name="DroneRifle" parent="." instance=ExtResource("5_egygk")]
+position = Vector2(1728, 152)
+
+[node name="DroneSaw3" parent="." instance=ExtResource("4_v5r71")]
+position = Vector2(2064, 904)
+
+[node name="DroneSaw4" parent="." instance=ExtResource("4_v5r71")]
+position = Vector2(2304, 160)

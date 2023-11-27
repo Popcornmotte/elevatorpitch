@@ -12,6 +12,8 @@ var speed = 0.0
 var motion = Vector2(0,0)
 var decelerate = false
 
+var isControlled = true
+
 var armAnchorPos : Vector2
 
 func _ready():
@@ -21,8 +23,12 @@ func _ready():
 	else:
 		armAnchorPos -= Vector2(96,0)
 
+func control(isBeingControlled : bool):
+	isControlled = isBeingControlled
+	if (!isControlled):
+		global_position = restingPosition.global_position
+
 func move(delta):
-	
 	#mouse position that the target moves towards
 	var mousePos = get_global_mouse_position()
 	velocity = global_position.direction_to(mousePos).normalized() * 600
@@ -33,22 +39,23 @@ func _physics_process(delta):
 	#if mouse is on other side of elevator reset target to rest pos
 	#if mouse is near the elevator(or the arm base) move with physics and collision
 	#if mouse is a little further then just attach target to mouse pos
-	if(rightTarget):
-		if(Global.elevator.get_local_mouse_position().x <= 0):
-			global_position = restingPosition.global_position
-			return
-		elif(armAnchorPos.distance_to(get_global_mouse_position()) > 200):
-			global_position = get_global_mouse_position()
-			return
-	else:
-		if(Global.elevator.get_local_mouse_position().x >= 0):
-			global_position = restingPosition.global_position
-			return
-		elif(armAnchorPos.distance_to(get_global_mouse_position()) > 200):
-			global_position = get_global_mouse_position()
-			return
-			
-	move(delta)
-	move_and_slide()
+	if(isControlled):
+		if(rightTarget):
+			if(Global.elevator.get_local_mouse_position().x <= 0):
+				global_position = restingPosition.global_position
+				return
+			elif(armAnchorPos.distance_to(get_global_mouse_position()) > 200):
+				global_position = get_global_mouse_position()
+				return
+		else:
+			if(Global.elevator.get_local_mouse_position().x >= 0):
+				global_position = restingPosition.global_position
+				return
+			elif(armAnchorPos.distance_to(get_global_mouse_position()) > 200):
+				global_position = get_global_mouse_position()
+				return
+				
+		move(delta)
+		move_and_slide()
 	#print(str(motion))
 	#move_and_collide(motion)
