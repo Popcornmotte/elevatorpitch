@@ -3,6 +3,7 @@ extends Area2D
 var sprite : Node2D
 var velocity = Vector2(0,0)
 var damage = 1
+var isProjectile = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

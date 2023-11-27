@@ -12,13 +12,13 @@ script = ExtResource("2_e2qor")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_2r5y4")
 
-[node name="Area2D" type="Area2D" parent="." groups=["ArmStation"]]
+[node name="ArmStationArea" type="Area2D" parent="." groups=["ArmStation"]]
 collision_layer = 48
 collision_mask = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmStationArea"]
 position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_0wwvm")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="ArmStationArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="ArmStationArea" to="." method="_on_area_2d_body_exited"]
