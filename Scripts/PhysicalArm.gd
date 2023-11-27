@@ -10,7 +10,6 @@ var clawPhys : RigidBody2D
 
 @export var acceleration = 200.0
 
-@export var left = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -31,11 +30,6 @@ func rotatePart(delta : float, phys : RigidBody2D, ref : Bone2D):
 	if(abs(diff) > PI):
 		diff = (2*PI - diff)
 	phys.angular_velocity = -diff * acceleration * delta
-	if(left && abs(diff) > 2):
-		print("left arm diff: "+str(diff))
-		if(left && abs(diff) > 12):
-			print(str(phys.global_rotation) + ", " + str(ref.global_rotation))
-	#phys.angular_velocity -= ((PI - diff) / PI) * phys.angular_velocity
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
