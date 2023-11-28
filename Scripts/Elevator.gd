@@ -18,6 +18,7 @@ func _enter_tree():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HullBody/AnimationPlayer.play("EngineJiggle")
+	control(controlArms)
 	pass # Replace with function body.
 
 func control(isControlled : bool):

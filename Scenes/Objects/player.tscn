@@ -108,7 +108,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"climb",
-"speed": 5.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -171,7 +171,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 24.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ha5a3"]
@@ -185,23 +185,23 @@ speed = 150.0
 climbSpeed = 150.0
 jumpVelocity = -150.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShapePlayer" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_tucjc")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8543d")
 animation = &"jump"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="InteractionArea" type="Area2D" parent="."]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="InteractionAreaShape" type="CollisionShape2D" parent="InteractionArea"]
 position = Vector2(-2, -27)
 shape = SubResource("CircleShape2D_ha5a3")
 
 [node name="target" type="Node2D" parent="."]
 
-[node name="Camera2D" parent="." instance=ExtResource("6_n3bgt")]
+[node name="PlayerCam" parent="." instance=ExtResource("6_n3bgt")]
 position = Vector2(0, -1)
 process_callback = 0
 limit_smoothed = true

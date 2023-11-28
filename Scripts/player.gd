@@ -7,18 +7,22 @@ extends CharacterBody2D
 @export var maxFallingSpeed=500.0 #this should not be relevant, but cap at which body does not accelerate any more when falling
 @export var climbing=false #variable set when interacting with ladder to indicate climb
 @export var pushForce=80.0 #relevant when colliding with other rigidbodies
-
+@export var startZoomedIn = true
+@onready var sprite = get_node("PlayerSprite")
 
 var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _ready():
+	$PlayerCam.zoomIn(startZoomedIn)
+
 func _flip_animation(direction):
 	if direction>0:
-		$AnimatedSprite2D.flip_h=false
+		sprite.flip_h=false
 	else:
-		$AnimatedSprite2D.flip_h=true
+		sprite.flip_h=true
 		
 func _jump(direction):
 	#jumping only allowed when on floor and space bar pressed
@@ -36,20 +40,20 @@ func _move(direction):
 	if direction:
 		if is_on_floor():
 			#flip animation if necessary
-			$AnimatedSprite2D.play("walk")
+			sprite.play("walk")
 			_flip_animation(direction)
 		#allow the player to also move mid jump
 		velocity.x = direction * speed
 	else:
 		if is_on_floor():
-			$AnimatedSprite2D.play("idle")
+			sprite.play("idle")
 		velocity.x = move_toward(velocity.x, 0, speed)
 
 	
 
 func _fall(direction,delta):
 	velocity.y += gravity * delta
-	$AnimatedSprite2D.play("jump")
+	sprite.play("jump")
 	_flip_animation(direction)
 	#cap falling speed
 	if velocity.y>maxFallingSpeed:
@@ -57,7 +61,7 @@ func _fall(direction,delta):
 
 func _climb(direction):
 	velocity.y=0
-	$AnimatedSprite2D.play("climb")
+	sprite.play("climb")
 	if Input.is_action_pressed("up"):
 		velocity.y=-speed
 	elif Input.is_action_pressed("down"):

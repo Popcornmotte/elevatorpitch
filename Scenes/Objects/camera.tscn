@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://oq767v1wm581"]
 
-[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="1_kufuv"]
+[ext_resource type="Script" path="res://Scripts/PlayerCam.gd" id="1_f4jfi"]
 
 [sub_resource type="Animation" id="Animation_uy3w3"]
 length = 0.001
@@ -56,8 +56,8 @@ _data = {
 "zoom_out": SubResource("Animation_khbuv")
 }
 
-[node name="Camera2D" type="Camera2D"]
-script = ExtResource("1_kufuv")
+[node name="PlayerCam" type="Camera2D"]
+script = ExtResource("1_f4jfi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
