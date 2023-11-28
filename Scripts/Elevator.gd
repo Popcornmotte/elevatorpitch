@@ -21,7 +21,8 @@ func _ready():
 
 func control(isControlled : bool):
 	for child in targets.get_children():
-		child.control(isControlled)
+		if child is CharacterBody2D:#check that it is an arm
+			child.control(isControlled)
 
 func takeDamage(damage:int):
 	health -= damage

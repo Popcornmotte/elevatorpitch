@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dytc0ic6y3uun"]
 
+[ext_resource type="Script" path="res://Scripts/arm_station.gd" id="1_tg2ed"]
 [ext_resource type="Texture2D" uid="uid://c3q6il0amshp7" path="res://Assets/Sprites/InteriorObjects/armStation.png" id="2_2r5y4"]
-[ext_resource type="Script" path="res://Scripts/generic_interactable.gd" id="2_e2qor"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wwvm"]
 size = Vector2(32, 42)
 
 [node name="ArmStation" type="Node2D"]
-script = ExtResource("2_e2qor")
+script = ExtResource("1_tg2ed")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_2r5y4")
