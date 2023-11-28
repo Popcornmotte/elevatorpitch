@@ -11,10 +11,11 @@ func _process(delta):
 	if collided and Input.is_action_just_pressed("interact"):
 		print("interact")# here the .use function of the corresponding object should be called
 		if is_instance_valid(interactionWith):
-			interactionWith._use()
+			interactionWith.control()
 
 func _on_area_2d_body_entered(body):
 	if body.name == "player":
+		
 		collided=true
 
 

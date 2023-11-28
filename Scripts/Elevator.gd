@@ -8,6 +8,7 @@ var speed = 0.0
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
+@export var controlArms:bool #make it accessible whether or not the arms are being controlled
 
 @onready var targets = $Arms/Targets
 
@@ -17,11 +18,14 @@ func _enter_tree():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HullBody/AnimationPlayer.play("EngineJiggle")
+	control(controlArms)
 	pass # Replace with function body.
 
 func control(isControlled : bool):
+	controlArms=isControlled
 	for child in targets.get_children():
-		child.control(isControlled)
+		if child is CharacterBody2D:#check that it is an arm
+			child.control(isControlled)
 
 func takeDamage(damage:int):
 	health -= damage
@@ -29,9 +33,10 @@ func takeDamage(damage:int):
 	pass
 
 func on_area_entered(area : Area2D):
-	if(area.damage != null):
-		health -= area.damage
-		update_health()
+	if(area.has_meta("isProjectile")):
+		if(area.damage != null):
+			health -= area.damage
+			update_health()
 	pass
 
 func update_health():
