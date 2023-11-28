@@ -1,8 +1,8 @@
 [gd_scene load_steps=38 format=3 uid="uid://1vnguekgscoy"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/bombEnemy.gd" id="1_2kgrk"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/low_bomb_body.png" id="1_66s51"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Enemies/low_bomb_defuse.png" id="2_a2udm"]
+[ext_resource type="Texture2D" uid="uid://cfr4ycsmcfwck" path="res://Assets/Sprites/Enemies/low_bomb_body.png" id="1_66s51"]
+[ext_resource type="Texture2D" uid="uid://dnxhr055pq23p" path="res://Assets/Sprites/Enemies/low_bomb_defuse.png" id="2_a2udm"]
 [ext_resource type="Script" path="res://Scripts/Enemies/bombEnemyDefuse.gd" id="3_xhmkc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jo11d"]
@@ -228,7 +228,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8juo"]
-radius = 15.0
+radius = 22.0227
 
 [node name="low_bomb" type="RigidBody2D"]
 collision_layer = 3
@@ -254,7 +254,7 @@ collision_mask = 3
 script = ExtResource("3_xhmkc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(0, 72)
+position = Vector2(0, 86)
 shape = SubResource("CircleShape2D_i8juo")
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
