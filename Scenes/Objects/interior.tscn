@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=21 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Script" path="res://Scripts/interior.gd" id="1_am2or"]
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dop4ylnwhqvof" path="res://Assets/Sprites/InteriorObjects/floor.png" id="5_wfh41"]
 [ext_resource type="PackedScene" uid="uid://bkgkwoq7n22lu" path="res://Scenes/Objects/drop_zone.tscn" id="7_bsp3f"]
 [ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/fuel.tscn" id="7_p0a0g"]
+[ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="8_5pu4c"]
 [ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="9_lvdt6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
@@ -64,8 +65,8 @@ metadata/_edit_lock_ = true
 
 [node name="Lower" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(0, 96)
-collision_layer = 48
-collision_mask = 16
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Lower"]
@@ -75,7 +76,7 @@ metadata/_edit_lock_ = true
 [node name="Upper" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(0, -93)
 collision_layer = 16
-collision_mask = 16
+collision_mask = 144
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Upper"]
@@ -86,7 +87,7 @@ metadata/_edit_lock_ = true
 [node name="Left" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(-78, 1)
 collision_layer = 16
-collision_mask = 16
+collision_mask = 144
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Left"]
@@ -97,7 +98,7 @@ metadata/_edit_lock_ = true
 [node name="Right" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(79, 0)
 collision_layer = 16
-collision_mask = 16
+collision_mask = 144
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Right"]
@@ -110,8 +111,8 @@ metadata/_edit_lock_ = true
 
 [node name="middle" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(0, 37)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/middle"]
@@ -119,8 +120,8 @@ shape = SubResource("RectangleShape2D_1w0cb")
 metadata/_edit_lock_ = true
 
 [node name="rightLeft" type="StaticBody2D" parent="floor/firstFloor"]
-collision_layer = 48
-collision_mask = 48
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="floor/firstFloor/rightLeft"]
@@ -130,8 +131,8 @@ metadata/_edit_lock_ = true
 
 [node name="rightRight" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(54, 30)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/rightRight"]
@@ -141,8 +142,8 @@ metadata/_edit_lock_ = true
 
 [node name="leftLeft" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-63, 30)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/leftLeft"]
@@ -152,8 +153,8 @@ metadata/_edit_lock_ = true
 [node name="slantedRight" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(17, 37)
 rotation = -0.814402
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedRight"]
 position = Vector2(7.02708, 1.61868)
@@ -162,8 +163,8 @@ shape = SubResource("CapsuleShape2D_lufa8")
 
 [node name="slantedLeft" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-31, 30)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedLeft"]
 position = Vector2(8, 4)
@@ -173,8 +174,8 @@ shape = SubResource("CapsuleShape2D_1s1fl")
 
 [node name="leftRight" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-39, 30)
-collision_layer = 48
-collision_mask = 48
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/leftRight"]
@@ -186,8 +187,8 @@ metadata/_edit_lock_ = true
 
 [node name="middle" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(0, -38)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/middle"]
@@ -196,8 +197,8 @@ metadata/_edit_lock_ = true
 
 [node name="right" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(54, -34)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/right"]
@@ -206,8 +207,8 @@ metadata/_edit_lock_ = true
 
 [node name="left" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(-54, -34)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/left"]
@@ -216,8 +217,8 @@ metadata/_edit_lock_ = true
 
 [node name="slantedRight" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(18, -38)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 176
+collision_mask = 176
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedRight"]
 position = Vector2(6, 1)
@@ -225,8 +226,8 @@ rotation = -1.26592
 shape = SubResource("CapsuleShape2D_ecwf1")
 
 [node name="slantedLeft" type="StaticBody2D" parent="floor/secondFloor"]
-collision_layer = 16
-collision_mask = 16
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedLeft"]
@@ -249,8 +250,8 @@ position = Vector2(-56, 61)
 [node name="Ladder" parent="." instance=ExtResource("3_uk7bk")]
 position = Vector2(40, -3)
 
-[node name="DropZone" parent="." instance=ExtResource("7_bsp3f")]
-position = Vector2(62, -40)
+[node name="DropZoneRight" parent="." instance=ExtResource("7_bsp3f")]
+position = Vector2(63, -39)
 
 [node name="Fuel" parent="." instance=ExtResource("7_p0a0g")]
 position = Vector2(-33, 68)
@@ -258,5 +259,12 @@ position = Vector2(-33, 68)
 [node name="ArmStation" parent="." instance=ExtResource("9_lvdt6")]
 position = Vector2(0, 2)
 
+[node name="Engine_button" parent="." instance=ExtResource("8_5pu4c")]
+position = Vector2(0, -52)
+
 [node name="Floor" type="Sprite2D" parent="."]
+z_index = 2
 texture = ExtResource("5_wfh41")
+
+[node name="DropZoneLeft" parent="." instance=ExtResource("7_bsp3f")]
+position = Vector2(-64, -39)

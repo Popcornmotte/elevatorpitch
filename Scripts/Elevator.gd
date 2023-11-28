@@ -2,15 +2,16 @@ extends Node2D
 class_name Elevator
 
 var health = 100
-var fuel = 100.0
+
 var lost = false
 var speed = 0.0
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
 @export var controlArms:bool #make it accessible whether or not the arms are being controlled
-
+@export var moving:bool=true
 @onready var targets = $Arms/Targets
+@export var fuel = 100.0
 
 func _enter_tree():
 	Global.elevator = self
@@ -52,6 +53,10 @@ func update_health():
 
 func decrease_fuel(delta):
 	fuel -= delta
+	if fuel<=0:
+		moving=false#stop elevator when there is no fuel available
+	else:
+		moving=true
 	update_fuel()
 	pass
 

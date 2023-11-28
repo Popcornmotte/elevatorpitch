@@ -10,7 +10,9 @@ func _process(delta):
 func _remove_fuel():
 	for item in fuel:
 		item.free()
-		
+
+func _return_fuel_count():
+	return fuel.size()
 func _on_area_2d_body_entered(body):
 	print(body.get_name())
 	if body.is_in_group("fuel"):

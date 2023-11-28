@@ -8,7 +8,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_pressed("W"):
+	if Global.elevator.moving:
 		$wheelL.rotation += 5*delta
 		$wheelR.rotation -= 5*delta
 		for child in $Cable.get_children():
