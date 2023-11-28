@@ -567,6 +567,7 @@ script = ExtResource("9_ltb0c")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw"]
 position = Vector2(6, 0)
 shape = SubResource("CircleShape2D_xb8wr")
+disabled = true
 
 [node name="Polygon2D" type="Polygon2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw"]
 visible = false
@@ -665,6 +666,7 @@ script = ExtResource("9_ltb0c")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw"]
 position = Vector2(6, 0)
 shape = SubResource("CircleShape2D_xb8wr")
+disabled = true
 
 [node name="Polygon2D" type="Polygon2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw"]
 visible = false
@@ -693,7 +695,7 @@ shape = SubResource("CircleShape2D_e7x7n")
 [node name="RestingPos" type="Marker2D" parent="Arms/Targets"]
 position = Vector2(0, -256)
 
-[node name="RightTarget" type="CharacterBody2D" parent="Arms/Targets" node_paths=PackedStringArray("restingPosition")]
+[node name="RightTarget" type="CharacterBody2D" parent="Arms/Targets" node_paths=PackedStringArray("restingPosition", "claw")]
 position = Vector2(464, 0)
 collision_layer = 524288
 collision_mask = 524288
@@ -701,6 +703,7 @@ motion_mode = 1
 safe_margin = 0.2
 script = ExtResource("6_06d2c")
 restingPosition = NodePath("../RestingPos")
+claw = NodePath("../../PhysicalArmRight/UpperArm/LowerArm/Claw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/Targets/RightTarget"]
 shape = SubResource("CircleShape2D_4qaus")
@@ -710,7 +713,11 @@ metadata/_edit_lock_ = true
 texture = ExtResource("8_8ih1r")
 metadata/_edit_lock_ = true
 
-[node name="LeftTarget" type="CharacterBody2D" parent="Arms/Targets" node_paths=PackedStringArray("restingPosition")]
+[node name="FlingLine" type="Line2D" parent="Arms/Targets/RightTarget"]
+points = PackedVector2Array(0, 0, 50, 0)
+width = 5.0
+
+[node name="LeftTarget" type="CharacterBody2D" parent="Arms/Targets" node_paths=PackedStringArray("restingPosition", "claw")]
 position = Vector2(-480, 8)
 collision_layer = 524288
 collision_mask = 524288
@@ -719,6 +726,7 @@ safe_margin = 0.2
 script = ExtResource("6_06d2c")
 restingPosition = NodePath("../RestingPos")
 rightTarget = false
+claw = NodePath("../../PhysicalArmLeft/UpperArm/LowerArm/Claw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/Targets/LeftTarget"]
 shape = SubResource("CircleShape2D_4qaus")
@@ -727,6 +735,10 @@ metadata/_edit_lock_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Arms/Targets/LeftTarget"]
 texture = ExtResource("8_8ih1r")
 metadata/_edit_lock_ = true
+
+[node name="FlingLine" type="Line2D" parent="Arms/Targets/LeftTarget"]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 5.0
 
 [node name="RightArmDeadzoneRight" type="StaticBody2D" parent="Arms"]
 position = Vector2(96, 0)

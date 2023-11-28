@@ -166,9 +166,9 @@ func _on_attack_timer_timeout():
 func _on_body_entered(body):
 	#physical damage on collision if collision speed high enough
 	if(body.is_class("RigidBody2D")):
-		print("collision with speed: "+str(body.linear_velocity.length()))
+		#print("collision with speed: "+str(body.linear_velocity.length()))
 		if (body.linear_velocity - linear_velocity).length() > 500.0:
 			hitPoints -= 0.01 * body.mass * body.linear_velocity.length()
-			print("damage produced: "+str(0.1 * body.mass * body.linear_velocity.length()))
+			#print("damage produced: "+str(0.1 * body.mass * body.linear_velocity.length()))
 			Audio.playSfx(THUD)
 	pass # Replace with function body.
