@@ -8,6 +8,7 @@ var speed = 0.0
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
+@export var controlArms:bool #make it accessible whether or not the arms are being controlled
 
 @onready var targets = $Arms/Targets
 
@@ -20,6 +21,7 @@ func _ready():
 	pass # Replace with function body.
 
 func control(isControlled : bool):
+	controlArms=isControlled
 	for child in targets.get_children():
 		if child is CharacterBody2D:#check that it is an arm
 			child.control(isControlled)

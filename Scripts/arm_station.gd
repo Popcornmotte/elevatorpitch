@@ -10,13 +10,11 @@ var control_arms=false
 func _process(delta):
 	if collided and Input.is_action_just_pressed("interact"):
 		control_arms=!control_arms#change whether arms are being controlled or not
-		print("interact: ",control_arms)# here the .use function of the corresponding object should be called
 		if Global.elevator:# this makes the scene still useable on its own
 			Global.elevator.control(control_arms)
 
 func _on_area_2d_body_entered(body):
 	if body.name == "player":
-		
 		collided=true
 
 

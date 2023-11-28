@@ -9,6 +9,8 @@ extends CharacterBody2D
 @export var pushForce=80.0 #relevant when colliding with other rigidbodies
 
 
+var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -64,18 +66,21 @@ func _climb(direction):
 
 			
 func _physics_process(delta):
-	#direction is used to flip animations accordingly
-	var direction = Input.get_axis("left", "right")
-	if not climbing and not is_on_floor():
-		_fall(direction,delta)
-		set_collision_mask_value(5,true)
-	elif climbing:
-		_climb(direction)
-		set_collision_mask_value(5,false)#allows player to pass through floor when climbing
-	if not climbing:
-		set_collision_mask_value(5,true)
-	_jump(direction)
-	_move(direction)
-	move_and_slide()
-	_collide_with_rigidbodies()
-	
+	if Global.elevator:
+		controlPlayer=!Global.elevator.controlArms#control player when not controlling arms
+	if controlPlayer:	
+		#direction is used to flip animations accordingly
+		var direction = Input.get_axis("left", "right")
+		if not climbing and not is_on_floor():
+			_fall(direction,delta)
+			set_collision_mask_value(5,true)
+		elif climbing:
+			_climb(direction)
+			set_collision_mask_value(5,false)#allows player to pass through floor when climbing
+		if not climbing:
+			set_collision_mask_value(5,true)
+		_jump(direction)
+		_move(direction)
+		move_and_slide()
+		_collide_with_rigidbodies()
+		
