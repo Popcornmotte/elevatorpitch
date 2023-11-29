@@ -12,6 +12,7 @@ var speed = 0.0
 @export var moving:bool=true
 @onready var targets = $Arms/Targets
 @export var fuel = 100.0
+@onready var brake=$interior/Brake
 
 func _enter_tree():
 	Global.elevator = self
@@ -55,6 +56,7 @@ func decrease_fuel(delta):
 	fuel -= delta
 	if fuel<=0:
 		moving=false#stop elevator when there is no fuel available
+		brake._use_brake(false)#set brake to turned off position
 	else:
 		moving=true
 	update_fuel()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=22 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Script" path="res://Scripts/interior.gd" id="1_am2or"]
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/fuel.tscn" id="7_p0a0g"]
 [ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="8_5pu4c"]
 [ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="9_lvdt6"]
+[ext_resource type="PackedScene" uid="uid://c30yxwkogsbvo" path="res://Scenes/Objects/brake.tscn" id="11_ga7e1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
 size = Vector2(160, 8)
@@ -266,5 +267,5 @@ position = Vector2(0, -52)
 z_index = 2
 texture = ExtResource("5_wfh41")
 
-[node name="DropZoneLeft" parent="." instance=ExtResource("7_bsp3f")]
-position = Vector2(-64, -39)
+[node name="Brake" parent="." instance=ExtResource("11_ga7e1")]
+position = Vector2(-72, 16)
