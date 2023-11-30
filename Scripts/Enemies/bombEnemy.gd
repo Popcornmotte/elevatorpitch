@@ -19,11 +19,15 @@ func chooseTarget():
 	target = elevatorPos + Vector2(randi_range(50,90),randi_range(-90,90))
 
 func grab(clawA):
-	print("Bomb grabbed")
 	explode()
 
 func release(linVel):
 	pass
+
+#make sure to set collision mask and layer in a way
+#that only elevator parts are registered
+func onTriggerAreaEnter(other):
+	explode()
 
 func explode():
 	var newExplosion = explosion.instantiate()

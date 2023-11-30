@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://1vnguekgscoy"]
+[gd_scene load_steps=39 format=3 uid="uid://1vnguekgscoy"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/bombEnemy.gd" id="1_2kgrk"]
 [ext_resource type="Texture2D" uid="uid://cfr4ycsmcfwck" path="res://Assets/Sprites/Enemies/low_bomb_body.png" id="1_66s51"]
@@ -230,9 +230,13 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8juo"]
 radius = 22.0227
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d7o1y"]
+radius = 47.0
+height = 130.0
+
 [node name="low_bomb" type="RigidBody2D"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 6
+collision_mask = 6
 mass = 50.0
 gravity_scale = 0.0
 script = ExtResource("1_2kgrk")
@@ -265,3 +269,14 @@ texture = ExtResource("2_a2udm")
 position = Vector2(0, 31)
 node_a = NodePath("..")
 node_b = NodePath("../RigidBody2D")
+
+[node name="Trigger" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 257
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+position = Vector2(0, -6)
+shape = SubResource("CapsuleShape2D_d7o1y")
+
+[connection signal="area_entered" from="Trigger" to="." method="onTriggerAreaEnter"]
+[connection signal="body_entered" from="Trigger" to="." method="onTriggerAreaEnter"]

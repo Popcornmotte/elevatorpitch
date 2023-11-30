@@ -10,6 +10,9 @@ func _ready():
 func grab(clawA):
 	parent.defuse()
 	pass
+	
+func release(linVel):
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
