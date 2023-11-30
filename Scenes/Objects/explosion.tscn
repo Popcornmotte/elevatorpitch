@@ -1,0 +1,143 @@
+[gd_scene load_steps=21 format=3 uid="uid://drqhn1ji1guos"]
+
+[ext_resource type="Script" path="res://Scripts/Explosion.gd" id="1_2f0cv"]
+[ext_resource type="Texture2D" uid="uid://b52a0rdtlm7jx" path="res://Assets/Sprites/explosion.png" id="1_m2v27"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f5b74"]
+radius = 84.0536
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pdw1"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5c0td"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6unwk"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dlgq"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxs2l"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uffi"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0d4n"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_so0yf"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cquli"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i42a0"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 288, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqome"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yytr5"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unjlg"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tw18v"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhxbk"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 448, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unn27"]
+atlas = ExtResource("1_m2v27")
+region = Rect2(0, 480, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4un81"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pdw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5c0td")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6unwk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dlgq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxs2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0uffi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0d4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_so0yf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cquli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i42a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqome")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yytr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unjlg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tw18v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhxbk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unn27")
+}],
+"loop": false,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="explosion" type="Area2D"]
+collision_layer = 0
+collision_mask = 260
+script = ExtResource("1_2f0cv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_f5b74")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_4un81")
+autoplay = "default"
+frame = 4
+
+[connection signal="area_entered" from="." to="." method="onAreaEntered"]
