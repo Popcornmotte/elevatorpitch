@@ -9,27 +9,27 @@ func _ready():
 	pass # Replace with function body.
 
 
-func _connect():
+func attach():
 	#make sure player does not collide with dragged fuel
 	set_collision_layer_value(5,false)
 	gravity_scale=0#otherwise we bang onto the floor when disconnecting
 	connected=true
 		
-func _disconnect():
+func disattach():
 	#undo connection
 	set_collision_layer_value(1,true)
 	gravity_scale=1
 	connected=false
 # this function ensures that the object has to interacted with in its range 
-func _manage_connection():
+func manageConnection():
 	if not connected and collided and Input.is_action_just_pressed("interact"):
-		_connect()
+		attach()
 	elif connected and Input.is_action_just_pressed("interact"):
-		_disconnect()
+		disattach()
 
 
 func _process(delta):
-	_manage_connection()
+	manageConnection()
 	if connected:
 		global_position=global_position.lerp(lerpTarget.global_position,delta*lerpSpeed)
 
