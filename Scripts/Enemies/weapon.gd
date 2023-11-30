@@ -14,11 +14,18 @@ class_name Weapon
 @export var weaponSound : AudioStream
 @export var projectileSpeed : float
 @export var weaponNozzle : Node2D
-
+@onready var colShapePosX = $MeleeArea/CollisionShape2D.position.x
 #is elevator in melee range?
 var elevatorBodyInRange : bool
 #trajectory for ranged attacks
 var trajectory : Vector2
+
+func flipH(arg : bool):
+	$Sprite.flip_h = arg
+	if arg:
+		$MeleeArea/CollisionShape2D.position.x = -colShapePosX
+	else:
+		$MeleeArea/CollisionShape2D.position.x = colShapePosX
 
 func fire(trajectory):
 	var projectileInstance = projectile.instantiate()

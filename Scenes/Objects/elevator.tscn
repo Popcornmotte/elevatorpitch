@@ -511,7 +511,7 @@ acceleration = 500.0
 position = Vector2(96, 0)
 collision_layer = 2
 collision_mask = 2
-mass = 50.0
+mass = 40.0
 gravity_scale = 0.0
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Arms/PhysicalArmRight/UpperArm"]
@@ -544,7 +544,7 @@ polygon = PackedVector2Array(138.375, 10.125, 137, -3.00002, -6.00001, -2.99998,
 position = Vector2(146, 0)
 collision_layer = 4
 collision_mask = 4
-mass = 50.0
+mass = 40.0
 gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm"]
@@ -612,7 +612,7 @@ left = true
 position = Vector2(96, -1.67852e-05)
 collision_layer = 2
 collision_mask = 2
-mass = 50.0
+mass = 40.0
 gravity_scale = 0.0
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Arms/PhysicalArmLeft/UpperArm"]
@@ -644,7 +644,7 @@ polygon = PackedVector2Array(138.375, 10.125, 137, -3.00002, -6.00001, -2.99998,
 position = Vector2(146, 0)
 collision_layer = 4
 collision_mask = 4
-mass = 50.0
+mass = 40.0
 gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm"]
@@ -799,7 +799,7 @@ z_index = 1
 position = Vector2(-96, 40)
 texture = ExtResource("7_xkf6p")
 script = ExtResource("9_3heke")
-TargetGear = NodePath("../../Arms/PhysicalArmRight/UpperArm")
+TargetGear = NodePath("../../Arms/PhysicalArmLeft/UpperArm")
 
 [node name="EffectGearLeft1" type="Sprite2D" parent="VisualEffects" node_paths=PackedStringArray("TargetGear")]
 z_index = 1

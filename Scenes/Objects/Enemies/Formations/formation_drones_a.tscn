@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cn1eajleb7fjn"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/Formation.gd" id="1_ywx1b"]
+[ext_resource type="PackedScene" uid="uid://ddahiyydcisjm" path="res://Scenes/Objects/Enemies/drone_saw.tscn" id="2_swcv4"]
+[ext_resource type="PackedScene" uid="uid://deu8xdoktbmf1" path="res://Scenes/Objects/Enemies/drone_rifle.tscn" id="3_flebm"]
+
+[node name="FormationDronesA" type="Node2D"]
+script = ExtResource("1_ywx1b")
+
+[node name="DroneSaw" parent="." instance=ExtResource("2_swcv4")]
+position = Vector2(0, -128)
+
+[node name="DroneSaw2" parent="." instance=ExtResource("2_swcv4")]
+position = Vector2(0, 128)
+
+[node name="DroneRifle" parent="." instance=ExtResource("3_flebm")]
