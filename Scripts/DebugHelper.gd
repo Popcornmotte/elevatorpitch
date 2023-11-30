@@ -12,5 +12,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("Debug"):
+		print("Adding shit to Inventory")
 		Global.addToInventory(Item.new(Item.TYPE.Cargo))
+		Global.listInventory()
 	pass

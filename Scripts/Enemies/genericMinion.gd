@@ -17,7 +17,7 @@ const isEnemyEntity = true
 #if debug mode enabled, draw target positions
 @export var DebugMode = false
 
-enum STATE {Attacking, Repositioning}
+enum STATE {Attacking, Repositioning, Fleeing}
 var state = STATE.Attacking
 
 var dead = false
@@ -53,8 +53,10 @@ func chooseTarget():
 	if(DebugMode && dbm != null):
 		dbm.queue_free()
 	if(global_position.x < Global.elevator.global_position.x):
+		#Left of elevator
 		approachDir = -1
 	else:
+		#Right of elevator
 		approachDir = 1
 	#ranged enemies should (for now) find a spot roughly in grabbing range and
 	#start shooting from there
@@ -68,14 +70,19 @@ func chooseTarget():
 				target = elevatorPos + approachDir*Vector2(randi_range(50,90),randi_range(-90,90))
 			STATE.Repositioning:
 				target = elevatorPos + approachDir*Vector2(randi_range(200,340),randi_range(-200,200))
+			STATE.Fleeing:
+				target = elevatorPos + approachDir*Vector2(2000, randi_range(-500,500))
+				
 	
 	if (target.x > global_position.x ):
-		$BalloonSprite.flip_h = 1
-		$BodySprite.flip_h = 1
+		if (!popped):
+			$BalloonSprite.flip_h = 1
+			$BodySprite.flip_h = 1
 		weapon.flipH(1)
 	else:
-		$BalloonSprite.flip_h = 0
-		$BodySprite.flip_h = 0
+		if (!popped):
+			$BalloonSprite.flip_h = 0
+			$BodySprite.flip_h = 0
 		weapon.flipH(0)
 
 
@@ -109,8 +116,19 @@ func release(linVel):
 	gravity_scale = 1
 
 func stealCargo():
+	#print("Stealing!")
 	if(Global.checkForCargo()):
-		loot = Global.takeFromInventory(Item.TYPE.Cargo).getObjectInstance()
+		#print("Cargo in inventory!")
+		var lootPath = Global.takeFromInventory(Item.TYPE.Cargo).getObjectInstance()
+		loot = load(lootPath).instantiate()
+		if (loot != null):
+			#loot.global_position = global_position
+			loot.position = Vector2(0,32)
+			self.add_child(loot)
+			state = STATE.Fleeing
+			chooseTarget()
+			return
+		#print("loot is null!! what? lets print it: "+str(loot))
 
 func move(delta) -> bool:
 #	if(global_position.x <= Global.elevator.global_position.x):
@@ -170,12 +188,12 @@ func _process(delta):
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	if popped:
+	if popped || loot!=null:
 		$DeathTimer.start()
 	pass # Replace with function body.
 
 
-func _on_timer_timeout():
+func _on_death_timer_timeout():
 	if(dbm != null):
 		dbm.queue_free()
 	queue_free()
@@ -183,7 +201,8 @@ func _on_timer_timeout():
 
 #AttackTimer needs to be OneShot = true!
 func _on_attack_timer_timeout():
-	state = STATE.Repositioning
+	if state != STATE.Fleeing:
+		state = STATE.Repositioning
 	chooseTarget()
 	pass # Replace with function body.
 

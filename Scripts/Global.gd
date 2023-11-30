@@ -17,13 +17,15 @@ func addToInventory(item : Item) -> bool:
 		return true
 	else:
 		return false
-
 func takeFromInventory(type : Item.TYPE):
 	for i in inventory.size():
 		if inventory[i].type == type:
 			return inventory.pop_at(i)
 	return null
-
+func listInventory():
+	print("Listing Inventory:")
+	for item in inventory:
+		print(str(item)) 
 #for letting enemies efficiently check for Cargo to steal
 func checkForCargo() -> bool:
 	return (inventory.any(func(item : Item): return(item.type == Item.TYPE.Cargo)))

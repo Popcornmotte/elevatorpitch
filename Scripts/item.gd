@@ -4,13 +4,10 @@ class_name Item
 
 enum TYPE {Fuel, Ammo, Scrap, Cargo, Luggage}
 @export var type : TYPE
-var itemObject
+var objectPath
 # Called when the node enters the scene tree for the first time.
 func _init(typeArg : TYPE):
 	type = typeArg
-
-func _ready():
-	var objectPath : String
 	match type:
 		TYPE.Cargo:
 			objectPath = "res://Scenes/Objects/Items/crate.tscn"
@@ -22,15 +19,14 @@ func _ready():
 			pass
 		TYPE.Luggage:
 			pass
-	
-	itemObject = load(objectPath)
+
 
 func checkType(checkedType : TYPE) -> bool:
 	return (type == checkedType)
 
 func getObjectInstance():
-	if itemObject != null:
-		return itemObject.instantiate()
+	if objectPath != null:
+		return objectPath
 	else:
 		printerr("Item: trying to instantiate an item for which no reference object exists in class Item")
 		return null
