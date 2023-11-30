@@ -32,7 +32,7 @@ func _process(delta):
 	if grabbing:
 		grabbable.rotation = rotation
 	
-	if Input.is_action_pressed("Grab"):
+	if Input.is_action_pressed("Grab") or aboutToFling or flinging:
 		$ClawSprite.play("close")
 	else:
 		$ClawSprite.play("open")
