@@ -18,7 +18,7 @@ weaponSound = ExtResource("3_i6yp5")
 projectileSpeed = 1000.0
 weaponNozzle = NodePath("Nozzle")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("3_jylbf")
 
 [node name="MeleeArea" type="Area2D" parent="."]

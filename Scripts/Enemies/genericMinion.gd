@@ -2,9 +2,12 @@ extends RigidBody2D
 
 const POP = preload("res://Assets/Audio/sfx/pop.wav")
 const THUD = preload("res://Assets/Audio/sfx/metal_thud.wav")
+const isEnemyEntity = true
 
 @export var hitPoints = 100.0
 @export var rangedBehavior = false
+@export var attacksStealCargo = false
+@export var stealChancePercent = 25
 @export var weapon : Weapon
 @export var maxSpeed = 50
 @export var balloon : Node2D
@@ -24,8 +27,10 @@ var clawArea : Node2D
 var speed : float
 var reload = 0.0
 var target : Vector2
-
-
+#possible stolen loot to take away
+var loot
+#Factor to compensate target finding for from which side enemy attacks from
+var approachDir = 1
 
 var elevatorPos : Vector2
 #debug marker
@@ -47,6 +52,10 @@ func _ready():
 func chooseTarget():
 	if(DebugMode && dbm != null):
 		dbm.queue_free()
+	if(global_position.x < Global.elevator.global_position.x):
+		approachDir = -1
+	else:
+		approachDir = 1
 	#ranged enemies should (for now) find a spot roughly in grabbing range and
 	#start shooting from there
 	if rangedBehavior:
@@ -56,9 +65,19 @@ func chooseTarget():
 	else:
 		match state:
 			STATE.Attacking:
-				target = elevatorPos + Vector2(randi_range(50,90),randi_range(-90,90))
+				target = elevatorPos + approachDir*Vector2(randi_range(50,90),randi_range(-90,90))
 			STATE.Repositioning:
-				target = elevatorPos + Vector2(randi_range(200,340),randi_range(-200,200))
+				target = elevatorPos + approachDir*Vector2(randi_range(200,340),randi_range(-200,200))
+	
+	if (target.x > global_position.x ):
+		$BalloonSprite.flip_h = 1
+		$BodySprite.flip_h = 1
+		weapon.flipH(1)
+	else:
+		$BalloonSprite.flip_h = 0
+		$BodySprite.flip_h = 0
+		weapon.flipH(0)
+
 
 #called by the claw when grabbed. Will effectivly destory this minion
 #so it can be used as a throwable
@@ -88,6 +107,10 @@ func release(linVel):
 	set_collision_layer_value(1,true)
 	set_collision_mask_value(1,true)
 	gravity_scale = 1
+
+func stealCargo():
+	if(Global.checkForCargo()):
+		loot = Global.takeFromInventory(Item.TYPE.Cargo).getObjectInstance()
 
 func move(delta) -> bool:
 #	if(global_position.x <= Global.elevator.global_position.x):
@@ -138,6 +161,9 @@ func _process(delta):
 			if (reload<=0):
 				Global.elevator.takeDamage(weapon.damage)
 				Audio.playSfx(weapon.weaponSound)
+				if(attacksStealCargo):
+					if(randi()%100 <= stealChancePercent):
+						stealCargo()
 				reload = weapon.reloadTime
 		
 
@@ -168,7 +194,7 @@ func _on_body_entered(body):
 	if(body.is_class("RigidBody2D")):
 		#print("collision with speed: "+str(body.linear_velocity.length()))
 		if (body.linear_velocity - linear_velocity).length() > 500.0:
-			hitPoints -= 0.01 * body.mass * body.linear_velocity.length()
+			hitPoints -= 5 * body.mass #* 0.01 * body.linear_velocity.length()
 			#print("damage produced: "+str(0.1 * body.mass * body.linear_velocity.length()))
 			Audio.playSfx(THUD)
 	pass # Replace with function body.

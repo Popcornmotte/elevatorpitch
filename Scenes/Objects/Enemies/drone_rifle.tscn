@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://deu8xdoktbmf1"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/genericMinion.gd" id="1_17wnk"]
-[ext_resource type="SpriteFrames" uid="uid://clim10dmlujcb" path="res://Assets/Sprites/Enemies/low_drone_balloon_sprite_animated.tres" id="2_mavoi"]
-[ext_resource type="SpriteFrames" uid="uid://e8aand81ah3n" path="res://Assets/Sprites/Enemies/low_drone_body_sprite_animated.tres" id="3_nvffd"]
+[ext_resource type="SpriteFrames" uid="uid://ctde04p8vpcuk" path="res://Assets/Sprites/Enemies/drone_balloon.tres" id="2_0fdhy"]
+[ext_resource type="SpriteFrames" uid="uid://dxwh5jf65mxri" path="res://Assets/Sprites/Enemies/drone_body.tres" id="3_2tint"]
 [ext_resource type="PackedScene" uid="uid://cqt125igrje6t" path="res://Scenes/Objects/Enemies/weapons/rifle.tscn" id="4_s7o0v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3d6d3"]
@@ -22,14 +22,19 @@ max_contacts_reported = 10
 contact_monitor = true
 angular_damp = 2.0
 script = ExtResource("1_17wnk")
+hitPoints = null
 rangedBehavior = true
+attacksStealCargo = null
 weapon = NodePath("WeaponMount/Rifle")
+maxSpeed = null
 balloon = NodePath("BalloonSprite")
 balloonShape = NodePath("BalloonShape")
+despawnOnScreenExitTimer = null
+attacksPerTurn = null
+DebugMode = null
 
 [node name="BalloonSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(-15, 0)
-sprite_frames = ExtResource("2_mavoi")
+sprite_frames = ExtResource("2_0fdhy")
 autoplay = "default"
 
 [node name="BalloonShape" type="CollisionShape2D" parent="."]
@@ -38,8 +43,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3d6d3")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(-15, 0)
-sprite_frames = ExtResource("3_nvffd")
+sprite_frames = ExtResource("3_2tint")
 autoplay = "default"
 
 [node name="BodyShape" type="CollisionShape2D" parent="."]

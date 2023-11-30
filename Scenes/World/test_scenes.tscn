@@ -18,14 +18,44 @@ position = Vector2(603, 349)
 
 [node name="DroneSaw" parent="." instance=ExtResource("4_v5r71")]
 position = Vector2(152, 96)
+hitPoints = null
+rangedBehavior = null
+attacksStealCargo = null
+despawnOnScreenExitTimer = null
+attacksPerTurn = null
+DebugMode = null
 
 [node name="DroneSaw2" parent="." instance=ExtResource("4_v5r71")]
+hitPoints = null
+rangedBehavior = null
+attacksStealCargo = null
+despawnOnScreenExitTimer = null
+attacksPerTurn = null
+DebugMode = null
 
 [node name="DroneRifle" parent="." instance=ExtResource("5_egygk")]
 position = Vector2(1728, 152)
+hitPoints = null
+attacksStealCargo = null
+maxSpeed = null
+despawnOnScreenExitTimer = null
+attacksPerTurn = null
+DebugMode = null
 
 [node name="DroneSaw3" parent="." instance=ExtResource("4_v5r71")]
 position = Vector2(2064, 904)
+hitPoints = null
+rangedBehavior = null
+attacksStealCargo = null
+despawnOnScreenExitTimer = null
+attacksPerTurn = null
+DebugMode = null
 
 [node name="DroneSaw4" parent="." instance=ExtResource("4_v5r71")]
 position = Vector2(2304, 160)
+hitPoints = null
+rangedBehavior = null
+attacksStealCargo = null
+despawnOnScreenExitTimer = null
+attacksPerTurn = null
+DebugMode = null
