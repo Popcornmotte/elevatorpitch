@@ -2,6 +2,7 @@ extends RigidBody2D
 
 const POP = preload("res://Assets/Audio/sfx/pop.wav")
 const THUD = preload("res://Assets/Audio/sfx/metal_thud.wav")
+const IDK = preload("res://Assets/Audio/sfx/frenchBot.wav")
 const isEnemyEntity = true
 
 @export var hitPoints = 100.0
@@ -126,6 +127,7 @@ func stealCargo():
 			loot.position = Vector2(0,32)
 			self.add_child(loot)
 			state = STATE.Fleeing
+			Audio.playSfx(IDK)
 			chooseTarget()
 			return
 		#print("loot is null!! what? lets print it: "+str(loot))

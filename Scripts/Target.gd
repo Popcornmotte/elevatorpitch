@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var restingPosition : Node2D
 @export var rightTarget = true
-@export var claw : Claw
+@export var claw : Node
 
 var SPEED = 10.0
 var LERP_WEIGHT = 0.05
