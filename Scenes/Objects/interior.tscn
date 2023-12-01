@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=24 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Script" path="res://Scripts/interior.gd" id="1_am2or"]
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="8_5pu4c"]
 [ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="9_lvdt6"]
 [ext_resource type="PackedScene" uid="uid://c30yxwkogsbvo" path="res://Scenes/Objects/brake.tscn" id="11_ga7e1"]
+[ext_resource type="PackedScene" uid="uid://bwyeht2pc0nal" path="res://Scenes/Objects/fuel_button.tscn" id="11_qb8x6"]
+[ext_resource type="Texture2D" uid="uid://bi5lwh40poc7w" path="res://Assets/Sprites/InteriorObjects/drop_funnel.png" id="12_xxbrh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
 size = Vector2(160, 8)
@@ -269,3 +271,11 @@ texture = ExtResource("5_wfh41")
 
 [node name="Brake" parent="." instance=ExtResource("11_ga7e1")]
 position = Vector2(-72, 16)
+
+[node name="FuelButton" parent="." instance=ExtResource("11_qb8x6")]
+position = Vector2(24, 80)
+
+[node name="DropFunnel" type="Node2D" parent="."]
+
+[node name="DropFunnel" type="Sprite2D" parent="DropFunnel"]
+texture = ExtResource("12_xxbrh")

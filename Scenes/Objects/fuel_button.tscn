@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwyeht2pc0nal"]
+
+[ext_resource type="Script" path="res://Scripts/fuel_button.gd" id="1_emoe7"]
+[ext_resource type="Texture2D" uid="uid://bptrvystx0acp" path="res://Assets/Sprites/InteriorObjects/fuel_button.png" id="1_xdeol"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p1g5l"]
+
+[node name="FuelButton" type="Node2D"]
+script = ExtResource("1_emoe7")
+
+[node name="FuelButtonSprite" type="Sprite2D" parent="."]
+position = Vector2(-18, -81)
+texture = ExtResource("1_xdeol")
+
+[node name="FuelButtonArea" type="Area2D" parent="."]
+collision_layer = 48
+collision_mask = 16
+
+[node name="FuelButtonCollision" type="CollisionShape2D" parent="FuelButtonArea"]
+shape = SubResource("CircleShape2D_p1g5l")
+
+[connection signal="body_entered" from="FuelButtonArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="FuelButtonArea" to="." method="_on_area_2d_body_exited"]
