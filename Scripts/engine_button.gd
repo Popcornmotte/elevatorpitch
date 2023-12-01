@@ -4,7 +4,7 @@ extends "res://Scripts/generic_interactable.gd"
 @onready var dropeZoneRight=get_node("../DropZoneRight")
 var newFuel=0
 
-func _interact():
+func interact():
 	newFuel=dropeZoneRight._return_fuel_count()
 	dropeZoneRight._remove_fuel()
 	if Global.elevator:#make sure that elevator exists, so that the interior scene can still be used for debugging

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="5_1gr0d"]
 [ext_resource type="PackedScene" uid="uid://deu8xdoktbmf1" path="res://Scenes/Objects/Enemies/drone_rifle.tscn" id="5_hgyyi"]
 [ext_resource type="PackedScene" uid="uid://crasjrxhhrova" path="res://Scenes/Objects/debug_helper.tscn" id="6_8bdl6"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/Enemies/low_bomb.tscn" id="7_2qsv8"]
+[ext_resource type="PackedScene" uid="uid://1vnguekgscoy" path="res://Scenes/Objects/Enemies/low_bomb.tscn" id="7_2qsv8"]
 
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")

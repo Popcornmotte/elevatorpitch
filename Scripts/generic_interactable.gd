@@ -6,14 +6,14 @@ extends Node2D
 var collided=false
 
 
-func _interact():
+func interact():
 	pass
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if collided and Input.is_action_just_pressed("interact"):
 		print("interact")# here the .use function of the corresponding object should be called
-		_interact()
+		interact()
 
 func _on_area_2d_body_entered(body):
 	if body.name == "player":
