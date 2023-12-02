@@ -46,6 +46,7 @@ func pick_up_object(typeArg : Item.TYPE):
 	if carrying:#in case the player is already holdign something, nothing else should be picked up
 		return false
 	if typeArg==Item.TYPE.Fuel:
+		print("turn on sprite")
 		fuelSprite.visible=true
 		carryType=Item.TYPE.Fuel
 	if typeArg==Item.TYPE.Scrap:
@@ -125,6 +126,8 @@ func _physics_process(delta):
 		move(direction)
 		move_and_slide()
 		collide_with_rigidbodies()
+		
+func _process(delta):
 		if Input.is_action_just_pressed("interact") and carrying:
 			drop_object()
 		

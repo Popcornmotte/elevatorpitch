@@ -1,6 +1,5 @@
+
 extends "res://Scripts/generic_interactable.gd"
-
-
 @onready var dropeZoneRight=get_node("../DropZoneRight")
 var newFuel=0
 
@@ -10,8 +9,3 @@ func interact():
 	if Global.elevator:#make sure that elevator exists, so that the interior scene can still be used for debugging
 		Global.elevator.fuel+=newFuel
 		print("Updated fuel: ",Global.elevator.fuel)
-		
-
-
-
-
