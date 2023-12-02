@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cyf4pi32ibgkc"]
+
+[ext_resource type="Shader" path="res://Shader/crt_shader.gdshader" id="1_neu3g"]
+
+[resource]
+shader = ExtResource("1_neu3g")
+shader_parameter/screen_size = Vector2(1280, 720)
+shader_parameter/show_curvature = true
+shader_parameter/curvature_x_amount = 6.0
+shader_parameter/curvature_y_amount = 4.0
+shader_parameter/corner_color = Color(0, 0, 0, 0)
+shader_parameter/show_vignette = true
+shader_parameter/vignette_opacity = 0.2
+shader_parameter/show_horizontal_scan_lines = true
+shader_parameter/horizontal_scan_lines_amount = 280.0
+shader_parameter/horizontal_scan_lines_opacity = 0.4
+shader_parameter/show_vertical_scan_lines = false
+shader_parameter/vertical_scan_lines_amount = 320.0
+shader_parameter/vertical_scan_lines_opacity = 1.0
+shader_parameter/boost = 1.2
+shader_parameter/aberration_amount = 1.08
