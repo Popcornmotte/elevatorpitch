@@ -1,6 +1,5 @@
-[gd_scene load_steps=25 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=24 format=3 uid="uid://dhy7o2g76nxox"]
 
-[ext_resource type="Script" path="res://Scripts/interior.gd" id="1_am2or"]
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
@@ -52,7 +51,6 @@ radius = 1.94263
 height = 16.4922
 
 [node name="interior" type="Node2D"]
-script = ExtResource("1_am2or")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(-1, 0)
@@ -283,3 +281,6 @@ texture = ExtResource("12_xxbrh")
 
 [node name="player" parent="." instance=ExtResource("13_1wjlu")]
 position = Vector2(-56, 56)
+speed = 200.0
+climbSpeed = 100.0
+jumpVelocity = -300.0

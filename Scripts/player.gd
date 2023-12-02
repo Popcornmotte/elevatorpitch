@@ -15,7 +15,7 @@ const FUEL=preload("res://Scenes/Objects/fuel.tscn")
 var carrying=false
 var carryPos=Vector2(8,1)
 var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
-var carryType:Item.TYPE
+var carryType= Item.TYPE.Fuel
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -43,7 +43,7 @@ func collide_with_rigidbodies():
 			c.get_collider().apply_central_impulse(-c.get_normal()*pushForce)
 
 func pick_up_object(typeArg : Item.TYPE):
-	if carrying:#in case the player is already holdign something, nothing else should be picked up
+	if carrying:#in case the player is already holding something, nothing else should be picked up
 		return false
 	if typeArg==Item.TYPE.Fuel:
 		print("turn on sprite")
@@ -101,7 +101,9 @@ func climb(direction):
 		if carryType==Item.TYPE.Scrap:
 			scrapSprite.visible=false
 		
-
+func _process(delta):
+	if  carrying and Input.is_action_just_pressed("interact"):
+		drop_object()
 			
 func _physics_process(delta):
 	if Global.elevator:
@@ -127,7 +129,5 @@ func _physics_process(delta):
 		move_and_slide()
 		collide_with_rigidbodies()
 		
-func _process(delta):
-		if Input.is_action_just_pressed("interact") and carrying:
-			drop_object()
+
 		

@@ -214,7 +214,6 @@ editor_draw_limits = true
 
 [node name="FuelSprite" type="Sprite2D" parent="."]
 visible = false
-z_index = 4
 position = Vector2(8, 0)
 texture = ExtResource("7_l87e4")
 
