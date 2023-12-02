@@ -37,25 +37,25 @@ horizontal_alignment = 1
 visible = false
 layout_mode = 2
 
-[node name="Header" type="HBoxContainer" parent="Monitor/Terminal/Contracts"]
+[node name="ContractsHeader" type="HBoxContainer" parent="Monitor/Terminal/Contracts"]
 layout_mode = 2
 
-[node name="MenuName" type="Label" parent="Monitor/Terminal/Contracts/Header"]
+[node name="MenuName" type="Label" parent="Monitor/Terminal/Contracts/ContractsHeader"]
 layout_mode = 2
 text = "Contracts"
 
-[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Contracts/Header"]
+[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Contracts/ContractsHeader"]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
-[node name="Funds" type="Label" parent="Monitor/Terminal/Contracts/Header"]
+[node name="Funds" type="Label" parent="Monitor/Terminal/Contracts/ContractsHeader"]
 layout_mode = 2
 text = "Funds: 0$"
 
 [node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/Contracts"]
 layout_mode = 2
 
-[node name="ItemList" type="ItemList" parent="Monitor/Terminal/Contracts"]
+[node name="ContractItemList" type="ItemList" parent="Monitor/Terminal/Contracts"]
 layout_mode = 2
 auto_height = true
 item_count = 1
@@ -66,7 +66,7 @@ item_0/icon = ExtResource("2_03vra")
 visible = false
 layout_mode = 2
 
-[node name="Header" type="Label" parent="Monitor/Terminal/Elevator"]
+[node name="ElevatorHeader" type="Label" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
 text = "Cargo Capacity: 0/16"
 
@@ -77,15 +77,15 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="decrementButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
+[node name="decrementFuelButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
 layout_mode = 2
 text = " [ - ]  "
 
-[node name="Label" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
+[node name="FuelLabel" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
 layout_mode = 2
 text = "Fuel Units (0)"
 
-[node name="incrementButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
+[node name="incrementFuelButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
 layout_mode = 2
 text = " [ + ] "
 
@@ -93,17 +93,28 @@ text = " [ + ] "
 layout_mode = 2
 alignment = 1
 
-[node name="decrementButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
+[node name="decrementCargoButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
 layout_mode = 2
 text = " [ - ] "
 
-[node name="Label" type="Label" parent="Monitor/Terminal/Elevator/ContractCargo"]
+[node name="CargoLabel" type="Label" parent="Monitor/Terminal/Elevator/ContractCargo"]
 layout_mode = 2
 text = "Contracted Cargo (0)"
 
-[node name="incrementButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
+[node name="incrementCargoButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
 layout_mode = 2
 text = " [ + ] "
+
+[node name="HSeparator2" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+
+[node name="StartButtonHBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="StartButton" type="Button" parent="Monitor/Terminal/Elevator/StartButtonHBox"]
+layout_mode = 2
+text = "[ START ASCENSION ]"
 
 [node name="OffButton" type="TextureButton" parent="Monitor"]
 offset_left = 456.0
@@ -111,3 +122,10 @@ offset_top = 88.0
 offset_right = 496.0
 offset_bottom = 128.0
 texture_normal = ExtResource("3_awf02")
+
+[connection signal="item_clicked" from="Monitor/Terminal/Contracts/ContractItemList" to="." method="_on_contract_item_list_item_clicked"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Fuel/decrementFuelButton" to="." method="_on_decrement_fuel_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Fuel/incrementFuelButton" to="." method="_on_increment_fuel_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/ContractCargo/decrementCargoButton" to="." method="_on_decrement_cargo_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/ContractCargo/incrementCargoButton" to="." method="_on_increment_cargo_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/StartButtonHBox/StartButton" to="." method="_on_start_button_pressed"]
