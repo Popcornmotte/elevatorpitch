@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=3 uid="uid://76relfo52far"]
+
+[ext_resource type="Script" path="res://Scripts/climbEnvironmentVisuals.gd" id="1_s7ll6"]
+[ext_resource type="Shader" uid="uid://caeowpn5l8teu" path="res://Assets/Shaders/Atmosphere.tres" id="1_ty3bg"]
+[ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="2_c11ib"]
+[ext_resource type="Texture2D" uid="uid://dj48sbsrbhnyx" path="res://Assets/Sprites/Environment/cloud0.png" id="2_v032u"]
+[ext_resource type="Texture2D" uid="uid://cxg53vakcb674" path="res://Assets/Sprites/Environment/cloud1.png" id="3_s7v75"]
+[ext_resource type="Texture2D" uid="uid://cf2ktxauq7g8u" path="res://Assets/Sprites/Environment/cloud2.png" id="4_ekote"]
+[ext_resource type="Texture2D" uid="uid://boi60j5kqlgi" path="res://Assets/Sprites/Environment/earth.png" id="5_5gv44"]
+[ext_resource type="Texture2D" uid="uid://tm5n0ilgiy7l" path="res://Assets/Sprites/Environment/stars.png" id="8_gp112"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rg3oo"]
+shader = ExtResource("1_ty3bg")
+shader_parameter/High = Color(0.035294, 0.035294, 0.2, 1)
+shader_parameter/Height = 1.0
+shader_parameter/MaxHeight = 100.0
+shader_parameter/Mid = Color(0.835294, 1, 1, 1)
+shader_parameter/Low = Color(0.317647, 0.568627, 1, 1)
+
+[node name="ClimbEnvironment" type="Node2D" node_paths=PackedStringArray("atmosphere", "parallax")]
+script = ExtResource("1_s7ll6")
+atmosphere = NodePath("FarBackground/Atmosphere")
+parallax = NodePath("ParallaxBackground")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="CloudsLayer0" type="ParallaxLayer" parent="ParallaxBackground" groups=["Clouds"]]
+z_index = 4
+
+[node name="Cloud0" type="Sprite2D" parent="ParallaxBackground/CloudsLayer0"]
+position = Vector2(272, 274)
+scale = Vector2(4, 4)
+texture = ExtResource("2_v032u")
+
+[node name="Cloud1" type="Sprite2D" parent="ParallaxBackground/CloudsLayer0"]
+position = Vector2(1426, 922)
+scale = Vector2(4, 4)
+texture = ExtResource("3_s7v75")
+
+[node name="Cloud2" type="Sprite2D" parent="ParallaxBackground/CloudsLayer0"]
+position = Vector2(665, 1307)
+scale = Vector2(4, 4)
+texture = ExtResource("4_ekote")
+
+[node name="CloudsLayer1" type="ParallaxLayer" parent="ParallaxBackground" groups=["Clouds"]]
+z_index = 2
+motion_scale = Vector2(1, 0.5)
+
+[node name="Cloud3" type="Sprite2D" parent="ParallaxBackground/CloudsLayer1"]
+position = Vector2(1231, 391)
+scale = Vector2(2, 2)
+texture = ExtResource("2_v032u")
+
+[node name="Cloud4" type="Sprite2D" parent="ParallaxBackground/CloudsLayer1"]
+position = Vector2(169, 795)
+scale = Vector2(2, 2)
+texture = ExtResource("3_s7v75")
+
+[node name="Cloud6" type="Sprite2D" parent="ParallaxBackground/CloudsLayer1"]
+position = Vector2(1423, 1614)
+scale = Vector2(2, 2)
+texture = ExtResource("3_s7v75")
+
+[node name="Cloud5" type="Sprite2D" parent="ParallaxBackground/CloudsLayer1"]
+position = Vector2(430, 1090)
+scale = Vector2(2, 2)
+texture = ExtResource("4_ekote")
+
+[node name="EarthLayer" type="ParallaxLayer" parent="ParallaxBackground" groups=["Earth"]]
+z_index = -5
+motion_scale = Vector2(1, 0.063)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/EarthLayer"]
+z_index = -10
+position = Vector2(798, 215)
+scale = Vector2(2, 2)
+texture = ExtResource("5_5gv44")
+
+[node name="FarBackground" type="CanvasLayer" parent="."]
+layer = -128
+
+[node name="Atmosphere" type="Sprite2D" parent="FarBackground"]
+z_index = -250
+material = SubResource("ShaderMaterial_rg3oo")
+position = Vector2(800, 800)
+scale = Vector2(50, 50)
+texture = ExtResource("2_c11ib")
+
+[node name="Stars" type="Sprite2D" parent="FarBackground"]
+z_index = -500
+position = Vector2(800, 600)
+scale = Vector2(2, 2)
+texture = ExtResource("8_gp112")

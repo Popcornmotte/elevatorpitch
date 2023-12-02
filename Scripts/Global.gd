@@ -9,6 +9,7 @@ var elevator : Node2D
 var player : Node2D
 #current Level Scene. since it is different than root
 var level
+var height = 0
 
 var aliveEnemies = 0
 
@@ -33,4 +34,3 @@ func listInventory():
 #for letting enemies efficiently check for Cargo to steal
 func checkForCargo() -> bool:
 	return (inventory.any(func(item : Item): return(item.type == Item.TYPE.Cargo)))
-	
