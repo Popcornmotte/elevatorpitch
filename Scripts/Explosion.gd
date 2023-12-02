@@ -9,3 +9,8 @@ func onAreaEntered(other : Node2D):
 		other.takeDamage(damage * distanceFactor)
 	elif other.get_parent() != null:
 		onAreaEntered(other.get_parent())
+
+
+func _on_animated_sprite_2d_animation_finished():
+	queue_free()
+	pass # Replace with function body.

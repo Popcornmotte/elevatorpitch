@@ -47,7 +47,7 @@ func _ready():
 		$AttackTimer.one_shot = true
 		$AttackTimer.set_wait_time(weapon.reloadTime * attacksPerTurn)  
 	elevatorPos = Global.elevator.global_position
-	chooseTarget()
+	call_deferred("chooseTarget")
 	pass
 
 func chooseTarget():
@@ -63,7 +63,7 @@ func chooseTarget():
 	#start shooting from there
 	if rangedBehavior:
 		target = global_position.direction_to(elevatorPos).normalized()
-		target = global_position + target * global_position.distance_to(elevatorPos)/1.7
+		target = elevatorPos - target * 400
 	#Melee enemies should target a random part on the elevator and move towards that
 	else:
 		match state:
@@ -169,22 +169,23 @@ func _process(delta):
 	
 	move(delta)
 	
-	if rangedBehavior:
-		if global_position.distance_to(target) <= 10:
-			if (reload<=0):
-				weapon.fire(global_position.direction_to(elevatorPos).normalized())
-				reload = weapon.reloadTime
-	else:
-		if(weapon.checkMeleeHit() && state == STATE.Attacking):
-			if $AttackTimer.time_left == 0:
-				$AttackTimer.start()
-			if (reload<=0):
-				Global.elevator.takeDamage(weapon.damage)
-				Audio.playSfx(weapon.weaponSound)
-				if(attacksStealCargo):
-					if(randi()%100 <= stealChancePercent):
-						stealCargo()
-				reload = weapon.reloadTime
+	if !popped:
+		if rangedBehavior:
+			if global_position.distance_to(target) <= 10:
+				if (reload<=0):
+					weapon.fire(global_position.direction_to(elevatorPos).normalized())
+					reload = weapon.reloadTime
+		else:
+			if(weapon.checkMeleeHit() && state == STATE.Attacking):
+				if $AttackTimer.time_left == 0:
+					$AttackTimer.start()
+				if (reload<=0):
+					Global.elevator.takeDamage(weapon.damage)
+					Audio.playSfx(weapon.weaponSound)
+					if(attacksStealCargo):
+						if(randi()%100 <= stealChancePercent):
+							stealCargo()
+					reload = weapon.reloadTime
 		
 
 
@@ -215,7 +216,7 @@ func _on_body_entered(body):
 	if(body.is_class("RigidBody2D")):
 		#print("collision with speed: "+str(body.linear_velocity.length()))
 		if (body.linear_velocity - linear_velocity).length() > 500.0:
-			hitPoints -= 3 * body.mass #* 0.01 * body.linear_velocity.length()
+			hitPoints -= body.mass * (0.01 * body.linear_velocity.length())
 			#print("damage produced: "+str(0.1 * body.mass * body.linear_velocity.length()))
 			Audio.playSfx(THUD)
 	pass # Replace with function body.

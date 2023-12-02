@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://3fhftgbdivqn"]
+[gd_scene load_steps=11 format=3 uid="uid://d3jmw4vk3w2sj"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/low_bomb_engine.gd" id="1_tcr51"]
 [ext_resource type="Texture2D" uid="uid://ddlnyc5rulqhy" path="res://Assets/Sprites/Enemies/low_bomb_engine.png" id="1_y6c6q"]
@@ -62,6 +62,7 @@ script = ExtResource("1_tcr51")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -51)
 shape = SubResource("RectangleShape2D_vx6kt")
+disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -54)

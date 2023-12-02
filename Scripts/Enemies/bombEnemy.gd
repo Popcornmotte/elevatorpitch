@@ -32,13 +32,13 @@ func onTriggerAreaEnter(other):
 func explode():
 	var newExplosion = explosion.instantiate()
 	newExplosion.global_position = global_position
-	get_parent().add_child(newExplosion)
+	get_parent().call_deferred("add_child",newExplosion)
 	
 	var newEngine = engine.instantiate()
 	newEngine.global_position = global_position
-	get_parent().add_child(newEngine)
+	get_parent().call_deferred("add_child",newEngine)
 	
-	queue_free()
+	call_deferred("queue_free")
 	pass
 
 func defuse():

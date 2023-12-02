@@ -15,23 +15,34 @@ class_name Weapon
 @export var projectileSpeed : float
 @export var weaponNozzle : Node2D
 @onready var colShapePosX = $MeleeArea/CollisionShape2D.position.x
+var nozzlePosX
 #is elevator in melee range?
 var elevatorBodyInRange : bool
 #trajectory for ranged attacks
 var trajectory : Vector2
 
+func _ready():
+	if ranged:
+		nozzlePosX = $Nozzle.position.x
+
 func flipH(arg : bool):
 	$Sprite.flip_h = arg
 	if arg:
-		$MeleeArea/CollisionShape2D.position.x = -colShapePosX
+		if ranged:
+			$Nozzle.position.x = -nozzlePosX
+		else:
+			$MeleeArea/CollisionShape2D.position.x = -colShapePosX
 	else:
-		$MeleeArea/CollisionShape2D.position.x = colShapePosX
+		if ranged:
+			$Nozzle.position.x = nozzlePosX
+		else:
+			$MeleeArea/CollisionShape2D.position.x = colShapePosX
 
 func fire(trajectory):
 	var projectileInstance = projectile.instantiate()
 	get_parent().get_parent().get_parent().add_child(projectileInstance)
 	projectileInstance.velocity = get_parent().get_parent().linear_velocity + trajectory * projectileSpeed
-	projectileInstance.position = weaponNozzle.global_position
+	projectileInstance.global_position = weaponNozzle.global_position
 	Audio.playSfx(weaponSound)
 
 func checkMeleeHit() -> bool:
