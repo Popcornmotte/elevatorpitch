@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Elevatorpitch"
 config/description="GamesLab Project"
-run/main_scene="res://Scenes/World/test_scenes.tscn"
+run/main_scene="res://Scenes/UI/base_ui.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
