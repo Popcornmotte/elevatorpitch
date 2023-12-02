@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://c30yxwkogsbvo"]
+
+[ext_resource type="Script" path="res://Scripts/brake.gd" id="1_0mcm2"]
+[ext_resource type="Texture2D" uid="uid://cg0okf7ononrq" path="res://Assets/Sprites/InteriorObjects/turnOff.png" id="1_2wdap"]
+[ext_resource type="Texture2D" uid="uid://cty8or1v5w10j" path="res://Assets/Sprites/InteriorObjects/turnOn.png" id="1_k6p7r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o44x5"]
+atlas = ExtResource("1_2wdap")
+region = Rect2(0, 0, 8, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgrnj"]
+atlas = ExtResource("1_2wdap")
+region = Rect2(8, 0, 8, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryhxj"]
+atlas = ExtResource("1_2wdap")
+region = Rect2(16, 0, 8, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4q05t"]
+atlas = ExtResource("1_k6p7r")
+region = Rect2(0, 0, 8, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkkoy"]
+atlas = ExtResource("1_k6p7r")
+region = Rect2(8, 0, 8, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqx8c"]
+atlas = ExtResource("1_k6p7r")
+region = Rect2(16, 0, 8, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ov0sn"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o44x5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgrnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryhxj")
+}],
+"loop": false,
+"name": &"turn_off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4q05t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkkoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqx8c")
+}],
+"loop": false,
+"name": &"turn_on",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r53wr"]
+radius = 8.0
+height = 32.0
+
+[node name="Brake" type="Node2D"]
+script = ExtResource("1_0mcm2")
+
+[node name="BrakeSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ov0sn")
+animation = &"turn_on"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_r53wr")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

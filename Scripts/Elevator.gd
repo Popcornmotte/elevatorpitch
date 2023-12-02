@@ -2,15 +2,22 @@ extends Node2D
 class_name Elevator
 
 var health = 100
-var fuel = 100.0
+
 var lost = false
 var speed = 0.0
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
+@export var heightMeter : Label
 @export var controlArms:bool #make it accessible whether or not the arms are being controlled
-
+@export var moving:bool=true
+@export var fuelConsumption=10
+@export var fuel = 100.0
+@export var climbingHeight=0
+@export var climbingRate=100
 @onready var targets = $Arms/Targets
+
+@onready var brake=$interior/Brake
 
 func _enter_tree():
 	Global.elevator = self
@@ -19,6 +26,7 @@ func _enter_tree():
 func _ready():
 	$HullBody/AnimationPlayer.play("EngineJiggle")
 	control(controlArms)
+	brake.use_brake(true)
 	pass # Replace with function body.
 
 func control(isControlled : bool):
@@ -50,8 +58,19 @@ func update_health():
 		healthBar.scale = Vector2(health / 100.0, 1)
 	pass
 
+
+func update_height(climbed):
+	climbingHeight+=climbed
+	heightMeter.text= str("Height: ", int(climbingHeight), " m")
 func decrease_fuel(delta):
-	fuel -= delta
+	fuel -= fuelConsumption*delta
+
+	if fuel<=0:
+		moving=false#stop elevator when there is no fuel available
+		brake.use_brake(false)#set brake to turned off position
+	else:
+		update_height(climbingRate*delta)
+		moving=true
 	update_fuel()
 	pass
 

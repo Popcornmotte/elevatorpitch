@@ -283,10 +283,11 @@ radius = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_kdskv"]
 radius = 40.0
 
-[node name="Elevator" type="Node2D" node_paths=PackedStringArray("healthBar", "fuelBar")]
+[node name="Elevator" type="Node2D" node_paths=PackedStringArray("healthBar", "fuelBar", "heightMeter")]
 script = ExtResource("1_gs4x1")
 healthBar = NodePath("HealthBar/Polygon2D")
 fuelBar = NodePath("FuelBar/Polygon2D2")
+heightMeter = NodePath("Heightmeter/Height")
 
 [node name="LegsAndCable" type="Node2D" parent="."]
 
@@ -853,6 +854,24 @@ offset_right = 31.0
 offset_bottom = 27.0
 text = "Fuel"
 scroll_active = false
+
+[node name="Heightmeter" type="Node2D" parent="."]
+position = Vector2(300, 0)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Heightmeter"]
+visible = false
+offset_left = -214.0
+offset_top = -211.0
+offset_right = -99.0
+offset_bottom = -183.0
+text = "Height: 0 m"
+
+[node name="Height" type="Label" parent="Heightmeter"]
+offset_left = -220.0
+offset_top = -216.0
+offset_right = -87.0
+offset_bottom = -193.0
+text = "Height: "
 
 [node name="interior" parent="." instance=ExtResource("6_kqtpx")]
 z_index = 3

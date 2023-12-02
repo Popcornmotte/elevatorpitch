@@ -1,13 +1,17 @@
-[gd_scene load_steps=20 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=24 format=3 uid="uid://dhy7o2g76nxox"]
 
-[ext_resource type="Script" path="res://Scripts/interior.gd" id="1_am2or"]
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
+[ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="5_6ulqt"]
 [ext_resource type="Texture2D" uid="uid://dop4ylnwhqvof" path="res://Assets/Sprites/InteriorObjects/floor.png" id="5_wfh41"]
 [ext_resource type="PackedScene" uid="uid://bkgkwoq7n22lu" path="res://Scenes/Objects/drop_zone.tscn" id="7_bsp3f"]
-[ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/fuel.tscn" id="7_p0a0g"]
+[ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="8_5pu4c"]
 [ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="9_lvdt6"]
+[ext_resource type="PackedScene" uid="uid://c30yxwkogsbvo" path="res://Scenes/Objects/brake.tscn" id="11_ga7e1"]
+[ext_resource type="PackedScene" uid="uid://bwyeht2pc0nal" path="res://Scenes/Objects/fuel_button.tscn" id="11_qb8x6"]
+[ext_resource type="Texture2D" uid="uid://bi5lwh40poc7w" path="res://Assets/Sprites/InteriorObjects/drop_funnel.png" id="12_xxbrh"]
+[ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="13_1wjlu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
 size = Vector2(160, 8)
@@ -47,7 +51,6 @@ radius = 1.94263
 height = 16.4922
 
 [node name="interior" type="Node2D"]
-script = ExtResource("1_am2or")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(-1, 0)
@@ -64,8 +67,8 @@ metadata/_edit_lock_ = true
 
 [node name="Lower" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(0, 96)
-collision_layer = 48
-collision_mask = 16
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Lower"]
@@ -75,7 +78,7 @@ metadata/_edit_lock_ = true
 [node name="Upper" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(0, -93)
 collision_layer = 16
-collision_mask = 16
+collision_mask = 144
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Upper"]
@@ -86,7 +89,7 @@ metadata/_edit_lock_ = true
 [node name="Left" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(-78, 1)
 collision_layer = 16
-collision_mask = 16
+collision_mask = 144
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Left"]
@@ -97,7 +100,7 @@ metadata/_edit_lock_ = true
 [node name="Right" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(79, 0)
 collision_layer = 16
-collision_mask = 16
+collision_mask = 144
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Right"]
@@ -110,8 +113,8 @@ metadata/_edit_lock_ = true
 
 [node name="middle" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(0, 37)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/middle"]
@@ -119,8 +122,8 @@ shape = SubResource("RectangleShape2D_1w0cb")
 metadata/_edit_lock_ = true
 
 [node name="rightLeft" type="StaticBody2D" parent="floor/firstFloor"]
-collision_layer = 48
-collision_mask = 48
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="floor/firstFloor/rightLeft"]
@@ -130,8 +133,8 @@ metadata/_edit_lock_ = true
 
 [node name="rightRight" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(54, 30)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/rightRight"]
@@ -141,8 +144,8 @@ metadata/_edit_lock_ = true
 
 [node name="leftLeft" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-63, 30)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/leftLeft"]
@@ -152,8 +155,8 @@ metadata/_edit_lock_ = true
 [node name="slantedRight" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(17, 37)
 rotation = -0.814402
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedRight"]
 position = Vector2(7.02708, 1.61868)
@@ -162,8 +165,8 @@ shape = SubResource("CapsuleShape2D_lufa8")
 
 [node name="slantedLeft" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-31, 30)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/slantedLeft"]
 position = Vector2(8, 4)
@@ -173,8 +176,8 @@ shape = SubResource("CapsuleShape2D_1s1fl")
 
 [node name="leftRight" type="StaticBody2D" parent="floor/firstFloor"]
 position = Vector2(-39, 30)
-collision_layer = 48
-collision_mask = 48
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/firstFloor/leftRight"]
@@ -186,8 +189,8 @@ metadata/_edit_lock_ = true
 
 [node name="middle" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(0, -38)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/middle"]
@@ -196,8 +199,8 @@ metadata/_edit_lock_ = true
 
 [node name="right" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(54, -34)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/right"]
@@ -206,8 +209,8 @@ metadata/_edit_lock_ = true
 
 [node name="left" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(-54, -34)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 144
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/left"]
@@ -216,8 +219,8 @@ metadata/_edit_lock_ = true
 
 [node name="slantedRight" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(18, -38)
-collision_layer = 16
-collision_mask = 16
+collision_layer = 176
+collision_mask = 176
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedRight"]
 position = Vector2(6, 1)
@@ -225,8 +228,8 @@ rotation = -1.26592
 shape = SubResource("CapsuleShape2D_ecwf1")
 
 [node name="slantedLeft" type="StaticBody2D" parent="floor/secondFloor"]
-collision_layer = 16
-collision_mask = 16
+collision_layer = 176
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedLeft"]
@@ -249,14 +252,35 @@ position = Vector2(-56, 61)
 [node name="Ladder" parent="." instance=ExtResource("3_uk7bk")]
 position = Vector2(40, -3)
 
-[node name="DropZone" parent="." instance=ExtResource("7_bsp3f")]
-position = Vector2(62, -40)
+[node name="DropZoneRight" parent="." instance=ExtResource("7_bsp3f")]
+position = Vector2(63, -39)
 
-[node name="Fuel" parent="." instance=ExtResource("7_p0a0g")]
+[node name="Fuel" parent="." instance=ExtResource("5_6ulqt")]
 position = Vector2(-33, 68)
 
 [node name="ArmStation" parent="." instance=ExtResource("9_lvdt6")]
 position = Vector2(0, 2)
 
+[node name="Engine_button" parent="." instance=ExtResource("8_5pu4c")]
+position = Vector2(0, -52)
+
 [node name="Floor" type="Sprite2D" parent="."]
+z_index = 2
 texture = ExtResource("5_wfh41")
+
+[node name="Brake" parent="." instance=ExtResource("11_ga7e1")]
+position = Vector2(-72, 16)
+
+[node name="FuelButton" parent="." instance=ExtResource("11_qb8x6")]
+position = Vector2(24, 80)
+
+[node name="DropFunnel" type="Node2D" parent="."]
+
+[node name="DropFunnel" type="Sprite2D" parent="DropFunnel"]
+texture = ExtResource("12_xxbrh")
+
+[node name="player" parent="." instance=ExtResource("13_1wjlu")]
+position = Vector2(-56, 56)
+speed = 200.0
+climbSpeed = 100.0
+jumpVelocity = -300.0

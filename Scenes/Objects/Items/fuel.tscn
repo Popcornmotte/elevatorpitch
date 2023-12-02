@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c63a8jhcdui3s"]
+
+[ext_resource type="Script" path="res://Scripts/generic_carryable.gd" id="1_caif4"]
+[ext_resource type="Texture2D" uid="uid://d4fvj3u3xidli" path="res://Assets/Sprites/InteriorObjects/gas_can.png" id="2_ubgkp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1o2j"]
+size = Vector2(16, 12)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cgooh"]
+radius = 16.4924
+
+[node name="Fuel" type="RigidBody2D" groups=["fuel"]]
+z_index = 5
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("1_caif4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ubgkp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visibility_layer = 0
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_a1o2j")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 160
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_cgooh")
+
+[connection signal="body_entered" from="Area2D" to="." method="onAreaEntered"]
+[connection signal="body_exited" from="Area2D" to="." method="onAreaExit"]

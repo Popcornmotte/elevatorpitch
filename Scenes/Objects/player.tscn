@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://xcgdf4cn2vir"]
+[gd_scene load_steps=31 format=3 uid="uid://xcgdf4cn2vir"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_mnd8j"]
 [ext_resource type="Texture2D" uid="uid://cj56gvxbatwq7" path="res://Assets/Sprites/Player/PlayerClimb.png" id="2_lc3sb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://do2f84i2pb0f" path="res://Assets/Sprites/Player/PlayerJump.png" id="3_yio8t"]
 [ext_resource type="Texture2D" uid="uid://cio31es8l47vy" path="res://Assets/Sprites/Player/PlayerWalk.png" id="4_7nvss"]
 [ext_resource type="PackedScene" uid="uid://oq767v1wm581" path="res://Scenes/Objects/camera.tscn" id="6_n3bgt"]
+[ext_resource type="Texture2D" uid="uid://d4fvj3u3xidli" path="res://Assets/Sprites/InteriorObjects/gas_can.png" id="7_l87e4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tucjc"]
 radius = 5.0
@@ -178,6 +179,7 @@ animations = [{
 radius = 36.3456
 
 [node name="player" type="CharacterBody2D" groups=["Climber"]]
+z_index = 1
 collision_layer = 48
 collision_mask = 48
 script = ExtResource("1_mnd8j")
@@ -209,3 +211,11 @@ position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_limits = true
+
+[node name="FuelSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(8, 0)
+texture = ExtResource("7_l87e4")
+
+[node name="ScrapSprite" type="Sprite2D" parent="."]
+visible = false
