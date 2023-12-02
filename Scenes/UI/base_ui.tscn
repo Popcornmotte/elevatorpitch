@@ -1,4 +1,9 @@
-[gd_scene format=3 uid="uid://cdejgb0kj4otg"]
+[gd_scene load_steps=5 format=3 uid="uid://cdejgb0kj4otg"]
+
+[ext_resource type="Texture2D" uid="uid://c1h8twtlpunil" path="res://Assets/Sprites/UI/CRT-Monitor.png" id="1_1c46o"]
+[ext_resource type="Script" path="res://Scripts/contractTerminal.gd" id="1_5xgiu"]
+[ext_resource type="Texture2D" uid="uid://ca5d53iyk42sp" path="res://Assets/Sprites/UI/Contract.png" id="2_03vra"]
+[ext_resource type="Texture2D" uid="uid://e28fa72bwi24" path="res://Assets/Sprites/UI/OnOff.png" id="3_awf02"]
 
 [node name="BaseUI" type="Control"]
 layout_mode = 3
@@ -7,3 +12,102 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5xgiu")
+
+[node name="Monitor" type="Sprite2D" parent="."]
+position = Vector2(656, 424)
+texture = ExtResource("1_1c46o")
+
+[node name="Terminal" type="MarginContainer" parent="Monitor"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -520.0
+offset_top = -296.0
+offset_right = -1640.0
+offset_bottom = -848.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FlashLabel" type="Label" parent="Monitor/Terminal"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Contracts" type="VBoxContainer" parent="Monitor/Terminal"]
+visible = false
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Monitor/Terminal/Contracts"]
+layout_mode = 2
+
+[node name="MenuName" type="Label" parent="Monitor/Terminal/Contracts/Header"]
+layout_mode = 2
+text = "Contracts"
+
+[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Contracts/Header"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="Funds" type="Label" parent="Monitor/Terminal/Contracts/Header"]
+layout_mode = 2
+text = "Funds: 0$"
+
+[node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/Contracts"]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="Monitor/Terminal/Contracts"]
+layout_mode = 2
+auto_height = true
+item_count = 1
+item_0/text = "Open Contract: Deliver Power Converters"
+item_0/icon = ExtResource("2_03vra")
+
+[node name="Elevator" type="VBoxContainer" parent="Monitor/Terminal"]
+visible = false
+layout_mode = 2
+
+[node name="Header" type="Label" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+text = "Cargo Capacity: 0/16"
+
+[node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+
+[node name="Fuel" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="decrementButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
+layout_mode = 2
+text = " [ - ]  "
+
+[node name="Label" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
+layout_mode = 2
+text = "Fuel Units (0)"
+
+[node name="incrementButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
+layout_mode = 2
+text = " [ + ] "
+
+[node name="ContractCargo" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="decrementButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
+layout_mode = 2
+text = " [ - ] "
+
+[node name="Label" type="Label" parent="Monitor/Terminal/Elevator/ContractCargo"]
+layout_mode = 2
+text = "Contracted Cargo (0)"
+
+[node name="incrementButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
+layout_mode = 2
+text = " [ + ] "
+
+[node name="OffButton" type="TextureButton" parent="Monitor"]
+offset_left = 456.0
+offset_top = 88.0
+offset_right = 496.0
+offset_bottom = 128.0
+texture_normal = ExtResource("3_awf02")
