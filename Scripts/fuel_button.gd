@@ -6,7 +6,6 @@ const FUEL=preload("res://Scenes/Objects/fuel.tscn")
 @onready var dropPosition=funnel.position+Vector2(-25,-40)
 
 func interact():
-	print("new fuel")
 	var loadedFuel=FUEL.instantiate()
 	loadedFuel.position=dropPosition
 	if Global.elevator:#make sure that elevator exists, so that the interior scene can still be used for debugging

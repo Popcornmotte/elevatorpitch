@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+const FUEL=preload("res://Scenes/Objects/fuel.tscn")
 
 @export var speed = 200.0
 @export var climbSpeed=100.0
@@ -9,39 +9,67 @@ extends CharacterBody2D
 @export var pushForce=80.0 #relevant when colliding with other rigidbodies
 @export var startZoomedIn = true
 @onready var sprite = get_node("PlayerSprite")
+@onready var fuelSprite=get_node("FuelSprite")
+@onready var scrapSprite=get_node("ScrapSprite")
 
+var carrying=false
+var carryPos=Vector2(8,1)
 var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
-
+var carryType:Item.TYPE
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	$PlayerCam.zoomIn(startZoomedIn)
 
-func _flip_animation(direction):
+func flip_animation(direction):
 	if direction>0:
 		sprite.flip_h=false
+		fuelSprite.position=carryPos
 	else:
 		sprite.flip_h=true
+		fuelSprite.position=carryPos*Vector2(-1,1)
 		
-func _jump(direction):
+func jump(direction):
 	#jumping only allowed when on floor and space bar pressed
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jumpVelocity
 	
 # Function that needs to be called after move and slide to provide collision with rigidbodies
-func _collide_with_rigidbodies():
+func collide_with_rigidbodies():
 	for i in get_slide_collision_count():
 		var c=get_slide_collision(i)
 		if c.get_collider() is RigidBody2D:
 			c.get_collider().apply_central_impulse(-c.get_normal()*pushForce)
+
+func pick_up_object(typeArg : Item.TYPE):
+	if carrying:#in case the player is already holdign something, nothing else should be picked up
+		return false
+	if typeArg==Item.TYPE.Fuel:
+		fuelSprite.visible=true
+		carryType=Item.TYPE.Fuel
+	if typeArg==Item.TYPE.Scrap:
+		scrapSprite.visible=true
+		carryType=Item.TYPE.Scrap
+	carrying=true
+	return true	
+
+func drop_object():
+	if carryType==Item.TYPE.Fuel:
+		fuelSprite.visible=false
+		carrying=false
+		var loadedFuel=FUEL.instantiate()
+		loadedFuel.position=fuelSprite.get_global_position()
+		print("drop object")
+		get_parent().add_child(loadedFuel)
+
 			
-func _move(direction):
+func move(direction):
 	if direction:
 		if is_on_floor():
 			#flip animation if necessary
 			sprite.play("walk")
-			_flip_animation(direction)
+			flip_animation(direction)
 		#allow the player to also move mid jump
 		velocity.x = direction * speed
 	else:
@@ -51,21 +79,26 @@ func _move(direction):
 
 	
 
-func _fall(direction,delta):
+func fall(direction,delta):
 	velocity.y += gravity * delta
 	sprite.play("jump")
-	_flip_animation(direction)
+	flip_animation(direction)
 	#cap falling speed
 	if velocity.y>maxFallingSpeed:
 		velocity.y=maxFallingSpeed
 
-func _climb(direction):
+func climb(direction):
 	velocity.y=0
 	sprite.play("climb")
 	if Input.is_action_pressed("up"):
 		velocity.y=-speed
 	elif Input.is_action_pressed("down"):
 		velocity.y=speed
+	if carrying:#disable sprite when climbing
+		if carryType==Item.TYPE.Fuel:
+			fuelSprite.visible=false
+		if carryType==Item.TYPE.Scrap:
+			scrapSprite.visible=false
 		
 
 			
@@ -76,15 +109,22 @@ func _physics_process(delta):
 		#direction is used to flip animations accordingly
 		var direction = Input.get_axis("left", "right")
 		if not climbing and not is_on_floor():
-			_fall(direction,delta)
+			fall(direction,delta)
 			set_collision_mask_value(5,true)
 		elif climbing:
-			_climb(direction)
+			climb(direction)
 			set_collision_mask_value(5,false)#allows player to pass through floor when climbing
 		if not climbing:
 			set_collision_mask_value(5,true)
-		_jump(direction)
-		_move(direction)
+			if carrying:#reenable sprite when not climbing
+				if carryType==Item.TYPE.Fuel:
+					fuelSprite.visible=true
+				if carryType==Item.TYPE.Scrap:
+					scrapSprite.visible=true
+		jump(direction)
+		move(direction)
 		move_and_slide()
-		_collide_with_rigidbodies()
+		collide_with_rigidbodies()
+		if Input.is_action_just_pressed("interact") and carrying:
+			drop_object()
 		
