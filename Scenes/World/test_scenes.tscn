@@ -31,7 +31,7 @@ position = Vector2(2560, 312)
 position = Vector2(1448, 144)
 
 [node name="DroneRifle" parent="." instance=ExtResource("5_hgyyi")]
-position = Vector2(-608, -208)
+position = Vector2(1520, 264)
 
 [node name="DebugHelper" parent="." instance=ExtResource("6_8bdl6")]
 
@@ -41,5 +41,8 @@ autostart = true
 
 [node name="low_bomb" parent="." instance=ExtResource("7_2qsv8")]
 position = Vector2(-240, 784)
+
+[node name="DroneRifle2" parent="." instance=ExtResource("5_hgyyi")]
+position = Vector2(-400, 264)
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
