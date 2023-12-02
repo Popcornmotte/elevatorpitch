@@ -72,8 +72,8 @@ motion_scale = Vector2(1, 0.063)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/EarthLayer"]
 z_index = -10
-position = Vector2(798, 215)
-scale = Vector2(2, 2)
+position = Vector2(675, 275)
+scale = Vector2(3, 3)
 texture = ExtResource("5_5gv44")
 
 [node name="FarBackground" type="CanvasLayer" parent="."]
@@ -83,11 +83,11 @@ layer = -128
 z_index = -250
 material = SubResource("ShaderMaterial_rg3oo")
 position = Vector2(800, 800)
-scale = Vector2(50, 50)
+scale = Vector2(100, 100)
 texture = ExtResource("2_c11ib")
 
 [node name="Stars" type="Sprite2D" parent="FarBackground"]
 z_index = -500
 position = Vector2(800, 600)
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)
 texture = ExtResource("8_gp112")
