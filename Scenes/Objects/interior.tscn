@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
+[ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="5_6ulqt"]
 [ext_resource type="Texture2D" uid="uid://dop4ylnwhqvof" path="res://Assets/Sprites/InteriorObjects/floor.png" id="5_wfh41"]
 [ext_resource type="PackedScene" uid="uid://bkgkwoq7n22lu" path="res://Scenes/Objects/drop_zone.tscn" id="7_bsp3f"]
-[ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/fuel.tscn" id="7_p0a0g"]
 [ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="8_5pu4c"]
 [ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="9_lvdt6"]
 [ext_resource type="PackedScene" uid="uid://c30yxwkogsbvo" path="res://Scenes/Objects/brake.tscn" id="11_ga7e1"]
@@ -255,7 +255,7 @@ position = Vector2(40, -3)
 [node name="DropZoneRight" parent="." instance=ExtResource("7_bsp3f")]
 position = Vector2(63, -39)
 
-[node name="Fuel" parent="." instance=ExtResource("7_p0a0g")]
+[node name="Fuel" parent="." instance=ExtResource("5_6ulqt")]
 position = Vector2(-33, 68)
 
 [node name="ArmStation" parent="." instance=ExtResource("9_lvdt6")]

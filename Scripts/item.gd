@@ -12,14 +12,13 @@ func _init(typeArg : TYPE):
 		TYPE.Cargo:
 			objectPath = "res://Scenes/Objects/Items/crate.tscn"
 		TYPE.Fuel:
-			pass
+			objectPath = "res://Scenes/Objects/Items/fuel.tscn"
 		TYPE.Ammo:
 			pass
 		TYPE.Scrap:
 			pass
 		TYPE.Luggage:
 			pass
-
 
 func checkType(checkedType : TYPE) -> bool:
 	return (type == checkedType)

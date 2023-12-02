@@ -1,5 +1,5 @@
 extends CharacterBody2D
-const FUEL=preload("res://Scenes/Objects/fuel.tscn")
+const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
 
 @export var speed = 200.0
 @export var climbSpeed=100.0
@@ -12,6 +12,7 @@ const FUEL=preload("res://Scenes/Objects/fuel.tscn")
 @onready var fuelSprite=get_node("FuelSprite")
 @onready var scrapSprite=get_node("ScrapSprite")
 
+var carryables : Array[Node2D]
 var carrying=false
 var carryPos=Vector2(8,1)
 var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
@@ -20,6 +21,7 @@ var carryType= Item.TYPE.Fuel
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
+	Global.player = self
 	$PlayerCam.zoomIn(startZoomedIn)
 
 func flip_animation(direction):
@@ -42,17 +44,26 @@ func collide_with_rigidbodies():
 		if c.get_collider() is RigidBody2D:
 			c.get_collider().apply_central_impulse(-c.get_normal()*pushForce)
 
-func pick_up_object(typeArg : Item.TYPE):
+func add_carryable(thing):
+	carryables.push_back(thing)
+	
+func remove_carryable(thing):
+	carryables.erase(thing)
+
+func pick_up_object():
 	if carrying:#in case the player is already holding something, nothing else should be picked up
 		return false
+	var thing = carryables.pop_back()
+	var typeArg = thing.getType()
 	if typeArg==Item.TYPE.Fuel:
-		print("turn on sprite")
+		#print("turn on sprite")
 		fuelSprite.visible=true
 		carryType=Item.TYPE.Fuel
 	if typeArg==Item.TYPE.Scrap:
 		scrapSprite.visible=true
 		carryType=Item.TYPE.Scrap
 	carrying=true
+	thing.queue_free()
 	return true	
 
 func drop_object():
@@ -60,11 +71,10 @@ func drop_object():
 		fuelSprite.visible=false
 		carrying=false
 		var loadedFuel=FUEL.instantiate()
-		loadedFuel.position=fuelSprite.get_global_position()
-		print("drop object")
 		get_parent().add_child(loadedFuel)
+		loadedFuel.global_position=fuelSprite.get_global_position()
 
-			
+
 func move(direction):
 	if direction:
 		if is_on_floor():
@@ -78,7 +88,6 @@ func move(direction):
 			sprite.play("idle")
 		velocity.x = move_toward(velocity.x, 0, speed)
 
-	
 
 func fall(direction,delta):
 	velocity.y += gravity * delta
@@ -102,8 +111,11 @@ func climb(direction):
 			scrapSprite.visible=false
 		
 func _process(delta):
-	if  carrying and Input.is_action_just_pressed("interact"):
-		drop_object()
+	if Input.is_action_just_pressed("interact"):
+		if carrying:
+			drop_object()
+		elif carryables.size() > 0:
+			pick_up_object()
 			
 func _physics_process(delta):
 	if Global.elevator:

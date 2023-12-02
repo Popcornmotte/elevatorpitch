@@ -1,7 +1,7 @@
 extends "res://Scripts/generic_interactable.gd"
 
 
-const FUEL=preload("res://Scenes/Objects/fuel.tscn")
+const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
 @onready var funnel=get_node("../DropFunnel")
 @onready var dropPosition=funnel.position+Vector2(-25,-40)
 

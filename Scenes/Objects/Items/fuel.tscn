@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c63a8jhcdui3s"]
 
-[ext_resource type="Script" path="res://Scripts/fuel.gd" id="1_ueekk"]
-[ext_resource type="Texture2D" uid="uid://d4fvj3u3xidli" path="res://Assets/Sprites/InteriorObjects/gas_can.png" id="2_rkycm"]
+[ext_resource type="Script" path="res://Scripts/generic_carryable.gd" id="1_caif4"]
+[ext_resource type="Texture2D" uid="uid://d4fvj3u3xidli" path="res://Assets/Sprites/InteriorObjects/gas_can.png" id="2_ubgkp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a1o2j"]
 size = Vector2(16, 12)
@@ -13,10 +13,10 @@ radius = 16.4924
 z_index = 5
 collision_layer = 128
 collision_mask = 128
-script = ExtResource("1_ueekk")
+script = ExtResource("1_caif4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_rkycm")
+texture = ExtResource("2_ubgkp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visibility_layer = 0
@@ -31,5 +31,5 @@ collision_mask = 160
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_cgooh")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="onAreaEntered"]
+[connection signal="body_exited" from="Area2D" to="." method="onAreaExit"]
