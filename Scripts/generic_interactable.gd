@@ -11,6 +11,8 @@ func interact():
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if not player:# ugly fix for instantiated objects that dont show up otherwise:/
+		player=get_node("../../player")
 	if collided and Input.is_action_just_pressed("interact") and not player.carrying:
 		print("interact: ",player.carrying)# here the .use function of the corresponding object should be called
 		interact()

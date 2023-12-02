@@ -8,10 +8,8 @@ const FUEL=preload("res://Scenes/Objects/fuel.tscn")
 func interact():
 	var loadedFuel=FUEL.instantiate()
 	loadedFuel.position=dropPosition
-	if Global.elevator:#make sure that elevator exists, so that the interior scene can still be used for debugging
-		Global.elevator.add_child(loadedFuel)
-	else:
-		add_child(loadedFuel)
+	print("drop")
+	add_child(loadedFuel)
 		
 
 
