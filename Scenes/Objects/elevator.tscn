@@ -342,7 +342,7 @@ metadata/_edit_lock_ = true
 shape = SubResource("CapsuleShape2D_ohd1j")
 
 [node name="Hull" type="Sprite2D" parent="HullBody"]
-z_index = 3
+z_index = 4
 texture = ExtResource("1_dtexf")
 
 [node name="HullBackground" type="Sprite2D" parent="HullBody"]
