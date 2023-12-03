@@ -1,9 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdejgb0kj4otg"]
+[gd_scene load_steps=10 format=3 uid="uid://cdejgb0kj4otg"]
 
 [ext_resource type="Texture2D" uid="uid://c1h8twtlpunil" path="res://Assets/Sprites/UI/CRT-Monitor.png" id="1_1c46o"]
 [ext_resource type="Script" path="res://Scripts/contractTerminal.gd" id="1_5xgiu"]
 [ext_resource type="Texture2D" uid="uid://ca5d53iyk42sp" path="res://Assets/Sprites/UI/Contract.png" id="2_03vra"]
+[ext_resource type="Texture2D" uid="uid://cxy6c0xxoilr5" path="res://Assets/Sprites/UI/wall/dirtyWall1.png" id="2_bi4ny"]
 [ext_resource type="Texture2D" uid="uid://e28fa72bwi24" path="res://Assets/Sprites/UI/OnOff.png" id="3_awf02"]
+[ext_resource type="Texture2D" uid="uid://cfkxuag3tmvx1" path="res://Assets/Sprites/UI/wall/dirtyWall2.png" id="3_m4ml4"]
+[ext_resource type="Texture2D" uid="uid://dbnjeobt6ysqh" path="res://Assets/Sprites/UI/wall/dirtyWall3.png" id="4_yefwp"]
+[ext_resource type="Texture2D" uid="uid://f0kjok64tnbw" path="res://Assets/Sprites/bloodBig.png" id="5_yjv8g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_migvv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bi4ny")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_m4ml4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yefwp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
 
 [node name="BaseUI" type="Control"]
 layout_mode = 3
@@ -14,9 +35,26 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5xgiu")
 
+[node name="Wall" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.380392, 0.321569, 0.301961, 1)
+z_index = -1
+position = Vector2(960, 540)
+scale = Vector2(15, 8.4375)
+sprite_frames = SubResource("SpriteFrames_migvv")
+autoplay = "default"
+metadata/_edit_lock_ = true
+
+[node name="Flavor" type="Sprite2D" parent="."]
+modulate = Color(0.627451, 0.627451, 0.627451, 1)
+z_index = 1
+position = Vector2(1352, 920)
+texture = ExtResource("5_yjv8g")
+
 [node name="Monitor" type="Sprite2D" parent="."]
-position = Vector2(656, 424)
+position = Vector2(992, 538)
+scale = Vector2(1, 1.0037)
 texture = ExtResource("1_1c46o")
+metadata/_edit_lock_ = true
 
 [node name="Terminal" type="MarginContainer" parent="Monitor"]
 anchors_preset = 15
@@ -28,6 +66,7 @@ offset_right = -1640.0
 offset_bottom = -848.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="FlashLabel" type="Label" parent="Monitor/Terminal"]
 layout_mode = 2
@@ -129,3 +168,4 @@ texture_normal = ExtResource("3_awf02")
 [connection signal="pressed" from="Monitor/Terminal/Elevator/ContractCargo/decrementCargoButton" to="." method="_on_decrement_cargo_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/ContractCargo/incrementCargoButton" to="." method="_on_increment_cargo_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/StartButtonHBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Monitor/OffButton" to="." method="_on_off_button_pressed"]

@@ -29,7 +29,7 @@ func spawnEnemies():
 	for i in range(randi()%6 + wave):
 		var enemy = enemies[randi()%enemies.size()].instantiate()
 		#enemy.DebugMode = true
-		enemy.global_position =  Global.elevator.global_position + sign*Vector2(2000-64*i,randi_range(-800,800))
+		enemy.global_position =  Global.elevator.global_position + sign*Vector2(1500-64*i,randi_range(-800,800))
 		add_child(enemy)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

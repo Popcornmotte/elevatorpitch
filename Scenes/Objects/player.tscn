@@ -1,11 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://xcgdf4cn2vir"]
+[gd_scene load_steps=34 format=3 uid="uid://xcgdf4cn2vir"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_mnd8j"]
 [ext_resource type="Texture2D" uid="uid://cj56gvxbatwq7" path="res://Assets/Sprites/Player/PlayerClimb.png" id="2_lc3sb"]
 [ext_resource type="Texture2D" uid="uid://cueftfhpyjyaj" path="res://Assets/Sprites/Player/PlayerIdle.png" id="2_uwl05"]
 [ext_resource type="Texture2D" uid="uid://do2f84i2pb0f" path="res://Assets/Sprites/Player/PlayerJump.png" id="3_yio8t"]
 [ext_resource type="Texture2D" uid="uid://cio31es8l47vy" path="res://Assets/Sprites/Player/PlayerWalk.png" id="4_7nvss"]
-[ext_resource type="PackedScene" uid="uid://oq767v1wm581" path="res://Scenes/Objects/camera.tscn" id="6_n3bgt"]
 [ext_resource type="Texture2D" uid="uid://d4fvj3u3xidli" path="res://Assets/Sprites/InteriorObjects/gas_can.png" id="7_l87e4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tucjc"]
@@ -178,6 +177,60 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ha5a3"]
 radius = 36.3456
 
+[sub_resource type="Animation" id="Animation_uy3w3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_oang3"]
+resource_name = "zoom_min"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_khbuv"]
+resource_name = "zoom_out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mw0ba"]
+_data = {
+"RESET": SubResource("Animation_uy3w3"),
+"zoom_in": SubResource("Animation_oang3"),
+"zoom_out": SubResource("Animation_khbuv")
+}
+
 [node name="player" type="CharacterBody2D" groups=["Climber"]]
 z_index = 1
 collision_layer = 48
@@ -200,7 +253,7 @@ shape = SubResource("CircleShape2D_ha5a3")
 
 [node name="target" type="Node2D" parent="."]
 
-[node name="PlayerCam" parent="." instance=ExtResource("6_n3bgt")]
+[node name="PlayerCam" type="Camera2D" parent="."]
 position = Vector2(0, -1)
 process_callback = 0
 limit_smoothed = true
@@ -208,6 +261,11 @@ position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_limits = true
+
+[node name="ZoomAnimation" type="AnimationPlayer" parent="PlayerCam"]
+libraries = {
+"": SubResource("AnimationLibrary_mw0ba")
+}
 
 [node name="FuelSprite" type="Sprite2D" parent="."]
 visible = false
