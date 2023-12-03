@@ -62,6 +62,8 @@ func update_health():
 func onGoal():
 	print("on goal")
 	finished=true
+	Global.player.get_node("PlayerCam").reset_smoothing()
+	Global.player.get_node("PlayerCam").set_enabled(false)
 	$AnimationPlayerElevator.play("goal")
 
 func update_height(climbed):
@@ -93,7 +95,7 @@ func _process(delta):
 	if(lost):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
-	if not finished and climbingHeight>100:
+	if not finished and climbingHeight>20:
 		onGoal()
 	pass
 
