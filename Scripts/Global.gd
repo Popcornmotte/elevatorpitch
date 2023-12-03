@@ -10,6 +10,8 @@ var player : Node2D
 #current Level Scene. since it is different than root
 var level
 
+var aliveEnemies = 0
+
 var inventoryMaxSize = 16
 var inventory = Array()
 

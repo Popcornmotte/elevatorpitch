@@ -183,9 +183,6 @@ z_index = 1
 collision_layer = 48
 collision_mask = 48
 script = ExtResource("1_mnd8j")
-speed = 150.0
-climbSpeed = 150.0
-jumpVelocity = -150.0
 
 [node name="CollisionShapePlayer" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_tucjc")

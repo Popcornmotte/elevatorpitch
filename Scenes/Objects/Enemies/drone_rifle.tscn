@@ -26,6 +26,7 @@ rangedBehavior = true
 weapon = NodePath("WeaponMount/Rifle")
 balloon = NodePath("BalloonSprite")
 balloonShape = NodePath("BalloonShape")
+despawnOnScreenExitTimer = 5.0
 DebugMode = true
 
 [node name="BalloonSprite" type="AnimatedSprite2D" parent="."]

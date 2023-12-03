@@ -49,8 +49,8 @@ func _process(delta):
 		grab()
 	if(Input.is_action_just_released("Grab") && !aboutToFling):
 		release()
-	if Input.is_action_just_pressed("Debug"):
-		print("Claw's current grabbable: "+str(grabbable))
+#	if Input.is_action_just_pressed("Debug"):
+#		print("Claw's current grabbable: "+str(grabbable))
 
 	if(flinging && linear_velocity.normalized().dot(flingTargetDir.normalized()) > 0.9):
 		maxFlingVelocity = max(maxFlingVelocity, linear_velocity.length())

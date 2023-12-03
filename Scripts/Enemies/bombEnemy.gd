@@ -11,6 +11,7 @@ var target : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.aliveEnemies += 1
 	elevatorPos = Global.elevator.global_position
 	chooseTarget()
 	pass
@@ -38,20 +39,24 @@ func explode():
 	newEngine.global_position = global_position
 	get_parent().call_deferred("add_child",newEngine)
 	
-	call_deferred("queue_free")
+	die()
 	pass
 
 func defuse():
 	var newEngine = engine.instantiate()
 	newEngine.global_position = global_position
-	get_parent().add_child(newEngine)
+	get_parent().call_deferred("add_child",newEngine)
 	
 	var newBarrel = barrel.instantiate()
 	newBarrel.global_position = global_position
-	get_parent().add_child(newBarrel)
+	get_parent().call_deferred("add_child",newBarrel)
 	
-	queue_free()
+	die()
 
+func die():
+	Global.aliveEnemies -= 1
+	call_deferred("queue_free")
+	
 
 func move(delta):
 	angular_velocity = -rotation * 100 * delta

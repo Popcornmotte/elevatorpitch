@@ -1,44 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=3 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
-[ext_resource type="PackedScene" uid="uid://ddahiyydcisjm" path="res://Scenes/Objects/Enemies/drone_saw.tscn" id="4_v5r71"]
-[ext_resource type="PackedScene" uid="uid://deu8xdoktbmf1" path="res://Scenes/Objects/Enemies/drone_rifle.tscn" id="5_hgyyi"]
-[ext_resource type="PackedScene" uid="uid://crasjrxhhrova" path="res://Scenes/Objects/debug_helper.tscn" id="6_8bdl6"]
-[ext_resource type="PackedScene" uid="uid://1vnguekgscoy" path="res://Scenes/Objects/Enemies/low_bomb.tscn" id="7_2qsv8"]
 
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
 
-[node name="DroneSaw" parent="." instance=ExtResource("4_v5r71")]
-position = Vector2(-144, 384)
-
-[node name="DroneSaw2" parent="." instance=ExtResource("4_v5r71")]
-position = Vector2(24, 208)
-
-[node name="DroneSaw3" parent="." instance=ExtResource("4_v5r71")]
-position = Vector2(2560, 312)
-
-[node name="DroneSaw4" parent="." instance=ExtResource("4_v5r71")]
-position = Vector2(1448, 144)
-
-[node name="DroneRifle" parent="." instance=ExtResource("5_hgyyi")]
-position = Vector2(1520, 264)
-
-[node name="DebugHelper" parent="." instance=ExtResource("6_8bdl6")]
-
 [node name="WaveTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
+one_shot = true
 autostart = true
-
-[node name="low_bomb" parent="." instance=ExtResource("7_2qsv8")]
-position = Vector2(-240, 784)
-
-[node name="DroneRifle2" parent="." instance=ExtResource("5_hgyyi")]
-position = Vector2(-400, 264)
 
 [node name="Elevator" parent="." instance=ExtResource("1_kgkqi")]
 position = Vector2(640, 360)
-
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
