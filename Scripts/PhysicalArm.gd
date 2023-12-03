@@ -55,7 +55,7 @@ func _physics_process(delta):
 	pass
 	
 func disable():
-	return
+	#return
 	functional = false
 	sparks.emitting = true
 	upperArmPhys.gravity_scale = 10
@@ -64,7 +64,7 @@ func disable():
 	repairTime = repairTimeMax
 	
 func repair(delta):
-	return
+	#return
 	repairTime -= delta
 	if(repairTime <= 0):
 		functional = true
