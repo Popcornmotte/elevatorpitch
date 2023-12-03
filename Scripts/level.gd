@@ -65,6 +65,7 @@ func _process(delta):
 
 func _on_wave_timer_timeout():
 	if not finishedLevel:# do not spawn new enemies when level is already finished
+		print("spawn")
 		if(randi()%100 <= spawnChance):
 			spawnEnemies()
 		else:

@@ -67,7 +67,7 @@ func onGoal():
 func haltElevator():
 	$HullBody/AnimationPlayer.pause()
 	control(false)
-	brake.use_brake(true)
+	moving=false#stops cable from moving
 	
 func update_height(climbed):
 	climbingHeight+=climbed

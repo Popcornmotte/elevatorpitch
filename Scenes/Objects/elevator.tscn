@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=60 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -25,7 +25,7 @@
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="17_epo4g"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="Texture2D" uid="uid://btsxud1jfvfvj" path="res://Assets/Sprites/dottedLine.png" id="19_5krrx"]
-[ext_resource type="PackedScene" path="res://Scenes/World/climbEnvironment.tscn" id="25_881fs"]
+[ext_resource type="PackedScene" uid="uid://76relfo52far" path="res://Scenes/World/climbEnvironment.tscn" id="25_881fs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
 radius = 112.0

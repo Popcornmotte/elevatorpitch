@@ -12,8 +12,6 @@ func turnOffLightOnly():
 	alarmLightAnimation.stop()
 
 func use_brake(use : bool, alarm = false):#use this function also externally when no more fuel is available
-	if use==turnOn:#do not use brake when it already is in the correct position
-		return
 	Audio.playSfx(BRAKESOUND)
 	if(use):
 		print("brake on")
