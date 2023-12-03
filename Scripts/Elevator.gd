@@ -60,24 +60,18 @@ func update_health():
 	pass
 
 func onGoal():
-	print("on goal")
-	finished=true
-	Global.player.get_node("PlayerCam").reset_smoothing()
-	Global.player.get_node("PlayerCam").set_enabled(false)
 	$AnimationPlayerElevator.play("goal")
 
 func update_height(climbed):
 	climbingHeight+=climbed
 	heightMeter.text= str("Height: ", int(climbingHeight), " m")
+
 func decrease_fuel(delta):
 	fuel -= fuelConsumption*delta
-
 	if fuel<=0:
-		moving=false#stop elevator when there is no fuel available
-		brake.use_brake(false)#set brake to turned off position
+		brake.use_brake(true)#set brake to turned off position
 	else:
 		update_height(climbingRate*delta)
-		moving=true
 	update_fuel()
 	pass
 
@@ -105,6 +99,6 @@ func _on_engine_sound_finished():
 	pass # Replace with function body.
 
 
-func _on_animation_player_elevator_animation_finished(anim_name):
-	if anim_name=="goal":
-		get_tree().change_scene_to_file("res://Scenes/UI/goal_scene.tscn")
+#func _on_animation_player_elevator_animation_finished(anim_name):
+#	if anim_name=="goal":
+#		get_tree().change_scene_to_file("res://Scenes/UI/goal_scene.tscn")

@@ -15,6 +15,11 @@ func _enter_tree():
 func _ready():
 	pass # Replace with function body.
 
+func finishedScene():
+	#play animation
+	$Elevator.onGoal()#plays the animation for elevator moving out of view
+	$LevelCam.make_current()
+	
 func spawnEnemies():
 	combat = true
 	spawnChance = 10
@@ -40,6 +45,8 @@ func _process(delta):
 			Global.elevator.brake.turnOffLightOnly()
 			print("wave concluded")
 			$WaveTimer.start()
+	#check height for finish
+	finishedScene()
 	pass
 
 
