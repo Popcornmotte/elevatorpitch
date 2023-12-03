@@ -2,26 +2,34 @@ extends RigidBody2D
 class_name Claw
 
 var grabbing = false
-var grabbable
+var grabbables : Array
+var grabbed
 var flingTargetDir : Vector2
 var aboutToFling = false
 var flinging = false
 var maxFlingVelocity = 0.0
+var arm : PhysicalArm
+var flingAccFac = 2.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var node = get_parent()
+	while !(node is PhysicalArm) && node.get_parent() != null:
+		node = node.get_parent()
+	arm = node
 	pass # Replace with function body.
 
 func grab():
-	if grabbable != null:
+	if grabbables.size() > 0:
 		grabbing = true
-		grabbable.grab($GrabArea)
+		grabbed = grabbables.back()
+		grabbables.back().grab($GrabArea)
 	pass
 
 func release():
-	if grabbable != null:
-			grabbable.release(self.linear_velocity)
-			grabbable = null
+	if grabbed != null:
+			grabbed.release(self.linear_velocity)
+			grabbed = null
 			grabbing = false
 
 func setFlingTargetDir(dir : Vector2):
@@ -30,10 +38,10 @@ func setFlingTargetDir(dir : Vector2):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if grabbing:
-		if(grabbable == null):
+		if(grabbed == null):
 			grabbing = false
 		else:
-			grabbable.rotation = rotation
+			grabbed.rotation = rotation
 	
 	if Input.is_action_pressed("Grab") or aboutToFling or flinging:
 		$ClawSprite.play("close")
@@ -45,6 +53,7 @@ func _process(delta):
 	if(Input.is_action_just_released("Fling") && aboutToFling):
 		aboutToFling = false
 		flinging = true
+		arm.acceleration *= flingAccFac
 	if(Input.is_action_just_pressed("Grab")):
 		grab()
 	if(Input.is_action_just_released("Grab") && !aboutToFling):
@@ -57,15 +66,19 @@ func _process(delta):
 		if(linear_velocity.length() < maxFlingVelocity):
 			maxFlingVelocity = 0.0
 			flinging = false
+			arm.acceleration /= flingAccFac
 			release()
 
 func _on_grab_area_body_entered(body):
-	if grabbable == null && body.has_method("grab"):
-		grabbable = body
+	if body.has_method("grab"):
+		grabbables.push_back(body)
 	pass # Replace with function body.
 
 
 func _on_grab_area_body_exited(body):
-	if(!grabbing):
-		grabbable = null
+	grabbables.erase(body)
 	pass # Replace with function body.
+
+func disableArm():
+	arm.disable()
+	pass

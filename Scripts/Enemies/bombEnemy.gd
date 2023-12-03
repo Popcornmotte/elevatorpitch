@@ -21,6 +21,11 @@ func chooseTarget():
 	target = elevatorPos + Vector2(randi_range(50,90),randi_range(-90,90))
 
 func grab(clawA):
+	var node = clawA
+	while !(node.has_method("disableArm")) && node.get_parent() != null:
+		node = node.get_parent()
+	if(node.has_method("disableArm")):
+		node.disableArm()
 	explode()
 
 func release(linVel):
