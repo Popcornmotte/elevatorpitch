@@ -16,4 +16,5 @@ func _process(delta):
 			if child.global_position.y >= 960:
 				child.global_position.y = -120
 		Global.elevator.decrease_fuel(delta * 0.1)
+		Global.height += delta
 	pass
