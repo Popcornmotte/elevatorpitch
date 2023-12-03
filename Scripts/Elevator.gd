@@ -19,6 +19,7 @@ var speed = 0.0
 
 @onready var brake=$interior/Brake
 
+var finished=false
 func _enter_tree():
 	Global.elevator = self
 
@@ -58,6 +59,10 @@ func update_health():
 		healthBar.scale = Vector2(health / 100.0, 1)
 	pass
 
+func onGoal():
+	print("on goal")
+	finished=true
+	$AnimationPlayerElevator.play("goal")
 
 func update_height(climbed):
 	climbingHeight+=climbed
@@ -88,9 +93,16 @@ func _process(delta):
 	if(lost):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
+	if not finished and climbingHeight>100:
+		onGoal()
 	pass
 
 
 func _on_engine_sound_finished():
 	$HullBody/EngineSound.play()
 	pass # Replace with function body.
+
+
+func _on_animation_player_elevator_animation_finished(anim_name):
+	if anim_name=="goal":
+		get_tree().change_scene_to_file("res://Scenes/UI/goal_scene.tscn")

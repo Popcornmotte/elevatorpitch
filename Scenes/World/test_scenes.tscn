@@ -12,6 +12,5 @@ one_shot = true
 autostart = true
 
 [node name="Elevator" parent="." instance=ExtResource("1_kgkqi")]
-position = Vector2(640, 360)
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
