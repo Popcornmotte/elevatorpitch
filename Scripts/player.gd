@@ -1,9 +1,9 @@
 extends CharacterBody2D
 const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
 
-@export var speed = 200.0
-@export var climbSpeed=100.0
-@export var jumpVelocity = -300.0
+@export var speed = 100.0
+@export var climbSpeed=50.0
+@export var jumpVelocity = -150.0
 @export var maxFallingSpeed=500.0 #this should not be relevant, but cap at which body does not accelerate any more when falling
 @export var climbing=false #variable set when interacting with ladder to indicate climb
 @export var pushForce=80.0 #relevant when colliding with other rigidbodies

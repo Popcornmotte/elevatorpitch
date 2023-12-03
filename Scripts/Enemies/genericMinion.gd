@@ -39,6 +39,7 @@ var dbm
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.aliveEnemies += 1
 	$BalloonSprite.play("default")
 	$BodySprite.play("default")
 	if(has_node("DeathTimer")):
@@ -197,9 +198,10 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 
 func _on_death_timer_timeout():
+	Global.aliveEnemies -= 1
 	if(dbm != null):
 		dbm.queue_free()
-	queue_free()
+	call_deferred("queue_free")
 	pass # Replace with function body.
 
 #AttackTimer needs to be OneShot = true!
@@ -216,7 +218,7 @@ func _on_body_entered(body):
 	if(body.is_class("RigidBody2D")):
 		#print("collision with speed: "+str(body.linear_velocity.length()))
 		if (body.linear_velocity - linear_velocity).length() > 500.0:
-			hitPoints -= body.mass * (0.01 * body.linear_velocity.length())
+			hitPoints -= body.mass * (0.1 * body.linear_velocity.length())
 			#print("damage produced: "+str(0.1 * body.mass * body.linear_velocity.length()))
 			Audio.playSfx(THUD)
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=28 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bwyeht2pc0nal" path="res://Scenes/Objects/fuel_button.tscn" id="11_qb8x6"]
 [ext_resource type="Texture2D" uid="uid://bi5lwh40poc7w" path="res://Assets/Sprites/InteriorObjects/drop_funnel.png" id="12_xxbrh"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="13_1wjlu"]
+[ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="13_tkd7y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
 size = Vector2(160, 8)
@@ -49,6 +50,43 @@ height = 15.1554
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r4uqw"]
 radius = 1.94263
 height = 16.4922
+
+[sub_resource type="Animation" id="Animation_mhw8q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_jwvpi"]
+resource_name = "alert"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qa6yr"]
+_data = {
+"RESET": SubResource("Animation_mhw8q"),
+"alert": SubResource("Animation_jwvpi")
+}
 
 [node name="interior" type="Node2D"]
 
@@ -281,6 +319,16 @@ texture = ExtResource("12_xxbrh")
 
 [node name="player" parent="." instance=ExtResource("13_1wjlu")]
 position = Vector2(-56, 56)
-speed = 200.0
-climbSpeed = 100.0
-jumpVelocity = -300.0
+speed = 100.0
+climbSpeed = 50.0
+
+[node name="AlertLight" type="PointLight2D" parent="."]
+position = Vector2(0, -32)
+enabled = false
+color = Color(0.827451, 0, 0.0666667, 1)
+texture = ExtResource("13_tkd7y")
+
+[node name="AlertAnimation" type="AnimationPlayer" parent="AlertLight"]
+libraries = {
+"": SubResource("AnimationLibrary_qa6yr")
+}

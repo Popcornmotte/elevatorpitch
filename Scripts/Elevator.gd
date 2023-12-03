@@ -26,7 +26,7 @@ func _enter_tree():
 func _ready():
 	$HullBody/AnimationPlayer.play("EngineJiggle")
 	control(controlArms)
-	brake.use_brake(true)
+	brake.use_brake(false)
 	pass # Replace with function body.
 
 func control(isControlled : bool):

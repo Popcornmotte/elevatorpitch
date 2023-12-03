@@ -1,5 +1,5 @@
 
-extends "res://Scripts/generic_interactable.gd"
+extends GenericInteractible
 @onready var dropeZoneRight=get_node("../DropZoneRight")
 var newFuel=0
 

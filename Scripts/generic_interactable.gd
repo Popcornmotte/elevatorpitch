@@ -1,6 +1,6 @@
 extends Node2D
 
-
+class_name GenericInteractible
 @export var interactionWith : Node2D
 @export var sprite : Node2D
 var collided=false

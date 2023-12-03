@@ -1,4 +1,4 @@
-extends "res://Scripts/generic_interactable.gd"
+extends GenericInteractible
 
 
 const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
