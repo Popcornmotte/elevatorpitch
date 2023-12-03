@@ -1,5 +1,6 @@
 extends CharacterBody2D
 const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
+const SCRAP=preload("res://Scenes/Objects/Items/scrap.tscn")
 
 @export var speed = 100.0
 @export var climbSpeed=50.0
@@ -65,11 +66,13 @@ func pick_up_object():
 		return false
 	var thing = carryables.pop_back()
 	var typeArg = thing.getType()
+	print("pick up")
 	if typeArg==Item.TYPE.Fuel:
-		#print("turn on sprite")
+		print("fuel")
 		fuelSprite.visible=true
 		carryType=Item.TYPE.Fuel
 	if typeArg==Item.TYPE.Scrap:
+		print("scrap")
 		scrapSprite.visible=true
 		carryType=Item.TYPE.Scrap
 	carrying=true
@@ -83,6 +86,12 @@ func drop_object():
 		var loadedFuel=FUEL.instantiate()
 		get_parent().add_child(loadedFuel)
 		loadedFuel.global_position=fuelSprite.get_global_position()
+	if carryType==Item.TYPE.Scrap:
+		scrapSprite.visible=false
+		carrying=false
+		var loadedScrap=SCRAP.instantiate()
+		get_parent().add_child(loadedScrap)
+		loadedScrap.global_position=scrapSprite.get_global_position()
 
 
 func move(direction):
@@ -122,6 +131,7 @@ func climb(direction):
 		
 func _process(delta):
 	if Input.is_action_just_pressed("interact"):
+		print( carryables.size())
 		if carrying:
 			drop_object()
 		elif carryables.size() > 0:

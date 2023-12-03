@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=29 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://bwyeht2pc0nal" path="res://Scenes/Objects/fuel_button.tscn" id="11_qb8x6"]
 [ext_resource type="Texture2D" uid="uid://bi5lwh40poc7w" path="res://Assets/Sprites/InteriorObjects/drop_funnel.png" id="12_xxbrh"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="13_1wjlu"]
+[ext_resource type="PackedScene" uid="uid://bowy1locqpytv" path="res://Scenes/Objects/Items/scrap.tscn" id="13_o6qq7"]
 [ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="13_tkd7y"]
+[ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="14_bihsb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
 size = Vector2(160, 8)
@@ -100,7 +102,6 @@ texture = ExtResource("3_bossf")
 position = Vector2(-1, 0)
 
 [node name="edges" type="Node2D" parent="floor"]
-metadata/_edit_lock_ = true
 
 [node name="Lower" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(0, 96)
@@ -258,11 +259,13 @@ metadata/_edit_lock_ = true
 position = Vector2(18, -38)
 collision_layer = 176
 collision_mask = 176
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/slantedRight"]
 position = Vector2(6, 1)
 rotation = -1.26592
 shape = SubResource("CapsuleShape2D_ecwf1")
+metadata/_edit_lock_ = true
 
 [node name="slantedLeft" type="StaticBody2D" parent="floor/secondFloor"]
 collision_layer = 176
@@ -300,6 +303,8 @@ position = Vector2(0, -52)
 
 [node name="Floor" type="Sprite2D" parent="."]
 z_index = 2
+position = Vector2(-1.5, 0)
+scale = Vector2(1.00625, 1)
 texture = ExtResource("5_wfh41")
 
 [node name="Brake" parent="." instance=ExtResource("11_ga7e1")]
@@ -313,11 +318,14 @@ position = Vector2(24, 80)
 [node name="DropFunnel" type="Sprite2D" parent="DropFunnel"]
 texture = ExtResource("12_xxbrh")
 
+[node name="Scrap" parent="." instance=ExtResource("13_o6qq7")]
+position = Vector2(-34, 67)
+
 [node name="player" parent="." instance=ExtResource("13_1wjlu")]
 position = Vector2(-56, 56)
 
 [node name="AlertLight" type="PointLight2D" parent="."]
-position = Vector2(0, -32)
+position = Vector2(1, -2)
 enabled = false
 color = Color(0.827451, 0, 0.0666667, 1)
 texture = ExtResource("13_tkd7y")
@@ -326,3 +334,6 @@ texture = ExtResource("13_tkd7y")
 libraries = {
 "": SubResource("AnimationLibrary_qa6yr")
 }
+
+[node name="Fuel" parent="." instance=ExtResource("14_bihsb")]
+position = Vector2(-10, 81)
