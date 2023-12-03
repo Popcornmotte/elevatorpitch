@@ -77,10 +77,8 @@ func decrease_fuel(delta):
 	fuel -= fuelConsumption*delta
 	if fuel<=0:
 		brake.use_brake(true)#set brake to turned off position
-		moving=false
 	else:
 		update_height(climbingRate*delta)
-		moving=true
 	update_fuel()
 	pass
 
