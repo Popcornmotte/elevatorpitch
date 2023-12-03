@@ -11,7 +11,7 @@ var elevatorDropping=false
 @onready var finishedLevel=false
 @onready var enemies = [D_BARREL,D_RIFLE,D_SAW]
 @onready var LevelFinish=get_node("LevelFinish")
-@export var finishHeight=2
+@export var finishHeight=50
 
 func _enter_tree():
 	Global.level = self
@@ -57,11 +57,16 @@ func _process(delta):
 		if finishedLevel and $Elevator.finishedFinalAnimation:
 				$Elevator.haltElevator()
 				$LevelFinish.visible=true
+	else:
+		if not $Elevator.onScreen:#the elevator is dropping and has left the screen, load loadScene
+			get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
 	pass
 
 
 func _on_wave_timer_timeout():
+	print(finishedLevel)
 	if not finishedLevel:# do not spawn new enemies when level is already finished
+		print("spawn enemies")
 		if(randi()%100 <= spawnChance):
 			spawnEnemies()
 		else:

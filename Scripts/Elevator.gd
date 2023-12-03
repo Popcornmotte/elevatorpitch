@@ -15,6 +15,7 @@ var speed = 0.0
 @export var fuel = 100.0
 @export var climbingHeight=0
 @export var climbingRate=100
+@export var onScreen=true
 @export var finishedFinalAnimation=false#necessary, so that the level knows when to end the level
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
@@ -76,8 +77,10 @@ func decrease_fuel(delta):
 	fuel -= fuelConsumption*delta
 	if fuel<=0:
 		brake.use_brake(true)#set brake to turned off position
+		moving=false
 	else:
 		update_height(climbingRate*delta)
+		moving=true
 	update_fuel()
 	pass
 
@@ -105,3 +108,12 @@ func _on_engine_sound_finished():
 
 func _on_animation_player_elevator_animation_finished(anim_name):
 	finishedFinalAnimation=true
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	onScreen=false
+
+
+
+func _on_visible_on_screen_notifier_2d_elevator_screen_entered():
+	onScreen=true
