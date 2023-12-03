@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=4 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
+[ext_resource type="Texture2D" uid="uid://cju5hefrsve3b" path="res://Assets/Sprites/UI/RustyPanel.png" id="3_1e58w"]
 
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
@@ -19,18 +20,26 @@ enabled = false
 [node name="LevelFinish" type="Node2D" parent="."]
 visible = false
 
+[node name="NinePatchRect" type="NinePatchRect" parent="LevelFinish"]
+offset_left = -128.0
+offset_top = -40.0
+offset_right = 128.0
+offset_bottom = 127.0
+texture = ExtResource("3_1e58w")
+
 [node name="CargoLabel" type="Label" parent="LevelFinish"]
-offset_left = -88.0
-offset_top = 120.0
-offset_right = 116.0
-offset_bottom = 146.0
+offset_left = -112.0
+offset_right = 112.0
+offset_bottom = 34.0
 text = "Delivered Cargo:
 "
+horizontal_alignment = 1
 
 [node name="DeliverButton" type="Button" parent="LevelFinish"]
-offset_left = -107.0
-offset_right = 110.0
-offset_bottom = 31.0
+offset_left = -112.0
+offset_top = 48.0
+offset_right = 112.0
+offset_bottom = 79.0
 text = "Deliver cargo
 "
 

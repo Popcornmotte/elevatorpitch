@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdejgb0kj4otg"]
+[gd_scene load_steps=11 format=3 uid="uid://cdejgb0kj4otg"]
 
 [ext_resource type="Texture2D" uid="uid://c1h8twtlpunil" path="res://Assets/Sprites/UI/CRT-Monitor.png" id="1_1c46o"]
 [ext_resource type="Script" path="res://Scripts/contractTerminal.gd" id="1_5xgiu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cfkxuag3tmvx1" path="res://Assets/Sprites/UI/wall/dirtyWall2.png" id="3_m4ml4"]
 [ext_resource type="Texture2D" uid="uid://dbnjeobt6ysqh" path="res://Assets/Sprites/UI/wall/dirtyWall3.png" id="4_yefwp"]
 [ext_resource type="Texture2D" uid="uid://f0kjok64tnbw" path="res://Assets/Sprites/bloodBig.png" id="5_yjv8g"]
+[ext_resource type="FontFile" uid="uid://chq2qqlffg26p" path="res://Fonts/Mont-HeavyDEMO.otf" id="7_2k8x0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_migvv"]
 animations = [{
@@ -70,6 +71,8 @@ metadata/_edit_lock_ = true
 
 [node name="FlashLabel" type="Label" parent="Monitor/Terminal"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("7_2k8x0")
+theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 
 [node name="Contracts" type="VBoxContainer" parent="Monitor/Terminal"]

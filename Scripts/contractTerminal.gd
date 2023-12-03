@@ -9,6 +9,7 @@ var fuelUnits = 0
 var cargoCrates = 0
 var cargoslots = 0
 
+var fontSize = 50.0
 @export var flashMode = true
 @onready var flashLabel = $Monitor/Terminal/FlashLabel 
 var index = -1
@@ -24,6 +25,7 @@ func updateLabels():
 
 func flashNext():
 	index += 1
+	fontSize = 50
 	if index >= flashText.size():
 		flashMode = false
 		flashLabel.hide()
@@ -36,6 +38,9 @@ func flashNext():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if flashMode:
+		if(fontSize > 20):
+			fontSize -= delta*25
+			flashLabel.add_theme_font_size_override("font_size",fontSize)
 		if Input.is_action_just_pressed("Grab"):
 			flashNext()
 	pass
