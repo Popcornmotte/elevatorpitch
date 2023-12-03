@@ -31,6 +31,7 @@ script = ExtResource("2_3qcxm")
 [node name="CableLayer" type="Node2D" parent="ParallaxBackground"]
 z_index = 25
 script = ExtResource("3_bcsqh")
+cloudSpeed = 0.0
 
 [node name="Cable" type="Sprite2D" parent="ParallaxBackground/CableLayer"]
 texture = ExtResource("5_x7fd4")
@@ -91,6 +92,7 @@ texture = ExtResource("4_ekote")
 z_index = 2
 script = ExtResource("3_bcsqh")
 movementFactor = 0.5
+cloudSpeed = 25.0
 
 [node name="Cloud3" type="Sprite2D" parent="ParallaxBackground/CloudsLayer1"]
 position = Vector2(411, -461)

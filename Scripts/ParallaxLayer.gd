@@ -2,6 +2,7 @@ extends Node
 class_name CustomParallaxLayer
 
 @export var movementFactor = 1.0
+@export var cloudSpeed = 50.0
 @onready var children = get_children()
 var maxCloudHeight : float
 var isCanvas = false
@@ -20,3 +21,8 @@ func _process(delta):
 		respawn = respawn && (!is_in_group("Clouds") or Global.height <= maxCloudHeight)
 		if respawn && (child.global_position.y > 1000):
 			child.global_position.y -= 2000
+		
+		if is_in_group("Clouds"):
+			child.global_position.x += delta * cloudSpeed
+			if (cloudSpeed > 0 && child.global_position.x > 1500) or (cloudSpeed < 0 && child.global_position.x < -1500):
+				child.global_position.x -= 3000 * sign(cloudSpeed)
