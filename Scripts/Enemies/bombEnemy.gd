@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 @export var maxSpeed = 50
+const BOOM = preload("res://Assets/Audio/sfx/explosion.wav")
 
 var explosion = preload("res://Scenes/Objects/explosion.tscn")
 var engine = preload("res://Scenes/Objects/Enemies/low_bomb_engine.tscn")
@@ -31,6 +32,7 @@ func onTriggerAreaEnter(other):
 	explode()
 
 func explode():
+	Audio.playSfx(BOOM)
 	var newExplosion = explosion.instantiate()
 	newExplosion.global_position = global_position
 	get_parent().call_deferred("add_child",newExplosion)

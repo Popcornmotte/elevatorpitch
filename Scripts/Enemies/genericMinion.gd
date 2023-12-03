@@ -105,6 +105,7 @@ func pop():
 	if !popped:
 		gravity_scale = 1
 		Audio.playSfx(POP)
+		FX.playFX("popsplosion", global_position + Vector2(0,-32))
 		popped = true
 		balloon.queue_free()
 		balloonShape.queue_free()
