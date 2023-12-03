@@ -12,6 +12,30 @@ one_shot = true
 autostart = true
 
 [node name="Elevator" parent="." instance=ExtResource("1_kgkqi")]
-position = Vector2(640, 360)
+
+[node name="LevelCam" type="Camera2D" parent="."]
+enabled = false
+
+[node name="LevelFinish" type="Node2D" parent="."]
+visible = false
+
+[node name="CargoLabel" type="Label" parent="LevelFinish"]
+offset_left = -88.0
+offset_top = 120.0
+offset_right = 116.0
+offset_bottom = 146.0
+text = "Delivered Cargo:
+"
+
+[node name="DeliverButton" type="Button" parent="LevelFinish"]
+offset_left = -107.0
+offset_right = 110.0
+offset_bottom = 31.0
+text = "Deliver cargo
+"
+
+[node name="EndTimer" type="Timer" parent="LevelFinish"]
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
+[connection signal="pressed" from="LevelFinish/DeliverButton" to="." method="_on_deliver_button_pressed"]
+[connection signal="timeout" from="LevelFinish/EndTimer" to="." method="_on_end_timer_timeout"]

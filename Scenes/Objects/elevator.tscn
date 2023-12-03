@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=60 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -25,7 +25,7 @@
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="17_epo4g"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="Texture2D" uid="uid://btsxud1jfvfvj" path="res://Assets/Sprites/dottedLine.png" id="19_5krrx"]
-[ext_resource type="PackedScene" path="res://Scenes/World/climbEnvironment.tscn" id="25_881fs"]
+[ext_resource type="PackedScene" uid="uid://76relfo52far" path="res://Scenes/World/climbEnvironment.tscn" id="25_881fs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
 radius = 112.0
@@ -285,6 +285,43 @@ radius = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_kdskv"]
 radius = 40.0
 
+[sub_resource type="Animation" id="Animation_ec3x2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lruot"]
+resource_name = "goal"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -400)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3i61g"]
+_data = {
+"RESET": SubResource("Animation_ec3x2"),
+"goal": SubResource("Animation_lruot")
+}
+
 [node name="Elevator" type="Node2D" node_paths=PackedStringArray("healthBar", "fuelBar", "heightMeter")]
 script = ExtResource("1_gs4x1")
 healthBar = NodePath("HealthBar/Polygon2D")
@@ -342,7 +379,7 @@ metadata/_edit_lock_ = true
 shape = SubResource("CapsuleShape2D_ohd1j")
 
 [node name="Hull" type="Sprite2D" parent="HullBody"]
-z_index = 3
+z_index = 4
 texture = ExtResource("1_dtexf")
 
 [node name="HullBackground" type="Sprite2D" parent="HullBody"]
@@ -388,6 +425,7 @@ metadata/_edit_lock_ = true
 position = Vector2(97, 0)
 rotation = 0.387332
 rest = Transform2D(0.92592, 0.377719, -0.377719, 0.92592, 97, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="GearSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone"]
 visible = false
@@ -397,6 +435,7 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Right/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone"]
 z_index = -2
@@ -408,6 +447,7 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -430,6 +470,7 @@ bone_angle = 0.0
 position = Vector2(128, 0)
 rotation = 0.289078
 rest = Transform2D(0.930478, 0.366254, -0.366254, 0.930478, 128.007, 0.000183105)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="Claw" type="AnimatableBody2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 collision_layer = 0
@@ -452,6 +493,7 @@ position = Vector2(-96, 0)
 rotation = -3.14159
 scale = Vector2(0.999891, 0.999891)
 rest = Transform2D(-0.642719, 0.76596, -0.76596, -0.642719, -96, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="GearSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone"]
 visible = false
@@ -461,6 +503,7 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Left/GearBone"]
 position = Vector2(7.00006, -1.52588e-05)
 rest = Transform2D(1, 0, 0, 1, 7.00006, -1.52588e-05)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone"]
 z_index = -2
@@ -471,6 +514,7 @@ texture = ExtResource("3_2k2nk")
 position = Vector2(128.002, 6.10352e-05)
 rotation = 0.616101
 rest = Transform2D(0.984808, -0.173648, 0.173648, 0.984808, 128.002, 6.10352e-05)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -493,6 +537,7 @@ bone_angle = 0.0
 position = Vector2(128, -1.52588e-05)
 rotation = -0.199482
 rest = Transform2D(0.980169, -0.198162, 0.198162, 0.980169, 128, -1.52588e-05)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="Claw" type="AnimatableBody2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 collision_layer = 0
@@ -886,9 +931,21 @@ z_index = 3
 
 [node name="ClimbEnvironment" parent="." instance=ExtResource("25_881fs")]
 
+[node name="AnimationPlayerElevator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3i61g")
+}
+
+[node name="VisibleOnScreenNotifier2DElevator" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.38419e-07, 280)
+scale = Vector2(1.3, 0.9)
+
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
 [connection signal="finished" from="HullBody/EngineSound" to="." method="_on_engine_sound_finished"]
 [connection signal="body_entered" from="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" method="_on_grab_area_body_entered"]
 [connection signal="body_exited" from="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" method="_on_grab_area_body_exited"]
 [connection signal="body_entered" from="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" method="_on_grab_area_body_entered"]
 [connection signal="body_exited" from="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" method="_on_grab_area_body_exited"]
+[connection signal="animation_finished" from="AnimationPlayerElevator" to="." method="_on_animation_player_elevator_animation_finished"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2DElevator" to="." method="_on_visible_on_screen_notifier_2d_elevator_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2DElevator" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

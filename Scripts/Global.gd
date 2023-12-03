@@ -15,7 +15,11 @@ var aliveEnemies = 0
 
 var inventoryMaxSize = 16
 var inventory = Array()
+var funds=0
 
+func addFunds(newFunds:int):
+	funds+=newFunds
+	
 func addToInventory(item : Item) -> bool:
 	if inventory.size() < inventoryMaxSize:
 		inventory.append(item)

@@ -3,7 +3,7 @@ class_name Elevator
 
 var health = 100
 
-var lost = false
+var dropping = false
 var speed = 0.0
 
 @export var healthBar : Node2D
@@ -15,13 +15,17 @@ var speed = 0.0
 @export var fuel = 100.0
 @export var climbingHeight=0
 @export var climbingRate=100
+@export var onScreen=true
+@export var finishedFinalAnimation=false#necessary, so that the level knows when to end the level
 @onready var targets = $Arms/Targets
-
 @onready var brake=$interior/Brake
 
 func _enter_tree():
 	Global.elevator = self
 
+func dropElevator():#drops the elvator for example on finished game
+	dropping=true
+	$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HullBody/AnimationPlayer.play("EngineJiggle")
@@ -49,28 +53,34 @@ func on_area_entered(area : Area2D):
 	pass
 
 func update_health():
-	if(!lost):
+	if(!dropping):
 		if(health <= 0):
 			# Lose
-			lost = true
+			dropping = true
 			speed = 150
 			pass
 		healthBar.scale = Vector2(health / 100.0, 1)
 	pass
 
+func onGoal():
+	$AnimationPlayerElevator.play("goal")
+	$HullBody.get_node("Hull").visible=true#make interior invisible on goal
 
+func haltElevator():
+	$HullBody/AnimationPlayer.pause()
+	control(false)
+	moving=false#stops cable from moving
+	
 func update_height(climbed):
 	climbingHeight+=climbed
 	heightMeter.text= str("Height: ", int(climbingHeight), " m")
+
 func decrease_fuel(delta):
 	fuel -= fuelConsumption*delta
-
 	if fuel<=0:
-		moving=false#stop elevator when there is no fuel available
-		brake.use_brake(false)#set brake to turned off position
+		brake.use_brake(true)#set brake to turned off position
 	else:
 		update_height(climbingRate*delta)
-		moving=true
 	update_fuel()
 	pass
 
@@ -85,7 +95,7 @@ func _process(delta):
 #		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,true)
 #	else:
 #		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,false)
-	if(lost):
+	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
 	pass
@@ -94,3 +104,16 @@ func _process(delta):
 func _on_engine_sound_finished():
 	$HullBody/EngineSound.play()
 	pass # Replace with function body.
+
+
+func _on_animation_player_elevator_animation_finished(anim_name):
+	finishedFinalAnimation=true
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	onScreen=false
+
+
+
+func _on_visible_on_screen_notifier_2d_elevator_screen_entered():
+	onScreen=true
