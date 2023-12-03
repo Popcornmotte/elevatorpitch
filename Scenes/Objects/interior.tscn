@@ -319,8 +319,6 @@ texture = ExtResource("12_xxbrh")
 
 [node name="player" parent="." instance=ExtResource("13_1wjlu")]
 position = Vector2(-56, 56)
-speed = 100.0
-climbSpeed = 50.0
 
 [node name="AlertLight" type="PointLight2D" parent="."]
 position = Vector2(0, -32)

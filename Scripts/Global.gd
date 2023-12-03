@@ -34,3 +34,7 @@ func listInventory():
 #for letting enemies efficiently check for Cargo to steal
 func checkForCargo() -> bool:
 	return (inventory.any(func(item : Item): return(item.type == Item.TYPE.Cargo)))
+	
+func _process(delta):
+	if Input.is_action_just_pressed("Esc"):
+		get_tree().quit()

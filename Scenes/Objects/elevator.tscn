@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://bb36mwhht2hya" path="res://Assets/Sprites/spark.png" id="11_eb7jo"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="Texture2D" uid="uid://btsxud1jfvfvj" path="res://Assets/Sprites/dottedLine.png" id="19_5krrx"]
-[ext_resource type="PackedScene" uid="uid://76relfo52far" path="res://Scenes/World/climbEnvironment.tscn" id="25_881fs"]
+[ext_resource type="PackedScene" path="res://Scenes/World/climbEnvironment.tscn" id="25_881fs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
 radius = 112.0

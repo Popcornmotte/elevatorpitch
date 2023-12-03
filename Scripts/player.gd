@@ -11,6 +11,7 @@ const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
 @onready var sprite = get_node("PlayerSprite")
 @onready var fuelSprite=get_node("FuelSprite")
 @onready var scrapSprite=get_node("ScrapSprite")
+@onready var zoomAnimation = $PlayerCam/ZoomAnimation
 
 var carryables : Array[Node2D]
 var carrying=false
@@ -22,7 +23,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	Global.player = self
-	$PlayerCam.zoomIn(startZoomedIn)
+	zoomIn(startZoomedIn)
 
 func flip_animation(direction):
 	if direction>0:
@@ -31,7 +32,16 @@ func flip_animation(direction):
 	else:
 		sprite.flip_h=true
 		fuelSprite.position=carryPos*Vector2(-1,1)
-		
+
+func zoomIn(state : bool):
+	if state:
+		zoomAnimation.play("zoom_in")
+		#zoomIn=false
+	else:
+		zoomAnimation.play("zoom_out")
+		#zoomIn=true
+	pass
+
 func jump(direction):
 	#jumping only allowed when on floor and space bar pressed
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -64,7 +74,7 @@ func pick_up_object():
 		carryType=Item.TYPE.Scrap
 	carrying=true
 	thing.queue_free()
-	return true	
+	return true
 
 func drop_object():
 	if carryType==Item.TYPE.Fuel:
