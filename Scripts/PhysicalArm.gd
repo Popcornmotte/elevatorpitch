@@ -1,8 +1,14 @@
 extends Node2D
+class_name PhysicalArm
 
 var upperArmPhys : RigidBody2D
 var lowerArmPhys : RigidBody2D
 var clawPhys : RigidBody2D
+var sparks : GPUParticles2D
+
+var functional = true
+var repairTimeMax = 5.0
+var repairTime = repairTimeMax
 
 @export var upperArmRef : Bone2D
 @export var lowerArmRef : Bone2D
@@ -18,6 +24,8 @@ func _ready():
 	upperArmPhys = find_child("UpperArm")
 	lowerArmPhys = find_child("LowerArm")
 	clawPhys = find_child("Claw")
+	
+	sparks = upperArmPhys.find_child("Sparks")
 	
 	pass # Replace with function body.
 
@@ -40,9 +48,27 @@ func rotatePart(delta : float, phys : RigidBody2D, ref : Bone2D):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	
-	rotatePart(delta, upperArmPhys, upperArmRef)
-	rotatePart(delta, lowerArmPhys, lowerArmRef)
-	rotatePart(delta, clawPhys, clawRef)
-	
+	if(functional):
+		rotatePart(delta, upperArmPhys, upperArmRef)
+		rotatePart(delta, lowerArmPhys, lowerArmRef)
+		rotatePart(delta, clawPhys, clawRef)
 	pass
+	
+func disable():
+	return
+	functional = false
+	sparks.emitting = true
+	upperArmPhys.gravity_scale = 10
+	lowerArmPhys.gravity_scale = 10
+	clawPhys.gravity_scale = 10
+	repairTime = repairTimeMax
+	
+func repair(delta):
+	return
+	repairTime -= delta
+	if(repairTime <= 0):
+		functional = true
+		sparks.emitting = false
+		upperArmPhys.gravity_scale = 0
+		lowerArmPhys.gravity_scale = 0
+		clawPhys.gravity_scale = 0
