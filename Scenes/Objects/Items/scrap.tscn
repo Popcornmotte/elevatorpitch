@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bowy1locqpytv"]
 
 [ext_resource type="Texture2D" uid="uid://87nwbe24kw8j" path="res://Assets/Sprites/InteriorObjects/scrap.png" id="1_6okr7"]
-[ext_resource type="Script" path="res://Scripts/scrap.gd" id="1_ac7x6"]
+[ext_resource type="Script" path="res://Scripts/generic_carryable.gd" id="1_1882i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncagi"]
 size = Vector2(6, 14)
@@ -12,7 +12,7 @@ size = Vector2(16, 18)
 [node name="Scrap" type="RigidBody2D"]
 collision_layer = 128
 collision_mask = 128
-script = ExtResource("1_ac7x6")
+script = ExtResource("1_1882i")
 type = 2
 
 [node name="ScrapSprite" type="Sprite2D" parent="."]
@@ -30,5 +30,5 @@ collision_mask = 160
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_hdayg")
 
-[connection signal="area_entered" from="ScrapArea2D" to="." method="onAreaEntered"]
-[connection signal="area_exited" from="ScrapArea2D" to="." method="onAreaExit"]
+[connection signal="body_entered" from="ScrapArea2D" to="." method="onAreaEntered"]
+[connection signal="body_exited" from="ScrapArea2D" to="." method="onAreaExit"]
