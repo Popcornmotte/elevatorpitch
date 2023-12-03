@@ -25,6 +25,7 @@ func _enter_tree():
 
 func dropElevator():#drops the elvator for example on finished game
 	dropping=true
+	$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HullBody/AnimationPlayer.play("EngineJiggle")
@@ -63,6 +64,7 @@ func update_health():
 
 func onGoal():
 	$AnimationPlayerElevator.play("goal")
+	$HullBody.get_node("Hull").visible=true#make interior invisible on goal
 
 func haltElevator():
 	$HullBody/AnimationPlayer.pause()
