@@ -3,7 +3,7 @@ class_name Elevator
 
 var health = 100
 
-var lost = false
+var dropping = false
 var speed = 0.0
 
 @export var healthBar : Node2D
@@ -15,14 +15,15 @@ var speed = 0.0
 @export var fuel = 100.0
 @export var climbingHeight=0
 @export var climbingRate=100
+@export var finishedFinalAnimation=false#necessary, so that the level knows when to end the level
 @onready var targets = $Arms/Targets
-
 @onready var brake=$interior/Brake
 
-var finished=false
 func _enter_tree():
 	Global.elevator = self
 
+func dropElevator():#drops the elvator for example on finished game
+	dropping=true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HullBody/AnimationPlayer.play("EngineJiggle")
@@ -50,10 +51,10 @@ func on_area_entered(area : Area2D):
 	pass
 
 func update_health():
-	if(!lost):
+	if(!dropping):
 		if(health <= 0):
 			# Lose
-			lost = true
+			dropping = true
 			speed = 150
 			pass
 		healthBar.scale = Vector2(health / 100.0, 1)
@@ -62,6 +63,11 @@ func update_health():
 func onGoal():
 	$AnimationPlayerElevator.play("goal")
 
+func haltElevator():
+	$HullBody/AnimationPlayer.pause()
+	control(false)
+	brake.use_brake(true)
+	
 func update_height(climbed):
 	climbingHeight+=climbed
 	heightMeter.text= str("Height: ", int(climbingHeight), " m")
@@ -86,11 +92,9 @@ func _process(delta):
 #		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,true)
 #	else:
 #		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,false)
-	if(lost):
+	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
-	if not finished and climbingHeight>20:
-		onGoal()
 	pass
 
 
@@ -99,6 +103,5 @@ func _on_engine_sound_finished():
 	pass # Replace with function body.
 
 
-#func _on_animation_player_elevator_animation_finished(anim_name):
-#	if anim_name=="goal":
-#		get_tree().change_scene_to_file("res://Scenes/UI/goal_scene.tscn")
+func _on_animation_player_elevator_animation_finished(anim_name):
+	finishedFinalAnimation=true
