@@ -64,16 +64,10 @@ func disable():
 	repairTime = repairTimeMax
 
 	
-func repair(delta):
+func repair():
 	#return
-	repairTime -= delta
-	if(repairTime <= 0):
-		functional = true
-		sparks.emitting = false
-		upperArmPhys.gravity_scale = 0
-		lowerArmPhys.gravity_scale = 0
-		clawPhys.gravity_scale = 0
-		repairTime=repairTimeMax
-		return false
-	return true
-		
+	functional = true
+	sparks.emitting = false
+	upperArmPhys.gravity_scale = 0
+	lowerArmPhys.gravity_scale = 0
+	clawPhys.gravity_scale = 0

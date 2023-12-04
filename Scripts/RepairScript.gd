@@ -22,33 +22,33 @@ func _process(delta):
 		$RepairSprite2D.visible=false
 		repairing=false
 		
-	while(repairing):
-		repairing=repairObject.repair(delta)	
 	if player:
-		if collided and Input.is_action_just_pressed("interact"):
-			if  player.carryingScrap:
+		if collided and Input.is_action_just_pressed("interact") and player.carryingScrap:
 				print("interact in interior: ",player.carryingScrap)# here the .use function of the corresponding object should be called
+				$RepairTimer.start()
 				repairing=true
 				player.removeScrap()
-			else:
-					print("not carryingScrap!")
-		
 	else:
 		print("no player")
 		player=get_parent().get_node("../player")# ugly fix for instantiated objects that dont show up otherwise:/
 	
-	
-
-
-
 func _on_body_entered(body):
 	if body.name=="player":
 		Global.player.startRepair=true #disable player dropping scrap when reparing
 		collided=true
+		if repairing:
+			$RepairTimer.continue()
 
 
 func _on_body_exited(body):
 	if body.name=="player":
 		collided=false
 		Global.player.startRepair=false 
-		repairing=false
+		if repairing:
+			$RepairTimer.pause()
+		
+
+
+func _on_repair_timer_timeout():
+	repairObject.repair()
+	repairing=false

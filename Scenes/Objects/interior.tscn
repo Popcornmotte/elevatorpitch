@@ -362,6 +362,9 @@ visible = false
 position = Vector2(65, 17)
 texture = ExtResource("16_u63sp")
 
+[node name="RepairTimer" type="Timer" parent="RepairRightArm"]
+wait_time = 5.0
+
 [node name="RepairLeftArm" type="Area2D" parent="."]
 script = ExtResource("15_kbtrw")
 pathToRepair = "Arms/PhysicalArmLeft"
@@ -375,7 +378,12 @@ visible = false
 position = Vector2(-71, 20)
 texture = ExtResource("16_u63sp")
 
+[node name="RepairTimer" type="Timer" parent="RepairLeftArm"]
+wait_time = 5.0
+
 [connection signal="body_entered" from="RepairRightArm" to="RepairRightArm" method="_on_body_entered"]
 [connection signal="body_exited" from="RepairRightArm" to="RepairRightArm" method="_on_body_exited"]
+[connection signal="timeout" from="RepairRightArm/RepairTimer" to="RepairRightArm" method="_on_repair_timer_timeout"]
 [connection signal="body_entered" from="RepairLeftArm" to="RepairLeftArm" method="_on_body_entered"]
 [connection signal="body_exited" from="RepairLeftArm" to="RepairLeftArm" method="_on_body_exited"]
+[connection signal="timeout" from="RepairLeftArm/RepairTimer" to="RepairLeftArm" method="_on_repair_timer_timeout"]
