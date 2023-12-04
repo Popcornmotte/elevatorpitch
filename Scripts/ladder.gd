@@ -15,7 +15,7 @@ func _process(delta):
 		
 
 func _on_body_entered(body):
-	if body.name=="player" :
+	if body.name=="player":
 		playerBody=body
 		collided=true
 			

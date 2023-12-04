@@ -161,6 +161,7 @@ func _physics_process(delta):
 		elif climbing:
 			climb(direction)
 			set_collision_mask_value(5,false)#allows player to pass through floor when climbing
+			print("collide off")	
 		if not climbing:
 			set_collision_mask_value(5,true)
 			if carrying:#reenable sprite when not climbing
@@ -168,6 +169,7 @@ func _physics_process(delta):
 					fuelSprite.visible=true
 				if carryType==Item.TYPE.Scrap:
 					scrapSprite.visible=true
+				print("collide on")	
 		jump(direction)
 		move(direction)
 		move_and_slide()

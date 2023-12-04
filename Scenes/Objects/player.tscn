@@ -270,10 +270,10 @@ libraries = {
 
 [node name="FuelSprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(8, 0)
+position = Vector2(7, 0)
 texture = ExtResource("7_l87e4")
 
 [node name="ScrapSprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(8, -3)
+position = Vector2(7, 0)
 texture = ExtResource("7_wt0yo")
