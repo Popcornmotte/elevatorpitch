@@ -7,8 +7,6 @@ var clawPhys : RigidBody2D
 var sparks : GPUParticles2D
 
 var functional = true
-var repairTimeMax = 50
-var repairTime = repairTimeMax
 
 @export var upperArmRef : Bone2D
 @export var lowerArmRef : Bone2D
@@ -61,7 +59,6 @@ func disable():
 	upperArmPhys.gravity_scale = 10
 	lowerArmPhys.gravity_scale = 10
 	clawPhys.gravity_scale = 10
-	repairTime = repairTimeMax
 
 	
 func repair():
