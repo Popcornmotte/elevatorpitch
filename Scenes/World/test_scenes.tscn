@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=9 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
 [ext_resource type="Texture2D" uid="uid://cju5hefrsve3b" path="res://Assets/Sprites/UI/RustyPanel.png" id="3_1e58w"]
 [ext_resource type="Texture2D" uid="uid://bk4ncbsoisn4d" path="res://Assets/Sprites/items/crate.png" id="4_l2qxe"]
+[ext_resource type="PackedScene" uid="uid://d1x22hjhicnj" path="res://Scenes/UI/fade_in.tscn" id="5_em6cv"]
 
 [sub_resource type="Animation" id="Animation_gh5je"]
 resource_name = "FundsWiggle"
@@ -92,6 +93,8 @@ text = "Deliver cargo
 
 [node name="EndTimer" type="Timer" parent="LevelFinish"]
 wait_time = 5.0
+
+[node name="FadeIn" parent="." instance=ExtResource("5_em6cv")]
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
 [connection signal="pressed" from="LevelFinish/NinePatchRect/DeliverButton" to="." method="_on_deliver_button_pressed"]

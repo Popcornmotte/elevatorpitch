@@ -104,7 +104,7 @@ func _on_start_button_pressed():
 	for i in range(fuelUnits):
 		Global.addToInventory(Item.new(Item.TYPE.Fuel))
 	
-	get_tree().change_scene_to_file("res://Scenes/World/test_scenes.tscn")
+	get_tree().change_scene_to_file("res://Scenes/World/transition_scene.tscn")
 	
 	pass # Replace with function body.
 
