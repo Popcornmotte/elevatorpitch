@@ -65,6 +65,10 @@ func follow_mouse(delta : float):
 
 func draw_fling_dir():
 	if(isControlled && isActive()):
+		var startPos = preFlingPos - global_position
+		line.points[0].x = startPos.x
+		line.points[0].y = startPos.y
+		
 		var mousePos = line.get_local_mouse_position()
 		line.points[1].x = mousePos.x
 		line.points[1].y = mousePos.y
@@ -84,6 +88,8 @@ func _process(delta):
 		var dir = Vector2(line.points[1].x, line.points[1].y)
 		claw.setFlingTargetDir(dir)
 		
+		line.points[0].x = 0
+		line.points[0].y = 0
 		line.points[1].x = 0
 		line.points[1].y = 0
 	

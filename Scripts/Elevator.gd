@@ -1,7 +1,8 @@
 extends Node2D
 class_name Elevator
 
-var health = 100
+var maxHealth = 300.0
+var health = maxHealth
 
 var dropping = false
 var speed = 0.0
@@ -58,7 +59,7 @@ func update_health():
 			dropping = true
 			speed = 150
 			pass
-		healthBar.scale = Vector2(health / 100.0, 1)
+		healthBar.scale = Vector2(health / maxHealth, 1)
 	pass
 
 func onGoal():
