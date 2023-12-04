@@ -4,7 +4,6 @@ extends Node
 
 func onAreaEntered(body):
 	if body.name == "player":
-		print("entered")
 		Global.player.add_carryable(self)
 		
 func onAreaExit(body):

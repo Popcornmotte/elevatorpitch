@@ -4,6 +4,7 @@ const REPAIR = preload("res://Assets/Audio/sfx/repair.wav")
 # i know this is ugly, but trying to modify the elevator scene crashes godot consistently for me
 @export var repairObject:Node2D
 @export var repairInterior:bool
+@export var mirrorAnimation:bool
 @onready var player=Global.player
 var collided=false
 var sfx
@@ -18,17 +19,19 @@ func _ready():
 func _process(delta):
 	if not repairObject.functional:#enable this area
 		$RepairCollisionShape.set_disabled(false)
-		$RepairSprite2D.visible=true
+		$RepairAnimatedSprite2D.visible=true
+		$RepairAnimatedSprite2D.play("repairNeeded")
+		if mirrorAnimation:#flip according to bool 
+			$RepairAnimatedSprite2D.flip_h=true
 		$Sparks.emitting = true
 	else:
 		$RepairCollisionShape.set_disabled(true)#cannot collide with this area
-		$RepairSprite2D.visible=false
+		$RepairAnimatedSprite2D.visible=false
 		repairing=false
 		$Sparks.emitting = false
 		
 	if player:
 		if collided and Input.is_action_pressed("interact") and player.carryingScrap:
-				#print("interact in interior: ",player.carryingScrap)# here the .use function of the corresponding object should be called
 				if not repairing:
 					$RepairTimer.start()
 				if(sfx):
