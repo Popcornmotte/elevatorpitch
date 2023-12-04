@@ -37,7 +37,7 @@ func _on_body_entered(body):
 		Global.player.startRepair=true #disable player dropping scrap when reparing
 		collided=true
 		if repairing:
-			$RepairTimer.continue()
+			$RepairTimer.set_paused(false)
 
 
 func _on_body_exited(body):
@@ -45,7 +45,7 @@ func _on_body_exited(body):
 		collided=false
 		Global.player.startRepair=false 
 		if repairing:
-			$RepairTimer.pause()
+			$RepairTimer.set_paused(true)
 		
 
 
