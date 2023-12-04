@@ -7,7 +7,7 @@ var clawPhys : RigidBody2D
 var sparks : GPUParticles2D
 
 var functional = true
-var repairTimeMax = 5.0
+var repairTimeMax = 50
 var repairTime = repairTimeMax
 
 @export var upperArmRef : Bone2D
@@ -26,7 +26,7 @@ func _ready():
 	clawPhys = find_child("Claw")
 	
 	sparks = upperArmPhys.find_child("Sparks")
-	
+	disable()#for testing
 	pass # Replace with function body.
 
 func betterMod(a : float, b : float):
@@ -62,13 +62,20 @@ func disable():
 	lowerArmPhys.gravity_scale = 10
 	clawPhys.gravity_scale = 10
 	repairTime = repairTimeMax
+
 	
 func repair(delta):
 	#return
+	print("repairing  ",repairTime )
 	repairTime -= delta
 	if(repairTime <= 0):
+		print("repaired ",repairTime )
 		functional = true
 		sparks.emitting = false
 		upperArmPhys.gravity_scale = 0
 		lowerArmPhys.gravity_scale = 0
 		clawPhys.gravity_scale = 0
+		repairTime=repairTimeMax
+		return false
+	return true
+		

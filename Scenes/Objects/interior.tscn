@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=33 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="13_tkd7y"]
 [ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="14_bihsb"]
 [ext_resource type="Script" path="res://Scripts/RepairScript.gd" id="15_kbtrw"]
+[ext_resource type="Texture2D" uid="uid://d27qmlmswbrdn" path="res://Assets/Sprites/InteriorObjects/repair.png" id="16_u63sp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
 size = Vector2(160, 8)
@@ -91,6 +92,8 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qctk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_okh6r"]
 
 [node name="interior" type="Node2D"]
 
@@ -284,22 +287,22 @@ metadata/_edit_lock_ = true
 [node name="ladders" type="Node2D" parent="."]
 
 [node name="Ladder3" parent="ladders" instance=ExtResource("3_uk7bk")]
-position = Vector2(-40, -3)
+position = Vector2(-42, -3)
 
 [node name="Ladder2" parent="ladders" instance=ExtResource("3_uk7bk")]
-position = Vector2(56, 61)
+position = Vector2(55, 61)
 
 [node name="Ladder" parent="ladders" instance=ExtResource("3_uk7bk")]
-position = Vector2(-56, 61)
+position = Vector2(-58, 61)
 
 [node name="Ladder" parent="." instance=ExtResource("3_uk7bk")]
-position = Vector2(40, -3)
+position = Vector2(39, -3)
 
 [node name="DropZoneRight" parent="." instance=ExtResource("7_bsp3f")]
 position = Vector2(63, -39)
 
 [node name="ArmStation" parent="." instance=ExtResource("9_lvdt6")]
-position = Vector2(0, 2)
+position = Vector2(-1, 0)
 
 [node name="Engine_button" parent="." instance=ExtResource("8_5pu4c")]
 position = Vector2(0, -52)
@@ -344,8 +347,35 @@ libraries = {
 position = Vector2(-10, 81)
 
 [node name="RepairRightArm" type="Area2D" parent="."]
+position = Vector2(5, 3)
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("15_kbtrw")
+pathToRepair = "Arms/PhysicalArmRight"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RepairRightArm"]
-position = Vector2(72, 18)
+[node name="RepairCollisionShape" type="CollisionShape2D" parent="RepairRightArm"]
+position = Vector2(62, 17)
 shape = SubResource("RectangleShape2D_3qctk")
+
+[node name="RepairSprite2D" type="Sprite2D" parent="RepairRightArm"]
+visible = false
+position = Vector2(65, 17)
+texture = ExtResource("16_u63sp")
+
+[node name="RepairLeftArm" type="Area2D" parent="."]
+script = ExtResource("15_kbtrw")
+pathToRepair = "Arms/PhysicalArmLeft"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RepairLeftArm"]
+position = Vector2(-69, 18)
+shape = SubResource("RectangleShape2D_okh6r")
+
+[node name="RepairSprite2D" type="Sprite2D" parent="RepairLeftArm"]
+visible = false
+position = Vector2(-71, 20)
+texture = ExtResource("16_u63sp")
+
+[connection signal="body_entered" from="RepairRightArm" to="RepairRightArm" method="_on_body_entered"]
+[connection signal="body_exited" from="RepairRightArm" to="RepairRightArm" method="_on_body_exited"]
+[connection signal="body_entered" from="RepairLeftArm" to="RepairLeftArm" method="_on_body_entered"]
+[connection signal="body_exited" from="RepairLeftArm" to="RepairLeftArm" method="_on_body_exited"]
