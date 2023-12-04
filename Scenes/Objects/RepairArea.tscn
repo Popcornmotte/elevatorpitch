@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkk1ky06bbfgo"]
+
+[ext_resource type="Script" path="res://Scripts/RepairScript.gd" id="1_7dekd"]
+[ext_resource type="Texture2D" uid="uid://d27qmlmswbrdn" path="res://Assets/Sprites/InteriorObjects/repair.png" id="2_by65c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3qctk"]
+
+[node name="RepairArea" type="Area2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_7dekd")
+
+[node name="RepairCollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3qctk")
+
+[node name="RepairSprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_by65c")
+
+[node name="RepairTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="RepairTimer" to="." method="_on_repair_timer_timeout"]

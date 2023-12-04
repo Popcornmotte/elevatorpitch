@@ -14,7 +14,7 @@ func interact():
 func _process(delta):
 	if player:
 		if collided and Input.is_action_just_pressed("interact") and not player.carrying:
-			print("interact: ",player.carrying)# here the .use function of the corresponding object should be called
+			#print("interact: ",player.carrying)# here the .use function of the corresponding object should be called
 			interact()
 	else:
 		print("no player")
