@@ -12,7 +12,6 @@ const SCRAP=preload("res://Scenes/Objects/Items/scrap.tscn")
 @onready var sprite = get_node("PlayerSprite")
 @onready var fuelSprite=get_node("FuelSprite")
 @onready var scrapSprite=get_node("ScrapSprite")
-@onready var collisionShapeCarriedItem=get_node("CarriedItemCollisionShapes")
 @onready var zoomAnimation = $PlayerCam/ZoomAnimation
 
 var carryables : Array[Node2D]
@@ -84,7 +83,6 @@ func pick_up_object():
 		scrapSprite.visible=true
 		carryType=Item.TYPE.Scrap
 		carryingScrap=true
-	collisionShapeCarriedItem.set_disabled(false)#make collisionbox of carried items collide with shit
 	carrying=true
 	thing.queue_free()
 	return true
@@ -103,7 +101,6 @@ func drop_object():
 		var loadedScrap=SCRAP.instantiate()
 		get_parent().add_child(loadedScrap)
 		loadedScrap.global_position=scrapSprite.get_global_position()
-	collisionShapeCarriedItem.set_disabled(true)
 
 
 func move(direction):
@@ -164,8 +161,7 @@ func _physics_process(delta):
 		elif climbing:
 			climb(direction)
 			set_collision_mask_value(5,false)#allows player to pass through floor when climbing
-			#print("collide on")	
-			collisionShapeCarriedItem.set_disabled(true)
+			print("collide off")	
 		if not climbing:
 			set_collision_mask_value(5,true)
 			if carrying:#reenable sprite when not climbing
@@ -173,8 +169,7 @@ func _physics_process(delta):
 					fuelSprite.visible=true
 				if carryType==Item.TYPE.Scrap:
 					scrapSprite.visible=true
-				#print("collide on")	
-				collisionShapeCarriedItem.set_disabled(false)	
+				print("collide on")	
 		jump(direction)
 		move(direction)
 		move_and_slide()

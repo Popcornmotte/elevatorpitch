@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://xcgdf4cn2vir"]
+[gd_scene load_steps=35 format=3 uid="uid://xcgdf4cn2vir"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_mnd8j"]
 [ext_resource type="Texture2D" uid="uid://cj56gvxbatwq7" path="res://Assets/Sprites/Player/PlayerClimb.png" id="2_lc3sb"]
@@ -232,9 +232,6 @@ _data = {
 "zoom_out": SubResource("Animation_khbuv")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rd3g0"]
-size = Vector2(26, 10)
-
 [node name="player" type="CharacterBody2D" groups=["Climber"]]
 z_index = 1
 collision_layer = 48
@@ -273,14 +270,10 @@ libraries = {
 
 [node name="FuelSprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(8, 0)
+position = Vector2(7, 0)
 texture = ExtResource("7_l87e4")
 
 [node name="ScrapSprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(8, -3)
+position = Vector2(7, 0)
 texture = ExtResource("7_wt0yo")
-
-[node name="CarriedItemCollisionShapes" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_rd3g0")
-disabled = true

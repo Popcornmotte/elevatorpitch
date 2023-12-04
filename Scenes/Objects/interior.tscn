@@ -23,7 +23,7 @@ size = Vector2(160, 8)
 size = Vector2(160, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vgfb"]
-size = Vector2(3, 192)
+size = Vector2(14, 192)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w0cb"]
 size = Vector2(36, 4)
@@ -32,7 +32,7 @@ size = Vector2(36, 4)
 size = Vector2(20, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v27x"]
-size = Vector2(46, 4)
+size = Vector2(66, 4)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lufa8"]
 radius = 2.24133
@@ -116,8 +116,8 @@ metadata/_edit_lock_ = true
 
 [node name="Upper" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(0, -93)
-collision_layer = 16
-collision_mask = 144
+collision_layer = 48
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Upper"]
@@ -127,25 +127,23 @@ metadata/_edit_lock_ = true
 
 [node name="Left" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(-78, 1)
-collision_layer = 16
-collision_mask = 144
+collision_layer = 48
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Left"]
-position = Vector2(-0.5, 0)
+position = Vector2(-5, 0)
 shape = SubResource("RectangleShape2D_3vgfb")
-metadata/_edit_lock_ = true
 
 [node name="Right" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(79, 0)
-collision_layer = 16
-collision_mask = 144
+collision_layer = 48
+collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Right"]
-position = Vector2(-0.5, 0)
+position = Vector2(3, 0)
 shape = SubResource("RectangleShape2D_3vgfb")
-metadata/_edit_lock_ = true
 
 [node name="firstFloor" type="Node2D" parent="floor"]
 metadata/_edit_lock_ = true
@@ -243,6 +241,7 @@ collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/right"]
+position = Vector2(6, 0)
 shape = SubResource("RectangleShape2D_4v27x")
 metadata/_edit_lock_ = true
 
@@ -253,8 +252,8 @@ collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/secondFloor/left"]
+position = Vector2(-4, 0)
 shape = SubResource("RectangleShape2D_4v27x")
-metadata/_edit_lock_ = true
 
 [node name="slantedRight" type="StaticBody2D" parent="floor/secondFloor"]
 position = Vector2(18, -38)
