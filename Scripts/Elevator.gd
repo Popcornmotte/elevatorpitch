@@ -12,7 +12,7 @@ var speed = 0.0
 @export var controlArms:bool #make it accessible whether or not the arms are being controlled
 @export var moving:bool=true
 @export var fuelConsumption=10
-@export var fuel = 100.0
+@export var fuel = 0.0
 @export var climbingHeight=0
 @export var climbingRate=100
 @onready var targets = $Arms/Targets
@@ -28,7 +28,8 @@ func dropElevator():#drops the elvator for example on finished game
 func _ready():
 	$HullBody/AnimationPlayer.play("EngineJiggle")
 	control(controlArms)
-	brake.use_brake(false)
+	moving=false
+	updateFuel()#show correct fuel on game start
 	pass # Replace with function body.
 
 func control(isControlled : bool):
@@ -79,10 +80,10 @@ func decrease_fuel(delta):
 		brake.use_brake(true)#set brake to turned off position
 	else:
 		update_height(climbingRate*delta)
-	update_fuel()
+	updateFuel()
 	pass
 
-func update_fuel():
+func updateFuel():
 	fuelBar.scale = Vector2(fuel / 100.0, 1)
 	pass
 

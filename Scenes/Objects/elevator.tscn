@@ -942,8 +942,9 @@ position = Vector2(64, 16)
 repairObject = NodePath("../Arms/PhysicalArmRight")
 
 [node name="RepairAreaArmLeft" parent="." node_paths=PackedStringArray("repairObject") instance=ExtResource("27_ahenx")]
-position = Vector2(-72, 16)
+position = Vector2(-66, 16)
 repairObject = NodePath("../Arms/PhysicalArmLeft")
+mirrorAnimation = true
 
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
 [connection signal="finished" from="HullBody/EngineSound" to="." method="_on_engine_sound_finished"]

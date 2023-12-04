@@ -5,18 +5,20 @@ var fuel=[]
 func _process(delta):
 	pass
 func _remove_fuel():
-	for item in fuel:
-		item.free()
-
+	while not fuel.is_empty(): 
+		var item = fuel.pop_back()
+		item.queue_free()
+	fuel.clear()
 
 func _return_fuel_count():
 	return fuel.size()
+	
 func _on_area_2d_body_entered(body):
-	print(body.get_name())
 	if body.is_in_group("fuel"):
 		collided=true
 		potential_body=body
-		fuel.append(body)
+		fuel.push_back(body)
+
 func _on_area_2d_body_exited(body):
 	if body.is_in_group("fuel"):
 		collided=false
