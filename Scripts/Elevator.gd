@@ -15,8 +15,6 @@ var speed = 0.0
 @export var fuel = 100.0
 @export var climbingHeight=0
 @export var climbingRate=100
-@export var onScreen=true
-@export var finishedFinalAnimation=false#necessary, so that the level knows when to end the level
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
 
@@ -64,11 +62,11 @@ func update_health():
 
 func onGoal():
 	$AnimationPlayerElevator.play("goal")
-	$HullBody.get_node("Hull").visible=true#make interior invisible on goal
+	$HullBody.get_node("Hull").visible=true#make hull visible on goal
 
 func haltElevator():
-	$HullBody/AnimationPlayer.pause()
 	control(false)
+	$HullBody.get_node("Hull").visible=true
 	moving=false#stops cable from moving
 	
 func update_height(climbed):
@@ -107,13 +105,4 @@ func _on_engine_sound_finished():
 
 
 func _on_animation_player_elevator_animation_finished(anim_name):
-	finishedFinalAnimation=true
-
-
-func _on_visible_on_screen_notifier_2d_screen_exited():
-	onScreen=false
-
-
-
-func _on_visible_on_screen_notifier_2d_elevator_screen_entered():
-	onScreen=true
+	Global.level.endLevel()

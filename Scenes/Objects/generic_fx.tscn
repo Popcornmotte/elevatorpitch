@@ -1,7 +1,64 @@
-[gd_scene load_steps=13 format=3 uid="uid://dduyfa5u5a7yj"]
+[gd_scene load_steps=28 format=3 uid="uid://dduyfa5u5a7yj"]
 
 [ext_resource type="Texture2D" uid="uid://bri1bhyif81ja" path="res://Assets/Sprites/FX/popslosion.png" id="1_eqo4l"]
+[ext_resource type="Texture2D" uid="uid://cdippwua08vg7" path="res://Assets/Sprites/items/crateVanish.png" id="1_gpxgr"]
 [ext_resource type="Script" path="res://Scripts/genericFX.gd" id="2_dnoj0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4jo6"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(0, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_287ui"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(64, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ars5t"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(128, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwte0"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(192, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8jqn"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(256, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfdtg"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(320, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpdyo"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(384, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v5t1"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(448, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsosb"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(512, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqsm4"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(576, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h484"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(640, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7icj"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(704, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fr7ms"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(768, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kes3"]
+atlas = ExtResource("1_gpxgr")
+region = Rect2(832, 0, 64, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i7wbq"]
 atlas = ExtResource("1_eqo4l")
@@ -43,6 +100,53 @@ region = Rect2(512, 0, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_y4jo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_287ui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ars5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwte0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8jqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfdtg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cpdyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v5t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsosb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqsm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4h484")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7icj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fr7ms")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kes3")
+}],
+"loop": false,
+"name": &"crateVanish",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_i7wbq")
 }, {
 "duration": 1.0,
@@ -75,8 +179,9 @@ animations = [{
 }]
 
 [node name="genericFX" type="AnimatedSprite2D"]
+z_index = 500
 sprite_frames = SubResource("SpriteFrames_dsqhj")
-animation = &"popsplosion"
+animation = &"crateVanish"
 script = ExtResource("2_dnoj0")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
