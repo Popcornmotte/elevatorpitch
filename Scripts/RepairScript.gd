@@ -19,10 +19,12 @@ func _process(delta):
 	if not repairObject.functional:#enable this area
 		$RepairCollisionShape.set_disabled(false)
 		$RepairSprite2D.visible=true
+		$Sparks.emitting = true
 	else:
 		$RepairCollisionShape.set_disabled(true)#cannot collide with this area
 		$RepairSprite2D.visible=false
 		repairing=false
+		$Sparks.emitting = false
 		
 	if player:
 		if collided and Input.is_action_pressed("interact") and player.carryingScrap:
