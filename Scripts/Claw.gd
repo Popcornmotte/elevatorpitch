@@ -26,9 +26,12 @@ func grab():
 		grabbables.back().grab($GrabArea)
 	pass
 
-func release():
+func release(fling = false):
 	if grabbed != null:
-			grabbed.release(self.linear_velocity)
+			var vector = self.linear_velocity
+			if fling:
+				vector = flingTargetDir.normalized() * vector.length()
+			grabbed.release(vector)
 			grabbed = null
 			grabbing = false
 
@@ -67,7 +70,7 @@ func _process(delta):
 			maxFlingVelocity = 0.0
 			flinging = false
 			arm.acceleration /= flingAccFac
-			release()
+			release(true)
 
 func _on_grab_area_body_entered(body):
 	if body.has_method("grab"):
