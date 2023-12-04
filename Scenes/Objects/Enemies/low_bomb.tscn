@@ -231,14 +231,16 @@ animations = [{
 radius = 22.0227
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d7o1y"]
-radius = 47.0
-height = 130.0
+radius = 45.0
+height = 136.0
 
 [node name="low_bomb" type="RigidBody2D"]
-collision_layer = 6
-collision_mask = 6
+collision_layer = 7
+collision_mask = 7
 mass = 50.0
 gravity_scale = 0.0
+max_contacts_reported = 10
+contact_monitor = true
 script = ExtResource("1_2kgrk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -271,12 +273,12 @@ node_a = NodePath("..")
 node_b = NodePath("../RigidBody2D")
 
 [node name="Trigger" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 257
+collision_layer = 256
+collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_d7o1y")
 
-[connection signal="area_entered" from="Trigger" to="." method="onTriggerAreaEnter"]
-[connection signal="body_entered" from="Trigger" to="." method="onTriggerAreaEnter"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Trigger" to="." method="_on_trigger_area_entered"]
