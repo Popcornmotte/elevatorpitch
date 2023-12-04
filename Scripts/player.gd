@@ -23,9 +23,11 @@ var carryType= Item.TYPE.Fuel
 var startRepair=false#block dropping of scrap when in vicinity of repair station
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var cameraMargins = 0.0
 
 func _ready():
 	Global.player = self
+	cameraMargins = $PlayerCam.get_drag_margin(0)
 	zoomIn(startZoomedIn)
 
 func flip_animation(direction):
@@ -41,9 +43,13 @@ func flip_animation(direction):
 func zoomIn(state : bool):
 	if state:
 		zoomAnimation.play("zoom_in")
+		for side in range(0,4):
+			$PlayerCam.set_drag_margin(side, cameraMargins)
 		#zoomIn=false
 	else:
 		zoomAnimation.play("zoom_out")
+		for side in range(0,4):
+			$PlayerCam.set_drag_margin(side, 0)
 		#zoomIn=true
 	pass
 
