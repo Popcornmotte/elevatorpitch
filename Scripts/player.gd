@@ -1,5 +1,6 @@
 extends CharacterBody2D
 const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
+const SCRAP=preload("res://Scenes/Objects/Items/scrap.tscn")
 
 @export var speed = 100.0
 @export var climbSpeed=50.0
@@ -15,9 +16,11 @@ const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
 
 var carryables : Array[Node2D]
 var carrying=false
+var carryingScrap=false
 var carryPos=Vector2(8,1)
 var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
 var carryType= Item.TYPE.Fuel
+var startRepair=false#block dropping of scrap when in vicinity of repair station
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -29,9 +32,11 @@ func flip_animation(direction):
 	if direction>0:
 		sprite.flip_h=false
 		fuelSprite.position=carryPos
+		scrapSprite.position=carryPos
 	else:
 		sprite.flip_h=true
 		fuelSprite.position=carryPos*Vector2(-1,1)
+		scrapSprite.position=carryPos*Vector2(-1,1)
 
 func zoomIn(state : bool):
 	if state:
@@ -66,12 +71,12 @@ func pick_up_object():
 	var thing = carryables.pop_back()
 	var typeArg = thing.getType()
 	if typeArg==Item.TYPE.Fuel:
-		#print("turn on sprite")
 		fuelSprite.visible=true
 		carryType=Item.TYPE.Fuel
 	if typeArg==Item.TYPE.Scrap:
 		scrapSprite.visible=true
 		carryType=Item.TYPE.Scrap
+		carryingScrap=true
 	carrying=true
 	thing.queue_free()
 	return true
@@ -83,6 +88,13 @@ func drop_object():
 		var loadedFuel=FUEL.instantiate()
 		get_parent().add_child(loadedFuel)
 		loadedFuel.global_position=fuelSprite.get_global_position()
+	if carryType==Item.TYPE.Scrap and not startRepair:# do not drop scrap when interacting with repair
+		scrapSprite.visible=false
+		carrying=false
+		carryingScrap=false
+		var loadedScrap=SCRAP.instantiate()
+		get_parent().add_child(loadedScrap)
+		loadedScrap.global_position=scrapSprite.get_global_position()
 
 
 func move(direction):
@@ -98,7 +110,11 @@ func move(direction):
 			sprite.play("idle")
 		velocity.x = move_toward(velocity.x, 0, speed)
 
-
+func removeScrap():#called when carrying scrap and repairing something
+	scrapSprite.visible=false
+	carrying=false
+	carryingScrap=false
+	
 func fall(direction,delta):
 	velocity.y += gravity * delta
 	sprite.play("jump")
