@@ -8,4 +8,3 @@ func interact():
 	dropeZoneRight._remove_fuel()
 	if Global.elevator:#make sure that elevator exists, so that the interior scene can still be used for debugging
 		Global.elevator.fuel+=newFuel
-		print("Updated fuel: ",Global.elevator.fuel)
