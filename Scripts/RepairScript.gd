@@ -25,9 +25,14 @@ func _process(delta):
 	while(repairing):
 		repairing=repairObject.repair(delta)	
 	if player:
-		if collided and Input.is_action_just_pressed("interact") and not player.carrying:
-			print("interact in interior: ",player.carrying)# here the .use function of the corresponding object should be called
-			repairing=true
+		if collided and Input.is_action_just_pressed("interact"):
+			if  player.carryingScrap:
+				print("interact in interior: ",player.carryingScrap)# here the .use function of the corresponding object should be called
+				repairing=true
+				player.removeScrap()
+			else:
+					print("not carryingScrap!")
+		
 	else:
 		print("no player")
 		player=get_parent().get_node("../player")# ugly fix for instantiated objects that dont show up otherwise:/
@@ -38,10 +43,12 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if body.name=="player":
+		Global.player.startRepair=true #disable player dropping scrap when reparing
 		collided=true
 
 
 func _on_body_exited(body):
 	if body.name=="player":
 		collided=false
+		Global.player.startRepair=false 
 		repairing=false

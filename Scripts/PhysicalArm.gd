@@ -66,10 +66,8 @@ func disable():
 	
 func repair(delta):
 	#return
-	print("repairing  ",repairTime )
 	repairTime -= delta
 	if(repairTime <= 0):
-		print("repaired ",repairTime )
 		functional = true
 		sparks.emitting = false
 		upperArmPhys.gravity_scale = 0
