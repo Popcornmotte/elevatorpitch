@@ -1,7 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=9 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
+[ext_resource type="Texture2D" uid="uid://cju5hefrsve3b" path="res://Assets/Sprites/UI/RustyPanel.png" id="3_1e58w"]
+[ext_resource type="Texture2D" uid="uid://bk4ncbsoisn4d" path="res://Assets/Sprites/items/crate.png" id="4_l2qxe"]
+[ext_resource type="PackedScene" uid="uid://d1x22hjhicnj" path="res://Scenes/UI/fade_in.tscn" id="5_em6cv"]
+
+[sub_resource type="Animation" id="Animation_gh5je"]
+resource_name = "FundsWiggle"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(96, 72), Vector2(64, 72), Vector2(112, 72), Vector2(96, 72)]
+}
+
+[sub_resource type="Animation" id="Animation_8q23r"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l582n"]
+_data = {
+"FundsWiggle": SubResource("Animation_gh5je"),
+"RESET": SubResource("Animation_8q23r")
+}
 
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
@@ -18,24 +46,56 @@ enabled = false
 
 [node name="LevelFinish" type="Node2D" parent="."]
 visible = false
+z_index = 10
 
-[node name="CargoLabel" type="Label" parent="LevelFinish"]
-offset_left = -88.0
-offset_top = 120.0
-offset_right = 116.0
-offset_bottom = 146.0
-text = "Delivered Cargo:
+[node name="NinePatchRect" type="NinePatchRect" parent="LevelFinish"]
+offset_left = -128.0
+offset_top = -40.0
+offset_right = 128.0
+offset_bottom = 127.0
+texture = ExtResource("3_1e58w")
+
+[node name="CargoSprite" type="Sprite2D" parent="LevelFinish/NinePatchRect"]
+position = Vector2(120, 40)
+texture = ExtResource("4_l2qxe")
+
+[node name="CargoLabel" type="Label" parent="LevelFinish/NinePatchRect"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 24.0
+offset_right = 192.0
+offset_bottom = 58.0
+text = " : 14 
 "
+horizontal_alignment = 1
 
-[node name="DeliverButton" type="Button" parent="LevelFinish"]
-offset_left = -107.0
-offset_right = 110.0
-offset_bottom = 31.0
+[node name="FundsLabel" type="Label" parent="LevelFinish/NinePatchRect"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 72.0
+offset_right = 192.001
+offset_bottom = 95.0
+text = "Funds : 0"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelFinish/NinePatchRect/FundsLabel"]
+libraries = {
+"": SubResource("AnimationLibrary_l582n")
+}
+
+[node name="DeliverButton" type="Button" parent="LevelFinish/NinePatchRect"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 112.0
+offset_right = 240.0
+offset_bottom = 143.0
 text = "Deliver cargo
 "
 
 [node name="EndTimer" type="Timer" parent="LevelFinish"]
+wait_time = 5.0
+
+[node name="FadeIn" parent="." instance=ExtResource("5_em6cv")]
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
-[connection signal="pressed" from="LevelFinish/DeliverButton" to="." method="_on_deliver_button_pressed"]
+[connection signal="pressed" from="LevelFinish/NinePatchRect/DeliverButton" to="." method="_on_deliver_button_pressed"]
 [connection signal="timeout" from="LevelFinish/EndTimer" to="." method="_on_end_timer_timeout"]

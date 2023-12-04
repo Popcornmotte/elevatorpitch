@@ -19,26 +19,36 @@ var funds=0
 
 func addFunds(newFunds:int):
 	funds+=newFunds
-	
+
 func addToInventory(item : Item) -> bool:
 	if inventory.size() < inventoryMaxSize:
 		inventory.append(item)
 		return true
 	else:
 		return false
+
 func takeFromInventory(type : Item.TYPE):
 	for i in inventory.size():
 		if inventory[i].type == type:
 			return inventory.pop_at(i)
 	return null
+
 func listInventory():
 	print("Listing Inventory:")
 	for item in inventory:
 		print(str(item)) 
+
+func countItem(type : Item.TYPE):
+	var count = 0
+	for item in inventory:
+		if item.type == type:
+			count += 1
+	return count
+
 #for letting enemies efficiently check for Cargo to steal
 func checkForCargo() -> bool:
 	return (inventory.any(func(item : Item): return(item.type == Item.TYPE.Cargo)))
-	
+
 func _process(delta):
 	if Input.is_action_just_pressed("Esc"):
 		get_tree().quit()

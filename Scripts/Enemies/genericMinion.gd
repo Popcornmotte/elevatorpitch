@@ -103,6 +103,7 @@ func grab(clawA):
 
 func pop():
 	if !popped:
+		Global.aliveEnemies -= 1
 		gravity_scale = 1
 		Audio.playSfx(POP)
 		FX.playFX("popsplosion", global_position + Vector2(0,-32))
@@ -117,6 +118,10 @@ func release(linVel):
 	set_collision_layer_value(1,true)
 	set_collision_mask_value(1,true)
 	gravity_scale = 1
+
+func takeDamage(damage):
+	hitPoints -= damage
+	pass
 
 func stealCargo():
 	#print("Stealing!")
@@ -194,12 +199,14 @@ func _process(delta):
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	if popped || loot!=null:
+		if(loot!=null):
+			Global.aliveEnemies -= 1
 		$DeathTimer.start()
 	pass # Replace with function body.
 
 
 func _on_death_timer_timeout():
-	Global.aliveEnemies -= 1
+	
 	if(dbm != null):
 		dbm.queue_free()
 	call_deferred("queue_free")
