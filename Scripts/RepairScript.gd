@@ -39,7 +39,6 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if body.name=="player":
-		print("Reparo: player entered")
 		Global.player.startRepair=true #disable player dropping scrap when reparing
 		collided=true
 		if repairing:
@@ -56,7 +55,6 @@ func _on_body_exited(body):
 
 
 func _on_repair_timer_timeout():
-	print("Hellop tiomewtsljsdlf")
 	repairObject.repair()
 	player.removeScrap()
 	repairing=false
