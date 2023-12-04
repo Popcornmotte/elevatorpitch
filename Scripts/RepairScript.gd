@@ -2,10 +2,9 @@ extends Area2D
 
 const REPAIR = preload("res://Assets/Audio/sfx/repair.wav")
 # i know this is ugly, but trying to modify the elevator scene crashes godot consistently for me
-@export var pathToRepair:Node2D
+@export var repairObject:Node2D
 @export var repairInterior:bool
 @onready var player=Global.player
-var repairObject#=Global.elevator.get_node(pathToRepair)
 var collided=false
 var sfx
 
@@ -28,7 +27,8 @@ func _process(delta):
 	if player:
 		if collided and Input.is_action_pressed("interact") and player.carryingScrap:
 				#print("interact in interior: ",player.carryingScrap)# here the .use function of the corresponding object should be called
-				$RepairTimer.start()
+				if not repairing:
+					$RepairTimer.start()
 				if(sfx):
 					if(!sfx.playing):
 						sfx = Audio.playSfx(REPAIR,true)

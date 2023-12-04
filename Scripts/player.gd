@@ -70,13 +70,10 @@ func pick_up_object():
 		return false
 	var thing = carryables.pop_back()
 	var typeArg = thing.getType()
-	print("pick up")
 	if typeArg==Item.TYPE.Fuel:
-		print("fuel")
 		fuelSprite.visible=true
 		carryType=Item.TYPE.Fuel
 	if typeArg==Item.TYPE.Scrap:
-		print("scrap")
 		scrapSprite.visible=true
 		carryType=Item.TYPE.Scrap
 		carryingScrap=true
@@ -141,7 +138,6 @@ func climb(direction):
 		
 func _process(delta):
 	if Input.is_action_just_pressed("interact"):
-		print( carryables.size())
 		if carrying:
 			drop_object()
 		elif carryables.size() > 0:

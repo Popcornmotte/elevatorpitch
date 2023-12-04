@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bwyeht2pc0nal" path="res://Scenes/Objects/fuel_button.tscn" id="11_qb8x6"]
 [ext_resource type="Texture2D" uid="uid://bi5lwh40poc7w" path="res://Assets/Sprites/InteriorObjects/drop_funnel.png" id="12_xxbrh"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="13_1wjlu"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/Items/scrap.tscn" id="13_o6qq7"]
+[ext_resource type="PackedScene" uid="uid://bowy1locqpytv" path="res://Scenes/Objects/Items/scrap.tscn" id="13_o6qq7"]
 [ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="13_tkd7y"]
 [ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="14_bihsb"]
 
