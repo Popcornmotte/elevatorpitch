@@ -17,6 +17,7 @@ var isControlled = true
 
 var armAnchorPos : Vector2
 var line : Line2D
+var preFlingPos : Vector2
 
 func _ready():
 	armAnchorPos = Global.elevator.global_position
@@ -38,14 +39,14 @@ func control(isBeingControlled : bool):
 func move(delta):
 	#mouse position that the target moves towards
 	var mousePos = get_global_mouse_position()
-	velocity = global_position.direction_to(mousePos).normalized() * 600
+	velocity = global_position.direction_to(mousePos) * global_position.distance_to(mousePos)/delta
 	return
 	
 func isActive():
 	if(rightTarget):
-		return Global.elevator.get_local_mouse_position().x > 0
+		return Global.elevator.get_local_mouse_position().x > 0.0
 	else:
-		return Global.elevator.get_local_mouse_position().x < 0
+		return Global.elevator.get_local_mouse_position().x < 0.0
 
 func follow_mouse(delta : float):
 	#if mouse is on other side of elevator reset target to rest pos
@@ -55,11 +56,12 @@ func follow_mouse(delta : float):
 		if(isActive()):
 			if(armAnchorPos.distance_to(get_global_mouse_position()) > 200):
 				global_position = get_global_mouse_position()
+			else:
+				move(delta)
+				move_and_slide()
 		else:
 			global_position = restingPosition.global_position
-
-		move(delta)
-		move_and_slide()
+		
 
 func draw_fling_dir():
 	if(isControlled && isActive()):
@@ -68,8 +70,12 @@ func draw_fling_dir():
 		line.points[1].y = mousePos.y
 
 func _physics_process(delta):
+	if(Input.is_action_just_pressed("Fling")):
+		preFlingPos = global_position
 	if(Input.is_action_pressed("Fling") && claw.grabbing):
 		draw_fling_dir()
+		var offsetDir = preFlingPos.direction_to(get_global_mouse_position()) * 100
+		global_position = global_position.lerp(preFlingPos - offsetDir, delta * 10)
 	else:
 		follow_mouse(delta)
 	
