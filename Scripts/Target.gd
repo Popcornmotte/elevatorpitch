@@ -74,7 +74,7 @@ func _physics_process(delta):
 		preFlingPos = global_position
 	if(Input.is_action_pressed("Fling") && claw.grabbing):
 		draw_fling_dir()
-		var offsetDir = preFlingPos.direction_to(get_global_mouse_position()) * 100
+		var offsetDir = preFlingPos.direction_to(get_global_mouse_position()) * preFlingPos.distance_to(armAnchorPos) / 2
 		global_position = global_position.lerp(preFlingPos - offsetDir, delta * 10)
 	else:
 		follow_mouse(delta)

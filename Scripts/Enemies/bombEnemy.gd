@@ -1,6 +1,8 @@
 extends RigidBody2D
 
 @export var maxSpeed = 50
+@export var hitPoints = 10
+const THUDS = [preload("res://Assets/Audio/sfx/wood_thud0.wav"), preload("res://Assets/Audio/sfx/wood_thud1.wav"), preload("res://Assets/Audio/sfx/wood_thud2.wav")]
 const BOOM = preload("res://Assets/Audio/sfx/explosion.wav")
 
 var explosion = preload("res://Scenes/Objects/explosion.tscn")
@@ -31,10 +33,21 @@ func grab(clawA):
 func release(linVel):
 	pass
 
-#make sure to set collision mask and layer in a way
-#that only elevator parts are registered
-func onTriggerAreaEnter(other):
+func takeDamage(damage):
+	hitPoints -= damage
+
+func onTriggerAreaEnter():
+	print("Trigger entered")
 	explode()
+
+func _on_body_entered(body):
+	print("Body entered: " + body.name)
+	if(body.is_class("RigidBody2D")):
+		print("Barrel collision")
+		if (body.linear_velocity - linear_velocity).length() > 500.0:
+			hitPoints -= body.mass * (0.1 * body.linear_velocity.length())
+			print("-> Health now at "+str(hitPoints))
+			Audio.playSfx(THUDS.pick_random())
 
 func explode():
 	Audio.playSfx(BOOM)
@@ -74,4 +87,6 @@ func move(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	move(delta)
+	if(hitPoints <= 0):
+		explode()
 	pass
