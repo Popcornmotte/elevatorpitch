@@ -2,6 +2,8 @@ extends CharacterBody2D
 const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
 const SCRAP=preload("res://Scenes/Objects/Items/scrap.tscn")
 
+const WALKINGSOUND=preload("res://Assets/Audio/sfx/walking.wav")
+
 @export var speed = 100.0
 @export var climbSpeed=50.0
 @export var jumpVelocity = -150.0
@@ -24,6 +26,7 @@ var startRepair=false#block dropping of scrap when in vicinity of repair station
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var cameraMargins = 0.0
+var sfx
 
 func _ready():
 	Global.player = self
@@ -109,6 +112,11 @@ func move(direction):
 			#flip animation if necessary
 			sprite.play("walk")
 			flip_animation(direction)
+			if(sfx):
+				if(!sfx.playing):
+					sfx = Audio.playSfx(WALKINGSOUND,true)
+			else:
+				sfx=Audio.playSfx(WALKINGSOUND,true)
 		#allow the player to also move mid jump
 		velocity.x = direction * speed
 	else:
@@ -161,7 +169,6 @@ func _physics_process(delta):
 		elif climbing:
 			climb(direction)
 			set_collision_mask_value(5,false)#allows player to pass through floor when climbing
-			print("collide off")	
 		if not climbing:
 			set_collision_mask_value(5,true)
 			if carrying:#reenable sprite when not climbing
@@ -169,7 +176,6 @@ func _physics_process(delta):
 					fuelSprite.visible=true
 				if carryType==Item.TYPE.Scrap:
 					scrapSprite.visible=true
-				print("collide on")	
 		jump(direction)
 		move(direction)
 		move_and_slide()
