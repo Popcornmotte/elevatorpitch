@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=64 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="Texture2D" uid="uid://btsxud1jfvfvj" path="res://Assets/Sprites/dottedLine.png" id="19_5krrx"]
 [ext_resource type="PackedScene" uid="uid://76relfo52far" path="res://Scenes/World/climbEnvironment.tscn" id="25_881fs"]
+[ext_resource type="Shader" uid="uid://dqaejjhskwfic" path="res://Assets/Shaders/alphaPulse.tres" id="26_3tmyj"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="27_ahenx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
@@ -287,6 +288,10 @@ radius = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_kdskv"]
 radius = 40.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffijk"]
+shader = ExtResource("26_3tmyj")
+shader_parameter/Frequency = 1.0
+
 [sub_resource type="Animation" id="Animation_ec3x2"]
 length = 0.001
 tracks/0/type = "value"
@@ -324,10 +329,11 @@ _data = {
 "goal": SubResource("Animation_lruot")
 }
 
-[node name="Elevator" type="Node2D" node_paths=PackedStringArray("healthBar", "fuelBar", "heightMeter")]
+[node name="Elevator" type="Node2D" node_paths=PackedStringArray("healthBar", "fuelBar", "fuelAlert", "heightMeter")]
 script = ExtResource("1_gs4x1")
 healthBar = NodePath("HealthBar/Polygon2D")
-fuelBar = NodePath("FuelBar/Polygon2D2")
+fuelBar = NodePath("FuelBar/Fuel")
+fuelAlert = NodePath("FuelBar/AlertOverlay")
 heightMeter = NodePath("Heightmeter/Height")
 
 [node name="LegsAndCable" type="Node2D" parent="."]
@@ -408,7 +414,7 @@ libraries = {
 }
 
 [node name="TankSprite" type="Sprite2D" parent="HullBody"]
-z_index = 4
+z_index = 8
 position = Vector2(-43, -125)
 texture = ExtResource("8_jksmi")
 
@@ -890,11 +896,27 @@ text = "Health"
 scroll_active = false
 
 [node name="FuelBar" type="Node2D" parent="."]
-position = Vector2(143, -126)
+position = Vector2(-46, -61)
 
-[node name="Polygon2D2" type="Polygon2D" parent="FuelBar"]
-color = Color(0.705882, 0.380392, 0, 0.537255)
-polygon = PackedVector2Array(0, -14, 0, 14, 127, 14, 127, -14)
+[node name="Fuel" type="Polygon2D" parent="FuelBar"]
+z_index = 7
+rotation = -1.5708
+color = Color(0.705882, 0.380392, 0, 1)
+polygon = PackedVector2Array(0, -14, 0, 14, 68, 14, 68, -14)
+
+[node name="AlertOverlay" type="Polygon2D" parent="FuelBar"]
+visible = false
+z_index = 8
+material = SubResource("ShaderMaterial_ffijk")
+rotation = -1.5708
+color = Color(1, 0.192157, 0, 1)
+polygon = PackedVector2Array(0, -14, 0, 14, 68, 14, 68, -14)
+
+[node name="Background" type="Polygon2D" parent="FuelBar"]
+z_index = 6
+rotation = -1.5708
+color = Color(0.133333, 0.0941176, 0.0627451, 1)
+polygon = PackedVector2Array(0, -14, 0, 14, 68, 14, 68, -14)
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="FuelBar"]
 custom_minimum_size = Vector2(70, 0)

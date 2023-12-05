@@ -9,6 +9,7 @@ var speed = 0.0
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
+@export var fuelAlert : Node2D
 @export var heightMeter : Label
 @export var controlArms:bool #make it accessible whether or not the arms are being controlled
 @export var moving:bool=true
@@ -80,6 +81,7 @@ func decrease_fuel(delta):
 	if fuel<=0:
 		brake.use_brake(true)#set brake to turned off position
 		engineSFX.stopEngine()
+		fuelAlert.visible = true
 	else:
 		update_height(climbingRate*delta)
 	updateFuel()
