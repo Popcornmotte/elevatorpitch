@@ -28,7 +28,7 @@ func _process(delta):
 		$Sparks.emitting = true
 		if(sfxRepairNeeded):
 			if(!sfxRepairNeeded.playing):
-				sfxRepairNeeded = Audio.playSfx(REPAIRNEEDED,false)
+				sfxRepairNeeded = Audio.playSfx(REPAIRNEEDED,true)
 		else:
 			sfxRepairNeeded=Audio.playSfx(REPAIRNEEDED,true)
 	else:
@@ -36,6 +36,7 @@ func _process(delta):
 		$RepairAnimatedSprite2D.visible=false
 		repairing=false
 		$Sparks.emitting = false
+		sfxRepairNeeded=null
 		
 	if player:
 		if collided and Input.is_action_pressed("interact") and player.carryingScrap:
@@ -43,7 +44,7 @@ func _process(delta):
 					$RepairTimer.start()
 				if(sfxRepairing):
 					if(!sfxRepairing.playing):
-						sfxRepairing = Audio.playSfx(REPAIR,false)
+						sfxRepairing = Audio.playSfx(REPAIR,true)
 				else:
 					sfxRepairing=Audio.playSfx(REPAIR,true)
 				repairing=true
