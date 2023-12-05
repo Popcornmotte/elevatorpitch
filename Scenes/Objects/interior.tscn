@@ -1,19 +1,18 @@
-[gd_scene load_steps=30 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=29 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
-[ext_resource type="Texture2D" uid="uid://dop4ylnwhqvof" path="res://Assets/Sprites/InteriorObjects/floor.png" id="5_wfh41"]
 [ext_resource type="PackedScene" uid="uid://bkgkwoq7n22lu" path="res://Scenes/Objects/drop_zone.tscn" id="7_bsp3f"]
+[ext_resource type="Texture2D" uid="uid://u7igrnlxf1sf" path="res://Assets/Sprites/InteriorObjects/floor_fixed.png" id="7_yotym"]
 [ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="8_5pu4c"]
 [ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="9_lvdt6"]
+[ext_resource type="Texture2D" uid="uid://bl8lfrua5a0uk" path="res://Assets/Sprites/InteriorObjects/drop_station.png" id="9_pucli"]
 [ext_resource type="PackedScene" uid="uid://c30yxwkogsbvo" path="res://Scenes/Objects/brake.tscn" id="11_ga7e1"]
 [ext_resource type="PackedScene" uid="uid://bwyeht2pc0nal" path="res://Scenes/Objects/fuel_button.tscn" id="11_qb8x6"]
 [ext_resource type="Texture2D" uid="uid://bi5lwh40poc7w" path="res://Assets/Sprites/InteriorObjects/drop_funnel.png" id="12_xxbrh"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="13_1wjlu"]
-[ext_resource type="PackedScene" uid="uid://bowy1locqpytv" path="res://Scenes/Objects/Items/scrap.tscn" id="13_o6qq7"]
 [ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="13_tkd7y"]
-[ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="14_bihsb"]
 [ext_resource type="PackedScene" uid="uid://j403hcw3x8t" path="res://Scenes/Objects/scrapButton.tscn" id="15_tv010"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
@@ -305,10 +304,13 @@ position = Vector2(0, -52)
 z_index = 2
 position = Vector2(-1.5, 0)
 scale = Vector2(1.00625, 1)
-texture = ExtResource("5_wfh41")
+texture = ExtResource("7_yotym")
 
 [node name="Brake" parent="." instance=ExtResource("11_ga7e1")]
 position = Vector2(-70, 78)
+
+[node name="DropStation" type="Sprite2D" parent="."]
+texture = ExtResource("9_pucli")
 
 [node name="FuelButton" parent="." instance=ExtResource("11_qb8x6")]
 position = Vector2(20, 75)
@@ -317,9 +319,6 @@ position = Vector2(20, 75)
 
 [node name="DropFunnel" type="Sprite2D" parent="DropFunnel"]
 texture = ExtResource("12_xxbrh")
-
-[node name="Scrap" parent="." instance=ExtResource("13_o6qq7")]
-position = Vector2(-34, 67)
 
 [node name="player" parent="." instance=ExtResource("13_1wjlu")]
 position = Vector2(-56, 56)
@@ -337,11 +336,5 @@ libraries = {
 "": SubResource("AnimationLibrary_qa6yr")
 }
 
-[node name="Fuel" parent="." instance=ExtResource("14_bihsb")]
-position = Vector2(-10, 81)
-
 [node name="ScrapButton" parent="." instance=ExtResource("15_tv010")]
 position = Vector2(-20, 75)
-
-[node name="Fuel2" parent="." instance=ExtResource("14_bihsb")]
-position = Vector2(34, 43)
