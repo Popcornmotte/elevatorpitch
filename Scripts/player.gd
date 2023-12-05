@@ -3,6 +3,7 @@ const FUEL=preload("res://Scenes/Objects/Items/fuel.tscn")
 const SCRAP=preload("res://Scenes/Objects/Items/scrap.tscn")
 
 const WALKINGSOUND=preload("res://Assets/Audio/sfx/walking.wav")
+const CLIMBINGSOUND=preload("res://Assets/Audio/sfx/climbing.wav")
 
 @export var speed = 100.0
 @export var climbSpeed=50.0
@@ -33,6 +34,13 @@ func _ready():
 	cameraMargins = $PlayerCam.get_drag_margin(0)
 	zoomIn(startZoomedIn)
 
+func playSound(clip : AudioStream):
+	if(sfx):
+		if(!sfx.playing):
+			sfx = Audio.playSfx(clip,true)
+	else:
+		sfx=Audio.playSfx(clip,true)
+		
 func flip_animation(direction):
 	if direction>0:
 		sprite.flip_h=false
@@ -112,11 +120,7 @@ func move(direction):
 			#flip animation if necessary
 			sprite.play("walk")
 			flip_animation(direction)
-			if(sfx):
-				if(!sfx.playing):
-					sfx = Audio.playSfx(WALKINGSOUND,true)
-			else:
-				sfx=Audio.playSfx(WALKINGSOUND,true)
+			playSound(WALKINGSOUND)
 		#allow the player to also move mid jump
 		velocity.x = direction * speed
 	else:
@@ -140,6 +144,7 @@ func fall(direction,delta):
 func climb(direction):
 	velocity.y=0
 	sprite.play("climb")
+	playSound(CLIMBINGSOUND)
 	if Input.is_action_pressed("up"):
 		velocity.y=-speed
 	elif Input.is_action_pressed("down"):
