@@ -4,6 +4,8 @@ const SCRAP=preload("res://Scenes/Objects/Items/scrap.tscn")
 
 const WALKINGSOUND=preload("res://Assets/Audio/sfx/walking.wav")
 const CLIMBINGSOUND=preload("res://Assets/Audio/sfx/climbing.wav")
+const PICKUPSOUND=preload("res://Assets/Audio/sfx/pickUp.wav")
+const DROPSOUND=preload("res://Assets/Audio/sfx/dropObject.wav")
 
 @export var speed = 100.0
 @export var climbSpeed=50.0
@@ -96,9 +98,12 @@ func pick_up_object():
 		carryingScrap=true
 	carrying=true
 	thing.queue_free()
+	Audio.playSfx(PICKUPSOUND)
 	return true
 
 func drop_object():
+	if carrying:
+		Audio.playSfx(DROPSOUND)
 	if carryType==Item.TYPE.Fuel:
 		fuelSprite.visible=false
 		carrying=false
