@@ -27,7 +27,6 @@ func dropElevator():#drops the elvator for example on finished game
 	$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$HullBody/AnimationPlayer.play("EngineJiggle")
 	control(controlArms)
 	moving=false
 	updateFuel()#show correct fuel on game start
@@ -95,6 +94,10 @@ func _process(delta):
 #		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,true)
 #	else:
 #		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,false)
+	if moving:#only play jiggle engine when actually moving 
+		if not  $HullBody/AnimationPlayer.is_playing():
+			print("start animation")
+			$HullBody/AnimationPlayer.play("EngineJiggle")
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
