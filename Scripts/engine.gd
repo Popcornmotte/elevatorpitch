@@ -1,16 +1,39 @@
-extends Node2D
+extends AudioStreamPlayer2D
+class_name ElevatorEngine
 
-@export var drop_zone:Node2D
-@export var fuel_counter=0
-func _use():
-	fuel_counter+=drop_zone.fuel.size()
-	drop_zone._remove_fuel()#remove collected fuel
-	
-# Called when the node enters the scene tree for the first time.
+var startup = preload("res://Assets/Audio/sfx/engine_start.wav")
+var loop = preload("res://Assets/Audio/sfx/engine_loop.wav")
+var shutoff = preload("res://Assets/Audio/sfx/engine_shutoff.wav")
+
+@export var animation : AnimationPlayer
+@export var sprite : AnimatedSprite2D
+
+var stopped = false
+
 func _ready():
-	pass # Replace with function body.
+	animation.play("EngineJiggle")
+	sprite.play()
 
+func startEngine():
+	if(stopped):
+		print("Start engine")
+		stopped = false
+		animation.play("EngineJiggle")
+		sprite.play()
+		stream = startup
+		play()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func stopEngine():
+	print("Stop engine")
+	stopped = true
+	animation.pause()
+	sprite.pause()
+	stream = shutoff
+	play()
+
+func _on_finished():
+	if(Global.elevator.fuel > 0):
+		stream = loop
+		play()
+	elif(!stopped):
+		stopEngine()

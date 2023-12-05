@@ -18,6 +18,7 @@ var speed = 0.0
 @export var climbingRate=100
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
+@onready var engineSFX = $HullBody/EngineSound
 
 func _enter_tree():
 	Global.elevator = self
@@ -78,6 +79,7 @@ func decrease_fuel(delta):
 	fuel -= fuelConsumption*delta
 	if fuel<=0:
 		brake.use_brake(true)#set brake to turned off position
+		engineSFX.stopEngine()
 	else:
 		update_height(climbingRate*delta)
 	updateFuel()
@@ -94,23 +96,11 @@ func _process(delta):
 #		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,true)
 #	else:
 #		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,false)
-	if moving:#only play jiggle engine when actually moving 
-		if not  $HullBody/AnimationPlayer.is_playing():
-			print("start animation")
-			$HullBody/AnimationPlayer.play("EngineJiggle")
-	else:
-		$HullBody/AnimationPlayer.stop()
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
 
 	pass
-
-
-func _on_engine_sound_finished():
-	$HullBody/EngineSound.play()
-	pass # Replace with function body.
-
 
 func _on_animation_player_elevator_animation_finished(anim_name):
 	Global.level.endLevel()

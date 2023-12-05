@@ -25,7 +25,6 @@ func use_brake(use : bool, alarm = false):#use this function also externally whe
 		turnOn=true
 		if Global.elevator:#check that elevator exists 
 			Global.elevator.moving=false
-			Global.elevator.get_node("HullBody/EngineSound").playing=false
 	else:
 		if Global.aliveEnemies > 0:
 			Audio.playSfx(ERROR)
@@ -37,7 +36,7 @@ func use_brake(use : bool, alarm = false):#use this function also externally whe
 		turnOn=false
 		if Global.elevator:#check that elevator exists 
 			Global.elevator.moving=true
-			Global.elevator.get_node("HullBody/EngineSound").playing=true
+			Global.elevator.get_node("HullBody/EngineSound").startEngine()
 			
 func interact():
 	turnOn=!turnOn

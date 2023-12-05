@@ -39,7 +39,8 @@ func control(isBeingControlled : bool):
 func move(delta):
 	#mouse position that the target moves towards
 	var mousePos = get_global_mouse_position()
-	velocity = global_position.direction_to(mousePos) * global_position.distance_to(mousePos)/delta
+	var magnitude = min(global_position.distance_to(mousePos)/delta, velocity.length() + 400)
+	velocity = global_position.direction_to(mousePos) * magnitude
 	return
 	
 func isActive():

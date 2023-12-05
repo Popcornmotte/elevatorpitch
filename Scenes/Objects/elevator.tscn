@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=62 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -19,8 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://hi3n6rh8ffcu" path="res://Assets/Sprites/ElevatorBody/TankTest.png" id="8_jksmi"]
 [ext_resource type="Script" path="res://Scripts/EffectGear.gd" id="9_3heke"]
 [ext_resource type="Script" path="res://Scripts/Claw.gd" id="9_ltb0c"]
-[ext_resource type="AudioStream" uid="uid://u6apy8qmdx4q" path="res://Assets/Audio/sfx/engine_clatterEdit.wav" id="9_nhrft"]
+[ext_resource type="AudioStream" uid="uid://d2l0fiuq2cefa" path="res://Assets/Audio/sfx/engine_loop.wav" id="10_iwtlw"]
 [ext_resource type="Material" uid="uid://dsthfo1lhc5ao" path="res://ParticleEffects/Sparks.tres" id="10_psx2i"]
+[ext_resource type="Script" path="res://Scripts/engine.gd" id="11_d22i2"]
 [ext_resource type="Texture2D" uid="uid://bb36mwhht2hya" path="res://Assets/Sprites/spark.png" id="11_eb7jo"]
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="17_epo4g"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
@@ -411,9 +412,12 @@ z_index = 4
 position = Vector2(-43, -125)
 texture = ExtResource("8_jksmi")
 
-[node name="EngineSound" type="AudioStreamPlayer2D" parent="HullBody"]
-stream = ExtResource("9_nhrft")
+[node name="EngineSound" type="AudioStreamPlayer2D" parent="HullBody" node_paths=PackedStringArray("animation", "sprite")]
+stream = ExtResource("10_iwtlw")
 autoplay = true
+script = ExtResource("11_d22i2")
+animation = NodePath("../AnimationPlayer")
+sprite = NodePath("../EngineSprite")
 
 [node name="Arms" type="Node2D" parent="."]
 
@@ -426,7 +430,6 @@ metadata/_edit_lock_ = true
 position = Vector2(97, 0)
 rotation = 0.387332
 rest = Transform2D(0.92592, 0.377719, -0.377719, 0.92592, 97, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="GearSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone"]
 visible = false
@@ -436,7 +439,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Right/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone"]
 z_index = -2
@@ -448,7 +450,6 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -471,7 +472,6 @@ bone_angle = 0.0
 position = Vector2(128, 0)
 rotation = 0.289078
 rest = Transform2D(0.930478, 0.366254, -0.366254, 0.930478, 128.007, 0.000183105)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Claw" type="AnimatableBody2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 collision_layer = 0
@@ -494,7 +494,6 @@ position = Vector2(-96, 0)
 rotation = -3.14159
 scale = Vector2(0.999891, 0.999891)
 rest = Transform2D(-0.642719, 0.76596, -0.76596, -0.642719, -96, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="GearSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone"]
 visible = false
@@ -504,7 +503,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Left/GearBone"]
 position = Vector2(7.00006, -1.52588e-05)
 rest = Transform2D(1, 0, 0, 1, 7.00006, -1.52588e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone"]
 z_index = -2
@@ -515,7 +513,6 @@ texture = ExtResource("3_2k2nk")
 position = Vector2(128.002, 6.10352e-05)
 rotation = 0.616101
 rest = Transform2D(0.984808, -0.173648, 0.173648, 0.984808, 128.002, 6.10352e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -538,7 +535,6 @@ bone_angle = 0.0
 position = Vector2(128, -1.52588e-05)
 rotation = -0.199482
 rest = Transform2D(0.980169, -0.198162, 0.198162, 0.980169, 128, -1.52588e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Claw" type="AnimatableBody2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 collision_layer = 0
@@ -948,7 +944,7 @@ repairObject = NodePath("../Arms/PhysicalArmLeft")
 mirrorAnimation = true
 
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
-[connection signal="finished" from="HullBody/EngineSound" to="." method="_on_engine_sound_finished"]
+[connection signal="finished" from="HullBody/EngineSound" to="HullBody/EngineSound" method="_on_finished"]
 [connection signal="body_entered" from="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" method="_on_grab_area_body_entered"]
 [connection signal="body_exited" from="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" method="_on_grab_area_body_exited"]
 [connection signal="body_entered" from="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" method="_on_grab_area_body_entered"]
