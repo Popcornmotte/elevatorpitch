@@ -4,13 +4,16 @@ const BRAKESOUND = preload("res://Assets/Audio/sfx/lever.wav")
 const ALERT = preload("res://Assets/Audio/sfx/enemyAlert.wav")
 const ERROR = preload("res://Assets/Audio/sfx/error.wav")
 var alarmIsSounding = false
-var turnOn=true
+var turnOn=false
 @onready var brakeSprite = get_node("BrakeSprite")
 @onready var alarmLightAnimation = get_parent().get_node("AlertLight/AlertAnimation")
 
 func turnOffLightOnly():
 	alarmLightAnimation.stop()
 
+#func _ready():
+#	use_brake(false)
+	
 func use_brake(use : bool, alarm = false):#use this function also externally when no more fuel is available
 	Audio.playSfx(BRAKESOUND)
 	if(use):
@@ -33,6 +36,7 @@ func use_brake(use : bool, alarm = false):#use this function also externally whe
 		turnOn=false
 		if Global.elevator:#check that elevator exists 
 			Global.elevator.moving=true
+			Global.elevator.get_node("HullBody/EngineSound").startEngine()
 			
 func interact():
 	turnOn=!turnOn

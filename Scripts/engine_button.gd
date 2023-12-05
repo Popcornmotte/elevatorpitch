@@ -9,3 +9,4 @@ func interact():
 	if Global.elevator:#make sure that elevator exists, so that the interior scene can still be used for debugging
 		Global.elevator.fuel+=newFuel*15
 		Global.elevator.updateFuel()
+		Global.elevator.fuelAlert.visible = false
