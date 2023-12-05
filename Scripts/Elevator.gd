@@ -13,7 +13,7 @@ var speed = 0.0
 @export var controlArms:bool #make it accessible whether or not the arms are being controlled
 @export var moving:bool=true
 @export var fuelConsumption=10
-@export var fuel = 0.0
+@export var fuel = 25.0
 @export var climbingHeight=0
 @export var climbingRate=100
 @onready var targets = $Arms/Targets
@@ -28,7 +28,7 @@ func dropElevator():#drops the elvator for example on finished game
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control(controlArms)
-	moving=false
+	moving=true
 	updateFuel()#show correct fuel on game start
 	pass # Replace with function body.
 
@@ -98,9 +98,12 @@ func _process(delta):
 		if not  $HullBody/AnimationPlayer.is_playing():
 			print("start animation")
 			$HullBody/AnimationPlayer.play("EngineJiggle")
+	else:
+		$HullBody/AnimationPlayer.stop()
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
+
 	pass
 
 
