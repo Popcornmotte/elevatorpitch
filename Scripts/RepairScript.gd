@@ -1,13 +1,15 @@
 extends Area2D
 
 const REPAIR = preload("res://Assets/Audio/sfx/repair.wav")
+const REPAIRNEEDED = preload("res://Assets/Audio/sfx/repairNeeded.wav")
 # i know this is ugly, but trying to modify the elevator scene crashes godot consistently for me
 @export var repairObject:Node2D
 @export var repairInterior:bool
 @export var mirrorAnimation:bool
 @onready var player=Global.player
 var collided=false
-var sfx
+var sfxRepairing
+var sfxRepairNeeded
 
 var repairing=false
 func _ready():
@@ -24,6 +26,11 @@ func _process(delta):
 		if mirrorAnimation:#flip according to bool 
 			$RepairAnimatedSprite2D.flip_h=true
 		$Sparks.emitting = true
+		if(sfxRepairNeeded):
+			if(!sfxRepairNeeded.playing):
+				sfxRepairNeeded = Audio.playSfx(REPAIRNEEDED,true)
+		else:
+			sfxRepairNeeded=Audio.playSfx(REPAIRNEEDED,true)
 	else:
 		$RepairCollisionShape.set_disabled(true)#cannot collide with this area
 		$RepairAnimatedSprite2D.visible=false
@@ -34,11 +41,11 @@ func _process(delta):
 		if collided and Input.is_action_pressed("interact") and player.carryingScrap:
 				if not repairing:
 					$RepairTimer.start()
-				if(sfx):
-					if(!sfx.playing):
-						sfx = Audio.playSfx(REPAIR,true)
+				if(sfxRepairing):
+					if(!sfxRepairing.playing):
+						sfxRepairing = Audio.playSfx(REPAIR,true)
 				else:
-					sfx=Audio.playSfx(REPAIR,true)
+					sfxRepairing=Audio.playSfx(REPAIR,true)
 				repairing=true
 				
 
