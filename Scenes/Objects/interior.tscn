@@ -323,13 +323,6 @@ position = Vector2(-34, 67)
 
 [node name="player" parent="." instance=ExtResource("13_1wjlu")]
 position = Vector2(-56, 56)
-speed = 100.0
-climbSpeed = 50.0
-jumpVelocity = -150.0
-maxFallingSpeed = 500.0
-climbing = false
-pushForce = 80.0
-startZoomedIn = true
 
 [node name="AlertLight" type="PointLight2D" parent="."]
 position = Vector2(1, 9)
@@ -349,3 +342,6 @@ position = Vector2(-10, 81)
 
 [node name="ScrapButton" parent="." instance=ExtResource("15_tv010")]
 position = Vector2(-20, 75)
+
+[node name="Fuel2" parent="." instance=ExtResource("14_bihsb")]
+position = Vector2(34, 43)

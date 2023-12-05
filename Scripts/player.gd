@@ -39,7 +39,7 @@ func _ready():
 func playPlayerSound(clip : AudioStream):
 	if(sfx):
 		if(!sfx.playing):
-			sfx = Audio.playSfx(clip,true)
+			sfx = Audio.playSfx(clip,false)
 	else:
 		sfx=Audio.playSfx(clip,true)
 		

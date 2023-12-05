@@ -28,7 +28,7 @@ func _process(delta):
 		$Sparks.emitting = true
 		if(sfxRepairNeeded):
 			if(!sfxRepairNeeded.playing):
-				sfxRepairNeeded = Audio.playSfx(REPAIRNEEDED,true)
+				sfxRepairNeeded = Audio.playSfx(REPAIRNEEDED,false)
 		else:
 			sfxRepairNeeded=Audio.playSfx(REPAIRNEEDED,true)
 	else:
@@ -43,7 +43,7 @@ func _process(delta):
 					$RepairTimer.start()
 				if(sfxRepairing):
 					if(!sfxRepairing.playing):
-						sfxRepairing = Audio.playSfx(REPAIR,true)
+						sfxRepairing = Audio.playSfx(REPAIR,false)
 				else:
 					sfxRepairing=Audio.playSfx(REPAIR,true)
 				repairing=true
