@@ -132,8 +132,30 @@ autoplay = ""
 [node name="EngineSound" parent="Elevator/HullBody" index="7"]
 autoplay = false
 
+[node name="GearBone" parent="Elevator/Arms/SkeletonIK_Right" index="0"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 scale = Vector2(1, 1)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="ClawBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone" index="3"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="GearBone" parent="Elevator/Arms/SkeletonIK_Left" index="0"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="ClawBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone" index="3"]
+metadata/_local_pose_override_enabled_ = true
 
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Upper" index="0"]
 position = Vector2(12.5, -7)

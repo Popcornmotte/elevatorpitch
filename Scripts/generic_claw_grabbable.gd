@@ -7,15 +7,15 @@ var claw : Node2D
 func grab(clawA):
 	grabbed = true
 	claw = clawA
-	#clawA.add_child(self)
 
 func release(velocity):
+	
 	grabbed = false
-	global_position = claw.global_position
+	position = claw.global_position
 	claw = null
 	linear_velocity = velocity
-	#originalParent.add_child(self)
 	
-func _physics_process(delta):
+func _integrate_forces(state):
 	if(grabbed):
 		global_position = claw.global_position
+
