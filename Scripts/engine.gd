@@ -11,8 +11,11 @@ var shutoff = preload("res://Assets/Audio/sfx/engine_shutoff.wav")
 var stopped = false
 
 func _ready():
-	animation.play("EngineJiggle")
-	sprite.play()
+	if Global.elevator.moving:
+		animation.play("EngineJiggle")
+		sprite.play()
+	else:
+		stopped = true
 
 func startEngine():
 	if(stopped):

@@ -128,15 +128,17 @@ func stealCargo():
 	if(Global.checkForCargo()):
 		#print("Cargo in inventory!")
 		var lootPath = Global.takeFromInventory(Item.TYPE.Cargo).getObjectInstance()
-		loot = load(lootPath).instantiate()
-		if (loot != null):
+		#loot = load(lootPath).instantiate()
+		#if (loot != null):
 			#loot.global_position = global_position
-			loot.position = Vector2(0,32)
-			self.add_child(loot)
-			state = STATE.Fleeing
-			Audio.playSfx(IDK)
-			chooseTarget()
-			return
+			#loot.position = Vector2(0,32)
+			#self.add_child(loot)
+		$Crate.visible = true
+		$Crate.mass = 5
+		state = STATE.Fleeing
+		Audio.playSfx(IDK)
+		chooseTarget()
+		return
 		#print("loot is null!! what? lets print it: "+str(loot))
 
 func move(delta) -> bool:

@@ -30,7 +30,6 @@ func dropElevator():#drops the elvator for example on finished game
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control(controlArms)
-	moving=true
 	updateFuel()#show correct fuel on game start
 	pass # Replace with function body.
 
