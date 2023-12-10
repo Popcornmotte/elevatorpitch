@@ -313,7 +313,7 @@ position = Vector2(-70, 78)
 texture = ExtResource("9_pucli")
 
 [node name="FuelButton" parent="." instance=ExtResource("11_qb8x6")]
-position = Vector2(20, 75)
+position = Vector2(21, 82)
 
 [node name="DropFunnel" type="Node2D" parent="."]
 
@@ -337,4 +337,4 @@ libraries = {
 }
 
 [node name="ScrapButton" parent="." instance=ExtResource("15_tv010")]
-position = Vector2(-20, 75)
+position = Vector2(-20, 82)

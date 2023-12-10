@@ -13,7 +13,7 @@ position = Vector2(-18, -81)
 texture = ExtResource("1_xdeol")
 
 [node name="FuelButtonArea" type="Area2D" parent="."]
-collision_layer = 48
+collision_layer = 16
 collision_mask = 16
 
 [node name="FuelButtonCollision" type="CollisionShape2D" parent="FuelButtonArea"]

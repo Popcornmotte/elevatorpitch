@@ -1,5 +1,5 @@
-
 extends GenericInteractible
+
 @onready var dropeZoneRight=get_node("../DropZoneRight")
 var newFuel=0
 
