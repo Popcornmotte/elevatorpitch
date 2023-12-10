@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dn1h17rgyu5yq"]
+[gd_scene load_steps=15 format=3 uid="uid://dn1h17rgyu5yq"]
 
 [ext_resource type="Script" path="res://Scripts/hangar.gd" id="1_7h618"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="2_vpx34"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://d4jw16trahn4f" path="res://Assets/Sprites/Hangar/layer3.png" id="6_u8q84"]
 [ext_resource type="Texture2D" uid="uid://7bo5dfbwoqi7" path="res://Assets/Sprites/Hangar/layer4.png" id="7_3xxor"]
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="9_yyd37"]
-[ext_resource type="PackedScene" uid="uid://bsa8g0bq1qvsk" path="res://Scenes/Objects/Items/crate.tscn" id="10_ixtan"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a0ag"]
 size = Vector2(2500, 16)
@@ -121,7 +120,7 @@ texture = ExtResource("7_3xxor")
 
 [node name="player" parent="." instance=ExtResource("3_4b3ci")]
 z_index = 4
-position = Vector2(-8, -8)
+position = Vector2(-480, 440)
 
 [node name="Elevator" parent="." instance=ExtResource("9_yyd37")]
 moving = false
@@ -194,15 +193,6 @@ position = Vector2(-120, 32)
 
 [node name="ElevatorLadder4" parent="Ladders" instance=ExtResource("2_vpx34")]
 position = Vector2(-120, -32)
-
-[node name="Crate" parent="." instance=ExtResource("10_ixtan")]
-position = Vector2(-208, 152)
-
-[node name="Crate2" parent="." instance=ExtResource("10_ixtan")]
-position = Vector2(-264, 128)
-
-[node name="Crate3" parent="." instance=ExtResource("10_ixtan")]
-position = Vector2(-208, 104)
 
 [editable path="Elevator"]
 [editable path="Elevator/interior"]

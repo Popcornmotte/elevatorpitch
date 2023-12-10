@@ -158,7 +158,6 @@ func move(delta) -> bool:
 				chooseTarget()
 			return true
 	if(grabbed):
-		global_position = clawArea.global_position
 		return false
 	return false
 
@@ -197,7 +196,9 @@ func _process(delta):
 					reload = weapon.reloadTime
 		
 
-
+func _integrate_forces(state):
+	if(grabbed):
+		global_position = clawArea.global_position
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	if popped || loot!=null:
