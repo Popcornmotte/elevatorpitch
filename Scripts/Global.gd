@@ -1,7 +1,7 @@
 extends Node
 
+const SAVEFILE_NAME = "elevatorpitch.save"
 #Put here all variables that make sense to be globally accessible
-
 
 #the elevator will assign itself to this variable
 var elevator : Node2D
@@ -10,9 +10,7 @@ var player : Node2D
 #current Level Scene. since it is different than root
 var level
 var height = 0
-
 var aliveEnemies = 0
-
 var inventoryMaxSize = 16
 var inventory = Array()
 var funds=0
@@ -49,6 +47,36 @@ func countItem(type : Item.TYPE):
 func checkForCargo() -> bool:
 	return (inventory.any(func(item : Item): return(item.type == Item.TYPE.Cargo)))
 
+func exitGame():
+	saveGame()
+	get_tree().quit()
+
+func makeSaveDict():
+	var saveDict = {
+		"funds" : funds
+	}
+	return saveDict
+
+func saveGame():
+	var file = FileAccess.open_encrypted_with_pass(SAVEFILE_NAME, FileAccess.WRITE, "superorganism")
+	file.store_string(JSON.stringify(makeSaveDict()))
+	file.close()
+
+func loadGame():
+	if FileAccess.file_exists(SAVEFILE_NAME):
+		var file = FileAccess.open_encrypted_with_pass(SAVEFILE_NAME, FileAccess.READ, "superorganism")
+		#file.open(FILE_NAME, File.READ)
+		var data = JSON.parse_string(FileAccess.get_file_as_string(file))
+		#var data = parse_json(file.get_as_text())
+		file.close()
+		if typeof(data) == TYPE_DICTIONARY:
+			funds = data.get("funds")
+		else:
+			printerr("Corrupted data!")
+	else:
+		saveGame();
+		printerr("No saved data!")
+
 func _process(delta):
 	if Input.is_action_just_pressed("Esc"):
-		get_tree().quit()
+		exitGame()
