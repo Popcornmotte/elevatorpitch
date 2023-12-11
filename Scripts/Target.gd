@@ -8,6 +8,7 @@ var SPEED = 10.0
 var LERP_WEIGHT = 0.05
 var thresholdDist = 0
 var Emitter : Node2D
+@onready var raycast = $RayCast2D
 
 var speed = 0.0
 var motion = Vector2(0,0)
@@ -18,6 +19,7 @@ var isControlled = true
 var armAnchorPos : Vector2
 var line : Line2D
 var preFlingPos : Vector2
+var previousMouseDist = 10000.0
 
 func _ready():
 	armAnchorPos = Global.elevator.global_position
@@ -37,10 +39,15 @@ func control(isBeingControlled : bool):
 		global_position = restingPosition.global_position
 
 func move(delta):
+	raycast.target_position = raycast.get_local_mouse_position()
 	#mouse position that the target moves towards
-	var mousePos = get_global_mouse_position()
-	var magnitude = min(global_position.distance_to(mousePos)/delta, velocity.length() + 100)
+	var mousePos = raycast.get_collision_point()
+	if !raycast.get_collider():
+		mousePos = get_global_mouse_position()
+	var mouseDist = global_position.distance_to(mousePos)
+	var magnitude = mouseDist/delta
 	velocity = global_position.direction_to(mousePos) * magnitude
+	previousMouseDist = mouseDist
 	return
 	
 func isActive():
@@ -55,9 +62,9 @@ func follow_mouse(delta : float):
 	#if mouse is a little further then just attach target to mouse pos
 	if(isControlled):
 		if(isActive()):
-			if(armAnchorPos.distance_to(get_global_mouse_position()) > 200):
-				global_position = get_global_mouse_position()
-			else:
+			#if(armAnchorPos.distance_to(get_global_mouse_position()) > 200):
+			#	global_position = get_global_mouse_position()
+			#else:
 				move(delta)
 				move_and_slide()
 		else:

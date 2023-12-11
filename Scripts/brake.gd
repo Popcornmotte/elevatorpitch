@@ -4,7 +4,7 @@ const BRAKESOUND = preload("res://Assets/Audio/sfx/lever.wav")
 const ALERT = preload("res://Assets/Audio/sfx/enemyAlert.wav")
 const ERROR = preload("res://Assets/Audio/sfx/error.wav")
 var alarmIsSounding = false
-var turnOn=false
+@export var braking=false
 @onready var brakeSprite = get_node("BrakeSprite")
 @onready var alarmLightAnimation = get_parent().get_node("AlertLight/AlertAnimation")
 enum SPEED {Off,Normal,Fast}
@@ -87,8 +87,6 @@ func switchOff(enemies=true):
 	if Global.elevator:#check that elevator exists 
 		Global.elevator.moving=false
 	return
-		
-
 
 
 #func useBrake(changeTo : SPEED, alarm = false, moveEngine=true):#use this function also externally when no more fuel is available

@@ -1,8 +1,11 @@
 extends RigidBody2D
+class_name ClawGrabbable
 
 var grabbed = false
 var claw : Node2D
 @onready var originalParent = get_parent()
+@export var isItem = false
+@export var item : Item
 
 func grab(clawA):
 	grabbed = true
@@ -11,7 +14,8 @@ func grab(clawA):
 func release(velocity):
 	
 	grabbed = false
-	position = claw.global_position
+	if claw:
+		position = claw.global_position
 	claw = null
 	linear_velocity = velocity
 	
