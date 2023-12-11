@@ -42,27 +42,30 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="RepairArea" type="Area2D"]
+[node name="Repair" type="Node2D"]
+visible = false
+script = ExtResource("1_7dekd")
+
+[node name="RepairArea" type="Area2D" parent="."]
 z_index = 3
 collision_layer = 16
 collision_mask = 16
-script = ExtResource("1_7dekd")
 
-[node name="RepairCollisionShape" type="CollisionShape2D" parent="."]
+[node name="RepairCollisionShape" type="CollisionShape2D" parent="RepairArea"]
 shape = SubResource("RectangleShape2D_3qctk")
 
-[node name="RepairTimer" type="Timer" parent="."]
+[node name="RepairTimer" type="Timer" parent="RepairArea"]
 wait_time = 5.0
 one_shot = true
 
-[node name="Sparks" type="GPUParticles2D" parent="."]
+[node name="Sparks" type="GPUParticles2D" parent="RepairArea"]
 emitting = false
 process_material = ExtResource("3_ls4ia")
 
-[node name="RepairAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="RepairAnimatedSprite2D" type="AnimatedSprite2D" parent="RepairArea"]
 sprite_frames = SubResource("SpriteFrames_bjlj8")
 animation = &"repairNeeded"
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
-[connection signal="timeout" from="RepairTimer" to="." method="_on_repair_timer_timeout"]
+[connection signal="body_entered" from="RepairArea" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="RepairArea" to="." method="_on_body_exited"]
+[connection signal="timeout" from="RepairArea/RepairTimer" to="." method="_on_repair_timer_timeout"]

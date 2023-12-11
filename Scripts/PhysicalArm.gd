@@ -15,14 +15,16 @@ var functional = true
 @export var acceleration = 200.0
 
 @export var left = false
+@export var repairStation:Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+
 	upperArmPhys = find_child("UpperArm")
 	lowerArmPhys = find_child("LowerArm")
 	clawPhys = find_child("Claw")
 	sparks = upperArmPhys.find_child("Sparks")
+	disable()
 	pass # Replace with function body.
 
 func betterMod(a : float, b : float):
@@ -50,8 +52,15 @@ func _physics_process(delta):
 		rotatePart(delta, clawPhys, clawRef)
 	pass
 	
+func _process(delta):
+	#if not functional and not repairStation.repairNeeded:
+	#	repaired()
+	pass
+	
 func disable():
 	#return
+	print("disable arm")
+	repairStation.visible=true
 	functional = false
 	sparks.emitting = true
 	upperArmPhys.gravity_scale = 10
@@ -59,8 +68,9 @@ func disable():
 	clawPhys.gravity_scale = 10
 
 	
-func repair():
+func repaired():
 	#return
+	repairStation.visible=false
 	functional = true
 	sparks.emitting = false
 	upperArmPhys.gravity_scale = 0

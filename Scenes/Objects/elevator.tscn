@@ -437,7 +437,6 @@ metadata/_edit_lock_ = true
 position = Vector2(97, 0)
 rotation = 0.387332
 rest = Transform2D(0.92592, 0.377719, -0.377719, 0.92592, 97, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="GearSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone"]
 visible = false
@@ -447,7 +446,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Right/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone"]
 z_index = -2
@@ -459,7 +457,6 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -482,7 +479,6 @@ bone_angle = 0.0
 position = Vector2(128, 0)
 rotation = 0.289078
 rest = Transform2D(0.930478, 0.366254, -0.366254, 0.930478, 128.007, 0.000183105)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Claw" type="AnimatableBody2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 collision_layer = 0
@@ -505,7 +501,6 @@ position = Vector2(-96, 0)
 rotation = -3.14159
 scale = Vector2(0.999891, 0.999891)
 rest = Transform2D(-0.642719, 0.76596, -0.76596, -0.642719, -96, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="GearSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone"]
 visible = false
@@ -515,7 +510,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Left/GearBone"]
 position = Vector2(7.00006, -1.52588e-05)
 rest = Transform2D(1, 0, 0, 1, 7.00006, -1.52588e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone"]
 z_index = -2
@@ -526,7 +520,6 @@ texture = ExtResource("3_2k2nk")
 position = Vector2(128.002, 6.10352e-05)
 rotation = 0.616101
 rest = Transform2D(0.984808, -0.173648, 0.173648, 0.984808, 128.002, 6.10352e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -549,7 +542,6 @@ bone_angle = 0.0
 position = Vector2(128, -1.52588e-05)
 rotation = -0.199482
 rest = Transform2D(0.980169, -0.198162, 0.198162, 0.980169, 128, -1.52588e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Claw" type="AnimatableBody2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone/ClawBone"]
 collision_layer = 0
@@ -563,12 +555,13 @@ animation = &"open"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone/ClawBone/Claw"]
 shape = SubResource("CapsuleShape2D_qo5xh")
 
-[node name="PhysicalArmRight" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef")]
+[node name="PhysicalArmRight" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "repairStation")]
 script = ExtResource("17_yi1ig")
 upperArmRef = NodePath("../SkeletonIK_Right/GearBone/UpperArmBone")
 lowerArmRef = NodePath("../SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone")
 clawRef = NodePath("../SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone/ClawBone")
 acceleration = 500.0
+repairStation = NodePath("../../RepairAreaArmRight")
 
 [node name="UpperArm" type="RigidBody2D" parent="Arms/PhysicalArmRight"]
 position = Vector2(96, 0)
@@ -670,7 +663,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea"]
 shape = SubResource("CircleShape2D_e7x7n")
 
-[node name="PhysicalArmLeft" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef")]
+[node name="PhysicalArmLeft" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "repairStation")]
 rotation = 3.14159
 script = ExtResource("17_yi1ig")
 upperArmRef = NodePath("../SkeletonIK_Left/GearBone/UpperArmBone")
@@ -678,6 +671,7 @@ lowerArmRef = NodePath("../SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone")
 clawRef = NodePath("../SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone/ClawBone")
 acceleration = 500.0
 left = true
+repairStation = NodePath("../../RepairAreaArmLeft")
 
 [node name="UpperArm" type="RigidBody2D" parent="Arms/PhysicalArmLeft"]
 position = Vector2(96, -1.67852e-05)
@@ -965,13 +959,11 @@ libraries = {
 "": SubResource("AnimationLibrary_3i61g")
 }
 
-[node name="RepairAreaArmRight" parent="." node_paths=PackedStringArray("repairObject") instance=ExtResource("27_ahenx")]
+[node name="RepairAreaArmRight" parent="." instance=ExtResource("27_ahenx")]
 position = Vector2(64, 16)
-repairObject = NodePath("../Arms/PhysicalArmRight")
 
-[node name="RepairAreaArmLeft" parent="." node_paths=PackedStringArray("repairObject") instance=ExtResource("27_ahenx")]
+[node name="RepairAreaArmLeft" parent="." instance=ExtResource("27_ahenx")]
 position = Vector2(-66, 16)
-repairObject = NodePath("../Arms/PhysicalArmLeft")
 mirrorAnimation = true
 
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]

@@ -169,6 +169,9 @@ func _process(delta):
 		#check if player is interacting with something
 		if interactionObject:
 			interactionObject.use()
+	
+	if carrying and Input.is_action_pressed("repair") and interactionObject:
+		interactionObject.repair()
 			
 func _physics_process(delta):
 	if Global.elevator:
