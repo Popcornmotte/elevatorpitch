@@ -4,11 +4,11 @@ class_name GenericInteractible
 
 var functioning=true
 		
-func interact():
-	if functioning:
-		use()
-	else:
-		repair()
+#func interact():
+#	if functioning:
+#		use()
+#	else:
+#		repair()
 
 func repair():
 	pass

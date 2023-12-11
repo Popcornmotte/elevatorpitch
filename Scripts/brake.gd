@@ -13,9 +13,9 @@ func turnOffLightOnly():
 
 func use():
 	turnOn=!turnOn
-	use_brake(turnOn)
+	useBrake(turnOn)
 	
-func use_brake(use : bool, alarm = false):#use this function also externally when no more fuel is available
+func useBrake(use : bool, alarm = false):#use this function also externally when no more fuel is available
 	Audio.playSfx(BRAKESOUND)
 	if(use):
 		if alarm:

@@ -1,12 +1,13 @@
 extends GenericInteractible
 
-var control_arms=false
+var controlArms=false
 
-func interact():
-	control_arms=!control_arms#change whether arms are being controlled or not
+func use():
+	controlArms=!controlArms#change whether arms are being controlled or not
 	if Global.elevator:# this makes the scene still useable on its own
-		Global.elevator.control(control_arms)
-		if control_arms:
+		print("control arms is ", controlArms)
+		Global.elevator.control(controlArms)
+		if controlArms:
 			Global.player.zoomIn(false)
 		else:
 			Global.player.zoomIn(true)

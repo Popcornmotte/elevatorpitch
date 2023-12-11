@@ -59,12 +59,10 @@ func zoomIn(state : bool):
 		zoomAnimation.play("zoom_in")
 		for side in range(0,4):
 			$PlayerCam.set_drag_margin(side, cameraMargins)
-		#zoomIn=false
 	else:
 		zoomAnimation.play("zoom_out")
 		for side in range(0,4):
 			$PlayerCam.set_drag_margin(side, 0)
-		#zoomIn=true
 	pass
 
 func jump(direction):
@@ -170,7 +168,7 @@ func _process(delta):
 			pickUpObject()
 		#check if player is interacting with something
 		if interactionObject:
-			interactionObject.interact()
+			interactionObject.use()
 			
 func _physics_process(delta):
 	if Global.elevator:
