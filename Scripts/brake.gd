@@ -14,6 +14,12 @@ func turnOffLightOnly():
 	alarmLightAnimation.stop()
 
 func switchUp():
+	if(unlocked):
+		useBrake(!braking)
+	else:
+		Audio.playSfx(ERROR)
+	
+func useBrake(use : bool, alarm = false):#use this function also externally when no more fuel is available
 	Audio.playSfx(BRAKESOUND)
 	if Global.aliveEnemies > 0:
 			Audio.playSfx(ERROR)
