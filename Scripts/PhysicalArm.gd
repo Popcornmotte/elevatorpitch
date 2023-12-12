@@ -15,7 +15,7 @@ var functional = true
 @export var acceleration = 200.0
 
 @export var left = false
-@export var repairStation:Node2D
+@onready var repairStation=find_child("RepairArea")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -52,15 +52,10 @@ func _physics_process(delta):
 		rotatePart(delta, clawPhys, clawRef)
 	pass
 	
-func _process(delta):
-	#if not functional and not repairStation.repairNeeded:
-	#	repaired()
-	pass
 	
 func disable():
-	#return
-	print("disable arm")
 	repairStation.visible=true
+	repairStation.enable()
 	functional = false
 	sparks.emitting = true
 	upperArmPhys.gravity_scale = 10
@@ -69,7 +64,6 @@ func disable():
 
 	
 func repaired():
-	#return
 	repairStation.visible=false
 	functional = true
 	sparks.emitting = false

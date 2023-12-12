@@ -43,7 +43,6 @@ animations = [{
 }]
 
 [node name="Repair" type="Node2D"]
-visible = false
 script = ExtResource("1_7dekd")
 
 [node name="RepairArea" type="Area2D" parent="."]
