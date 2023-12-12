@@ -15,6 +15,8 @@ var repairing=false
 func enable():
 	$RepairArea/RepairCollisionShape.set_disabled(false)
 	$RepairArea/RepairAnimatedSprite2D.visible=true
+	$RepairArea/RepairAudioStreamPlayer2D.play()
+	repairNeeded=true
 	$RepairArea/RepairAnimatedSprite2D.play("repairNeeded")
 	print("enabled")
 	if mirrorAnimation:#flip according to bool 
@@ -26,7 +28,14 @@ func enable():
 	else:
 		sfxRepairNeeded=Audio.playSfx(REPAIRNEEDED,true)
 
-
+#func _process(delta):
+#	if repairNeeded:
+#		if(sfxRepairNeeded):
+#			if(!sfxRepairNeeded.playing):
+#				sfxRepairNeeded = Audio.playSfx(REPAIRNEEDED,true)
+#		else:
+#			sfxRepairNeeded=Audio.playSfx(REPAIRNEEDED,true)
+	
 func repair():
 	if not repairing:
 		$RepairArea/RepairTimer.start()
@@ -53,8 +62,12 @@ func _on_body_exited(body):
 
 
 func _on_repair_timer_timeout():
-	repairNeeded=true
+	repairNeeded=false
 	Global.player.removeScrap()
-	print("repairs are done")
 	get_parent().repaired()
+	$RepairArea/RepairAudioStreamPlayer2D.stop()
 	repairing=false
+
+
+func _on_repair_audio_stream_player_2d_finished():
+	$RepairArea/RepairAudioStreamPlayer2D.play()

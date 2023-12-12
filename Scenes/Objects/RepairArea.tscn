@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkk1ky06bbfgo"]
+[gd_scene load_steps=11 format=3 uid="uid://dkk1ky06bbfgo"]
 
 [ext_resource type="Script" path="res://Scripts/RepairScript.gd" id="1_7dekd"]
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="3_ls4ia"]
+[ext_resource type="AudioStream" uid="uid://fr35fi0bkaxo" path="res://Assets/Audio/sfx/repairNeeded.wav" id="4_exayi"]
 [ext_resource type="Texture2D" uid="uid://bflq7bk7vrfre" path="res://Assets/Sprites/InteriorObjects/repair_animation.png" id="4_scm5d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qctk"]
@@ -65,6 +66,10 @@ process_material = ExtResource("3_ls4ia")
 sprite_frames = SubResource("SpriteFrames_bjlj8")
 animation = &"repairNeeded"
 
+[node name="RepairAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="RepairArea"]
+stream = ExtResource("4_exayi")
+
 [connection signal="body_entered" from="RepairArea" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="RepairArea" to="." method="_on_body_exited"]
 [connection signal="timeout" from="RepairArea/RepairTimer" to="." method="_on_repair_timer_timeout"]
+[connection signal="finished" from="RepairArea/RepairAudioStreamPlayer2D" to="." method="_on_repair_audio_stream_player_2d_finished"]
