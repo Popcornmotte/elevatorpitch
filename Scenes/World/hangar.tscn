@@ -134,6 +134,33 @@ animations = [{
 "speed": 2.0
 }]
 
+[sub_resource type="Animation" id="Animation_qcpgc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonArm:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.63712]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonArm/LowerArm:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.87979]
+}
+
 [sub_resource type="Animation" id="Animation_c7haq"]
 resource_name = "deployButton"
 length = 1.2
@@ -160,33 +187,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(2, 0.5, 2, 0.517632, 1),
 "update": 0,
 "values": [2.87979, 0.934033, 1.10872, 0.933751, 0.96619]
-}
-
-[sub_resource type="Animation" id="Animation_qcpgc"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ButtonArm:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.63712]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonArm/LowerArm:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2.87979]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4qtg"]
@@ -326,8 +326,30 @@ autoplay = ""
 [node name="EngineSound" parent="Elevator/HullBody" index="7"]
 autoplay = false
 
+[node name="GearBone" parent="Elevator/Arms/SkeletonIK_Right" index="0"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 scale = Vector2(1, 1)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="ClawBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone" index="3"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="GearBone" parent="Elevator/Arms/SkeletonIK_Left" index="0"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="ClawBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone" index="3"]
+metadata/_local_pose_override_enabled_ = true
 
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
 position = Vector2(0, 6)
