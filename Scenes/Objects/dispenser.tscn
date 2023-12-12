@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://carwfjsbvtpt"]
+[gd_scene load_steps=6 format=3 uid="uid://carwfjsbvtpt"]
 
 [ext_resource type="Texture2D" uid="uid://b1x5ndkk3orh3" path="res://Assets/Sprites/InteriorObjects/terminal.png" id="1_o78pk"]
+[ext_resource type="Script" path="res://Scripts/dispenser.gd" id="1_shkcw"]
 [ext_resource type="Texture2D" uid="uid://cpaaak27lbysc" path="res://Assets/Sprites/InteriorObjects/scrapSelection.png" id="2_bldtf"]
 [ext_resource type="Texture2D" uid="uid://dinbu4ji2l8n7" path="res://Assets/Sprites/InteriorObjects/fuelSelection.png" id="2_e10ju"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j76tc"]
+size = Vector2(20, 30)
+
 [node name="Dispenser" type="Node2D"]
+script = ExtResource("1_shkcw")
 
 [node name="DispenserTerminalSprite" type="Sprite2D" parent="."]
 position = Vector2(-40, -72)
@@ -18,3 +23,11 @@ texture = ExtResource("2_e10ju")
 visible = false
 position = Vector2(-40, -72)
 texture = ExtResource("2_bldtf")
+
+[node name="DispenserArea2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="DispenserCollisionShape2D" type="CollisionShape2D" parent="DispenserArea2D"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_j76tc")

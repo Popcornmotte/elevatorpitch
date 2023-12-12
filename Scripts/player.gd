@@ -31,6 +31,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var cameraMargins = 0.0
 var sfx
 var interactionObject:Node2D #object that the player is interacting with
+var dispenserObject:Node2D #object that the player is interacting with to dispense fuel or scrap
 
 func _ready():
 	Global.player = self
@@ -172,6 +173,12 @@ func _process(delta):
 	
 	if carrying and Input.is_action_pressed("repair") and interactionObject:
 		interactionObject.repair()
+	
+	if dispenserObject and Input.is_action_just_pressed("down"):
+		dispenserObject.switchDispenseType()
+	
+	if dispenserObject and Input.is_action_just_pressed("interact"):
+		dispenserObject.dispenseItem()
 			
 func _physics_process(delta):
 	if Global.elevator:
@@ -199,9 +206,15 @@ func _physics_process(delta):
 		
 
 func _on_interaction_area_area_entered(area):
-	interactionObject=area.owner
+	if area.owner.name=="Dispenser":
+		print("dispenser!")
+		dispenserObject=area.owner #special case, as pressing s will change dispense type
+	else:
+		interactionObject=area.owner
 
 
 func _on_interaction_area_area_exited(area):
 	if area.owner==interactionObject:
 		interactionObject=null
+	if area.owner==dispenserObject:
+		dispenserObject=null
