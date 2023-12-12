@@ -19,12 +19,10 @@ var functional = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
 	upperArmPhys = find_child("UpperArm")
 	lowerArmPhys = find_child("LowerArm")
 	clawPhys = find_child("Claw")
 	sparks = upperArmPhys.find_child("Sparks")
-	disable()
 	pass # Replace with function body.
 
 func betterMod(a : float, b : float):
