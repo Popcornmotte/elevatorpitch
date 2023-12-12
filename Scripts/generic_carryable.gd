@@ -4,11 +4,11 @@ extends Node
 
 func onAreaEntered(body):
 	if body.name == "player":
-		Global.player.add_carryable(self)
+		Global.player.addCarryable(self)
 		
 func onAreaExit(body):
 	if body.name == "player":
-		Global.player.remove_carryable(self)
+		Global.player.removeCarryable(self)
 
 func getType():
 	return type

@@ -30,6 +30,7 @@ var startRepair=false#block dropping of scrap when in vicinity of repair station
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var cameraMargins = 0.0
 var sfx
+var interactionObject:Node2D #object that the player is interacting with
 
 func _ready():
 	Global.player = self
@@ -43,7 +44,7 @@ func playPlayerSound(clip : AudioStream):
 	else:
 		sfx=Audio.playSfx(clip,true)
 		
-func flip_animation(direction):
+func flipAnimation(direction):
 	if direction>0:
 		sprite.flip_h=false
 		fuelSprite.position=carryPos
@@ -58,12 +59,10 @@ func zoomIn(state : bool):
 		zoomAnimation.play("zoom_in")
 		for side in range(0,4):
 			$PlayerCam.set_drag_margin(side, cameraMargins)
-		#zoomIn=false
 	else:
 		zoomAnimation.play("zoom_out")
 		for side in range(0,4):
 			$PlayerCam.set_drag_margin(side, 0)
-		#zoomIn=true
 	pass
 
 func jump(direction):
@@ -72,19 +71,19 @@ func jump(direction):
 		velocity.y = jumpVelocity
 	
 # Function that needs to be called after move and slide to provide collision with rigidbodies
-func collide_with_rigidbodies():
+func collideWithRigidbodies():
 	for i in get_slide_collision_count():
 		var c=get_slide_collision(i)
 		if c.get_collider() is RigidBody2D:
 			c.get_collider().apply_central_impulse(-c.get_normal()*pushForce)
 
-func add_carryable(thing):
+func addCarryable(thing):
 	carryables.push_back(thing)
 	
-func remove_carryable(thing):
+func removeCarryable(thing):
 	carryables.erase(thing)
 
-func pick_up_object():
+func pickUpObject():
 	if carrying:#in case the player is already holding something, nothing else should be picked up
 		return false
 	var thing = carryables.pop_back()
@@ -101,7 +100,7 @@ func pick_up_object():
 	Audio.playSfx(PICKUPSOUND)
 	return true
 
-func drop_object():
+func dropObject():
 	if carrying:
 		Audio.playSfx(DROPSOUND)
 	if carryType==Item.TYPE.Fuel:
@@ -124,7 +123,7 @@ func move(direction):
 		if is_on_floor():
 			#flip animation if necessary
 			sprite.play("walk")
-			flip_animation(direction)
+			flipAnimation(direction)
 			playPlayerSound(WALKINGSOUND)
 		#allow the player to also move mid jump
 		velocity.x = direction * speed
@@ -141,7 +140,7 @@ func removeScrap():#called when carrying scrap and repairing something
 func fall(direction,delta):
 	velocity.y += gravity * delta
 	sprite.play("jump")
-	flip_animation(direction)
+	flipAnimation(direction)
 	#cap falling speed
 	if velocity.y>maxFallingSpeed:
 		velocity.y=maxFallingSpeed
@@ -162,10 +161,17 @@ func climb(direction):
 		
 func _process(delta):
 	if Input.is_action_just_pressed("interact"):
+		#pick up object
 		if carrying:
-			drop_object()
+			dropObject()
 		elif carryables.size() > 0:
-			pick_up_object()
+			pickUpObject()
+		#check if player is interacting with something
+		if interactionObject:
+			interactionObject.use()
+	
+	if carrying and Input.is_action_pressed("repair") and interactionObject:
+		interactionObject.repair()
 			
 func _physics_process(delta):
 	if Global.elevator:
@@ -189,7 +195,13 @@ func _physics_process(delta):
 		jump(direction)
 		move(direction)
 		move_and_slide()
-		collide_with_rigidbodies()
+		collideWithRigidbodies()
 		
 
-		
+func _on_interaction_area_area_entered(area):
+	interactionObject=area.owner
+
+
+func _on_interaction_area_area_exited(area):
+	if area.owner==interactionObject:
+		interactionObject=null

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://carwfjsbvtpt"]
+
+[ext_resource type="Texture2D" uid="uid://b1x5ndkk3orh3" path="res://Assets/Sprites/InteriorObjects/terminal.png" id="1_o78pk"]
+[ext_resource type="Texture2D" uid="uid://cpaaak27lbysc" path="res://Assets/Sprites/InteriorObjects/scrapSelection.png" id="2_bldtf"]
+[ext_resource type="Texture2D" uid="uid://dinbu4ji2l8n7" path="res://Assets/Sprites/InteriorObjects/fuelSelection.png" id="2_e10ju"]
+
+[node name="Dispenser" type="Node2D"]
+
+[node name="DispenserTerminalSprite" type="Sprite2D" parent="."]
+position = Vector2(-40, -72)
+texture = ExtResource("1_o78pk")
+
+[node name="FuelSelectionSprite" type="Sprite2D" parent="."]
+position = Vector2(-40, -72)
+texture = ExtResource("2_e10ju")
+
+[node name="ScrapSelectionSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-40, -72)
+texture = ExtResource("2_bldtf")

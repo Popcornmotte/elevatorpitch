@@ -75,12 +75,12 @@ script = ExtResource("1_0mcm2")
 sprite_frames = SubResource("SpriteFrames_ov0sn")
 animation = &"turn_on"
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
+[node name="BrakeArea2D" type="Area2D" parent="."]
+collision_layer = 16
 collision_mask = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BrakeArea2D"]
 shape = SubResource("CapsuleShape2D_r53wr")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="BrakeArea2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="BrakeArea2D" to="." method="_on_area_2d_body_exited"]

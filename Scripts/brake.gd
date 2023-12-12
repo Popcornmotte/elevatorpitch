@@ -11,10 +11,11 @@ var turnOn=false
 func turnOffLightOnly():
 	alarmLightAnimation.stop()
 
-#func _ready():
-#	use_brake(false)
+func use():
+	turnOn=!turnOn
+	useBrake(turnOn)
 	
-func use_brake(use : bool, alarm = false):#use this function also externally when no more fuel is available
+func useBrake(use : bool, alarm = false):#use this function also externally when no more fuel is available
 	Audio.playSfx(BRAKESOUND)
 	if(use):
 		if alarm:
@@ -37,10 +38,5 @@ func use_brake(use : bool, alarm = false):#use this function also externally whe
 		if Global.elevator:#check that elevator exists 
 			Global.elevator.moving=true
 			Global.elevator.get_node("HullBody/EngineSound").startEngine()
-			
-func interact():
-	turnOn=!turnOn
-	use_brake(turnOn)
-	
-		
+
 

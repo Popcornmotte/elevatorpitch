@@ -1,12 +1,13 @@
-
 extends GenericInteractible
+
 @onready var dropeZoneRight=get_node("../DropZoneRight")
+@export var fuelMultiplier=15
 var newFuel=0
 
-func interact():
-	newFuel=dropeZoneRight._return_fuel_count()
-	dropeZoneRight._remove_fuel()
+func use():
+	newFuel=dropeZoneRight.returnFuelCount()
+	dropeZoneRight.removeFuel()
 	if Global.elevator:#make sure that elevator exists, so that the interior scene can still be used for debugging
-		Global.elevator.fuel+=newFuel*15
+		Global.elevator.fuel+=newFuel*fuelMultiplier
 		Global.elevator.updateFuel()
 		Global.elevator.fuelAlert.visible = false
