@@ -4,7 +4,6 @@ const FLASHBULB = preload("res://Assets/Audio/sfx/flashbulb.wav")
 const ERROR = preload("res://Assets/Audio/sfx/error.wav")
 const CLICK = preload("res://Assets/Audio/sfx/click.wav")
 
-var funds = 0
 var fuelUnits = 0
 var cargoCrates = 0
 var cargoslots = 0
@@ -16,9 +15,11 @@ var index = -1
 var flashText = ["SELECT A CONTRACT", "LOAD UP YOUR CARGO SPACE", "CLIMB UP!", "DEFEND!", "DELIVER!", "FALL BACK DOWN!"]
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	updateLabels()
 	pass # Replace with function body.
 
 func updateLabels():
+	$Monitor/Terminal/Contracts/ContractsHeader/Funds.text = "Funds: "+str(Global.funds)+"$"
 	$Monitor/Terminal/Elevator/Fuel/FuelLabel.text = "Fuel Units ("+str(fuelUnits)+")"
 	$Monitor/Terminal/Elevator/ContractCargo/CargoLabel.text = "Contracted Cargo ("+str(cargoCrates)+")"
 	$Monitor/Terminal/Elevator/ElevatorHeader.text = "Cargo Capacity: "+str(cargoslots)+"/"+str(Global.inventoryMaxSize)
@@ -110,5 +111,5 @@ func _on_start_button_pressed():
 
 
 func _on_off_button_pressed():
-	get_tree().quit()
+	Global.exitGame()
 	pass # Replace with function body.
