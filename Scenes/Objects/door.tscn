@@ -17,6 +17,7 @@ script = ExtResource("1_sul6m")
 texture = ExtResource("1_apdo8")
 
 [node name="DoorOpenedSprite" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_vsh71")
 
 [node name="DoorOpenArea2D" type="Area2D" parent="."]

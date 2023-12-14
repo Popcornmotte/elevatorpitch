@@ -8,11 +8,12 @@ extends Node2D
 func _ready():
 	$DoorClosedSprite.flip_h=flip
 	$DoorOpenedSprite.flip_h=flip
+	$DoorClosedSprite.visible=true
+	$DoorOpenedSprite.visible=false
 	
 func openDoor():
 	$DoorClosedSprite.visible=false
 	$DoorOpenedSprite.visible=true
-	print("disable")
 	$LimitPlayerWithDoorStaticBody/CollisionShape2D.set_deferred("disabled",true)
 
 func closeDoor():
