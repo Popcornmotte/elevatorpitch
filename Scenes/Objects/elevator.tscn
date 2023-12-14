@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=62 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -139,49 +139,19 @@ _data = {
 "RESET": SubResource("Animation_wuymh")
 }
 
-[sub_resource type="SkeletonModification2DCCDIK" id="SkeletonModification2DCCDIK_mcf4w"]
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_7dktr"]
+execution_mode = 1
 target_nodepath = NodePath("../Targets/RightTarget")
-tip_nodepath = NodePath("GearBone/UpperArmBone/LowerArmBone/TipBone")
-ccdik_data_chain_length = 3
-joint_data/0/bone_index = 0
-joint_data/0/bone2d_node = NodePath("GearBone")
-joint_data/0/rotate_from_joint = false
-joint_data/0/enable_constraint = true
-joint_data/0/constraint_angle_min = -219.375
-joint_data/0/constraint_angle_max = -101.25
-joint_data/0/constraint_angle_invert = true
-joint_data/0/constraint_in_localspace = true
-joint_data/0/editor_draw_gizmo = true
-joint_data/1/bone_index = 1
-joint_data/1/bone2d_node = NodePath("GearBone/UpperArmBone")
-joint_data/1/rotate_from_joint = false
-joint_data/1/enable_constraint = false
-joint_data/1/editor_draw_gizmo = true
-joint_data/2/bone_index = 2
-joint_data/2/bone2d_node = NodePath("GearBone/UpperArmBone/LowerArmBone")
-joint_data/2/rotate_from_joint = false
-joint_data/2/enable_constraint = true
-joint_data/2/constraint_angle_min = -10.0
-joint_data/2/constraint_angle_max = 180.0
-joint_data/2/constraint_angle_invert = false
-joint_data/2/constraint_in_localspace = true
-joint_data/2/editor_draw_gizmo = true
-
-[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_jro4y"]
-bone_index = 4
-bone2d_node = NodePath("GearBone/UpperArmBone/LowerArmBone/ClawBone")
-target_nodepath = NodePath("../Targets/RightTarget")
-enable_constraint = true
-constraint_angle_min = -25.789
-constraint_angle_max = 100.0
-constraint_angle_invert = true
-constraint_in_localspace = true
+flip_bend_direction = true
+joint_one_bone_idx = 1
+joint_one_bone2d_node = NodePath("GearBone/UpperArmBone")
+joint_two_bone_idx = 2
+joint_two_bone2d_node = NodePath("GearBone/UpperArmBone/LowerArmBone")
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_hu4nd"]
 enabled = true
-modification_count = 2
-modifications/0 = SubResource("SkeletonModification2DCCDIK_mcf4w")
-modifications/1 = SubResource("SkeletonModification2DLookAt_jro4y")
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_7dktr")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ae1xk"]
 animations = [{
@@ -206,49 +176,18 @@ animations = [{
 radius = 16.3336
 height = 38.2461
 
-[sub_resource type="SkeletonModification2DCCDIK" id="SkeletonModification2DCCDIK_lxbnt"]
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_wc7an"]
+execution_mode = 1
 target_nodepath = NodePath("../Targets/LeftTarget")
-tip_nodepath = NodePath("GearBone/UpperArmBone/LowerArmBone/TipBone")
-ccdik_data_chain_length = 3
-joint_data/0/bone_index = 0
-joint_data/0/bone2d_node = NodePath("GearBone")
-joint_data/0/rotate_from_joint = false
-joint_data/0/enable_constraint = true
-joint_data/0/constraint_angle_min = 30.0
-joint_data/0/constraint_angle_max = -80.0
-joint_data/0/constraint_angle_invert = false
-joint_data/0/constraint_in_localspace = true
-joint_data/0/editor_draw_gizmo = true
-joint_data/1/bone_index = 1
-joint_data/1/bone2d_node = NodePath("GearBone/UpperArmBone")
-joint_data/1/rotate_from_joint = false
-joint_data/1/enable_constraint = false
-joint_data/1/editor_draw_gizmo = true
-joint_data/2/bone_index = 2
-joint_data/2/bone2d_node = NodePath("GearBone/UpperArmBone/LowerArmBone")
-joint_data/2/rotate_from_joint = false
-joint_data/2/enable_constraint = true
-joint_data/2/constraint_angle_min = 10.0
-joint_data/2/constraint_angle_max = 180.0
-joint_data/2/constraint_angle_invert = false
-joint_data/2/constraint_in_localspace = true
-joint_data/2/editor_draw_gizmo = true
-
-[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_0ijob"]
-bone_index = 4
-bone2d_node = NodePath("GearBone/UpperArmBone/LowerArmBone/ClawBone")
-target_nodepath = NodePath("../Targets/LeftTarget")
-enable_constraint = true
-constraint_angle_min = -100.0
-constraint_angle_max = 30.0
-constraint_angle_invert = true
-constraint_in_localspace = true
+joint_one_bone_idx = 1
+joint_one_bone2d_node = NodePath("GearBone/UpperArmBone")
+joint_two_bone_idx = 2
+joint_two_bone2d_node = NodePath("GearBone/UpperArmBone/LowerArmBone")
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_e8ejd"]
 enabled = true
-modification_count = 2
-modifications/0 = SubResource("SkeletonModification2DCCDIK_lxbnt")
-modifications/1 = SubResource("SkeletonModification2DLookAt_0ijob")
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_wc7an")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_haxlb"]
 radius = 8.00042
