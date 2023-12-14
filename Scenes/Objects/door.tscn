@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://6hicfxna1rk5"]
+
+[ext_resource type="Texture2D" uid="uid://bh3gcsyqympc2" path="res://Assets/Sprites/InteriorObjects/doorClosed.png" id="1_apdo8"]
+[ext_resource type="Script" path="res://Scripts/door.gd" id="1_sul6m"]
+[ext_resource type="Texture2D" uid="uid://cmtjpc13o133u" path="res://Assets/Sprites/InteriorObjects/doorOpened.png" id="2_vsh71"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eolij"]
+size = Vector2(84, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53j0c"]
+size = Vector2(26, 32)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_sul6m")
+
+[node name="DoorClosedSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_apdo8")
+
+[node name="DoorOpenedSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_vsh71")
+
+[node name="DoorOpenArea2D" type="Area2D" parent="."]
+collision_layer = 176
+collision_mask = 176
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorOpenArea2D"]
+shape = SubResource("RectangleShape2D_eolij")
+
+[node name="LimitPlayerWithDoorStaticBody" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LimitPlayerWithDoorStaticBody"]
+shape = SubResource("RectangleShape2D_53j0c")
+debug_color = Color(0.764706, 0.372549, 0.65098, 0.419608)

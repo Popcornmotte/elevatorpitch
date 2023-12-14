@@ -207,8 +207,9 @@ func _physics_process(delta):
 
 func _on_interaction_area_area_entered(area):
 	if area.owner.name=="Dispenser":
-		print("dispenser!")
 		dispenserObject=area.owner #special case, as pressing s will change dispense type
+	elif area.owner.name=="Door":
+		area.owner.openDoor()
 	else:
 		interactionObject=area.owner
 
@@ -218,3 +219,5 @@ func _on_interaction_area_area_exited(area):
 		interactionObject=null
 	if area.owner==dispenserObject:
 		dispenserObject=null
+	if area.owner.name=="Door":
+		area.owner.closeDoor()
