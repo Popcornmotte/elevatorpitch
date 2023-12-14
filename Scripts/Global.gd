@@ -15,6 +15,9 @@ var inventoryMaxSize = 16
 var inventory = Array()
 var funds=0
 
+func _enter_tree():
+	loadGame()
+
 func addFunds(newFunds:int):
 	funds+=newFunds
 
@@ -66,7 +69,8 @@ func loadGame():
 	if FileAccess.file_exists(SAVEFILE_NAME):
 		var file = FileAccess.open_encrypted_with_pass(SAVEFILE_NAME, FileAccess.READ, "superorganism")
 		#file.open(FILE_NAME, File.READ)
-		var data = JSON.parse_string(FileAccess.get_file_as_string(file))
+		
+		var data = JSON.parse_string(file.get_as_text())
 		#var data = parse_json(file.get_as_text())
 		file.close()
 		if typeof(data) == TYPE_DICTIONARY:
