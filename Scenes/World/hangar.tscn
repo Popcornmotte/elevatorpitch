@@ -32,7 +32,7 @@ size = Vector2(32, 16)
 size = Vector2(64, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8eyn"]
-size = Vector2(192, 80)
+size = Vector2(160, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_outgl"]
 size = Vector2(192, 104)
@@ -315,7 +315,7 @@ texture = ExtResource("7_3xxor")
 
 [node name="player" parent="." instance=ExtResource("3_4b3ci")]
 z_index = 4
-position = Vector2(-456, 440)
+position = Vector2(0, 24)
 
 [node name="Elevator" parent="." instance=ExtResource("9_yyd37")]
 moving = false
@@ -326,30 +326,8 @@ autoplay = ""
 [node name="EngineSound" parent="Elevator/HullBody" index="7"]
 autoplay = false
 
-[node name="GearBone" parent="Elevator/Arms/SkeletonIK_Right" index="0"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
-
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 scale = Vector2(1, 1)
-metadata/_local_pose_override_enabled_ = true
-
-[node name="ClawBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone" index="3"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="GearBone" parent="Elevator/Arms/SkeletonIK_Left" index="0"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="ClawBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone" index="3"]
-metadata/_local_pose_override_enabled_ = true
 
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
 position = Vector2(0, 6)

@@ -318,7 +318,7 @@ texture = ExtResource("3_lmxla")
 
 [node name="HullBody" type="StaticBody2D" parent="."]
 z_index = 2
-collision_layer = 524547
+collision_layer = 524546
 collision_mask = 524291
 metadata/_edit_lock_ = true
 
@@ -368,7 +368,6 @@ sprite = NodePath("../EngineSprite")
 [node name="Arms" type="Node2D" parent="."]
 
 [node name="SkeletonIK_Right" type="Skeleton2D" parent="Arms"]
-visible = false
 modification_stack = SubResource("SkeletonModificationStack2D_hu4nd")
 metadata/_edit_lock_ = true
 
@@ -432,7 +431,6 @@ animation = &"open"
 shape = SubResource("CapsuleShape2D_qo5xh")
 
 [node name="SkeletonIK_Left" type="Skeleton2D" parent="Arms"]
-visible = false
 modification_stack = SubResource("SkeletonModificationStack2D_e8ejd")
 
 [node name="GearBone" type="Bone2D" parent="Arms/SkeletonIK_Left"]

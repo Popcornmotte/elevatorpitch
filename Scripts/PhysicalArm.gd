@@ -25,21 +25,9 @@ func _ready():
 	sparks = upperArmPhys.find_child("Sparks")
 	pass # Replace with function body.
 
-func betterMod(a : float, b : float):
-	var res = fmod(a,b)
-	if(res < 0):
-		res += b
-	return res
-
 func rotatePart(delta : float, phys : RigidBody2D, ref : Bone2D):
-	var diff = 0.0
-	if(left):
-		diff = (betterMod(phys.global_rotation,2*PI) - betterMod(ref.global_rotation,2*PI))
-	else:
-		diff = phys.global_rotation - ref.global_rotation
-	if(abs(diff) > PI):
-		diff = (2*PI - diff)
-	phys.angular_velocity = -diff * acceleration * delta
+	var diff = angle_difference(phys.global_rotation, ref.global_rotation)
+	phys.angular_velocity = diff * acceleration * delta
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,6 +36,8 @@ func _physics_process(delta):
 		rotatePart(delta, upperArmPhys, upperArmRef)
 		rotatePart(delta, lowerArmPhys, lowerArmRef)
 		rotatePart(delta, clawPhys, clawRef)
+		#if left:
+			#print(str(upperArmPhys.angular_velocity))
 	pass
 	
 	
