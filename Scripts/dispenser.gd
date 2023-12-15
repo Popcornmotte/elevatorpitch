@@ -5,7 +5,7 @@ const FUELITEM=preload("res://Scenes/Objects/Items/fuel.tscn")
 const SCRAPITEM=preload("res://Scenes/Objects/Items/scrap.tscn")
 const ERROR = preload("res://Assets/Audio/sfx/error.wav")
 @onready var funnel=get_node("../DropFunnel")
-@onready var dropPosition=funnel.position+Vector2(-20,-30)
+@onready var dropPosition=funnel.position+Vector2(-30,-30)
 @onready var fuelSprite=get_node("FuelSelectionSprite")
 @onready var scrapSprite=get_node("ScrapSelectionSprite")
 var dispense:DispenseItem
@@ -30,14 +30,17 @@ func dispenseItem():
 	match dispense:
 		DispenseItem.FUEL:
 			if Global.takeFromInventory(Item.TYPE.Fuel):#only dispense fuel if in inventory
+				print("fuel dispensed")
 				var loadedFuel=FUELITEM.instantiate()
 				loadedFuel.position=dropPosition
 				add_child(loadedFuel)
 				return
+			else:
+				Audio.playSfx(ERROR)
+				return
 		DispenseItem.SCRAP:
+			print("scrap dispensed")
 			var loadedScrap=SCRAPITEM.instantiate()
 			loadedScrap.position=dropPosition
 			add_child(loadedScrap)
 			return
-	#this should only be reached in an error case
-	Audio.playSfx(ERROR)

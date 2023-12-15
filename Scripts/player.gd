@@ -90,9 +90,11 @@ func pickUpObject():
 	var thing = carryables.pop_back()
 	var typeArg = thing.getType()
 	if typeArg==Item.TYPE.Fuel:
+		print("pick up fuel")
 		fuelSprite.visible=true
 		carryType=Item.TYPE.Fuel
-	if typeArg==Item.TYPE.Scrap:
+	elif typeArg==Item.TYPE.Scrap:
+		print("pick up scrap")
 		scrapSprite.visible=true
 		carryType=Item.TYPE.Scrap
 		carryingScrap=true
@@ -206,11 +208,13 @@ func _physics_process(delta):
 		
 
 func _on_interaction_area_area_entered(area):
+	
 	if area.owner and area.owner.name=="Dispenser":
 		dispenserObject=area.owner #special case, as pressing s will change dispense type
-	elif Global.elevator and !Global.elevator.moving and area.owner.get_parent().name=="Doors":
+	#special case for doors, they should only open when the elevators is not moving, null checks inserted to not crash game
+	elif Global.elevator and !Global.elevator.moving and area.owner and area.owner.get_parent().name=="Doors":
 		area.owner.openDoor()
-	else:
+	elif area.owner and area.owner.get_parent().name!="Doors":
 		interactionObject=area.owner
 
 
@@ -219,5 +223,6 @@ func _on_interaction_area_area_exited(area):
 		interactionObject=null
 	if area.owner==dispenserObject:
 		dispenserObject=null
-	if area.owner.get_parent().name=="Doors":
+	#null check
+	if area.owner and area.owner.get_parent().name=="Doors":
 		area.owner.closeDoor()

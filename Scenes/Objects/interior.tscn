@@ -326,6 +326,7 @@ texture = ExtResource("7_yotym")
 position = Vector2(-70, 78)
 
 [node name="DropStation" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
 texture = ExtResource("9_pucli")
 
 [node name="FuelButton" parent="." instance=ExtResource("11_qb8x6")]
@@ -358,10 +359,10 @@ visible = false
 position = Vector2(-20, 82)
 
 [node name="Fuel" parent="." instance=ExtResource("15_chetq")]
-position = Vector2(48, 81)
+position = Vector2(64, 20)
 
 [node name="Dispenser" parent="." instance=ExtResource("16_i5pwy")]
-position = Vector2(14, 74)
+position = Vector2(37, 73)
 
 [node name="Doors" type="Node2D" parent="."]
 
