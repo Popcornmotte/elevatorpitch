@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=33 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
@@ -9,12 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="9_lvdt6"]
 [ext_resource type="Texture2D" uid="uid://bl8lfrua5a0uk" path="res://Assets/Sprites/InteriorObjects/drop_station.png" id="9_pucli"]
 [ext_resource type="PackedScene" uid="uid://c30yxwkogsbvo" path="res://Scenes/Objects/brake.tscn" id="11_ga7e1"]
-[ext_resource type="PackedScene" uid="uid://bwyeht2pc0nal" path="res://Scenes/Objects/fuel_button.tscn" id="11_qb8x6"]
 [ext_resource type="Texture2D" uid="uid://bi5lwh40poc7w" path="res://Assets/Sprites/InteriorObjects/drop_funnel.png" id="12_xxbrh"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="13_1wjlu"]
 [ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="13_tkd7y"]
 [ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="15_chetq"]
-[ext_resource type="PackedScene" uid="uid://j403hcw3x8t" path="res://Scenes/Objects/scrapButton.tscn" id="15_tv010"]
 [ext_resource type="PackedScene" uid="uid://carwfjsbvtpt" path="res://Scenes/Objects/dispenser.tscn" id="16_i5pwy"]
 [ext_resource type="PackedScene" uid="uid://6hicfxna1rk5" path="res://Scenes/Objects/door.tscn" id="17_wh202"]
 [ext_resource type="Texture2D" uid="uid://cdctfqbg3nsb5" path="res://Assets/Sprites/InteriorObjects/catwalk.png" id="18_y582k"]
@@ -329,10 +327,6 @@ position = Vector2(-70, 78)
 position = Vector2(0, -1)
 texture = ExtResource("9_pucli")
 
-[node name="FuelButton" parent="." instance=ExtResource("11_qb8x6")]
-visible = false
-position = Vector2(28, 46)
-
 [node name="DropFunnel" type="Node2D" parent="."]
 
 [node name="DropFunnel" type="Sprite2D" parent="DropFunnel"]
@@ -353,10 +347,6 @@ metadata/_edit_lock_ = true
 libraries = {
 "": SubResource("AnimationLibrary_qa6yr")
 }
-
-[node name="ScrapButton" parent="." instance=ExtResource("15_tv010")]
-visible = false
-position = Vector2(-20, 82)
 
 [node name="Fuel" parent="." instance=ExtResource("15_chetq")]
 position = Vector2(64, 20)
