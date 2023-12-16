@@ -79,7 +79,7 @@ func update_height(climbed):
 func decrease_fuel(delta):
 	fuel -= fuelConsumption*delta
 	if fuel<=0:
-		brake.useBrake(true)#set brake to turned off position
+		brake.useBrake(brake.SPEED.Off,false,false)#set brake to turned off position
 		engineSFX.stopEngine()
 		fuelAlert.visible = true
 	else:
