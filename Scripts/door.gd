@@ -5,6 +5,7 @@ extends Node2D
 @onready var doorOpenedPositionUnflipped=Vector2(-32,-16)
 @onready var doorOpenedPositionFlipped=Vector2(32,-16)
 const DOOROPEN = preload("res://Assets/Audio/sfx/door_open.wav")
+var isDoor=true#only needed to check for door
 
 func _ready():
 	$DoorClosedSprite.flip_h=flip
