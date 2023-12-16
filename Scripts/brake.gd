@@ -8,7 +8,7 @@ var turnOn=false
 @onready var brakeSprite = get_node("BrakeSprite")
 @onready var alarmLightAnimation = get_parent().get_node("AlertLight/AlertAnimation")
 enum SPEED {Off,Normal,Fast}
-var currentSpeed=SPEED.Off;
+var currentSpeed=SPEED.Normal;
 
 func turnOffLightOnly():
 	alarmLightAnimation.stop()
@@ -22,7 +22,6 @@ func use():
 			changeTo=SPEED.Fast
 		SPEED.Fast:
 			changeTo=SPEED.Off
-			
 	useBrake(changeTo)
 
 
@@ -32,9 +31,19 @@ func useBrake(changeTo : SPEED, alarm = false, playerInteraction=true):#use this
 		alarmIsSounding = true
 		Audio.playSfx(ALERT)
 		alarmLightAnimation.play("alert")
+		match currentSpeed:
+			SPEED.Fast:
+				brakeSprite.play("fast_to_off")
+			SPEED.Normal:
+				brakeSprite.play("normal_to_off")
+		currentSpeed=SPEED.Off
+		if Global.elevator:#check that elevator exists 
+			Global.elevator.moving=false
 		return
 	if(playerInteraction):
-		
+		if Global.aliveEnemies > 0:
+			Audio.playSfx(ERROR)
+			return
 		match changeTo:
 			SPEED.Off:
 				if(currentSpeed==SPEED.Normal):
@@ -52,11 +61,11 @@ func useBrake(changeTo : SPEED, alarm = false, playerInteraction=true):#use this
 					brakeSprite.play("off_to_normal")
 				elif (currentSpeed==SPEED.Fast):
 					brakeSprite.play("fast_to_normal")
-		currentSpeed==changeTo
+				if Global.elevator:#check that elevator exists 
+					Global.elevator.moving=true
+		currentSpeed=changeTo
 	else:
-		if Global.aliveEnemies > 0:
-			Audio.playSfx(ERROR)
-			return
+		
 		if alarmIsSounding:
 			alarmIsSounding = false
 			alarmLightAnimation.stop()

@@ -84,7 +84,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_smshv")
 }],
-"loop": true,
+"loop": false,
 "name": &"fast_to_normal",
 "speed": 5.0
 }, {
@@ -98,7 +98,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lx1cc")
 }],
-"loop": true,
+"loop": false,
 "name": &"fast_to_off",
 "speed": 5.0
 }, {
@@ -112,7 +112,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_eej87")
 }],
-"loop": true,
+"loop": false,
 "name": &"normal_to_fast",
 "speed": 5.0
 }, {
@@ -154,7 +154,7 @@ script = ExtResource("1_0mcm2")
 
 [node name="BrakeSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ov0sn")
-animation = &"normal_to_fast"
+animation = &"normal_to_off"
 
 [node name="BrakeArea2D" type="Area2D" parent="."]
 collision_layer = 16
