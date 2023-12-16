@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=65 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -268,6 +268,59 @@ _data = {
 "goal": SubResource("Animation_lruot")
 }
 
+[sub_resource type="Animation" id="Animation_mujv5"]
+resource_name = "deployChutes"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemChutes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(2, 0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0, -80), Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hkstk"]
+resource_name = "retractChutes"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemChutes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1.93187, 1.8025, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 8), Vector2(0, -80)]
+}
+
+[sub_resource type="Animation" id="Animation_26y74"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemChutes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -80)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pa1n2"]
+_data = {
+"RESET": SubResource("Animation_26y74"),
+"deployChutes": SubResource("Animation_mujv5"),
+"retractChutes": SubResource("Animation_hkstk")
+}
+
 [node name="Elevator" type="Node2D" node_paths=PackedStringArray("healthBar", "fuelBar", "fuelAlert", "heightMeter")]
 script = ExtResource("1_gs4x1")
 healthBar = NodePath("HealthBar/Polygon2D")
@@ -368,6 +421,7 @@ sprite = NodePath("../EngineSprite")
 [node name="Arms" type="Node2D" parent="."]
 
 [node name="SkeletonIK_Right" type="Skeleton2D" parent="Arms"]
+visible = false
 modification_stack = SubResource("SkeletonModificationStack2D_hu4nd")
 metadata/_edit_lock_ = true
 
@@ -431,6 +485,7 @@ animation = &"open"
 shape = SubResource("CapsuleShape2D_qo5xh")
 
 [node name="SkeletonIK_Left" type="Skeleton2D" parent="Arms"]
+visible = false
 modification_stack = SubResource("SkeletonModificationStack2D_e8ejd")
 
 [node name="GearBone" type="Bone2D" parent="Arms/SkeletonIK_Left"]
@@ -492,11 +547,12 @@ animation = &"open"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone/ClawBone/Claw"]
 shape = SubResource("CapsuleShape2D_qo5xh")
 
-[node name="PhysicalArmRight" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef")]
+[node name="PhysicalArmRight" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "skeleton")]
 script = ExtResource("17_yi1ig")
 upperArmRef = NodePath("../SkeletonIK_Right/GearBone/UpperArmBone")
 lowerArmRef = NodePath("../SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone")
 clawRef = NodePath("../SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone/ClawBone")
+skeleton = NodePath("../SkeletonIK_Right")
 acceleration = 500.0
 
 [node name="UpperArm" type="RigidBody2D" parent="Arms/PhysicalArmRight"]
@@ -603,12 +659,13 @@ visible = false
 z_index = 1
 position = Vector2(64, 16)
 
-[node name="PhysicalArmLeft" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef")]
+[node name="PhysicalArmLeft" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "skeleton")]
 rotation = 3.14159
 script = ExtResource("17_yi1ig")
 upperArmRef = NodePath("../SkeletonIK_Left/GearBone/UpperArmBone")
 lowerArmRef = NodePath("../SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone")
 clawRef = NodePath("../SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone/ClawBone")
+skeleton = NodePath("../SkeletonIK_Left")
 acceleration = 500.0
 left = true
 
@@ -852,6 +909,7 @@ offset_bottom = -193.0
 text = "Height: "
 
 [node name="ItemChutes" type="Node2D" parent="."]
+position = Vector2(0, -80)
 script = ExtResource("27_jb5os")
 
 [node name="AreaRight" type="Area2D" parent="ItemChutes"]
@@ -862,6 +920,7 @@ collision_mask = 128
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemChutes/AreaRight"]
 position = Vector2(8, 0)
 shape = SubResource("RectangleShape2D_vrlx0")
+disabled = true
 
 [node name="AreaLeft" type="Area2D" parent="ItemChutes"]
 position = Vector2(-96, 160)
@@ -870,6 +929,7 @@ collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemChutes/AreaLeft"]
 shape = SubResource("RectangleShape2D_vrlx0")
+disabled = true
 
 [node name="Chutes" type="Sprite2D" parent="ItemChutes"]
 position = Vector2(0, 142)
@@ -878,9 +938,14 @@ texture = ExtResource("26_gdchp")
 [node name="interior" parent="." instance=ExtResource("6_kqtpx")]
 z_index = 3
 
-[node name="AnimationPlayerElevator" type="AnimationPlayer" parent="."]
+[node name="EndAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_3i61g")
+}
+
+[node name="ChutesAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pa1n2")
 }
 
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
@@ -893,4 +958,4 @@ libraries = {
 [connection signal="body_entered" from="ItemChutes/AreaRight" to="ItemChutes" method="_on_area_2d_body_entered"]
 [connection signal="area_entered" from="ItemChutes/AreaLeft" to="ItemChutes" method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="ItemChutes/AreaLeft" to="ItemChutes" method="_on_area_2d_body_entered"]
-[connection signal="animation_finished" from="AnimationPlayerElevator" to="." method="_on_animation_player_elevator_animation_finished"]
+[connection signal="animation_finished" from="EndAnimation" to="." method="_on_animation_player_elevator_animation_finished"]

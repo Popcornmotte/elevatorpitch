@@ -11,6 +11,7 @@ var functional = true
 @export var upperArmRef : Bone2D
 @export var lowerArmRef : Bone2D
 @export var clawRef : Bone2D
+@export var skeleton : Skeleton2D
 
 @export var acceleration = 200.0
 
@@ -40,6 +41,9 @@ func _physics_process(delta):
 			#print(str(upperArmPhys.angular_velocity))
 	pass
 	
+func setElbowDir(bendUp : bool):
+	bendUp = !bendUp if left else bendUp
+	skeleton.get_modification_stack().get_modification(0).flip_bend_direction = bendUp
 	
 func disable():
 	repairStation.visible=true

@@ -13,6 +13,7 @@ var speed = 0.0
 @export var heightMeter : Label
 @export var controlArms:bool #make it accessible whether or not the arms are being controlled
 @export var moving:bool=true
+@export var chutesDeployed = false
 @export var fuelConsumption=10
 @export var fuel = 5.0
 @export var climbingHeight=0
@@ -111,8 +112,25 @@ func _process(delta):
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
+	
+	if(controlArms):
+		if(!chutesDeployed and Input.is_action_just_pressed("down") and !$ChutesAnimation.is_playing()):
+			chutesDeployed = true
+			$ChutesAnimation.play("deployChutes")
+			setChutesDeployed()
+		elif(chutesDeployed and Input.is_action_just_pressed("up") and !$ChutesAnimation.is_playing()):
+			chutesDeployed = false
+			$ChutesAnimation.play("retractChutes")
+			setChutesDeployed()
 
 	pass
+	
+func setChutesDeployed():
+	for child in $ItemChutes.get_children():
+		if child is Area2D:
+			child.get_child(0).disabled = !chutesDeployed
+	$Arms/PhysicalArmLeft.setElbowDir(!chutesDeployed)
+	$Arms/PhysicalArmRight.setElbowDir(!chutesDeployed)
 
 func _on_animation_player_elevator_animation_finished(anim_name):
 	Global.level.endLevel()
