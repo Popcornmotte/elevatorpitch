@@ -1,8 +1,9 @@
 extends Node
 
 const SAVEFILE_NAME = "elevatorpitch.save"
+const volumeScaleFactor = 10
 #Put here all variables that make sense to be globally accessible
-
+var optionsMenu = null
 #the elevator will assign itself to this variable
 var elevator : Node2D
 #the player will assign itself to this as well
@@ -14,6 +15,9 @@ var aliveEnemies = 0
 var inventoryMaxSize = 16
 var inventory = Array()
 var funds=0
+
+#Options
+var masterVolume = 100
 
 func _enter_tree():
 	loadGame()
@@ -56,7 +60,8 @@ func exitGame():
 
 func makeSaveDict():
 	var saveDict = {
-		"funds" : funds
+		"funds" : funds,
+		"masterVolume" : masterVolume
 	}
 	return saveDict
 
@@ -75,12 +80,11 @@ func loadGame():
 		file.close()
 		if typeof(data) == TYPE_DICTIONARY:
 			funds = data.get("funds")
+			masterVolume = data.get("masterVolume")
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(masterVolume))
 		else:
 			printerr("Corrupted data!")
 	else:
 		saveGame();
 		printerr("No saved data!")
 
-func _process(delta):
-	if Input.is_action_just_pressed("Esc"):
-		exitGame()
