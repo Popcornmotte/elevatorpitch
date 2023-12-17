@@ -211,6 +211,7 @@ func _on_interaction_area_area_entered(area):
 	
 	if area.owner and area.owner.name=="Dispenser":
 		dispenserObject=area.owner #special case, as pressing s will change dispense type
+		
 	#special case for doors, they should only open when the elevators is not moving, null checks inserted to not crash game
 	elif Global.elevator and !Global.elevator.moving and area.owner and ("isDoor" in area.owner):
 		area.owner.openDoor()
