@@ -1,0 +1,216 @@
+[gd_scene load_steps=6 format=3 uid="uid://1pkntk12yfw7"]
+
+[ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="1_7fpc8"]
+[ext_resource type="Texture2D" uid="uid://btsxud1jfvfvj" path="res://Assets/Sprites/dottedLine.png" id="1_xx7n4"]
+[ext_resource type="PackedScene" uid="uid://blyrplrem0806" path="res://Scenes/Objects/Test/debug_physics_poker.tscn" id="3_xox6f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xf40e"]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8j8es"]
+size = Vector2(16, 8)
+
+[node name="RopeTest" type="Node2D"]
+position = Vector2(600, 196)
+
+[node name="base" type="StaticBody2D" parent="."]
+position = Vector2(-16, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="base"]
+texture = ExtResource("1_7fpc8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="base"]
+shape = SubResource("CircleShape2D_xf40e")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(-8, 0)
+node_a = NodePath("../base")
+node_b = NodePath("../segment0")
+
+[node name="segment0" type="RigidBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="segment0"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment0"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint0" type="PinJoint2D" parent="."]
+position = Vector2(8, 0)
+node_a = NodePath("../segment0")
+node_b = NodePath("../segment1")
+
+[node name="segment1" type="RigidBody2D" parent="."]
+position = Vector2(16, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment1"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment1"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint1" type="PinJoint2D" parent="."]
+position = Vector2(24, 0)
+node_a = NodePath("../segment1")
+node_b = NodePath("../segment2")
+
+[node name="segment2" type="RigidBody2D" parent="."]
+position = Vector2(32, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment2"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment2"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint2" type="PinJoint2D" parent="."]
+position = Vector2(40, 0)
+node_a = NodePath("../segment2")
+node_b = NodePath("../segment3")
+
+[node name="segment3" type="RigidBody2D" parent="."]
+position = Vector2(48, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment3"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment3"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint3" type="PinJoint2D" parent="."]
+position = Vector2(56, 0)
+node_a = NodePath("../segment3")
+node_b = NodePath("../segment4")
+
+[node name="segment4" type="RigidBody2D" parent="."]
+position = Vector2(64, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment4"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment4"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint4" type="PinJoint2D" parent="."]
+position = Vector2(72, 0)
+node_a = NodePath("../segment4")
+node_b = NodePath("../segment5")
+
+[node name="segment5" type="RigidBody2D" parent="."]
+position = Vector2(80, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment5"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment5"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint5" type="PinJoint2D" parent="."]
+position = Vector2(88, 0)
+node_a = NodePath("../segment5")
+node_b = NodePath("../segment6")
+
+[node name="segment6" type="RigidBody2D" parent="."]
+position = Vector2(96, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment6"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment6"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint6" type="PinJoint2D" parent="."]
+position = Vector2(104, 0)
+node_a = NodePath("../segment6")
+node_b = NodePath("../segment7")
+
+[node name="segment7" type="RigidBody2D" parent="."]
+position = Vector2(112, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment7"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment7"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint7" type="PinJoint2D" parent="."]
+position = Vector2(120, 0)
+node_a = NodePath("../segment7")
+node_b = NodePath("../segment8")
+
+[node name="segment8" type="RigidBody2D" parent="."]
+position = Vector2(128, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment8"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment8"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint8" type="PinJoint2D" parent="."]
+position = Vector2(136, 0)
+node_a = NodePath("../segment8")
+node_b = NodePath("../segment9")
+
+[node name="segment9" type="RigidBody2D" parent="."]
+position = Vector2(144, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment9"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment9"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint9" type="PinJoint2D" parent="."]
+position = Vector2(152, 0)
+node_a = NodePath("../segment9")
+node_b = NodePath("../segment10")
+
+[node name="segment10" type="RigidBody2D" parent="."]
+position = Vector2(160, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment10"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment10"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="joint10" type="PinJoint2D" parent="."]
+position = Vector2(168, 0)
+node_a = NodePath("../segment10")
+node_b = NodePath("../segment11")
+
+[node name="segment11" type="RigidBody2D" parent="."]
+position = Vector2(176, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="segment11"]
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_xx7n4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="segment11"]
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="DebugPhysicsPoker" parent="." instance=ExtResource("3_xox6f")]
