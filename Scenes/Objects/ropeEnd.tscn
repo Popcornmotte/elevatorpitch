@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8j8es"]
 size = Vector2(16, 8)
 
-[node name="ropeSegment" type="RigidBody2D"]
+[node name="ropeEnd" type="StaticBody2D"]
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(4.76837e-07, 0)
@@ -14,3 +14,5 @@ texture = ExtResource("1_5ofnq")
 
 [node name="ColShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="Joint" type="PinJoint2D" parent="."]
