@@ -16,19 +16,27 @@ var elevatorDropping=false
 var cargoCount = 0
 var gainedFunds = 0
 var lastHeight = 0
+var timeLevelStart = 0
+var timeLevelEnd = 0
+
 
 func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	print("level start")
+	timeLevelStart=Time.get_ticks_msec() 
 
 func finishedScene():
 	$Elevator.onGoal()#plays the animation for elevator moving out of view
 	$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
 	$LevelCam.make_current()
 	finishedLevel=true
-
+	Global.height = 0
+	timeLevelEnd=Time.get_ticks_msec()
+	var elapsedTime=timeLevelEnd-timeLevelStart
+	print("Elapsed time: ", elapsedTime)
+	
 func spawnEnemies():
 	combat = true
 	spawnChance = -1
