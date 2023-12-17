@@ -1,4 +1,4 @@
-extends GenericInteractible
+extends Node2D
 
 const BRAKESOUND = preload("res://Assets/Audio/sfx/lever.wav")
 const ALERT = preload("res://Assets/Audio/sfx/enemyAlert.wav")
@@ -13,16 +13,64 @@ var currentSpeed=SPEED.Normal;
 func turnOffLightOnly():
 	alarmLightAnimation.stop()
 
-func use():
-	var changeTo:SPEED
+func switchUp():
+	Audio.playSfx(BRAKESOUND)
+	if Global.aliveEnemies > 0:
+			Audio.playSfx(ERROR)
+			return
 	match currentSpeed:
 		SPEED.Off:
-			changeTo=SPEED.Normal
+			brakeSprite.play("off_to_normal")
+			currentSpeed=SPEED.Normal
+			if Global.elevator:
+				Global.elevator.moveNormal()
+				Global.elevator.moving=true
 		SPEED.Normal:
-			changeTo=SPEED.Fast
+			if Global.elevator:
+				Global.elevator.moveFast()
+			brakeSprite.play("normal_to_fast")
+			currentSpeed=SPEED.Fast	
 		SPEED.Fast:
-			changeTo=SPEED.Off
-	useBrake(changeTo)
+			Audio.playSfx(ERROR)
+			return
+		
+func switchDown():
+	Audio.playSfx(BRAKESOUND)
+	if Global.aliveEnemies > 0:
+			Audio.playSfx(ERROR)
+			return
+	match currentSpeed:
+		SPEED.Off:
+			Audio.playSfx(ERROR)
+			return
+		SPEED.Normal:
+			if Global.elevator:
+				Global.elevator.moving=false
+			brakeSprite.play("normal_to_off")
+			currentSpeed=SPEED.Off
+		SPEED.Fast:
+			if Global.elevator:
+				Global.elevator.moveNormal()
+			brakeSprite.play("fast_to_normal")
+			currentSpeed=SPEED.Normal
+
+# used when elevator encounters enemies or no more fuel available
+func switchOff():
+	Audio.playSfx(BRAKESOUND)
+	alarmIsSounding = true
+	Audio.playSfx(ALERT)
+	alarmLightAnimation.play("alert")
+	match currentSpeed:
+		SPEED.Fast:
+			brakeSprite.play("fast_to_off")
+		SPEED.Normal:
+			brakeSprite.play("normal_to_off")
+	currentSpeed=SPEED.Off
+	if Global.elevator:#check that elevator exists 
+		Global.elevator.moving=false
+	return
+		
+
 
 
 func useBrake(changeTo : SPEED, alarm = false, moveEngine=true):#use this function also externally when no more fuel is available
