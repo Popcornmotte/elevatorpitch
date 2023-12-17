@@ -32,7 +32,6 @@ func finishedScene():
 	$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
 	$LevelCam.make_current()
 	finishedLevel=true
-	Global.height = 0
 	timeLevelEnd=Time.get_ticks_msec()
 	var elapsedTime=timeLevelEnd-timeLevelStart
 	print("Elapsed time: ", elapsedTime)
