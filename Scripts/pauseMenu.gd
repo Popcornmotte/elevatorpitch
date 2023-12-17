@@ -3,8 +3,8 @@ extends Control
 @onready var volumeLabel = $Polygon2D/MarginContainer/VBoxContainer/VolumeBox/Label
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Polygon2D/MarginContainer/VBoxContainer/MarginContainer/VolumeSlider.value = Global.masterVolume*Global.volumeScaleFactor
-	volumeLabel.text = "Master Volume: "+str(Global.masterVolume*Global.volumeScaleFactor)
+	$Polygon2D/MarginContainer/VBoxContainer/MarginContainer/VolumeSlider.value = Global.masterVolume
+	volumeLabel.text = "Master Volume: "+str(int(Global.masterVolume*100))
 	Global.optionsMenu = self
 	pass # Replace with function body.
 
@@ -32,8 +32,8 @@ func _process(delta):
 
 
 func _on_volume_slider_value_changed(value):
-	Global.masterVolume = int(value/Global.volumeScaleFactor) #100 turned out to be a little loud...
-	volumeLabel.text = "Master Volume: "+str(value)
+	Global.masterVolume = value #100 turned out to be a little loud...
+	volumeLabel.text = "Master Volume: "+str(int(value*100))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(Global.masterVolume))
 	pass # Replace with function body.
 

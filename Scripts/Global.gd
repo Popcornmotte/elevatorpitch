@@ -1,7 +1,6 @@
 extends Node
 
 const SAVEFILE_NAME = "elevatorpitch.save"
-const volumeScaleFactor = 10
 #Put here all variables that make sense to be globally accessible
 var optionsMenu = null
 #the elevator will assign itself to this variable
@@ -17,7 +16,7 @@ var inventory = Array()
 var funds=0
 
 #Options
-var masterVolume = 5
+var masterVolume = 1.0
 
 func _enter_tree():
 	loadGame()

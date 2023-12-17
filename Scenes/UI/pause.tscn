@@ -1,13 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://c33twwyhg1qsp"]
+[gd_scene load_steps=12 format=3 uid="uid://dcoh76g3wvmro"]
 
 [ext_resource type="Script" path="res://Scripts/pauseMenu.gd" id="1_8a842"]
-[ext_resource type="Texture2D" uid="uid://byoig3wdgrii1" path="res://Assets/Sprites/UI/Pause.png" id="1_w5qk5"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/UI/Pause.png" id="1_w5qk5"]
 [ext_resource type="Shader" path="res://Shader/VHS.gdshader" id="2_0jj4e"]
 [ext_resource type="Texture2D" uid="uid://cju5hefrsve3b" path="res://Assets/Sprites/UI/RustyPanel.png" id="3_5hu4f"]
 [ext_resource type="Material" uid="uid://cyf4pi32ibgkc" path="res://Shader/crt_material.tres" id="4_7kimd"]
 [ext_resource type="Texture2D" uid="uid://ca27mp3shlyqm" path="res://Assets/Sprites/UI/RustyPanel2.png" id="5_ypjiw"]
 [ext_resource type="FontFile" uid="uid://chq2qqlffg26p" path="res://Fonts/Mont-HeavyDEMO.otf" id="6_tww15"]
-[ext_resource type="AudioStream" uid="uid://dywuvggbn307p" path="res://Assets/Audio/sfx/filmStatic.ogg" id="6_xjtd4"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/sfx/filmStatic.ogg" id="6_xjtd4"]
 [ext_resource type="FontFile" uid="uid://vwad5mtb1vhk" path="res://Fonts/Mont-ExtraLightDEMO.otf" id="7_hhjpr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_12un6"]
@@ -117,8 +117,9 @@ theme_override_constants/margin_right = 256
 
 [node name="VolumeSlider" type="HSlider" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
-value = 50.0
-rounded = true
+max_value = 1.0
+step = 0.05
+value = 1.0
 
 [node name="ButtonBox" type="HBoxContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
 layout_mode = 2
