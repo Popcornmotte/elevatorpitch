@@ -35,7 +35,6 @@ func release(fling = false):
 			var vector = self.linear_velocity
 			if fling:
 				vector = flingTargetDir.normalized() * vector.length()
-				print("==> Fling: " + str(vector))
 			grabbed.release(vector)
 			grabbed = null
 			grabbing = false
@@ -64,12 +63,10 @@ func _process(delta):
 	
 	if(Input.is_action_just_pressed("Fling") && grabbing):
 		aboutToFling = true
-		print("Fling initiated")
 	if(Input.is_action_just_released("Fling") && aboutToFling):
 		aboutToFling = false
 		flinging = true
 		arm.acceleration *= flingAccFac
-		print("-> Flinging...")
 	if(Input.is_action_just_pressed("Grab")):
 		grab()
 	if(Input.is_action_just_released("Grab") and !(aboutToFling or flinging)):

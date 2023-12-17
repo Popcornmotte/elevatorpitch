@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bncium1i82qj0" path="res://Assets/Sprites/hatchButtonSign.png" id="15_pntbt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a0ag"]
-size = Vector2(960, 64)
+size = Vector2(960, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xi66o"]
 size = Vector2(64, 128)
@@ -206,7 +206,7 @@ collision_layer = 524305
 collision_mask = 524337
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
-position = Vector2(160, 224)
+position = Vector2(160, 256)
 shape = SubResource("RectangleShape2D_3a0ag")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Collision"]

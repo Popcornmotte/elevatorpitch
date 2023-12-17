@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=66 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -230,6 +230,9 @@ shader_parameter/Frequency = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vrlx0"]
 size = Vector2(16, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xtx1b"]
+size = Vector2(176, 72)
 
 [sub_resource type="Animation" id="Animation_ec3x2"]
 length = 0.001
@@ -936,6 +939,15 @@ disabled = true
 [node name="Chutes" type="Sprite2D" parent="ItemChutes"]
 position = Vector2(0, 142)
 texture = ExtResource("26_gdchp")
+
+[node name="Collision" type="StaticBody2D" parent="ItemChutes"]
+position = Vector2(0, 160)
+collision_layer = 524289
+collision_mask = 524289
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemChutes/Collision"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_xtx1b")
 
 [node name="interior" parent="." instance=ExtResource("6_kqtpx")]
 z_index = 3
