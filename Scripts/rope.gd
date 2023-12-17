@@ -11,6 +11,7 @@ func spawn(start : Vector2, end : Vector2, pinned = false):
 	var length = start.distance_to(end)
 	var direction = (end-start).normalized()
 	var segmentCount = round(length / segmentSize)
+	segmentCount = min(segmentCount, 25)
 	var angle = Vector2(0,-1).angle_to(direction)
 	$Label.text = str(segmentCount)+" segments"
 	
