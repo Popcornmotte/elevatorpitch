@@ -18,7 +18,8 @@ var gainedFunds = 0
 var lastHeight = 0
 var timeLevelStart = 0
 var timeLevelEnd = 0
-
+var speedModifier=1
+@export var timeToFinishLevel=12000#played the game a couple of times, needs to be adjusted for every level
 
 func _enter_tree():
 	Global.level = self
