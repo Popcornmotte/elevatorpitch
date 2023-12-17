@@ -103,6 +103,8 @@ func grab(clawA):
 
 func pop():
 	if !popped:
+		if has_node("PinJoint2D"):
+			$PinJoint2D.queue_free()
 		Global.aliveEnemies -= 1
 		gravity_scale = 1
 		Audio.playSfx(POP)
@@ -138,6 +140,7 @@ func stealCargo():
 		state = STATE.Fleeing
 		Audio.playSfx(IDK)
 		chooseTarget()
+		Global.aliveEnemies -= 1
 		return
 		#print("loot is null!! what? lets print it: "+str(loot))
 
@@ -201,9 +204,7 @@ func _integrate_forces(state):
 		global_position = clawArea.global_position
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	if popped || loot!=null:
-		if(loot!=null):
-			Global.aliveEnemies -= 1
+	if popped || state == STATE.Fleeing:
 		$DeathTimer.start()
 	pass # Replace with function body.
 
