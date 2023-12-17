@@ -33,7 +33,24 @@ func switchUp():
 		SPEED.Fast:
 			Audio.playSfx(ERROR)
 			return
-		
+
+func noFuel():
+	Audio.playSfx(BRAKESOUND)
+	match currentSpeed:
+		SPEED.Off:
+			Audio.playSfx(ERROR)
+			return
+		SPEED.Normal:
+			if Global.elevator:
+				Global.elevator.moving=false
+			brakeSprite.play("normal_to_off")
+			currentSpeed=SPEED.Off
+		SPEED.Fast:
+			if Global.elevator:
+				Global.elevator.moveNormal()
+			brakeSprite.play("fast_to_normal")
+			currentSpeed=SPEED.Normal
+			
 func switchDown():
 	Audio.playSfx(BRAKESOUND)
 	if Global.aliveEnemies > 0:

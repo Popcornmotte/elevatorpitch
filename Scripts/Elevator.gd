@@ -14,7 +14,7 @@ var speed = 0.0
 @export var controlArms:bool #make it accessible whether or not the arms are being controlled
 @export var moving:bool=true
 @export var fuelConsumption=10
-@export var fuel = 25.0
+@export var fuel = 5.0
 @export var climbingHeight=0
 @export var climbingRate=100
 @export var speedModifier=1
@@ -89,7 +89,7 @@ func update_height(climbed):
 func decrease_fuel(delta):
 	fuel -= fuelConsumption*delta
 	if fuel<=0:
-		brake.switchOff()#(brake.SPEED.Off,false,false)#set brake to turned off position
+		brake.noFuel()#(brake.SPEED.Off,false,false)#set brake to turned off position
 		engineSFX.stopEngine()
 		fuelAlert.visible = true
 	else:
