@@ -36,13 +36,11 @@ func _ready():
 
 func moveFast():
 	speedModifier=2.0
-	$ClimbEnvironment/ParallaxBackground/CableLayer.movementFactor=speedModifier
 	$LegsAndCable/Legs.movementFactor=speedModifier
 	fuelConsumption=20
 	
 func moveNormal():
 	speedModifier=1.0
-	$ClimbEnvironment/ParallaxBackground/CableLayer.movementFactor=speedModifier
 	$LegsAndCable/Legs.movementFactor=speedModifier
 	fuelConsumption=10
 	
