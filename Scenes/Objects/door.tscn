@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://cmtjpc13o133u" path="res://Assets/Sprites/InteriorObjects/doorOpened.png" id="2_vsh71"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eolij"]
-size = Vector2(84, 32)
+size = Vector2(33.5, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53j0c"]
-size = Vector2(44, 32)
+size = Vector2(14, 32)
 
 [node name="Door" type="Node2D"]
 script = ExtResource("1_sul6m")
