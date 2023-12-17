@@ -31,6 +31,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var cameraMargins = 0.0
 var sfx
 var interactionObject:Node2D #object that the player is interacting with
+var dispenserObject:Node2D #object that the player is interacting with to dispense fuel or scrap
+var brakeObject:Node2D
 
 func _ready():
 	Global.player = self
@@ -64,11 +66,6 @@ func zoomIn(state : bool):
 		for side in range(0,4):
 			$PlayerCam.set_drag_margin(side, 0)
 	pass
-
-func jump(direction):
-	#jumping only allowed when on floor and space bar pressed
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jumpVelocity
 	
 # Function that needs to be called after move and slide to provide collision with rigidbodies
 func collideWithRigidbodies():
@@ -89,9 +86,11 @@ func pickUpObject():
 	var thing = carryables.pop_back()
 	var typeArg = thing.getType()
 	if typeArg==Item.TYPE.Fuel:
+		print("pick up fuel")
 		fuelSprite.visible=true
 		carryType=Item.TYPE.Fuel
-	if typeArg==Item.TYPE.Scrap:
+	elif typeArg==Item.TYPE.Scrap:
+		print("pick up scrap")
 		scrapSprite.visible=true
 		carryType=Item.TYPE.Scrap
 		carryingScrap=true
@@ -172,6 +171,17 @@ func _process(delta):
 	
 	if carrying and Input.is_action_pressed("repair") and interactionObject:
 		interactionObject.repair()
+	
+	if dispenserObject and Input.is_action_just_pressed("down"):
+		dispenserObject.switchDispenseType()
+	
+	if dispenserObject and Input.is_action_just_pressed("interact"):
+		dispenserObject.dispenseItem()
+	
+	if brakeObject and Input.is_action_just_pressed("up"):
+		brakeObject.switchUp()
+	if brakeObject and Input.is_action_just_pressed("down"):
+		brakeObject.switchDown()
 			
 func _physics_process(delta):
 	if Global.elevator:
@@ -192,16 +202,31 @@ func _physics_process(delta):
 					fuelSprite.visible=true
 				if carryType==Item.TYPE.Scrap:
 					scrapSprite.visible=true
-		jump(direction)
 		move(direction)
 		move_and_slide()
 		collideWithRigidbodies()
 		
 
 func _on_interaction_area_area_entered(area):
-	interactionObject=area.owner
+	
+	if area.owner and area.owner.name=="Dispenser":
+		dispenserObject=area.owner #special case, as pressing s will change dispense type
+	if area.owner and area.owner.name=="Brake":
+		brakeObject=area.owner
+	#special case for doors, they should only open when the elevators is not moving, null checks inserted to not crash game
+	elif Global.elevator and !Global.elevator.moving and area.owner and ("isDoor" in area.owner):
+		area.owner.openDoor()
+	elif area.owner and ("interactable" in area.owner):
+		interactionObject=area.owner
 
 
 func _on_interaction_area_area_exited(area):
 	if area.owner==interactionObject:
 		interactionObject=null
+	if area.owner==dispenserObject:
+		dispenserObject=null
+	if area.owner==brakeObject:
+		brakeObject=null
+	#null check
+	if area.owner and area.owner.get_parent().name=="Doors":
+		area.owner.closeDoor()

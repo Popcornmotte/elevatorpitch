@@ -53,6 +53,7 @@ collision_mask = 16
 
 [node name="RepairCollisionShape" type="CollisionShape2D" parent="RepairArea"]
 shape = SubResource("RectangleShape2D_3qctk")
+disabled = true
 
 [node name="RepairTimer" type="Timer" parent="RepairArea"]
 wait_time = 5.0

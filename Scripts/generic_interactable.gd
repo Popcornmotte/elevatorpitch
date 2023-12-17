@@ -1,14 +1,8 @@
 extends Node2D
 
 class_name GenericInteractible
-
+var interactable=true#used to differentiate interactable items
 var functioning=true
-		
-#func interact():
-#	if functioning:
-#		use()
-#	else:
-#		repair()
 
 func repair():
 	pass

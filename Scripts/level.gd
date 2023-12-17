@@ -21,20 +21,20 @@ func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 func finishedScene():
 	$Elevator.onGoal()#plays the animation for elevator moving out of view
 	$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
 	$LevelCam.make_current()
 	finishedLevel=true
-
+	
 func spawnEnemies():
 	combat = true
 	spawnChance = -1
 	wave += 1
 	#var formation = FORMATION_A.instantiate()
-	Global.elevator.brake.useBrake(true, true)
+	Global.elevator.brake.switchOff()
 	lastHeight = Global.height
 	var sign
 	for i in range(randi()%6 + wave):
