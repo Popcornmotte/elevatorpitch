@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7vqav3qcip0"]
+[gd_scene load_steps=2 format=3 uid="uid://c7vqav3qcip0"]
 
 [ext_resource type="Script" path="res://Scripts/Global.gd" id="1_ehqwt"]
-[ext_resource type="PackedScene" uid="uid://cf58uuarkarri" path="res://Scenes/UI/pause.tscn" id="2_l8pen"]
 
 [node name="Global" type="Node"]
 script = ExtResource("1_ehqwt")
-
-[node name="Pause" parent="." instance=ExtResource("2_l8pen")]
-visible = false

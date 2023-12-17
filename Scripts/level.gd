@@ -28,6 +28,7 @@ func finishedScene():
 	$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
 	$LevelCam.make_current()
 	finishedLevel=true
+	Global.height = 0
 	
 func spawnEnemies():
 	combat = true

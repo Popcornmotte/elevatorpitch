@@ -17,10 +17,9 @@ func switch():
 		Global.saveGame()
 	else:
 		Global.saveGame()
-		#reparent(get_viewport().get_camera_2d())
+
 		$WhiteNoisePlayer.play()
-		scale = Vector2(0.5,0.5)
-		#global_position = get_viewport().get_camera_2d().position
+
 		show()
 		get_tree().paused = true
 	pass
