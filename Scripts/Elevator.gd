@@ -17,10 +17,10 @@ var speed = 0.0
 @export var fuel = 25.0
 @export var climbingHeight=0
 @export var climbingRate=100
+@export var speedModifier=1
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
 @onready var engineSFX = $HullBody/EngineSound
-
 func _enter_tree():
 	Global.elevator = self
 
@@ -34,6 +34,18 @@ func _ready():
 	updateFuel()#show correct fuel on game start
 	pass # Replace with function body.
 
+func moveFast():
+	speedModifier=2.0
+	$ClimbEnvironment/ParallaxBackground/CableLayer.movementFactor=speedModifier
+	$LegsAndCable/Legs.movementFactor=speedModifier
+	fuelConsumption=20
+	
+func moveNormal():
+	speedModifier=1.0
+	$ClimbEnvironment/ParallaxBackground/CableLayer.movementFactor=speedModifier
+	$LegsAndCable/Legs.movementFactor=speedModifier
+	fuelConsumption=10
+	
 func control(isControlled : bool):
 	controlArms=isControlled
 	$HullBody/Hull.visible = isControlled
@@ -73,7 +85,7 @@ func haltElevator():
 	moving=false#stops cable from moving
 	
 func update_height(climbed):
-	climbingHeight+=climbed
+	climbingHeight+=climbed*speedModifier
 	heightMeter.text= str("Height: ", int(climbingHeight), " m")
 
 func decrease_fuel(delta):
@@ -83,7 +95,7 @@ func decrease_fuel(delta):
 		engineSFX.stopEngine()
 		fuelAlert.visible = true
 	else:
-		update_height(climbingRate*delta)
+		update_height(climbingRate*speedModifier*delta)
 	updateFuel()
 	pass
 
