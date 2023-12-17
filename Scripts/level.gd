@@ -34,7 +34,7 @@ func spawnEnemies():
 	spawnChance = -1
 	wave += 1
 	#var formation = FORMATION_A.instantiate()
-	Global.elevator.brake.useBrake(true, true)
+	Global.elevator.brake.switchOff()
 	lastHeight = Global.height
 	var sign
 	for i in range(randi()%6 + wave):

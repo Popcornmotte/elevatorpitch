@@ -55,10 +55,11 @@ func switchDown():
 			currentSpeed=SPEED.Normal
 
 # used when elevator encounters enemies or no more fuel available
-func switchOff():
+func switchOff(enemies=true):
 	Audio.playSfx(BRAKESOUND)
-	alarmIsSounding = true
-	Audio.playSfx(ALERT)
+	if enemies: 
+		alarmIsSounding = true
+		Audio.playSfx(ALERT)
 	alarmLightAnimation.play("alert")
 	match currentSpeed:
 		SPEED.Fast:
@@ -73,81 +74,81 @@ func switchOff():
 
 
 
-func useBrake(changeTo : SPEED, alarm = false, moveEngine=true):#use this function also externally when no more fuel is available
-	Audio.playSfx(BRAKESOUND)
-	if alarm:
-		alarmIsSounding = true
-		Audio.playSfx(ALERT)
-		alarmLightAnimation.play("alert")
-		match currentSpeed:
-			SPEED.Fast:
-				brakeSprite.play("fast_to_off")
-			SPEED.Normal:
-				brakeSprite.play("normal_to_off")
-		currentSpeed=SPEED.Off
-		if Global.elevator:#check that elevator exists 
-			Global.elevator.moving=false
-		return
-	if not moveEngine:
-		match currentSpeed:
-			SPEED.Fast:
-				brakeSprite.play("fast_to_off")
-			SPEED.Normal:
-				brakeSprite.play("normal_to_off")
-		currentSpeed=SPEED.Off
-		if Global.elevator:#check that elevator exists 
-			Global.elevator.moving=false
-		return
-		
-	if(moveEngine):
-		if Global.aliveEnemies > 0:
-			Audio.playSfx(ERROR)
-			return
-		match changeTo:
-			SPEED.Off:
-				if(currentSpeed==SPEED.Normal):
-					brakeSprite.play("normal_to_off")
-				elif(currentSpeed==SPEED.Fast):
-					brakeSprite.play("fast_to_off")	
-				turnOn=true
-				if Global.elevator:#check that elevator exists 
-					Global.elevator.moving=false
-			SPEED.Fast:
-				if Global.elevator:
-					Global.elevator.moveFast()
-				if(currentSpeed==SPEED.Normal):
-					brakeSprite.play("normal_to_fast")
-			SPEED.Normal:
-				if Global.elevator:
-					Global.elevator.moveNormal()
-				if(currentSpeed==SPEED.Off):
-					brakeSprite.play("off_to_normal")
-				elif (currentSpeed==SPEED.Fast):
-					brakeSprite.play("fast_to_normal")
-				if Global.elevator:#check that elevator exists 
-					Global.elevator.moving=true
-		currentSpeed=changeTo
-	else:
-		
-		if alarmIsSounding:
-			alarmIsSounding = false
-			alarmLightAnimation.stop()
-		if currentSpeed==SPEED.Normal:
-			brakeSprite.play("normal_to_off")
-		else:
-			brakeSprite.play("fast_to_off")
-		currentSpeed=SPEED.Off
-		turnOn=false
-		if Global.elevator:#check that elevator exists 
-			Global.elevator.moving=true
-			Global.elevator.get_node("HullBody/EngineSound").startEngine()
-	
-	
-	#if(use):
-	#	if alarm:
-	#		alarmIsSounding = true
-	#		Audio.playSfx(ALERT)
-	#		alarmLightAnimation.play("alert")
+#func useBrake(changeTo : SPEED, alarm = false, moveEngine=true):#use this function also externally when no more fuel is available
+#	Audio.playSfx(BRAKESOUND)
+#	if alarm:
+#		alarmIsSounding = true
+#		Audio.playSfx(ALERT)
+#		alarmLightAnimation.play("alert")
+#		match currentSpeed:
+#			SPEED.Fast:
+#				brakeSprite.play("fast_to_off")
+#			SPEED.Normal:
+#				brakeSprite.play("normal_to_off")
+#		currentSpeed=SPEED.Off
+#		if Global.elevator:#check that elevator exists 
+#			Global.elevator.moving=false
+#		return
+#	if not moveEngine:
+#		match currentSpeed:
+#			SPEED.Fast:
+#				brakeSprite.play("fast_to_off")
+#			SPEED.Normal:
+#				brakeSprite.play("normal_to_off")
+#		currentSpeed=SPEED.Off
+#		if Global.elevator:#check that elevator exists 
+#			Global.elevator.moving=false
+#		return
+#		
+#	if(moveEngine):
+#		if Global.aliveEnemies > 0:
+#			Audio.playSfx(ERROR)
+#			return
+#		match changeTo:
+#			SPEED.Off:
+#				if(currentSpeed==SPEED.Normal):
+#					brakeSprite.play("normal_to_off")
+#				elif(currentSpeed==SPEED.Fast):
+#					brakeSprite.play("fast_to_off")	
+#				turnOn=true
+#				if Global.elevator:#check that elevator exists 
+#					Global.elevator.moving=false
+#			SPEED.Fast:
+#				if Global.elevator:
+#					Global.elevator.moveFast()
+#				if(currentSpeed==SPEED.Normal):
+#					brakeSprite.play("normal_to_fast")
+#			SPEED.Normal:
+#				if Global.elevator:
+#					Global.elevator.moveNormal()
+#				if(currentSpeed==SPEED.Off):
+#					brakeSprite.play("off_to_normal")
+#				elif (currentSpeed==SPEED.Fast):
+#					brakeSprite.play("fast_to_normal")
+#				if Global.elevator:#check that elevator exists 
+#					Global.elevator.moving=true
+#		currentSpeed=changeTo
+#	else:
+#		
+#		if alarmIsSounding:
+#			alarmIsSounding = false
+#			alarmLightAnimation.stop()
+#		if currentSpeed==SPEED.Normal:
+#			brakeSprite.play("normal_to_off")
+#		else:
+#			brakeSprite.play("fast_to_off")
+#		currentSpeed=SPEED.Off
+#		turnOn=false
+#		if Global.elevator:#check that elevator exists 
+#			Global.elevator.moving=true
+#			Global.elevator.get_node("HullBody/EngineSound").startEngine()
+#	
+#	
+#	#if(use):
+#	#	if alarm:
+#	#		alarmIsSounding = true
+#	#		Audio.playSfx(ALERT)
+#	#		alarmLightAnimation.play("alert")
 	#	brakeSprite.play("turn_on")
 	#	turnOn=true
 	#	if Global.elevator:#check that elevator exists 
