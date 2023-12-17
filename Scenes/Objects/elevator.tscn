@@ -268,6 +268,21 @@ _data = {
 "goal": SubResource("Animation_lruot")
 }
 
+[sub_resource type="Animation" id="Animation_26y74"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemChutes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -80)]
+}
+
 [sub_resource type="Animation" id="Animation_mujv5"]
 resource_name = "deployChutes"
 length = 0.5
@@ -297,21 +312,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1.93187, 1.8025, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 8), Vector2(0, -80)]
-}
-
-[sub_resource type="Animation" id="Animation_26y74"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ItemChutes:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -80)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pa1n2"]
@@ -547,12 +547,13 @@ animation = &"open"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone/ClawBone/Claw"]
 shape = SubResource("CapsuleShape2D_qo5xh")
 
-[node name="PhysicalArmRight" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "skeleton")]
+[node name="PhysicalArmRight" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "skeleton", "target")]
 script = ExtResource("17_yi1ig")
 upperArmRef = NodePath("../SkeletonIK_Right/GearBone/UpperArmBone")
 lowerArmRef = NodePath("../SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone")
 clawRef = NodePath("../SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone/ClawBone")
 skeleton = NodePath("../SkeletonIK_Right")
+target = NodePath("../Targets/RightTarget")
 acceleration = 500.0
 
 [node name="UpperArm" type="RigidBody2D" parent="Arms/PhysicalArmRight"]
@@ -659,13 +660,14 @@ visible = false
 z_index = 1
 position = Vector2(64, 16)
 
-[node name="PhysicalArmLeft" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "skeleton")]
+[node name="PhysicalArmLeft" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "skeleton", "target")]
 rotation = 3.14159
 script = ExtResource("17_yi1ig")
 upperArmRef = NodePath("../SkeletonIK_Left/GearBone/UpperArmBone")
 lowerArmRef = NodePath("../SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone")
 clawRef = NodePath("../SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone/ClawBone")
 skeleton = NodePath("../SkeletonIK_Left")
+target = NodePath("../Targets/LeftTarget")
 acceleration = 500.0
 left = true
 

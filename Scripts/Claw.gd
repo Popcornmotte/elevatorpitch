@@ -8,8 +8,11 @@ var flingTargetDir : Vector2
 var aboutToFling = false
 var flinging = false
 var maxFlingVelocity = 0.0
+var maxFlingAlignment = 0.0
 var arm : PhysicalArm
 var flingAccFac = 2.0
+var controlled = false
+var target : Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +20,7 @@ func _ready():
 	while !(node is PhysicalArm) && node.get_parent() != null:
 		node = node.get_parent()
 	arm = node
+	arm.claw = self
 	pass # Replace with function body.
 
 func grab():
@@ -31,12 +35,19 @@ func release(fling = false):
 			var vector = self.linear_velocity
 			if fling:
 				vector = flingTargetDir.normalized() * vector.length()
+				print("==> Fling: " + str(vector))
 			grabbed.release(vector)
 			grabbed = null
 			grabbing = false
+			$ClawSprite.play("open")
 
 func setFlingTargetDir(dir : Vector2):
 	flingTargetDir = dir
+
+func setControlled(value : bool):
+	if value != controlled:
+		controlled = value
+		arm.setControlled(controlled)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -46,27 +57,31 @@ func _process(delta):
 		else:
 			grabbed.rotation = rotation
 	
-	if Input.is_action_pressed("Grab") or aboutToFling or flinging:
+	if (controlled and Input.is_action_pressed("Grab")) or grabbing or aboutToFling or flinging:
 		$ClawSprite.play("close")
 	else:
 		$ClawSprite.play("open")
 	
 	if(Input.is_action_just_pressed("Fling") && grabbing):
 		aboutToFling = true
+		print("Fling initiated")
 	if(Input.is_action_just_released("Fling") && aboutToFling):
 		aboutToFling = false
 		flinging = true
 		arm.acceleration *= flingAccFac
+		print("-> Flinging...")
 	if(Input.is_action_just_pressed("Grab")):
 		grab()
-	if(Input.is_action_just_released("Grab") && !aboutToFling):
+	if(Input.is_action_just_released("Grab") and !(aboutToFling or flinging)):
 		release()
 #	if Input.is_action_just_pressed("Debug"):
 #		print("Claw's current grabbable: "+str(grabbable))
-
-	if(flinging && linear_velocity.normalized().dot(flingTargetDir.normalized()) > 0.9):
+	
+	var flingAlignment = linear_velocity.normalized().dot(flingTargetDir.normalized())
+	#var maxFlingAlignment = max(maxFlingAlignment, flingAlignment)
+	if(flinging and flingAlignment > 0.9):
 		maxFlingVelocity = max(maxFlingVelocity, linear_velocity.length())
-		if(linear_velocity.length() < maxFlingVelocity):
+		if(linear_velocity.length() < max(500,maxFlingVelocity) or global_position.distance_to(target.global_position) < 50):
 			maxFlingVelocity = 0.0
 			flinging = false
 			arm.acceleration /= flingAccFac

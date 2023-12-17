@@ -34,6 +34,7 @@ func _ready():
 		armAnchorPos += Vector2(96,0)
 	else:
 		armAnchorPos -= Vector2(96,0)
+	claw.target = self
 
 func control(isBeingControlled : bool):
 	isControlled = isBeingControlled
@@ -67,9 +68,11 @@ func follow_mouse(delta : float, mousePos : Vector2):
 	#if mouse is on other side of elevator reset target to rest pos
 	if(isControlled):
 		if(isActive()):
+				claw.setControlled(true)
 				move(delta, mousePos)
 				move_and_slide()
 		else:
+			claw.setControlled(false)
 			global_position = restingPosition.global_position
 
 
