@@ -35,7 +35,7 @@ func stopEngine():
 	play()
 
 func _on_finished():
-	if(Global.elevator.fuel > 0):
+	if(!stopped && Global.elevator.fuel > 0):
 		stream = loop
 		play()
 	elif(!stopped):

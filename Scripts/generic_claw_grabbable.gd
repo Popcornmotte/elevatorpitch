@@ -5,7 +5,7 @@ var grabbed = false
 var claw : Node2D
 @onready var originalParent = get_parent()
 @export var isItem = false
-@export var item : Item
+@export var item : Item.TYPE
 
 func grab(clawA):
 	grabbed = true

@@ -1,12 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=12 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
 [ext_resource type="Texture2D" uid="uid://cju5hefrsve3b" path="res://Assets/Sprites/UI/RustyPanel.png" id="3_1e58w"]
 [ext_resource type="Texture2D" uid="uid://bk4ncbsoisn4d" path="res://Assets/Sprites/items/crate.png" id="4_l2qxe"]
 [ext_resource type="PackedScene" uid="uid://d1x22hjhicnj" path="res://Scenes/UI/fade_in.tscn" id="5_em6cv"]
-[ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="6_6rves"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="6_4piet"]
+[ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="6_6rves"]
 [ext_resource type="PackedScene" uid="uid://76relfo52far" path="res://Scenes/World/climbEnvironment.tscn" id="7_mr16y"]
 
 [sub_resource type="Animation" id="Animation_gh5je"]

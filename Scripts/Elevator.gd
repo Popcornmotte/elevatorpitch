@@ -75,7 +75,7 @@ func update_health():
 	pass
 
 func onGoal():
-	$AnimationPlayerElevator.play("goal")
+	$EndAnimation.play("goal")
 	$HullBody.get_node("Hull").visible=true#make hull visible on goal
 
 func haltElevator():
@@ -100,6 +100,8 @@ func decrease_fuel(delta):
 
 func updateFuel():
 	fuelBar.scale = Vector2(fuel / 100.0, 1)
+	if brake.locked and fuel > 0:
+		brake.unlock()
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

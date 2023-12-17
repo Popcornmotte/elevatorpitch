@@ -34,7 +34,8 @@ func onHatchButtonHit():
 		Audio.playSfx(hatchSound)
 		button.play("default")
 		hatchOpen = true
-		brake.unlocked = true
+		brake.startLocked = false
+		brake.unlock()
 	
 func onElevatorStarted():
 	$RiseSequence/ElevatorRise.play("elevatorRise")

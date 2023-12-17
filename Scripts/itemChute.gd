@@ -8,10 +8,10 @@ func _on_area_2d_body_entered(body):
 
 func checkForItem(thing):
 	if thing is Item:
-		Global.inventory.push_back(thing)
+		Global.addToInventory(Item.new(thing.type))
 		thing.call_deferred("queue_free")
 	if thing is ClawGrabbable and thing.isItem:
-		Global.inventory.push_back(thing.item)
+		Global.addToInventory(Item.new(thing.item))
 		thing.call_deferred("queue_free")
 	elif thing.get_parent() != null:
 		checkForItem(thing.get_parent())
