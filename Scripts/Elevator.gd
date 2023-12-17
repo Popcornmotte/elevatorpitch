@@ -43,6 +43,7 @@ func moveNormal():
 	speedModifier=1.0
 	$LegsAndCable/Legs.movementFactor=speedModifier
 	fuelConsumption=10
+	engineSFX.startEngine()
 	
 func control(isControlled : bool):
 	controlArms=isControlled
