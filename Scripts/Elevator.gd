@@ -13,6 +13,7 @@ var speed = 0.0
 @export var heightMeter : Label
 @export var controlArms:bool #make it accessible whether or not the arms are being controlled
 @export var moving:bool=true
+@export var chutesDeployed = false
 @export var fuelConsumption=10
 @export var fuel = 5.0
 @export var climbingHeight=0
@@ -30,7 +31,6 @@ func dropElevator():#drops the elvator for example on finished game
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control(controlArms)
-	moving=true
 	updateFuel()#show correct fuel on game start
 	pass # Replace with function body.
 
@@ -75,7 +75,7 @@ func update_health():
 	pass
 
 func onGoal():
-	$AnimationPlayerElevator.play("goal")
+	$EndAnimation.play("goal")
 	$HullBody.get_node("Hull").visible=true#make hull visible on goal
 
 func haltElevator():
@@ -100,6 +100,8 @@ func decrease_fuel(delta):
 
 func updateFuel():
 	fuelBar.scale = Vector2(fuel / 100.0, 1)
+	if brake.locked and fuel > 0:
+		brake.unlock()
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -112,8 +114,25 @@ func _process(delta):
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
+	
+	if(controlArms):
+		if(!chutesDeployed and Input.is_action_just_pressed("down") and !$ChutesAnimation.is_playing()):
+			chutesDeployed = true
+			$ChutesAnimation.play("deployChutes")
+			setChutesDeployed()
+		elif(chutesDeployed and Input.is_action_just_pressed("up") and !$ChutesAnimation.is_playing()):
+			chutesDeployed = false
+			$ChutesAnimation.play("retractChutes")
+			setChutesDeployed()
 
 	pass
+	
+func setChutesDeployed():
+	for child in $ItemChutes.get_children():
+		if child is Area2D:
+			child.get_child(0).disabled = !chutesDeployed
+	$Arms/PhysicalArmLeft.setElbowDir(!chutesDeployed)
+	$Arms/PhysicalArmRight.setElbowDir(!chutesDeployed)
 
 func _on_animation_player_elevator_animation_finished(anim_name):
 	Global.level.endLevel()

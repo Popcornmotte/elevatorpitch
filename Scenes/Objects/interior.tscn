@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=32 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bl8lfrua5a0uk" path="res://Assets/Sprites/InteriorObjects/drop_station.png" id="9_pucli"]
 [ext_resource type="PackedScene" uid="uid://c30yxwkogsbvo" path="res://Scenes/Objects/brake.tscn" id="11_ga7e1"]
 [ext_resource type="Texture2D" uid="uid://bi5lwh40poc7w" path="res://Assets/Sprites/InteriorObjects/drop_funnel.png" id="12_xxbrh"]
-[ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="13_1wjlu"]
 [ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="13_tkd7y"]
 [ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="15_chetq"]
 [ext_resource type="PackedScene" uid="uid://carwfjsbvtpt" path="res://Scenes/Objects/dispenser.tscn" id="16_i5pwy"]
@@ -22,7 +21,7 @@
 size = Vector2(208, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_raajs"]
-size = Vector2(160, 2)
+size = Vector2(135, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vgfb"]
 size = Vector2(25, 98)
@@ -116,6 +115,7 @@ collision_mask = 176
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Lower"]
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_gqa2i")
 metadata/_edit_lock_ = true
 
@@ -328,9 +328,6 @@ texture = ExtResource("9_pucli")
 
 [node name="DropFunnel" type="Sprite2D" parent="DropFunnel"]
 texture = ExtResource("12_xxbrh")
-
-[node name="player" parent="." instance=ExtResource("13_1wjlu")]
-position = Vector2(-56, 56)
 
 [node name="AlertLight" type="PointLight2D" parent="."]
 position = Vector2(1, 9)

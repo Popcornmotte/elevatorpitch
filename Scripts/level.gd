@@ -34,7 +34,7 @@ func spawnEnemies():
 	spawnChance = -1
 	wave += 1
 	#var formation = FORMATION_A.instantiate()
-	Global.elevator.brake.switchOff()
+	Global.elevator.brake.lock(true)
 	lastHeight = Global.height
 	var sign
 	for i in range(randi()%6 + wave):
@@ -52,6 +52,7 @@ func _process(delta):
 		if Global.aliveEnemies <= 0:
 			combat = false
 			Global.elevator.brake.turnOffLightOnly()
+			Global.elevator.brake.unlock()
 			print("wave concluded")
 			$WaveTimer.start()
 	#check height for finish
