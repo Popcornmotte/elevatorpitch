@@ -2,7 +2,7 @@ extends Node
 
 const SAVEFILE_NAME = "elevatorpitch.save"
 #Put here all variables that make sense to be globally accessible
-
+var optionsMenu = null
 #the elevator will assign itself to this variable
 var elevator : Node2D
 #the player will assign itself to this as well
@@ -14,6 +14,9 @@ var aliveEnemies = 0
 var inventoryMaxSize = 16
 var inventory = Array()
 var funds=0
+
+#Options
+var masterVolume = 1.0
 
 func _enter_tree():
 	loadGame()
@@ -56,7 +59,8 @@ func exitGame():
 
 func makeSaveDict():
 	var saveDict = {
-		"funds" : funds
+		"funds" : funds,
+		"masterVolume" : masterVolume
 	}
 	return saveDict
 
@@ -65,22 +69,32 @@ func saveGame():
 	file.store_string(JSON.stringify(makeSaveDict()))
 	file.close()
 
+#param(dict): the JSON dictionary object returned parsed from saveFile
+#param(value): the Global variable that should be set to the data from the savefile
+#param(data): the data name to be fetched from the json dict
+func loadDataFromDictSafe(dict, value, data : String):
+	var temp = dict.get(data)
+	if(temp != null):
+		return temp
+	else:
+		return value
+
 func loadGame():
 	if FileAccess.file_exists(SAVEFILE_NAME):
 		var file = FileAccess.open_encrypted_with_pass(SAVEFILE_NAME, FileAccess.READ, "superorganism")
 		#file.open(FILE_NAME, File.READ)
-		
-		var data = JSON.parse_string(file.get_as_text())
+		var dict = JSON.parse_string(file.get_as_text())
 		#var data = parse_json(file.get_as_text())
 		file.close()
-		if typeof(data) == TYPE_DICTIONARY:
-			funds = data.get("funds")
+		if typeof(dict) == TYPE_DICTIONARY:
+			funds=loadDataFromDictSafe(dict, funds, "funds")
+			#funds = data.get("funds")
+			masterVolume = loadDataFromDictSafe(dict,masterVolume, "masterVolume")
+			#masterVolume = data.get("masterVolume")
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(masterVolume))
 		else:
 			printerr("Corrupted data!")
 	else:
 		saveGame();
 		printerr("No saved data!")
 
-func _process(delta):
-	if Input.is_action_just_pressed("Esc"):
-		exitGame()

@@ -1,0 +1,145 @@
+[gd_scene load_steps=12 format=3 uid="uid://dcoh76g3wvmro"]
+
+[ext_resource type="Script" path="res://Scripts/pauseMenu.gd" id="1_8a842"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/UI/Pause.png" id="1_w5qk5"]
+[ext_resource type="Shader" path="res://Shader/VHS.gdshader" id="2_0jj4e"]
+[ext_resource type="Texture2D" uid="uid://cju5hefrsve3b" path="res://Assets/Sprites/UI/RustyPanel.png" id="3_5hu4f"]
+[ext_resource type="Material" uid="uid://cyf4pi32ibgkc" path="res://Shader/crt_material.tres" id="4_7kimd"]
+[ext_resource type="Texture2D" uid="uid://ca27mp3shlyqm" path="res://Assets/Sprites/UI/RustyPanel2.png" id="5_ypjiw"]
+[ext_resource type="FontFile" uid="uid://chq2qqlffg26p" path="res://Fonts/Mont-HeavyDEMO.otf" id="6_tww15"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/sfx/filmStatic.ogg" id="6_xjtd4"]
+[ext_resource type="FontFile" uid="uid://vwad5mtb1vhk" path="res://Fonts/Mont-ExtraLightDEMO.otf" id="7_hhjpr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_12un6"]
+shader = ExtResource("2_0jj4e")
+shader_parameter/curvature_x_amount = 6.0
+shader_parameter/curvature_y_amount = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7xpb"]
+content_margin_left = 64.0
+content_margin_top = 4.0
+content_margin_right = 64.0
+content_margin_bottom = 4.0
+bg_color = Color(0.458717, 0.458717, 0.458717, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 128
+
+[node name="Pause" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8a842")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="pauseSprite" type="Sprite2D" parent="Pause"]
+position = Vector2(128, 64)
+scale = Vector2(2, 2)
+texture = ExtResource("1_w5qk5")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="VHS_shader" type="Sprite2D" parent="Pause"]
+visible = false
+z_index = -1
+material = SubResource("ShaderMaterial_12un6")
+scale = Vector2(5, 2.8125)
+texture = ExtResource("3_5hu4f")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="CRT_shader" type="Sprite2D" parent="Pause"]
+z_index = 1
+material = ExtResource("4_7kimd")
+scale = Vector2(7.5, 4.21875)
+texture = ExtResource("5_ypjiw")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="WhiteNoisePlayer" type="AudioStreamPlayer" parent="Pause"]
+process_mode = 3
+stream = ExtResource("6_xjtd4")
+
+[node name="Polygon2D" type="Polygon2D" parent="Pause"]
+z_index = -1
+color = Color(0.101961, 0.101961, 0.101961, 1)
+polygon = PackedVector2Array(128, 184, 1792, 184, 1792, 896, 128, 896)
+metadata/_edit_lock_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Pause/Polygon2D"]
+offset_left = 320.0
+offset_top = 248.0
+offset_right = 1600.0
+offset_bottom = 832.0
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/Polygon2D/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_tww15")
+theme_override_font_sizes/font_size = 35
+text = "Options
+"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="VolumeBox" type="HBoxContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/VolumeBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_hhjpr")
+theme_override_font_sizes/font_size = 35
+text = "Volume: 100"
+
+[node name="MarginContainer" type="MarginContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_right = 256
+
+[node name="VolumeSlider" type="HSlider" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+
+[node name="HSeparator2" type="HSeparator" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="ButtonBox" type="HBoxContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="QuitButton" type="Button" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/ButtonBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_hhjpr")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_p7xpb")
+text = "Quit"
+
+[node name="Camera2D" type="Camera2D" parent="Pause"]
+anchor_mode = 0
+enabled = false
+
+[connection signal="value_changed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer/VolumeSlider" to="Pause" method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/ButtonBox/QuitButton" to="Pause" method="_on_quit_button_pressed"]
