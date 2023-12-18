@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://c80ks63afw667"]
+
+[ext_resource type="Script" path="res://Scripts/net.gd" id="1_x70qs"]
+[ext_resource type="Texture2D" uid="uid://jw3x05upjjw" path="res://Assets/Sprites/FX/net0.png" id="2_ft0q8"]
+[ext_resource type="PackedScene" uid="uid://bsa8g0bq1qvsk" path="res://Scenes/Objects/Items/crate.tscn" id="3_u54qx"]
+[ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="4_6xjfr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7h7lu"]
+
+[node name="Net" type="Node2D"]
+script = ExtResource("1_x70qs")
+texture = ExtResource("2_ft0q8")
+
+[node name="Crate" parent="." instance=ExtResource("3_u54qx")]
+position = Vector2(948, 144)
+
+[node name="AnchorLeft" type="StaticBody2D" parent="."]
+position = Vector2(800, 320)
+
+[node name="Sprite2D" type="Sprite2D" parent="AnchorLeft"]
+texture = ExtResource("4_6xjfr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnchorLeft"]
+shape = SubResource("CircleShape2D_7h7lu")
+
+[node name="AnchorRight" type="StaticBody2D" parent="."]
+position = Vector2(1120, 320)
+
+[node name="Sprite2D" type="Sprite2D" parent="AnchorRight"]
+texture = ExtResource("4_6xjfr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnchorRight"]
+shape = SubResource("CircleShape2D_7h7lu")
