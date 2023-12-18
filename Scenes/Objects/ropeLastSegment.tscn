@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwcgf18eyutk4"]
+[gd_scene load_steps=3 format=3 uid="uid://4xpjcxwfrvvv"]
 
-[ext_resource type="Texture2D" uid="uid://b20giq74dmd5u" path="res://icon.svg" id="1_7q3np"]
+[ext_resource type="Texture2D" uid="uid://b20giq74dmd5u" path="res://icon.svg" id="1_4h3wh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8j8es"]
 size = Vector2(8, 24)
@@ -11,11 +11,15 @@ gravity_scale = 1.5
 linear_damp = 4.0
 angular_damp = 3.0
 
+[node name="LastJoint" type="PinJoint2D" parent="."]
+bias = 0.05
+softness = 0.1
+
 [node name="Sprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(4.76837e-07, 12)
+position = Vector2(1.19209e-07, 12)
 scale = Vector2(0.0625, 0.1875)
-texture = ExtResource("1_7q3np")
+texture = ExtResource("1_4h3wh")
 
 [node name="ColShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 12)
