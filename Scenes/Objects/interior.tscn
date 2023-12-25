@@ -3,15 +3,15 @@
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="3_uk7bk"]
-[ext_resource type="PackedScene" uid="uid://bkgkwoq7n22lu" path="res://Scenes/Objects/drop_zone.tscn" id="7_bsp3f"]
 [ext_resource type="Texture2D" uid="uid://u7igrnlxf1sf" path="res://Assets/Sprites/InteriorObjects/floor_fixed.png" id="7_yotym"]
-[ext_resource type="PackedScene" uid="uid://d4md5bf5sqqwi" path="res://Scenes/Objects/engine_button.tscn" id="8_5pu4c"]
 [ext_resource type="PackedScene" uid="uid://dytc0ic6y3uun" path="res://Scenes/Objects/arm_station.tscn" id="9_lvdt6"]
 [ext_resource type="Texture2D" uid="uid://bl8lfrua5a0uk" path="res://Assets/Sprites/InteriorObjects/drop_station.png" id="9_pucli"]
 [ext_resource type="PackedScene" uid="uid://c30yxwkogsbvo" path="res://Scenes/Objects/brake.tscn" id="11_ga7e1"]
 [ext_resource type="Texture2D" uid="uid://bi5lwh40poc7w" path="res://Assets/Sprites/InteriorObjects/drop_funnel.png" id="12_xxbrh"]
 [ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="13_tkd7y"]
 [ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="15_chetq"]
+[ext_resource type="PackedScene" uid="uid://lxw23nax6ltw" path="res://Scenes/Objects/refuel_engine.tscn" id="15_ypbq6"]
+[ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="16_i2e1j"]
 [ext_resource type="PackedScene" uid="uid://carwfjsbvtpt" path="res://Scenes/Objects/dispenser.tscn" id="16_i5pwy"]
 [ext_resource type="PackedScene" uid="uid://6hicfxna1rk5" path="res://Scenes/Objects/door.tscn" id="17_wh202"]
 [ext_resource type="Texture2D" uid="uid://cdctfqbg3nsb5" path="res://Assets/Sprites/InteriorObjects/catwalk.png" id="18_y582k"]
@@ -302,14 +302,8 @@ position = Vector2(55, 61)
 [node name="Ladder" parent="." instance=ExtResource("3_uk7bk")]
 position = Vector2(39, -3)
 
-[node name="DropZoneRight" parent="." instance=ExtResource("7_bsp3f")]
-position = Vector2(63, -39)
-
 [node name="ArmStation" parent="." instance=ExtResource("9_lvdt6")]
 position = Vector2(-1, 1)
-
-[node name="Engine_button" parent="." instance=ExtResource("8_5pu4c")]
-position = Vector2(0, -52)
 
 [node name="Floor" type="Sprite2D" parent="."]
 z_index = 2
@@ -405,3 +399,8 @@ z_index = -1
 position = Vector2(-106, 76)
 texture = ExtResource("19_8e5sh")
 flip_h = true
+
+[node name="RefuelEngine" parent="." instance=ExtResource("15_ypbq6")]
+position = Vector2(57, -53)
+
+[node name="player" parent="." instance=ExtResource("16_i2e1j")]
