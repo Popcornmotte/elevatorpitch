@@ -22,6 +22,7 @@ const DROPSOUND=preload("res://Assets/Audio/sfx/dropObject.wav")
 var carryables : Array[Node2D]
 var carrying=false
 var carryingScrap=false
+var canDrop=true #block dropping immediately when interacting with refuelStation
 var carryPos=Vector2(8,1)
 var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
 var carryType= Item.TYPE.Fuel
@@ -33,6 +34,7 @@ var sfx
 var interactionObject:Node2D #object that the player is interacting with
 var dispenserObject:Node2D #object that the player is interacting with to dispense fuel or scrap
 var brakeObject:Node2D
+var refuelEngineObject:Node2D
 
 func _ready():
 	Global.player = self
@@ -100,21 +102,22 @@ func pickUpObject():
 	return true
 
 func dropObject():
-	if carrying:
-		Audio.playSfx(DROPSOUND)
-	if carryType==Item.TYPE.Fuel:
-		fuelSprite.visible=false
-		carrying=false
-		var loadedFuel=FUEL.instantiate()
-		get_parent().add_child(loadedFuel)
-		loadedFuel.global_position=fuelSprite.get_global_position()
-	if carryType==Item.TYPE.Scrap and not startRepair:# do not drop scrap when interacting with repair
-		scrapSprite.visible=false
-		carrying=false
-		carryingScrap=false
-		var loadedScrap=SCRAP.instantiate()
-		get_parent().add_child(loadedScrap)
-		loadedScrap.global_position=scrapSprite.get_global_position()
+	if canDrop:
+		if carrying:
+			Audio.playSfx(DROPSOUND)
+		if carryType==Item.TYPE.Fuel:
+			fuelSprite.visible=false
+			carrying=false
+			var loadedFuel=FUEL.instantiate()
+			get_parent().add_child(loadedFuel)
+			loadedFuel.global_position=fuelSprite.get_global_position()
+		if carryType==Item.TYPE.Scrap and not startRepair:# do not drop scrap when interacting with repair
+			scrapSprite.visible=false
+			carrying=false
+			carryingScrap=false
+			var loadedScrap=SCRAP.instantiate()
+			get_parent().add_child(loadedScrap)
+			loadedScrap.global_position=scrapSprite.get_global_position()
 
 
 func move(direction):
@@ -159,8 +162,11 @@ func climb(direction):
 			scrapSprite.visible=false
 		
 func _process(delta):
+	if refuelEngineObject and Input.is_action_just_released("interact"):
+		refuelEngineObject.stopRefuel()
+	
 	if Input.is_action_just_pressed("interact"):
-		#pick up object
+		print("pressed e")
 		if carrying:
 			dropObject()
 		elif carryables.size() > 0:
@@ -168,6 +174,8 @@ func _process(delta):
 		#check if player is interacting with something
 		if interactionObject:
 			interactionObject.use()
+		if refuelEngineObject:
+			refuelEngineObject.startRefuel()
 	
 	if carrying and Input.is_action_pressed("repair") and interactionObject:
 		interactionObject.repair()
@@ -208,11 +216,15 @@ func _physics_process(delta):
 		
 
 func _on_interaction_area_area_entered(area):
-	
 	if area.owner and area.owner.name=="Dispenser":
 		dispenserObject=area.owner #special case, as pressing s will change dispense type
 	if area.owner and area.owner.name=="Brake":
 		brakeObject=area.owner
+	if area.owner and area.owner.name=="RefuelEngine":
+		refuelEngineObject=area.owner#special case, interaction only when holding fuel and pressing e
+		if carrying and carryType==Item.TYPE.Fuel:
+			canDrop=false#dont drop when refuelling
+			refuelEngineObject.prepareRefuel()
 	#special case for doors, they should only open when the elevators is not moving, null checks inserted to not crash game
 	elif Global.elevator and !Global.elevator.moving and area.owner and ("isDoor" in area.owner):
 		area.owner.openDoor()
@@ -227,6 +239,10 @@ func _on_interaction_area_area_exited(area):
 		dispenserObject=null
 	if area.owner==brakeObject:
 		brakeObject=null
+	if area.owner==refuelEngineObject:
+		refuelEngineObject.appearNormal()
+		refuelEngineObject=null
+		canDrop=true
 	#null check
 	if area.owner and area.owner.get_parent().name=="Doors":
 		area.owner.closeDoor()
