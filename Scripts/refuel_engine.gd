@@ -59,13 +59,11 @@ func calculateRefuelAmount(passedTime):
 	else :
 		fuelEngine(fuelLow)
 	$RefuelEngineAnimatedSprite2D.play("open")
-	print("remove fuel from player from refuel")
 	Global.player.removeFuel()
 	
 	
 func startRefuel():
 	if not currentlyRefueling:
-		print("startRefuel")
 		$RefuelEngineTimer.start()
 		currentlyRefueling=true
 		refuelling=true
