@@ -1,9 +1,16 @@
 extends Node2D
 
+const REFUEL = preload("res://Assets/Audio/sfx/refuel.wav")
 var currentlyRefueling=false
 var stoppedFromTimer=false
 var lowThreshold=1.0 #s
 var highThreshold=2.0 #s
+var refuelling=false
+#multiplier depend on how long player interacts with refuel station
+@export var fuelLow=10
+@export var fuelMedium=12.5
+@export var fuelHigh=15
+var sfxRefuel
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	appearNormal()
@@ -11,30 +18,49 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if refuelling:
+		visualiseFueling()
+		if(sfxRefuel):
+			if(!sfxRefuel.playing):
+				sfxRefuel = Audio.playSfx(REFUEL,true)
+		else:
+			sfxRefuel=Audio.playSfx(REFUEL,true)
+		
 
 func prepareRefuel():
-	$RefuelEngineOpen.visible=true
-	$RefuelEngineNormal.visible=false
+	$RefuelEngineAnimatedSprite2D.play("open")
 
 func appearNormal():
-	$RefuelEngineOpen.visible=false
-	$RefuelEngineNormal.visible=true
+	$RefuelEngineAnimatedSprite2D.play("normal")
 
+func visualiseFueling():
+	var timeToWait=$RefuelEngineTimer.get_wait_time()
+	var timeDifference=timeToWait-$RefuelEngineTimer.get_time_left()
+	if timeDifference>highThreshold:
+		$RefuelEngineAnimatedSprite2D.play("filled2")
+	elif timeDifference>lowThreshold:
+		$RefuelEngineAnimatedSprite2D.play("filled1")
+	else :
+		$RefuelEngineAnimatedSprite2D.play("open")
+
+func fuelEngine(fuel):
+	if Global.elevator:#make sure that elevator exists, so that the interior scene can still be used for debugging
+		Global.elevator.fuel+=fuel
+		Global.elevator.updateFuel()
+		Global.elevator.fuelAlert.visible = false
+		
 func calculateRefuelAmount(passedTime):
 	var timeToWait=$RefuelEngineTimer.get_wait_time()
 	var timeDifference=timeToWait-passedTime
-	print("time to wait: ", timeToWait)
-	print("time left: ", passedTime)
-	print("Waited : ",timeDifference)
-	print("high threshold: ", highThreshold)
-	print("low threshold: ", lowThreshold)
 	if timeDifference>highThreshold:
-		print("highest reload")
+		fuelEngine(fuelHigh)
 	elif timeDifference>lowThreshold:
-		print("medium reload")
+		fuelEngine(fuelMedium)
 	else :
-		print("low reload")
+		fuelEngine(fuelLow)
+	$RefuelEngineAnimatedSprite2D.play("open")
+	print("remove fuel from player from refuel")
+	Global.player.removeFuel()
 	
 	
 func startRefuel():
@@ -42,11 +68,12 @@ func startRefuel():
 		print("startRefuel")
 		$RefuelEngineTimer.start()
 		currentlyRefueling=true
+		refuelling=true
 	
 func stopRefuel(stoppedFromTimer=false):#special case when stopped from timer
 	if currentlyRefueling:
 		currentlyRefueling=false
-		print("stopRefuel")
+		refuelling=false
 		if stoppedFromTimer: 
 			calculateRefuelAmount(0)
 		else:

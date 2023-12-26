@@ -401,6 +401,10 @@ texture = ExtResource("19_8e5sh")
 flip_h = true
 
 [node name="RefuelEngine" parent="." instance=ExtResource("15_ypbq6")]
-position = Vector2(57, -53)
+position = Vector2(64, -64)
 
 [node name="player" parent="." instance=ExtResource("16_i2e1j")]
+position = Vector2(-64, 16)
+
+[node name="Fuel2" parent="." instance=ExtResource("15_chetq")]
+position = Vector2(-22, -52)

@@ -106,11 +106,13 @@ func dropObject():
 		if carrying:
 			Audio.playSfx(DROPSOUND)
 		if carryType==Item.TYPE.Fuel:
+			print("drop fuel")
 			fuelSprite.visible=false
 			carrying=false
 			var loadedFuel=FUEL.instantiate()
 			get_parent().add_child(loadedFuel)
 			loadedFuel.global_position=fuelSprite.get_global_position()
+			print("loaded fuel located at: ", loadedFuel.get_global_position())
 		if carryType==Item.TYPE.Scrap and not startRepair:# do not drop scrap when interacting with repair
 			scrapSprite.visible=false
 			carrying=false
@@ -139,6 +141,11 @@ func removeScrap():#called when carrying scrap and repairing something
 	carrying=false
 	carryingScrap=false
 	
+func removeFuel():#called when carrying fuel and refuelled 
+	print("remove fuel")
+	fuelSprite.visible=false
+	carrying=false
+
 func fall(direction,delta):
 	velocity.y += gravity * delta
 	sprite.play("jump")
@@ -163,10 +170,10 @@ func climb(direction):
 		
 func _process(delta):
 	if refuelEngineObject and Input.is_action_just_released("interact"):
+		print("stop refuel")
 		refuelEngineObject.stopRefuel()
 	
 	if Input.is_action_just_pressed("interact"):
-		print("pressed e")
 		if carrying:
 			dropObject()
 		elif carryables.size() > 0:
