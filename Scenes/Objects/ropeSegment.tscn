@@ -22,6 +22,5 @@ position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_8j8es")
 
 [node name="Joint" type="PinJoint2D" parent="."]
-position = Vector2(0, 24)
 bias = 0.05
 softness = 0.1
