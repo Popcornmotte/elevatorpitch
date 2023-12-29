@@ -15,6 +15,9 @@ var inventoryMaxSize = 16
 var inventory = Array()
 var funds=0
 
+# In order: Hangar, Fuel, Enemies, Repair
+var tutorialsCompleted = [false, false, false, false]
+
 #Options
 var masterVolume = 1.0
 
@@ -60,7 +63,8 @@ func exitGame():
 func makeSaveDict():
 	var saveDict = {
 		"funds" : funds,
-		"masterVolume" : masterVolume
+		"masterVolume" : masterVolume,
+		"tutorialsCompleted" : tutorialsCompleted
 	}
 	return saveDict
 
@@ -91,6 +95,7 @@ func loadGame():
 			#funds = data.get("funds")
 			masterVolume = loadDataFromDictSafe(dict,masterVolume, "masterVolume")
 			#masterVolume = data.get("masterVolume")
+			tutorialsCompleted = loadDataFromDictSafe(dict,tutorialsCompleted, "tutorialsCompleted")
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(masterVolume))
 		else:
 			printerr("Corrupted data!")

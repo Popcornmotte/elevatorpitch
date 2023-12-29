@@ -234,7 +234,7 @@ _data = {
 
 [node name="player" type="CharacterBody2D" groups=["Climber"]]
 z_index = 1
-collision_layer = 48
+collision_layer = 4144
 collision_mask = 48
 script = ExtResource("1_mnd8j")
 

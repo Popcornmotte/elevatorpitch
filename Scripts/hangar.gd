@@ -41,6 +41,7 @@ func onElevatorStarted():
 	$RiseSequence/ElevatorRise.play("elevatorRise")
 	$RiseSequence/Timer.start()
 	elevatorRising = true
+	Global.tutorialsCompleted[0] = true
 
 func _on_area_2d_body_entered(body):
 	onHatchButtonHit()

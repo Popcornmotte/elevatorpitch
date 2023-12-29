@@ -1,6 +1,8 @@
 extends Node2D
 class_name PhysicalArm
 
+signal firstDestroyed
+
 var upperArmPhys : RigidBody2D
 var lowerArmPhys : RigidBody2D
 var clawPhys : RigidBody2D
@@ -72,7 +74,8 @@ func disable():
 	upperArmPhys.gravity_scale = 10
 	lowerArmPhys.gravity_scale = 10
 	clawPhys.gravity_scale = 10
-
+	if !Global.tutorialsCompleted[3]:
+		firstDestroyed.emit()
 	
 func repaired():
 	repairStation.visible=false
@@ -81,3 +84,4 @@ func repaired():
 	upperArmPhys.gravity_scale = 0
 	lowerArmPhys.gravity_scale = 0
 	clawPhys.gravity_scale = 0
+	Global.tutorialsCompleted[3] = true

@@ -136,3 +136,7 @@ func setChutesDeployed():
 
 func _on_animation_player_elevator_animation_finished(anim_name):
 	Global.level.endLevel()
+
+func startFuelTutorial():
+	if $Tutorial/FuelPlace:
+		$Tutorial/FuelPlace.open()

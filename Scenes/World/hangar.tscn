@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dn1h17rgyu5yq"]
+[gd_scene load_steps=40 format=3 uid="uid://dn1h17rgyu5yq"]
 
 [ext_resource type="Script" path="res://Scripts/hangar.gd" id="1_7h618"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="2_vpx34"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://em8ovy0rq3jl" path="res://Assets/Sprites/FX/cone.png" id="13_rvsa6"]
 [ext_resource type="Texture2D" uid="uid://bgkjkvklvto1i" path="res://Assets/Sprites/Claws/Test0/TestArm.png" id="14_2xlwc"]
 [ext_resource type="Texture2D" uid="uid://bncium1i82qj0" path="res://Assets/Sprites/hatchButtonSign.png" id="15_pntbt"]
+[ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="16_nd0oi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a0ag"]
 size = Vector2(960, 128)
@@ -192,6 +193,9 @@ _data = {
 "deployButton": SubResource("Animation_c7haq")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uavan"]
+size = Vector2(160, 30)
+
 [node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button")]
 script = ExtResource("1_7h618")
 crateSpawnArea = NodePath("spawnAreas/crateSpawnArea")
@@ -319,9 +323,6 @@ autoplay = ""
 [node name="EngineSound" parent="Elevator/HullBody" index="7"]
 autoplay = false
 
-[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
-scale = Vector2(1, 1)
-
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
 position = Vector2(0, 6)
 
@@ -338,6 +339,9 @@ locked = true
 
 [node name="BrakeSprite" parent="Elevator/interior/Brake" index="0"]
 animation = &"off_to_normal"
+
+[node name="Dispenser" parent="Elevator/Tutorial" index="2"]
+startVisible = false
 
 [node name="spawnAreas" type="Area2D" parent="."]
 position = Vector2(264, 128)
@@ -444,10 +448,68 @@ libraries = {
 "": SubResource("AnimationLibrary_w4qtg")
 }
 
+[node name="Tutorial" type="Node2D" parent="."]
+
+[node name="ArmStationText" parent="Tutorial" instance=ExtResource("16_nd0oi")]
+position = Vector2(-40, -32)
+scale = Vector2(0.75, 0.75)
+
+[node name="Textfield" parent="Tutorial/ArmStationText" index="1"]
+offset_left = -16.0
+offset_bottom = 53.0
+
+[node name="RichTextLabel" parent="Tutorial/ArmStationText/Textfield/MarginContainer" index="0"]
+text = "E -> Toggle view
+W/S -> Control chutes
+A/D -> Control net"
+
+[node name="ArmStationTextTrigger" type="Area2D" parent="Tutorial"]
+z_index = 50
+position = Vector2(0, 16)
+collision_layer = 0
+collision_mask = 4096
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorial/ArmStationTextTrigger"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_uavan")
+
+[node name="ArmText" parent="Tutorial" instance=ExtResource("16_nd0oi")]
+position = Vector2(120, -120)
+scale = Vector2(2, 2)
+
+[node name="Textfield" parent="Tutorial/ArmText" index="1"]
+offset_right = 132.0
+offset_bottom = 48.0
+
+[node name="RichTextLabel" parent="Tutorial/ArmText/Textfield/MarginContainer" index="0"]
+text = "Click & hold -> Grab
+Space -> Fling
+Load cargo into chutes!"
+
+[node name="BrakeText" parent="Tutorial" instance=ExtResource("16_nd0oi")]
+position = Vector2(-112, 48)
+scale = Vector2(0.75, 0.75)
+
+[node name="Textfield" parent="Tutorial/BrakeText" index="1"]
+offset_bottom = 21.0
+
+[node name="RichTextLabel" parent="Tutorial/BrakeText/Textfield/MarginContainer" index="0"]
+text = "W/S -> Change speed"
+
 [connection signal="timeout" from="RiseSequence/Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="open"]
 [connection signal="body_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="_on_area_2d_body_entered"]
+[connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmStationText" method="on_body_entered"]
+[connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmText" method="on_body_entered"]
 
 [editable path="Elevator"]
 [editable path="Elevator/interior"]
 [editable path="Elevator/interior/Brake"]
+[editable path="Elevator/Tutorial/FuelPlace"]
+[editable path="Elevator/Tutorial/Valve"]
+[editable path="Elevator/Tutorial/Dispenser"]
+[editable path="Tutorial/ArmStationText"]
+[editable path="Tutorial/ArmText"]
+[editable path="Tutorial/BrakeText"]

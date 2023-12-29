@@ -1,5 +1,7 @@
 extends Node2D
 
+signal enemiesDetected
+
 const BRAKESOUND = preload("res://Assets/Audio/sfx/lever.wav")
 const ALERT = preload("res://Assets/Audio/sfx/enemyAlert.wav")
 const ERROR = preload("res://Assets/Audio/sfx/error.wav")
@@ -66,6 +68,8 @@ func lock(enemies=true):
 		alarmIsSounding = true
 		Audio.playSfx(ALERT)
 		alarmLightAnimation.play("alert")
+		if !Global.tutorialsCompleted[2]:
+			enemiesDetected.emit()
 	match currentSpeed:
 		SPEED.Fast:
 			brakeSprite.play("fast_to_off")
@@ -80,5 +84,8 @@ func lock(enemies=true):
 func unlock():
 	if startLocked:
 		return
-	if (Global.level and !Global.level.combat and Global.elevator.fuel > 0) or !Global.level:
+	if !Global.level or (Global.level and !Global.level.combat and Global.elevator.fuel > 0):
 		locked = false
+		if alarmIsSounding:
+			Global.tutorialsCompleted[2] = true
+		alarmIsSounding = false
