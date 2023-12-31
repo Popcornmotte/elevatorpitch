@@ -85,8 +85,9 @@ func spawnAtBodies(startBody : PhysicsBody2D, endBody : PhysicsBody2D, setColor 
 		#	#segment.add_child(lastJoint)
 		else:
 			var joint = segment.get_node("Joint")
-			if(i != segmentCount-1):
-				segment.precursorSegment = segments[i-1]
+			# TODO: Find out why this crashes
+			#if(i != segmentCount-1):
+			#	segment.precursorSegment = segments[i-1]
 			joint.node_a = segments[i-1].get_path()
 			joint.node_b = segment.get_path()
 
@@ -99,9 +100,10 @@ func _draw():
 	#	for i in range(1,segments.size()-1):
 	#		draw_line(segments[i-1].position,segments[i].position,color,4)
 	#	#draw_line(segments[segments.size()-2].position, endBodyRef.position,color,4)
-	#else:
+		pass
+	else:
 		for i in range(1,segments.size()):
-			draw_line(segments[i-1].position,segments[i].position,color,4)
+			draw_line(segments[i-1].global_position - global_position,segments[i].global_position - global_position,color,4)
 	pass
 
 func _process(delta):
