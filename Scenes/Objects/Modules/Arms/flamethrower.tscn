@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dprtymj748rxh"]
+
+[ext_resource type="Script" path="res://Scripts/Modules/Arms/flamethrower.gd" id="1_qsif3"]
+
+[node name="Flamethrower" type="Node2D"]
+script = ExtResource("1_qsif3")
+
+[node name="Forward" type="Node2D" parent="."]
+position = Vector2(64, 0)

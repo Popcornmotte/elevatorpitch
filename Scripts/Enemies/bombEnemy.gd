@@ -2,6 +2,7 @@ extends Enemy
 
 const THUDS = [preload("res://Assets/Audio/sfx/wood_thud0.wav"), preload("res://Assets/Audio/sfx/wood_thud1.wav"), preload("res://Assets/Audio/sfx/wood_thud2.wav")]
 const BOOM = preload("res://Assets/Audio/sfx/explosion.wav")
+const isEnemyEntity = true
 
 var explosion = preload("res://Scenes/Objects/explosion.tscn")
 var engine = preload("res://Scenes/Objects/Enemies/low_bomb_engine.tscn")

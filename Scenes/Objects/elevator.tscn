@@ -24,6 +24,7 @@
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="17_epo4g"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="PackedScene" uid="uid://sdnx788wgxud" path="res://Scenes/Objects/arm_target.tscn" id="21_fuon1"]
+[ext_resource type="PackedScene" uid="uid://dprtymj748rxh" path="res://Scenes/Objects/Modules/Arms/flamethrower.tscn" id="21_ok4hf"]
 [ext_resource type="Shader" uid="uid://dqaejjhskwfic" path="res://Assets/Shaders/alphaPulse.tres" id="26_3tmyj"]
 [ext_resource type="Texture2D" uid="uid://b0ppts6vp0e7c" path="res://Assets/Sprites/ElevatorBody/Chutes.png" id="26_gdchp"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="27_ahenx"]
@@ -635,6 +636,8 @@ node_b = NodePath("..")
 [node name="Claw" type="RigidBody2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm"]
 position = Vector2(138, 0)
 script = ExtResource("9_ltb0c")
+
+[node name="Flamethrower" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" instance=ExtResource("21_ok4hf")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw"]
 position = Vector2(6, 0)
