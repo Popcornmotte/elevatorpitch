@@ -38,12 +38,14 @@ func _ready():
 	
 	#quickly hide and retract:
 	hide()
+	rope.process_mode = Node.PROCESS_MODE_DISABLED
 	setDeployment(false)
 
 
 func setDeployment(deploy : bool):
 	animating = true
 	if deploy:
+		rope.process_mode = Node.PROCESS_MODE_INHERIT
 		show()
 		deploying = true
 		$AnimationPlayer.play_backwards("retract")
@@ -101,6 +103,7 @@ func _process(delta):
 func _on_animation_player_animation_finished(anim_name):
 	if !extended:
 		hide()
+		rope.process_mode = Node.PROCESS_MODE_DISABLED
 	animating = false
 
 
