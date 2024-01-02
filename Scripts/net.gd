@@ -30,15 +30,17 @@ func _ready():
 	rightEnd = ropeArr[arrSize-1]
 	pass # Replace with function body.
 
-func _draw():
-	#fix for drawing the last part of the rope line 
-	draw_line(ropeArr[arrSize-2].global_position - global_position,$AnchorRightFollower.global_position - global_position,ropeColor,4)
-	
-	for i in range(1,arrSize):
-		draw_line(ropeArr[i-1].global_position - global_position,ropeArr[i].global_position - global_position,ropeColor,4)
-	#for i in range(1,segments.size()):
-	#		draw_line(segments[i-1].position,segments[i].position,color,4)
-	pass
+#func _draw():
+#	#fix for drawing the last part of the rope line 
+#	#draw_line(ropeArr[arrSize-2].global_position - global_position,$AnchorRightFollower.global_position - global_position,ropeColor,4)
+#	
+#	for i in range(1,arrSize):
+#		#draw_line(ropeArr[i-1].global_position - global_position,ropeArr[i].global_position - global_position,ropeColor,4)
+#		pass
+#	#for i in range(1,segments.size()):
+#	#		draw_line(segments[i-1].position,segments[i].position,color,4)
+#	pass
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#rope.global_position = $AnchorLeft.global_position
@@ -57,7 +59,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("down"):
 		$AnimationPlayer.play_backwards("retract")
 	
-	queue_redraw()
+	#queue_redraw()
 	
 	if Input.is_action_just_pressed("Debug"):
 		print("Polygon:")
