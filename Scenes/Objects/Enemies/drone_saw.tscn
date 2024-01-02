@@ -69,5 +69,6 @@ visible = false
 z_index = -5
 scale = Vector2(4, 4)
 sprite_frames = ExtResource("6_4um5h")
+autoplay = "default"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

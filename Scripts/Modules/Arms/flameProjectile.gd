@@ -6,7 +6,7 @@ var linear_velocity
 func _on_body_entered(body):
 	if "intersectingFlameParticles" in body:
 		body.intersectingFlameParticles += 1
-		body.takeDamage(5)
+		body.takeDamage(1)
 	pass # Replace with function body.
 
 
