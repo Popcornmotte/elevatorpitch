@@ -92,7 +92,6 @@ func _on_deliver_button_pressed():
 			$LevelFinish/NinePatchRect/CargoSprite.hide()
 	else:
 		Global.addFunds(gainedFunds)
-		$LevelFinish.get_node("EndTimer").start()#start timer and drop elevator
 		$Elevator.dropElevator()
 
 

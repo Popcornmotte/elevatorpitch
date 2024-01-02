@@ -235,6 +235,8 @@ func _on_interaction_area_area_entered(area):
 
 func _on_interaction_area_area_exited(area):
 	if area.owner==interactionObject:
+		if interactionObject.name=="EngineDropButton":
+			interactionObject.close()
 		interactionObject=null
 	if area.owner==dispenserObject:
 		dispenserObject=null
