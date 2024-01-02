@@ -7,6 +7,7 @@ var sfxDropping
 var dropping=false
 
 func close():
+	$EngineDropText.visible=false
 	$EngineDropButtonClosedSprite.visible=true
 	$EngineDropButtonOpenSprite2D.visible=false
 	$EngineDropButtonPressedSprite2D.visible=false
@@ -25,6 +26,7 @@ func pressed():
 	$EngineDropButtonPressedSprite2D.visible=true
 
 func _ready():
+	$EngineDropText.visible=false
 	$EngineDropButtonClosedSprite.visible=true
 	$EngineDropButtonOpenSprite2D.visible=false
 	$EngineDropButtonPressedSprite2D.visible=false
@@ -44,5 +46,6 @@ func use():
 			dropping=true		
 	else:
 		open()
+		$EngineDropText.visible=true
 		openButton=true
 		

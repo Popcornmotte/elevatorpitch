@@ -400,6 +400,7 @@ flip_h = true
 position = Vector2(64, -64)
 
 [node name="Fuel2" parent="." instance=ExtResource("15_chetq")]
+z_index = 0
 position = Vector2(-22, -52)
 
 [node name="EngineDropButton" parent="." instance=ExtResource("16_pnqvl")]

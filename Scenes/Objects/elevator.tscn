@@ -443,7 +443,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Right/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone"]
 z_index = -2
@@ -455,7 +454,6 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -509,7 +507,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Left/GearBone"]
 position = Vector2(7.00006, -1.52588e-05)
 rest = Transform2D(1, 0, 0, 1, 7.00006, -1.52588e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone"]
 z_index = -2
@@ -520,7 +517,6 @@ texture = ExtResource("3_2k2nk")
 position = Vector2(128.002, 6.10352e-05)
 rotation = 0.616101
 rest = Transform2D(0.984808, -0.173648, 0.173648, 0.984808, 128.002, 6.10352e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -974,7 +970,7 @@ libraries = {
 [node name="Tutorial" type="Node2D" parent="."]
 
 [node name="FuelPlace" parent="Tutorial" instance=ExtResource("29_atdgi")]
-position = Vector2(32, -64)
+position = Vector2(32, -80)
 scale = Vector2(0.75, 0.75)
 tutorialIndex = 1
 
@@ -985,15 +981,14 @@ offset_right = 112.0
 offset_bottom = -5.33333
 
 [node name="Textfield" parent="Tutorial/FuelPlace" index="1"]
-offset_top = -5.33333
-offset_right = 96.0
-offset_bottom = 15.6667
+offset_top = -5.0
+offset_right = 88.0
+offset_bottom = 31.0
 
 [node name="RichTextLabel" parent="Tutorial/FuelPlace/Textfield/MarginContainer" index="0"]
-text = "Place fuel here"
+text = "Hold E when carrying Fuel"
 
 [node name="Arrow" parent="Tutorial/FuelPlace" index="2"]
-visible = true
 position = Vector2(42.6667, 21.3333)
 
 [node name="Valve" parent="Tutorial" instance=ExtResource("29_atdgi")]
@@ -1003,13 +998,13 @@ tutorialIndex = 1
 
 [node name="Textfield" parent="Tutorial/Valve" index="1"]
 offset_right = 139.0
-offset_bottom = 24.0
+offset_bottom = 39.0
 
 [node name="RichTextLabel" parent="Tutorial/Valve/Textfield/MarginContainer" index="0"]
-text = "Press E here to refuel"
+text = "Press E to open 
+Press E again to drop"
 
 [node name="Arrow" parent="Tutorial/Valve" index="2"]
-visible = true
 position = Vector2(64, 32)
 
 [node name="Dispenser" parent="Tutorial" instance=ExtResource("29_atdgi")]
