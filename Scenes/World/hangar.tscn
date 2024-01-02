@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://em8ovy0rq3jl" path="res://Assets/Sprites/FX/cone.png" id="13_rvsa6"]
 [ext_resource type="Texture2D" uid="uid://bgkjkvklvto1i" path="res://Assets/Sprites/Claws/Test0/TestArm.png" id="14_2xlwc"]
 [ext_resource type="Texture2D" uid="uid://bncium1i82qj0" path="res://Assets/Sprites/hatchButtonSign.png" id="15_pntbt"]
-[ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="16_nd0oi"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/tutorial_textbox.tscn" id="16_nd0oi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a0ag"]
 size = Vector2(960, 128)
@@ -323,6 +323,9 @@ autoplay = ""
 [node name="EngineSound" parent="Elevator/HullBody" index="7"]
 autoplay = false
 
+[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
+scale = Vector2(1, 1)
+
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
 position = Vector2(0, 6)
 
@@ -339,9 +342,6 @@ locked = true
 
 [node name="BrakeSprite" parent="Elevator/interior/Brake" index="0"]
 animation = &"off_to_normal"
-
-[node name="Dispenser" parent="Elevator/Tutorial" index="2"]
-startVisible = false
 
 [node name="spawnAreas" type="Area2D" parent="."]
 position = Vector2(264, 128)
@@ -450,18 +450,39 @@ libraries = {
 
 [node name="Tutorial" type="Node2D" parent="."]
 
+[node name="MovementText" parent="Tutorial" instance=ExtResource("16_nd0oi")]
+position = Vector2(-392, 384)
+startVisible = true
+
+[node name="TextureButton" parent="Tutorial/MovementText" index="0"]
+offset_left = 72.0
+offset_right = 88.0
+
+[node name="Textfield" parent="Tutorial/MovementText" index="1"]
+offset_right = 72.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel" parent="Tutorial/MovementText/Textfield/MarginContainer" index="0"]
+text = "A/D -> Move
+W/S -> Climb"
+
 [node name="ArmStationText" parent="Tutorial" instance=ExtResource("16_nd0oi")]
-position = Vector2(-40, -32)
+position = Vector2(-40, -40)
 scale = Vector2(0.75, 0.75)
 
 [node name="Textfield" parent="Tutorial/ArmStationText" index="1"]
 offset_left = -16.0
-offset_bottom = 53.0
+offset_bottom = 64.0
 
 [node name="RichTextLabel" parent="Tutorial/ArmStationText/Textfield/MarginContainer" index="0"]
 text = "E -> Toggle view
 W/S -> Control chutes
+Q -> Toggle net
 A/D -> Control net"
+
+[node name="Arrow" parent="Tutorial/ArmStationText" index="2"]
+visible = true
+position = Vector2(53.3333, 64)
 
 [node name="ArmStationTextTrigger" type="Area2D" parent="Tutorial"]
 z_index = 50
@@ -507,9 +528,7 @@ text = "W/S -> Change speed"
 [editable path="Elevator"]
 [editable path="Elevator/interior"]
 [editable path="Elevator/interior/Brake"]
-[editable path="Elevator/Tutorial/FuelPlace"]
-[editable path="Elevator/Tutorial/Valve"]
-[editable path="Elevator/Tutorial/Dispenser"]
+[editable path="Tutorial/MovementText"]
 [editable path="Tutorial/ArmStationText"]
 [editable path="Tutorial/ArmText"]
 [editable path="Tutorial/BrakeText"]
