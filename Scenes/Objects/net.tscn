@@ -209,8 +209,6 @@ metadata/_edit_lock_ = true
 [node name="Joint" type="PinJoint2D" parent="AnchorRight"]
 metadata/_edit_lock_ = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 

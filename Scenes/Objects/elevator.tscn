@@ -955,6 +955,7 @@ shape = SubResource("RectangleShape2D_xtx1b")
 z_index = 3
 
 [node name="Net" parent="." instance=ExtResource("29_ajdbk")]
+position = Vector2(0, 100)
 
 [node name="EndAnimation" type="AnimationPlayer" parent="."]
 libraries = {
