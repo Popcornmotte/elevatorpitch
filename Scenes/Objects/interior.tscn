@@ -335,9 +335,6 @@ libraries = {
 "": SubResource("AnimationLibrary_qa6yr")
 }
 
-[node name="Fuel" parent="." instance=ExtResource("15_chetq")]
-position = Vector2(64, 20)
-
 [node name="Dispenser" parent="." instance=ExtResource("16_i5pwy")]
 position = Vector2(37, 73)
 

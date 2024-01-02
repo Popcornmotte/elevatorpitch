@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=67 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://b0ppts6vp0e7c" path="res://Assets/Sprites/ElevatorBody/Chutes.png" id="26_gdchp"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="27_ahenx"]
 [ext_resource type="Script" path="res://Scripts/itemChute.gd" id="27_jb5os"]
+[ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="29_atdgi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
 radius = 112.0
@@ -962,14 +963,109 @@ libraries = {
 "": SubResource("AnimationLibrary_pa1n2")
 }
 
+[node name="Tutorial" type="Node2D" parent="."]
+
+[node name="FuelPlace" parent="Tutorial" instance=ExtResource("29_atdgi")]
+position = Vector2(32, -64)
+scale = Vector2(0.75, 0.75)
+tutorialIndex = 1
+
+[node name="TextureButton" parent="Tutorial/FuelPlace" index="0"]
+offset_left = 96.0
+offset_top = -21.3333
+offset_right = 112.0
+offset_bottom = -5.33333
+
+[node name="Textfield" parent="Tutorial/FuelPlace" index="1"]
+offset_top = -5.33333
+offset_right = 96.0
+offset_bottom = 15.6667
+
+[node name="RichTextLabel" parent="Tutorial/FuelPlace/Textfield/MarginContainer" index="0"]
+text = "Place fuel here"
+
+[node name="Arrow" parent="Tutorial/FuelPlace" index="2"]
+visible = true
+position = Vector2(42.6667, 21.3333)
+
+[node name="Valve" parent="Tutorial" instance=ExtResource("29_atdgi")]
+position = Vector2(-48, -88)
+scale = Vector2(0.75, 0.75)
+tutorialIndex = 1
+
+[node name="Textfield" parent="Tutorial/Valve" index="1"]
+offset_right = 139.0
+offset_bottom = 24.0
+
+[node name="RichTextLabel" parent="Tutorial/Valve/Textfield/MarginContainer" index="0"]
+text = "Press E here to refuel"
+
+[node name="Arrow" parent="Tutorial/Valve" index="2"]
+visible = true
+position = Vector2(64, 32)
+
+[node name="Dispenser" parent="Tutorial" instance=ExtResource("29_atdgi")]
+position = Vector2(-12, 31)
+scale = Vector2(0.75, 0.75)
+startVisible = true
+tutorialIndex = 1
+
+[node name="Textfield" parent="Tutorial/Dispenser" index="1"]
+offset_left = -11.0
+offset_right = 140.0
+offset_bottom = 36.0
+
+[node name="RichTextLabel" parent="Tutorial/Dispenser/Textfield/MarginContainer" index="0"]
+text = "S -> Cycle output type
+E -> Output from inventory"
+
+[node name="Arrow" parent="Tutorial/Dispenser" index="2"]
+visible = true
+position = Vector2(64, 38.6667)
+
+[node name="Alert" parent="Tutorial" instance=ExtResource("29_atdgi")]
+position = Vector2(-59, -34)
+tutorialIndex = 2
+
+[node name="Textfield" parent="Tutorial/Alert" index="1"]
+offset_right = 131.0
+offset_bottom = 47.0
+
+[node name="RichTextLabel" parent="Tutorial/Alert/Textfield/MarginContainer" index="0"]
+text = "Enemies approaching! Use the arms to defend yourself!"
+
+[node name="ArmRepair" parent="Tutorial" instance=ExtResource("29_atdgi")]
+position = Vector2(-51, -59)
+tutorialIndex = 3
+
+[node name="Textfield" parent="Tutorial/ArmRepair" index="1"]
+offset_left = -18.0
+offset_right = 132.0
+offset_bottom = 75.0
+
+[node name="RichTextLabel" parent="Tutorial/ArmRepair/Textfield/MarginContainer" index="0"]
+text = "Your arm has been disabled! Grab scrap from the dispenser below and hold R by the affected arm to fix it!"
+
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
 [connection signal="finished" from="HullBody/EngineSound" to="HullBody/EngineSound" method="_on_finished"]
+[connection signal="firstDestroyed" from="Arms/PhysicalArmRight" to="Tutorial/ArmRepair" method="open"]
 [connection signal="body_entered" from="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" method="_on_grab_area_body_entered"]
 [connection signal="body_exited" from="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" method="_on_grab_area_body_exited"]
+[connection signal="firstDestroyed" from="Arms/PhysicalArmLeft" to="Tutorial/ArmRepair" method="open"]
 [connection signal="body_entered" from="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" method="_on_grab_area_body_entered"]
 [connection signal="body_exited" from="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" method="_on_grab_area_body_exited"]
 [connection signal="area_entered" from="ItemChutes/AreaRight" to="ItemChutes" method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="ItemChutes/AreaRight" to="ItemChutes" method="_on_area_2d_body_entered"]
 [connection signal="area_entered" from="ItemChutes/AreaLeft" to="ItemChutes" method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="ItemChutes/AreaLeft" to="ItemChutes" method="_on_area_2d_body_entered"]
+[connection signal="fuelPlaced" from="interior/DropZoneRight" to="Tutorial/Valve" method="open"]
+[connection signal="enemiesDetected" from="interior/Brake" to="Tutorial/Alert" method="open"]
 [connection signal="animation_finished" from="EndAnimation" to="." method="_on_animation_player_elevator_animation_finished"]
+
+[editable path="interior"]
+[editable path="interior/DropZoneRight"]
+[editable path="Tutorial/FuelPlace"]
+[editable path="Tutorial/Valve"]
+[editable path="Tutorial/Dispenser"]
+[editable path="Tutorial/Alert"]
+[editable path="Tutorial/ArmRepair"]

@@ -87,7 +87,7 @@ func _process(delta):
 func _on_grab_area_body_entered(body):
 	if body.visible and body.has_method("grab"):
 		grabbables.push_back(body)
-		print(body.name + " in reach of " + ("left" if arm.left else "right") + " claw")
+		#print(body.name + " in reach of " + ("left" if arm.left else "right") + " claw")
 	pass # Replace with function body.
 
 
