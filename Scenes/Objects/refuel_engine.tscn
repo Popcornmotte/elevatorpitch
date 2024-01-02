@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://lxw23nax6ltw"]
+
+[ext_resource type="Script" path="res://Scripts/refuel_engine.gd" id="1_kn6lk"]
+[ext_resource type="Texture2D" uid="uid://daynns0gxqona" path="res://Assets/Sprites/InteriorObjects/fuelStationNormal.png" id="2_k5hf3"]
+[ext_resource type="Texture2D" uid="uid://dd2j3iiyx1teu" path="res://Assets/Sprites/InteriorObjects/fuelStationOpen.png" id="3_xxhf8"]
+[ext_resource type="Texture2D" uid="uid://dxq5cq06d0w4w" path="res://Assets/Sprites/InteriorObjects/fuelStationFilled1.png" id="4_78auj"]
+[ext_resource type="Texture2D" uid="uid://bru77o7b10fb3" path="res://Assets/Sprites/InteriorObjects/fuelStationFilled2.png" id="5_ottbi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wejcb"]
+size = Vector2(29, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0usyf"]
+atlas = ExtResource("4_78auj")
+region = Rect2(0, 0, 15, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ui28x"]
+atlas = ExtResource("5_ottbi")
+region = Rect2(0, 0, 17, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmh31"]
+atlas = ExtResource("2_k5hf3")
+region = Rect2(0, 0, 13, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp2eb"]
+atlas = ExtResource("3_xxhf8")
+region = Rect2(0, 0, 13, 58)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kp8xq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0usyf")
+}],
+"loop": true,
+"name": &"filled1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ui28x")
+}],
+"loop": true,
+"name": &"filled2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmh31")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lp2eb")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="RefuelEngine" type="Node2D"]
+script = ExtResource("1_kn6lk")
+
+[node name="RefuelEngineArea2D" type="Area2D" parent="."]
+collision_layer = 48
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RefuelEngineArea2D"]
+shape = SubResource("RectangleShape2D_wejcb")
+
+[node name="RefuelEngineTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="RefuelEngineAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kp8xq")
+animation = &"filled2"
+
+[connection signal="body_entered" from="RefuelEngineArea2D" to="." method="_on_refuel_engine_area_2d_body_entered"]
+[connection signal="timeout" from="RefuelEngineTimer" to="." method="_on_refuel_engine_timer_timeout"]
