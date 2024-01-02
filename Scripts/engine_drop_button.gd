@@ -41,7 +41,7 @@ func _process(delta):
 func use():
 	if(openButton):
 		pressed()
-		if Global.elevator:
+		if Global.elevator and Global.height>0 :
 			Global.elevator.dropElevator()
 			dropping=true		
 	else:

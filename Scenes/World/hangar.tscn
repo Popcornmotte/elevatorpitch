@@ -323,8 +323,18 @@ autoplay = ""
 [node name="EngineSound" parent="Elevator/HullBody" index="7"]
 autoplay = false
 
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 scale = Vector2(1, 1)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
 
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
 position = Vector2(0, 6)
@@ -342,9 +352,6 @@ locked = true
 
 [node name="BrakeSprite" parent="Elevator/interior/Brake" index="0"]
 animation = &"off_to_normal"
-
-[node name="Arrow" parent="Elevator/Tutorial/FuelPlace" index="2"]
-visible = false
 
 [node name="spawnAreas" type="Area2D" parent="."]
 position = Vector2(264, 128)
@@ -520,7 +527,6 @@ offset_bottom = 21.0
 [node name="RichTextLabel" parent="Tutorial/BrakeText/Textfield/MarginContainer" index="0"]
 text = "W/S -> Change speed"
 
-[connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="area_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="open"]

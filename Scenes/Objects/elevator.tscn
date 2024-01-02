@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://b0ppts6vp0e7c" path="res://Assets/Sprites/ElevatorBody/Chutes.png" id="26_gdchp"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="27_ahenx"]
 [ext_resource type="Script" path="res://Scripts/itemChute.gd" id="27_jb5os"]
-[ext_resource type="PackedScene" uid="uid://cg3c7c58b4b2w" path="res://Scenes/Objects/net.tscn" id="29_ajdbk"]
+[ext_resource type="PackedScene" uid="uid://dr7iv0lc1y6cm" path="res://Scenes/Objects/net.tscn" id="29_ajdbk"]
 [ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="29_atdgi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
