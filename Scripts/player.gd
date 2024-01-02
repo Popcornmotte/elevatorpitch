@@ -175,7 +175,7 @@ func _process(delta):
 		#check if player is interacting with something
 		if interactionObject:
 			interactionObject.use()
-		if refuelEngineObject:
+		if refuelEngineObject and carrying and carryType==Item.TYPE.Fuel:
 			refuelEngineObject.startRefuel()
 	
 	if carrying and Input.is_action_pressed("repair") and interactionObject:

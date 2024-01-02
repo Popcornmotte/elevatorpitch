@@ -109,10 +109,9 @@ position = Vector2(-1, 0)
 [node name="edges" type="Node2D" parent="floor"]
 
 [node name="Lower" type="StaticBody2D" parent="floor/edges"]
-position = Vector2(0, 96)
+position = Vector2(2, 93)
 collision_layer = 176
 collision_mask = 176
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Lower"]
 position = Vector2(0, 3)
