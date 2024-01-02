@@ -1,20 +1,12 @@
 extends Node2D
 class_name GenericArmModule
 
-var claw : Claw
+var parent : ArmModuleHandler
 var active = false
-
-func _ready():
-	var parent = get_parent()
-	while !(parent is Claw) and parent != null:
-		parent = parent.get_parent()
-	if !parent:
-		print("Arm module couldn't find parent")
-	else:
-		claw = parent
+var selected = true
 
 func _process(delta):
-	if claw.controlled and claw.arm.functional:
+	if parent and parent.claw.controlled and parent.claw.arm.functional and selected:
 		if Input.is_action_just_pressed("SecondaryAction"):
 			activate()
 		if active and Input.is_action_just_released("SecondaryAction"):

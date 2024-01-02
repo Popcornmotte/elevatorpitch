@@ -5,10 +5,12 @@ const FLAME = preload("res://Scenes/Objects/Modules/Arms/flameProjectile.tscn")
 @onready var emissionCooldown = 1/emissionFrequency
 
 func activate():
+	print("Flamethrower activated")
 	active = true
 	pass
 	
 func deactivate():
+	print("Flamethrower deactivated")
 	active = false
 	pass
 

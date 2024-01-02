@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://da4m2la28h4n3"]
+[gd_scene load_steps=18 format=3 uid="uid://da4m2la28h4n3"]
 
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/armModuleHandler.gd" id="1_lx6vx"]
 [ext_resource type="Texture2D" uid="uid://dr6vonga67o7v" path="res://Assets/Sprites/Modules/parry.png" id="2_pvm84"]
+[ext_resource type="Script" path="res://Scripts/Modules/Arms/shield.gd" id="2_xnrre"]
 [ext_resource type="Texture2D" uid="uid://cfxs00gu07iny" path="res://Assets/Sprites/Modules/shield.png" id="3_ic3qt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e2ajw"]
@@ -54,25 +55,54 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b3884"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mtr2"]
 atlas = ExtResource("3_ic3qt")
 region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7pr0"]
+atlas = ExtResource("3_ic3qt")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b52s4"]
+atlas = ExtResource("3_ic3qt")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bwwc"]
+atlas = ExtResource("3_ic3qt")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3g24"]
+atlas = ExtResource("3_ic3qt")
+region = Rect2(0, 256, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fuabn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b3884")
+"texture": SubResource("AtlasTexture_1mtr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7pr0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b52s4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8bwwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3g24")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [node name="ModuleAttachment" type="Node2D"]
 script = ExtResource("1_lx6vx")
 
 [node name="Shield" type="Area2D" parent="."]
+script = ExtResource("2_xnrre")
 
 [node name="Parry" type="AnimatedSprite2D" parent="Shield"]
 scale = Vector2(2, 2)
@@ -81,8 +111,27 @@ frame = 5
 frame_progress = 1.0
 
 [node name="ShieldSprite" type="AnimatedSprite2D" parent="Shield"]
+visible = false
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_fuabn")
+autoplay = "default"
+frame_progress = 0.479865
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shield"]
-polygon = PackedVector2Array(25, -55, 39, -63, 57, -35, 64, 0, 57, 35, 39, 64, 25, 55, 41, 28, 45, 0, 41, -28)
+polygon = PackedVector2Array(-16, -48, 0, -64, 32, -48, 48, 0, 32, 40, 0, 64, -16, 40)
+
+[node name="Text" type="RichTextLabel" parent="Shield"]
+offset_left = 88.0
+offset_top = -96.0
+offset_right = 168.0
+offset_bottom = -56.0
+text = "Inactive"
+
+[node name="Text" type="RichTextLabel" parent="."]
+offset_top = -96.0
+offset_right = 112.0
+offset_bottom = -56.0
+text = "Module"
+
+[connection signal="area_entered" from="Shield" to="Shield" method="_on_area_entered"]
+[connection signal="body_entered" from="Shield" to="Shield" method="_on_body_entered"]

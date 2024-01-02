@@ -13,6 +13,7 @@ var arm : PhysicalArm
 var flingAccFac = 2.0
 var controlled = false
 var target : Node2D
+var grabLocked = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,7 +25,7 @@ func _ready():
 	pass # Replace with function body.
 
 func grab():
-	if grabbables.size() > 0:
+	if grabbables.size() > 0 and !grabLocked:
 		grabbing = true
 		grabbed = grabbables.back()
 		grabbables.back().grab($GrabArea)
@@ -47,6 +48,13 @@ func setControlled(value : bool):
 	if value != controlled:
 		controlled = value
 		arm.setControlled(controlled)
+
+func setGrabLock(value, shield):
+	grabLocked = value
+	if grabLocked:
+		release()
+	if shield:
+		$ClawSprite.play("shield" if grabLocked else "open")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
