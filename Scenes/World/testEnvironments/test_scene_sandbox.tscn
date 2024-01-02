@@ -12,4 +12,3 @@ offset_bottom = 23.0
 text = "Pinned mode false"
 
 [node name="Net" parent="." instance=ExtResource("2_a40u8")]
-position = Vector2(608, 240)
