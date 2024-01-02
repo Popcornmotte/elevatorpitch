@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://bodi2jjca6n5q"]
+
+[ext_resource type="Texture2D" uid="uid://btsxud1jfvfvj" path="res://Assets/Sprites/dottedLine.png" id="1_ok0pq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8j8es"]
+size = Vector2(8, 24)
+
+[node name="ropeEndPlayer" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 1.5
+linear_damp = 4.0
+angular_damp = 3.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 4)
+rotation = 1.5708
+scale = Vector2(1.5, 4)
+texture = ExtResource("1_ok0pq")
+
+[node name="ColShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="Joint" type="PinJoint2D" parent="."]
+position = Vector2(0, 24)
+bias = 0.05
+softness = 0.1
+
+[node name="Joint2" type="PinJoint2D" parent="."]
+bias = 0.05
+softness = 0.1

@@ -24,4 +24,4 @@ func _on_area_2d_body_entered(body):
 func _on_area_2d_body_exited(body):
 	if body.is_in_group("fuel"):
 		collided=false
-		fuel.remove_at(fuel.size()-1)
+		fuel.pop_back()

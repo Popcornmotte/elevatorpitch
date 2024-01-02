@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwcgf18eyutk4"]
+
+[ext_resource type="Texture2D" uid="uid://b20giq74dmd5u" path="res://icon.svg" id="1_7q3np"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8j8es"]
+size = Vector2(8, 24)
+
+[node name="ropeSegment" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 1.5
+linear_damp = 4.0
+angular_damp = 3.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(4.76837e-07, 12)
+scale = Vector2(0.0625, 0.1875)
+texture = ExtResource("1_7q3np")
+
+[node name="ColShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_8j8es")
+
+[node name="Joint" type="PinJoint2D" parent="."]
+bias = 0.05
+softness = 0.1

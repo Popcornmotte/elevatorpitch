@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://lf6g5djwls1p"]
+
+[ext_resource type="Script" path="res://Scenes/World/testEnvironments/test_scene_sandbox.gd" id="1_xte7r"]
+[ext_resource type="PackedScene" uid="uid://cg3c7c58b4b2w" path="res://Scenes/Objects/net.tscn" id="2_a40u8"]
+
+[node name="Test_Scene_Sandbox" type="Node2D"]
+script = ExtResource("1_xte7r")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Pinned mode false"
+
+[node name="Net" parent="." instance=ExtResource("2_a40u8")]

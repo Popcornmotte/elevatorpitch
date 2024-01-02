@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=68 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://b0ppts6vp0e7c" path="res://Assets/Sprites/ElevatorBody/Chutes.png" id="26_gdchp"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="27_ahenx"]
 [ext_resource type="Script" path="res://Scripts/itemChute.gd" id="27_jb5os"]
+[ext_resource type="PackedScene" uid="uid://cg3c7c58b4b2w" path="res://Scenes/Objects/net.tscn" id="29_ajdbk"]
 [ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="29_atdgi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
@@ -953,6 +954,9 @@ shape = SubResource("RectangleShape2D_xtx1b")
 [node name="interior" parent="." instance=ExtResource("6_kqtpx")]
 z_index = 3
 
+[node name="Net" parent="." instance=ExtResource("29_ajdbk")]
+position = Vector2(0, 100)
+
 [node name="EndAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_3i61g")
@@ -1058,12 +1062,10 @@ text = "Your arm has been disabled! Grab scrap from the dispenser below and hold
 [connection signal="body_entered" from="ItemChutes/AreaRight" to="ItemChutes" method="_on_area_2d_body_entered"]
 [connection signal="area_entered" from="ItemChutes/AreaLeft" to="ItemChutes" method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="ItemChutes/AreaLeft" to="ItemChutes" method="_on_area_2d_body_entered"]
-[connection signal="fuelPlaced" from="interior/DropZoneRight" to="Tutorial/Valve" method="open"]
 [connection signal="enemiesDetected" from="interior/Brake" to="Tutorial/Alert" method="open"]
 [connection signal="animation_finished" from="EndAnimation" to="." method="_on_animation_player_elevator_animation_finished"]
 
 [editable path="interior"]
-[editable path="interior/DropZoneRight"]
 [editable path="Tutorial/FuelPlace"]
 [editable path="Tutorial/Valve"]
 [editable path="Tutorial/Dispenser"]

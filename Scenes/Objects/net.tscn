@@ -1,0 +1,220 @@
+[gd_scene load_steps=16 format=3 uid="uid://dr7iv0lc1y6cm"]
+
+[ext_resource type="Script" path="res://Scripts/net.gd" id="1_x70qs"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/FX/net0.png" id="2_ft0q8"]
+[ext_resource type="Texture2D" uid="uid://bojxnvoiorwe" path="res://Assets/Sprites/Net/Arm0.png" id="3_jqhew"]
+[ext_resource type="Texture2D" uid="uid://c8l4167xem2tm" path="res://Assets/Sprites/Net/spring2.png" id="3_u02ff"]
+[ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="4_6xjfr"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/rigidbodyFollower.tscn" id="4_ih8j3"]
+[ext_resource type="Texture2D" uid="uid://cwxent7fxtqdu" path="res://Assets/Sprites/Net/ball.png" id="5_7ocim"]
+
+[sub_resource type="Animation" id="Animation_vvpv2"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnchorLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-224, 128)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnchorRight:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(224, 128)]
+}
+
+[sub_resource type="Animation" id="Animation_cf47v"]
+resource_name = "retract"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnchorLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-224, 128), Vector2(-32, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnchorRight:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(224, 128), Vector2(32, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_amyhj"]
+_data = {
+"RESET": SubResource("Animation_vvpv2"),
+"retract": SubResource("Animation_cf47v")
+}
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_4uxxk"]
+target_nodepath = NodePath("../AnchorLeftFollower")
+joint_one_bone_idx = 0
+joint_one_bone2d_node = NodePath("UpperArm")
+joint_two_bone_idx = 1
+joint_two_bone2d_node = NodePath("UpperArm/LowerArm")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_gi01s"]
+enabled = true
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_4uxxk")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_euf3h"]
+target_nodepath = NodePath("../AnchorRightFollower")
+flip_bend_direction = true
+joint_one_bone_idx = 0
+joint_one_bone2d_node = NodePath("UpperArm")
+joint_two_bone_idx = 1
+joint_two_bone2d_node = NodePath("UpperArm/LowerArm")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_3nyc3"]
+enabled = true
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_euf3h")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7h7lu"]
+
+[node name="Net" type="Node2D"]
+script = ExtResource("1_x70qs")
+texture = ExtResource("2_ft0q8")
+
+[node name="LineLeft" type="Line2D" parent="."]
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, 0)
+texture = ExtResource("3_u02ff")
+texture_mode = 1
+
+[node name="LineRight" type="Line2D" parent="."]
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, 0)
+texture = ExtResource("3_u02ff")
+texture_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
+libraries = {
+"": SubResource("AnimationLibrary_amyhj")
+}
+
+[node name="ArmLeft" type="Skeleton2D" parent="."]
+position = Vector2(-64, 0)
+modification_stack = SubResource("SkeletonModificationStack2D_gi01s")
+
+[node name="UpperArm" type="Bone2D" parent="ArmLeft"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="upperArm" type="Sprite2D" parent="ArmLeft/UpperArm"]
+position = Vector2(-64, 0)
+texture = ExtResource("3_jqhew")
+
+[node name="LowerArm" type="Bone2D" parent="ArmLeft/UpperArm"]
+position = Vector2(-128, 0)
+rest = Transform2D(1, 0, 0, 1, -128, 0)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="lowerArm" type="Sprite2D" parent="ArmLeft/UpperArm/LowerArm"]
+position = Vector2(-64, 0)
+texture = ExtResource("3_jqhew")
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmLeft/UpperArm/LowerArm"]
+z_index = 1
+texture = ExtResource("5_7ocim")
+
+[node name="Tip" type="Bone2D" parent="ArmLeft/UpperArm/LowerArm"]
+position = Vector2(-128, 0)
+rest = Transform2D(1, 0, 0, 1, -128, 0)
+
+[node name="ArmRight" type="Skeleton2D" parent="."]
+position = Vector2(64, 0)
+modification_stack = SubResource("SkeletonModificationStack2D_3nyc3")
+
+[node name="UpperArm" type="Bone2D" parent="ArmRight"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmRight/UpperArm"]
+position = Vector2(-64, 0)
+texture = ExtResource("3_jqhew")
+
+[node name="LowerArm" type="Bone2D" parent="ArmRight/UpperArm"]
+position = Vector2(-128, 0)
+rest = Transform2D(1, 0, 0, 1, -128, 0)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmRight/UpperArm/LowerArm"]
+position = Vector2(-64, 0)
+texture = ExtResource("3_jqhew")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ArmRight/UpperArm/LowerArm"]
+z_index = 1
+texture = ExtResource("5_7ocim")
+
+[node name="Tip" type="Bone2D" parent="ArmRight/UpperArm/LowerArm"]
+position = Vector2(-128, 0)
+rest = Transform2D(1, 0, 0, 1, -128, 0)
+
+[node name="AnchorLeftFollower" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_ih8j3")]
+position = Vector2(-224, 128)
+target = NodePath("../AnchorLeft")
+
+[node name="AnchorRightFollower" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_ih8j3")]
+position = Vector2(224, 128)
+target = NodePath("../AnchorRight")
+
+[node name="Joint" type="PinJoint2D" parent="AnchorRightFollower"]
+
+[node name="AnchorLeft" type="AnimatableBody2D" parent="."]
+position = Vector2(-224, 128)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="AnchorLeft"]
+texture = ExtResource("4_6xjfr")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnchorLeft"]
+shape = SubResource("CircleShape2D_7h7lu")
+metadata/_edit_lock_ = true
+
+[node name="AnchorRight" type="AnimatableBody2D" parent="."]
+position = Vector2(224, 128)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="AnchorRight"]
+texture = ExtResource("4_6xjfr")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnchorRight"]
+shape = SubResource("CircleShape2D_7h7lu")
+metadata/_edit_lock_ = true
+
+[node name="Joint" type="PinJoint2D" parent="AnchorRight"]
+metadata/_edit_lock_ = true
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
