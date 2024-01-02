@@ -202,7 +202,7 @@ func _process(delta):
 	
 	if intersectingFlameParticles > 0:
 		timeSpentInFire += delta
-		if(timeSpentInFire > 1.0):
+		if(timeSpentInFire > 0.5):
 			timeOnFire = 3
 	elif timeSpentInFire > 0:
 		timeSpentInFire -= 2 * delta
