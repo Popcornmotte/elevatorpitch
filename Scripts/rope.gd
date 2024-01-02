@@ -1,7 +1,7 @@
 extends Node2D
 
 const SEGMENT = preload("res://Scenes/Objects/ropeSegment.tscn")
-const LASTSEGMENT = preload("res://Scenes/Objects/ropeLastSegment.tscn")
+#const LASTSEGMENT = preload("res://Scenes/Objects/ropeLastSegment.tscn")
 const END = preload("res://Scenes/Objects/ropeEnd.tscn")
 var netRope = false
 var segments = []
@@ -9,7 +9,6 @@ var endBodyRef = null
 var segmentSize = 24
 var ropeMass = 2.0
 var color
-var drawStart
 
 func spawn(start : Vector2, end : Vector2, pinned = false, setColor = Color.BLACK):
 	color = setColor
@@ -97,9 +96,9 @@ func getSegments() -> Array :
 func _draw():
 	#branching here just an ugly fix for drawing bug since if spawned at bodies node hierarchy is different
 	if !netRope:
-	#	for i in range(1,segments.size()-1):
-	#		draw_line(segments[i-1].position,segments[i].position,color,4)
-	#	#draw_line(segments[segments.size()-2].position, endBodyRef.position,color,4)
+		for i in range(1,segments.size()):
+			draw_line(segments[i-1].position,segments[i].position,color,4)
+		#draw_line(segments[segments.size()-2].position, endBodyRef.position,color,4)
 		pass
 	else:
 		for i in range(1,segments.size()):
