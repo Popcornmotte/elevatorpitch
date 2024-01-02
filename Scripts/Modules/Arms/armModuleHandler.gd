@@ -10,6 +10,7 @@ var module : GenericArmModule
 var claw : Claw
 
 func _ready():
+	shield.parent = self
 	var parent = get_parent()
 	while !(parent is Claw) and parent != null:
 		parent = parent.get_parent()
@@ -26,6 +27,9 @@ func _ready():
 	module.parent = self
 	module.global_position = global_position
 	module.rotation = rotation
+	
+	module.selected = moduleSelected
+	shield.selected = !moduleSelected
 
 func _process(delta):
 	if Input.is_action_just_pressed("ScrollUp") or Input.is_action_just_pressed("ScrollDown"):

@@ -3,7 +3,6 @@ extends GenericArmModule
 @export var cooldown = 2.0
 
 func activate():
-	print("Shield activated")
 	active = true
 	$Text.text = "Active"
 	$Parry.play()
@@ -11,7 +10,6 @@ func activate():
 	pass
 
 func deactivate():
-	print("Shield deactivated")
 	active = false
 	$Text.text = "Inactive"
 	$ShieldSprite.visible = false
@@ -29,4 +27,4 @@ func _on_body_entered(body):
 
 func blockProjectiles(projectile):
 	if "isProjectile" in projectile and projectile.isProjectile:
-		projectile.linear_velocity = -projectile.linear_velocity
+		projectile.velocity = -projectile.velocity

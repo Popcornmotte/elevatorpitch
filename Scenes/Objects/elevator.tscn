@@ -25,7 +25,7 @@
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="PackedScene" uid="uid://da4m2la28h4n3" path="res://Scenes/Objects/Modules/Arms/moduleAttachment.tscn" id="21_7g4is"]
 [ext_resource type="PackedScene" uid="uid://sdnx788wgxud" path="res://Scenes/Objects/arm_target.tscn" id="21_fuon1"]
-[ext_resource type="Texture2D" uid="uid://c5aykdr7678h" path="res://Assets/Sprites/Claws/Test0/TestClaw2.png" id="22_gvx6l"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Claws/Test0/TestClaw2.png" id="22_gvx6l"]
 [ext_resource type="Shader" uid="uid://dqaejjhskwfic" path="res://Assets/Shaders/alphaPulse.tres" id="26_3tmyj"]
 [ext_resource type="Texture2D" uid="uid://b0ppts6vp0e7c" path="res://Assets/Sprites/ElevatorBody/Chutes.png" id="26_gdchp"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="27_ahenx"]
@@ -459,7 +459,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Right/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone"]
 z_index = -2
@@ -471,7 +470,6 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -525,7 +523,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Left/GearBone"]
 position = Vector2(7.00006, -1.52588e-05)
 rest = Transform2D(1, 0, 0, 1, 7.00006, -1.52588e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone"]
 z_index = -2
@@ -536,7 +533,6 @@ texture = ExtResource("3_2k2nk")
 position = Vector2(128.002, 6.10352e-05)
 rotation = 0.616101
 rest = Transform2D(0.984808, -0.173648, 0.173648, 0.984808, 128.002, 6.10352e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
