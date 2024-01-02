@@ -1,6 +1,7 @@
 extends Node2D
 
 const REFUEL = preload("res://Assets/Audio/sfx/refuel.wav")
+const DROP=preload("res://Assets/Audio/sfx/spill.wav")
 var currentlyRefueling=false
 var stoppedFromTimer=false
 var lowThreshold=1.0 #s
@@ -55,8 +56,14 @@ func calculateRefuelAmount(passedTime):
 	if timeDifference>highThreshold:
 		fuelEngine(fuelHigh)
 	elif timeDifference>lowThreshold:
+		$RefuelEngineDropletAnimatedSprite2D.visible=true
+		$RefuelEngineDropletAnimatedSprite2D.play("droplet")
+		Audio.playSfx(DROP)
 		fuelEngine(fuelMedium)
 	else :
+		$RefuelEngineDropletAnimatedSprite2D.visible=true
+		Audio.playSfx(DROP)
+		$RefuelEngineDropletAnimatedSprite2D.play("droplet")
 		fuelEngine(fuelLow)
 	$RefuelEngineAnimatedSprite2D.play("open")
 	Global.player.removeFuel()
@@ -80,3 +87,8 @@ func stopRefuel(stoppedFromTimer=false):#special case when stopped from timer
 
 func _on_refuel_engine_timer_timeout():
 	stopRefuel(true)
+
+
+func _on_refuel_engine_droplet_animated_sprite_2d_animation_finished():
+	print("finished anim")
+	$RefuelEngineDropletAnimatedSprite2D.visible=false

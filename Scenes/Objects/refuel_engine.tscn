@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://lxw23nax6ltw"]
+[gd_scene load_steps=17 format=3 uid="uid://lxw23nax6ltw"]
 
 [ext_resource type="Script" path="res://Scripts/refuel_engine.gd" id="1_kn6lk"]
 [ext_resource type="Texture2D" uid="uid://daynns0gxqona" path="res://Assets/Sprites/InteriorObjects/fuelStationNormal.png" id="2_k5hf3"]
 [ext_resource type="Texture2D" uid="uid://dd2j3iiyx1teu" path="res://Assets/Sprites/InteriorObjects/fuelStationOpen.png" id="3_xxhf8"]
 [ext_resource type="Texture2D" uid="uid://dxq5cq06d0w4w" path="res://Assets/Sprites/InteriorObjects/fuelStationFilled1.png" id="4_78auj"]
 [ext_resource type="Texture2D" uid="uid://bru77o7b10fb3" path="res://Assets/Sprites/InteriorObjects/fuelStationFilled2.png" id="5_ottbi"]
+[ext_resource type="Texture2D" uid="uid://fhtkynhgcoiu" path="res://Assets/Sprites/InteriorObjects/fuelDrop.png" id="6_gafvk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wejcb"]
 size = Vector2(29, 39)
@@ -60,6 +61,40 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hms8b"]
+atlas = ExtResource("6_gafvk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmlrv"]
+atlas = ExtResource("6_gafvk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gxhx"]
+atlas = ExtResource("6_gafvk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nrd5h"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hms8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmlrv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gxhx")
+}],
+"loop": false,
+"name": &"droplet",
+"speed": 5.0
+}]
+
 [node name="RefuelEngine" type="Node2D"]
 script = ExtResource("1_kn6lk")
 
@@ -77,5 +112,10 @@ wait_time = 3.0
 sprite_frames = SubResource("SpriteFrames_kp8xq")
 animation = &"filled2"
 
+[node name="RefuelEngineDropletAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 21)
+sprite_frames = SubResource("SpriteFrames_nrd5h")
+
 [connection signal="body_entered" from="RefuelEngineArea2D" to="." method="_on_refuel_engine_area_2d_body_entered"]
 [connection signal="timeout" from="RefuelEngineTimer" to="." method="_on_refuel_engine_timer_timeout"]
+[connection signal="animation_finished" from="RefuelEngineDropletAnimatedSprite2D" to="." method="_on_refuel_engine_droplet_animated_sprite_2d_animation_finished"]
