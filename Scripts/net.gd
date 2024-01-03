@@ -27,11 +27,9 @@ func disable():
 	repairStation.visible=true
 	repairStation.enableRepair()
 	operatingMode=OPERATIONMODE.Broken
-	print("retracted net")
-	setDeployment(false)
 
 func repaired():
-	repairStation.visible=false
+	#repairStation.visible=false
 	operatingMode=OPERATIONMODE.Normal
 	
 # Called when the node enters the scene tree for the first time.
@@ -63,17 +61,18 @@ func _ready():
 
 func setDeployment(deploy : bool):
 	animating = true
-	if operatingMode!=OPERATIONMODE.Broken and deploy:
-		rope.process_mode = Node.PROCESS_MODE_INHERIT
-		show()
-		deploying = true
-		$AnimationPlayer.play_backwards("retract")
-		extended = true
-	else:
-		deploying = false
-		extended = false
-		$AnimationPlayer.play("RESET")
-		$Timer.start()
+	if operatingMode!=OPERATIONMODE.Broken:
+		if deploy:
+			rope.process_mode = Node.PROCESS_MODE_INHERIT
+			show()
+			deploying = true
+			$AnimationPlayer.play_backwards("retract")
+			extended = true
+		else:
+			deploying = false
+			extended = false
+			$AnimationPlayer.play("RESET")
+			$Timer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -86,7 +85,7 @@ func _process(delta):
 	lineRight.points[0] = $AnchorRightFollower.global_position - global_position
 	
 	if !animating and get_parent().controlArms:
-		if extended:
+		if extended and operatingMode!=OPERATIONMODE.Broken:
 			if Input.is_action_pressed("right"):
 				if($AnchorRight.position.x < maxDistance):
 					$AnchorRight.global_position.x += speed * delta
@@ -118,7 +117,7 @@ func _process(delta):
 	for i in range(0,arrSize):
 		netPolygon.polygon[i+1]=ropeArr[i].global_position - global_position
 	pass
-
+	
 func _on_animation_player_animation_finished(anim_name):
 	if !extended:
 		hide()
