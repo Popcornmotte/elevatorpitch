@@ -2,7 +2,7 @@ extends Area2D
 
 var sprite : Node2D
 var velocity = Vector2(0,0)
-var damage = 1
+var damage = 10
 var isProjectile = true
 
 # Called when the node enters the scene tree for the first time.
@@ -26,4 +26,9 @@ func _process(delta):
 #Self-destruct after timeout
 func _on_timer_timeout():
 	queue_free()
+	pass # Replace with function body.
+
+
+func _on_body_entered(body):
+	print(str(body.name))
 	pass # Replace with function body.
