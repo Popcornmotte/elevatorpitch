@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://da4m2la28h4n3"]
+[gd_scene load_steps=19 format=3 uid="uid://da4m2la28h4n3"]
 
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/armModuleHandler.gd" id="1_lx6vx"]
 [ext_resource type="Texture2D" uid="uid://dr6vonga67o7v" path="res://Assets/Sprites/Modules/parry.png" id="2_pvm84"]
@@ -98,10 +98,14 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jvgfc"]
+radius = 64.4981
+
 [node name="ModuleAttachment" type="Node2D"]
 script = ExtResource("1_lx6vx")
 
 [node name="Shield" type="Area2D" parent="."]
+position = Vector2(24, 0)
 collision_layer = 0
 collision_mask = 16
 script = ExtResource("2_xnrre")
@@ -110,7 +114,6 @@ script = ExtResource("2_xnrre")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_cf0p7")
 frame = 5
-frame_progress = 1.0
 
 [node name="ShieldSprite" type="AnimatedSprite2D" parent="Shield"]
 visible = false
@@ -119,15 +122,15 @@ sprite_frames = SubResource("SpriteFrames_fuabn")
 autoplay = "default"
 frame_progress = 0.479865
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shield"]
-polygon = PackedVector2Array(-16, -48, 0, -64, 32, -48, 48, 0, 32, 40, 0, 64, -16, 40)
-
 [node name="Text" type="RichTextLabel" parent="Shield"]
 offset_left = 88.0
 offset_top = -96.0
 offset_right = 168.0
 offset_bottom = -56.0
 text = "Inactive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
+shape = SubResource("CircleShape2D_jvgfc")
 
 [node name="Text" type="RichTextLabel" parent="."]
 offset_top = -96.0
@@ -136,4 +139,6 @@ offset_bottom = -56.0
 text = "Module"
 
 [connection signal="area_entered" from="Shield" to="Shield" method="_on_area_entered"]
+[connection signal="area_exited" from="Shield" to="Shield" method="_on_area_exited"]
 [connection signal="body_entered" from="Shield" to="Shield" method="_on_body_entered"]
+[connection signal="body_exited" from="Shield" to="Shield" method="_on_body_exited"]

@@ -5,13 +5,13 @@ const FLAME = preload("res://Scenes/Objects/Modules/Arms/flameProjectile.tscn")
 @onready var emissionCooldown = 1/emissionFrequency
 
 func activate():
-	print("Flamethrower activated")
 	active = true
+	parent.claw.setGrabLock(true, false)
 	pass
 	
 func deactivate():
-	print("Flamethrower deactivated")
 	active = false
+	parent.claw.setGrabLock(false, false)
 	pass
 
 func _process(delta):
@@ -22,6 +22,6 @@ func _process(delta):
 			var forwardVec = $Forward.global_position - global_position
 			var particleInstance = FLAME.instantiate()
 			Global.level.add_child(particleInstance)
-			particleInstance.global_position = global_position + transform.x * 10
+			particleInstance.global_position = global_position + forwardVec
 			particleInstance.linear_velocity = forwardVec.normalized() * 300
 			

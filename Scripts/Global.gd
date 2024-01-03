@@ -17,7 +17,7 @@ var aliveEnemies = 0
 var inventoryMaxSize = 16
 var inventory = Array()
 var funds=0
-var armModule = ArmModuleHandler.MODULE.Flamethrower
+var armModule = ArmModuleHandler.MODULE.Arclight
 
 # In order: Hangar, Fuel, Enemies, Repair
 var tutorialsCompleted = [false, false, false, false]

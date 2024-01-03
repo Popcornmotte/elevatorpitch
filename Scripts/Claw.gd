@@ -64,10 +64,11 @@ func _process(delta):
 		else:
 			grabbed.rotation = rotation
 	
-	if (controlled and Input.is_action_pressed("Grab")) or grabbing or aboutToFling or flinging:
-		$ClawSprite.play("close")
-	else:
-		$ClawSprite.play("open")
+	if !grabLocked:
+		if (controlled and Input.is_action_pressed("Grab")) or grabbing or aboutToFling or flinging:
+			$ClawSprite.play("close")
+		else:
+			$ClawSprite.play("open")
 	
 	if(Input.is_action_just_pressed("Fling") && grabbing):
 		aboutToFling = true
@@ -75,9 +76,9 @@ func _process(delta):
 		aboutToFling = false
 		flinging = true
 		arm.acceleration *= flingAccFac
-	if(Input.is_action_just_pressed("Grab")):
+	if !grabLocked and (Input.is_action_just_pressed("Grab")):
 		grab()
-	if(Input.is_action_just_released("Grab") and !(aboutToFling or flinging)):
+	if !grabLocked and (Input.is_action_just_released("Grab") and !(aboutToFling or flinging)):
 		release()
 #	if Input.is_action_just_pressed("Debug"):
 #		print("Claw's current grabbable: "+str(grabbable))

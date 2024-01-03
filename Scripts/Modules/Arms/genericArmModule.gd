@@ -7,9 +7,9 @@ var selected = true
 
 func _process(delta):
 	if parent and parent.claw.controlled and parent.claw.arm.functional and selected:
-		if Input.is_action_just_pressed("SecondaryAction"):
+		if Input.is_action_just_pressed("RightClick"):
 			activate()
-		if active and Input.is_action_just_released("SecondaryAction"):
+		if active and Input.is_action_just_released("RightClick"):
 			deactivate()
 	elif active:
 		deactivate()

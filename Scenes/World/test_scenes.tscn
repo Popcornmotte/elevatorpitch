@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=12 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]

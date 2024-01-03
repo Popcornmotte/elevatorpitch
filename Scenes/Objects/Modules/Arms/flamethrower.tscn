@@ -1,9 +1,38 @@
-[gd_scene load_steps=2 format=3 uid="uid://dprtymj748rxh"]
+[gd_scene load_steps=6 format=3 uid="uid://dprtymj748rxh"]
 
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/flamethrower.gd" id="1_qsif3"]
+[ext_resource type="Texture2D" uid="uid://ddt25f20fxtnv" path="res://Assets/Sprites/Modules/flamethrower.png" id="2_lfsne"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj78y"]
+atlas = ExtResource("2_lfsne")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ef2g3"]
+atlas = ExtResource("2_lfsne")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_desuy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yj78y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ef2g3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="Flamethrower" type="Node2D"]
 script = ExtResource("1_qsif3")
 
 [node name="Forward" type="Node2D" parent="."]
 position = Vector2(64, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(32, 0)
+sprite_frames = SubResource("SpriteFrames_desuy")
+autoplay = "default"
+frame_progress = 0.818668

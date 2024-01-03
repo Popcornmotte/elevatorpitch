@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bun3b3wjvo2gd"]
+
+[ext_resource type="Texture2D" uid="uid://br05p2ecxecmc" path="res://Assets/Sprites/Modules/arclightLine.png" id="1_5pmg4"]
+[ext_resource type="Shader" uid="uid://ds20jdccrgpyj" path="res://Shader/animatedLine2D.tres" id="1_nh6r8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_isnnf"]
+shader = ExtResource("1_nh6r8")
+shader_parameter/Frames = 5
+shader_parameter/FPS = 0.0
+
+[node name="ArclightBolt" type="Line2D"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_isnnf")
+points = PackedVector2Array(0, 0, 64, 0)
+texture = ExtResource("1_5pmg4")
+texture_mode = 1
