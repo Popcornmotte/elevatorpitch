@@ -46,10 +46,7 @@ func _ready():
 	if weapon != null:
 		attackTime = weapon.reloadTime * attacksPerTurn
 	attackTimer = attackTime
-	if(has_node("DeathTimer")):
-		$DeathTimer.set_wait_time(despawnOnScreenExitTimer)
-	else:
-		printerr(str(name)+"DeathTimer is missing on this enemy!")
+
 	if(!has_method("_on_body_entered")):
 		printerr(str(name)+"This Enemy does not have a _on_body_entered signal to determine collision damage!")
 	
@@ -186,7 +183,6 @@ func move(delta) -> bool:
 func _process(delta):
 	#simplified despawn:
 	if(global_position.distance_to(elevatorPos) > 3000):
-		print(str(name)+" FREEEEE")
 		if(dbm != null):
 			dbm.queue_free()
 		queue_free()
