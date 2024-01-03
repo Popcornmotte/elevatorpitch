@@ -208,7 +208,9 @@ func _process(delta):
 		timeSpentInFire -= 2 * delta
 	if timeOnFire > 0 or timeSpentInFire > 0:
 		timeOnFire -= delta
-		takeDamage(10 * delta)
+		takeDamage(10 * delta, 3)
+	if $Flame:
+		$Flame.visible = timeOnFire > 0
 
 	if(reload>0):reload-=delta
 	pass
