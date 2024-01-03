@@ -6,6 +6,8 @@ var health = maxHealth
 
 var dropping = false
 var speed = 0.0
+#modules which can be broken by incoming damage
+var breakableModules=[$interior/Brake, $Arms/PhysicalArmLeft, $Arms/PhysicalArmRight, $Net ]
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
@@ -59,6 +61,8 @@ func control(isControlled : bool):
 func takeDamage(damage:int,type):
 	#type is currently ignored in elevator
 	health -= damage
+	var moduleToDamage=breakableModules[randi()%breakableModules.size()]
+	moduleToDamage.damage(damage)
 	update_health()
 	pass
 
