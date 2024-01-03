@@ -12,7 +12,7 @@ var fontSize = 50.0
 @export var flashMode = true
 @onready var flashLabel = $Monitor/Terminal/FlashLabel 
 var index = -1
-var flashText = ["SELECT A CONTRACT", "LOAD UP YOUR CARGO SPACE", "CLIMB UP!", "DEFEND!", "DELIVER!", "FALL BACK DOWN!"]
+var flashText = ["SELECT A CONTRACT", "LOAD UP YOUR CARGO SPACE", "CLIMB UP! DEFEND! DELIVER!", "FALL BACK DOWN!"]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	updateLabels()
