@@ -9,6 +9,9 @@ var elevator : Node2D
 var player : Node2D
 #current Level Scene. since it is different than root
 var level
+
+enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }
+
 var height = 0
 var aliveEnemies = 0
 var inventoryMaxSize = 16

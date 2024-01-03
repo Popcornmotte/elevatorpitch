@@ -242,6 +242,9 @@ gravity_scale = 0.0
 max_contacts_reported = 10
 contact_monitor = true
 script = ExtResource("1_2kgrk")
+hitPoints = 50.0
+effectiveRange = 0
+effectiveRangeVariance = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)

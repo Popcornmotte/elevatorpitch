@@ -53,16 +53,6 @@ shape = SubResource("CapsuleShape2D_0tloo")
 
 [node name="Saw" parent="WeaponMount" instance=ExtResource("4_04cwc")]
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
-[node name="DeathTimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
-[node name="AttackTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
 [node name="Crate" parent="." instance=ExtResource("5_ephof")]
 visible = false
 position = Vector2(0, 32)
@@ -74,6 +64,3 @@ node_a = NodePath("..")
 node_b = NodePath("../Crate")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

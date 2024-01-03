@@ -56,7 +56,8 @@ func control(isControlled : bool):
 		if child is CharacterBody2D:#check that it is an arm
 			child.control(isControlled)
 
-func takeDamage(damage:int):
+func takeDamage(damage:int,type):
+	#type is currently ignored in elevator
 	health -= damage
 	update_health()
 	pass
