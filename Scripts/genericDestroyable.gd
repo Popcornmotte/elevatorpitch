@@ -2,6 +2,7 @@ extends Node2D
 
 class_name GenericDestroyable
 @export var health=10
+@onready var maxHealth=health
 @export var damagedThreshold=9
 enum OPERATIONMODE {Normal, Damaged, Broken}
 
@@ -12,6 +13,13 @@ func damage(damage:int):
 	elif health<=0:
 		disable()
 
+func repair(repairAmount:int):
+	health+=repairAmount
+	if health > damagedThreshold:
+		repaired()
+	elif health<=damagedThreshold:
+		damaged()
+		
 #can be repaired to regain health, still partially functional
 func damaged():
 	pass

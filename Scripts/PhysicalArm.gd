@@ -92,7 +92,14 @@ func disable():
 	clawPhys.mass = 10
 	if !Global.tutorialsCompleted[3]:
 		firstDestroyed.emit()
-	
+
+func damaged():
+	repairStation.visible=true
+	repairStation.enableOptionalRepair()
+	sparks.emitting = true
+	if !Global.tutorialsCompleted[3]:
+		firstDestroyed.emit()
+		
 func repaired():
 	repairStation.visible=false
 	functional = true

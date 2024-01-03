@@ -59,6 +59,7 @@ func enableRepair():
 	
 func repair():
 	if not repairing:
+		print("start timer")
 		$RepairArea/RepairTimer.start()
 	if(sfxRepairing):
 		if(!sfxRepairing.playing):
@@ -66,7 +67,15 @@ func repair():
 	else:
 		sfxRepairing=Audio.playSfx(REPAIR,true)
 	repairing=true
+	var timeToWait=$RepairArea/RepairTimer.get_wait_time()
+	var repairAmount=timeToWait-$RepairArea/RepairTimer.get_time_left()
+	get_parent().repair(repairAmount)
+	
 
+func finishRepair():
+	Global.player.removeScrap()
+	$RepairArea/RepairTimer.stop()
+	
 func _on_body_entered(body):
 	if body.name=="player":
 		Global.player.startRepair=true #disable player dropping scrap when reparing
@@ -78,17 +87,16 @@ func _on_body_exited(body):
 	if body.name=="player":
 		Global.player.startRepair=false 
 		if repairing:
-			$RepairArea/RepairTimer.set_paused(true)
+			finishRepair()
 		
 
 
 func _on_repair_timer_timeout():
 	repairNeeded=false
-	Global.player.removeScrap()
-	get_parent().repaired()
 	$RepairArea/RepairAudioStreamPlayer2D.stop()
 	$RepairArea/RepairCollisionShape.set_deferred("disabled",true)
 	repairing=false
+	finishRepair()
 
 
 func _on_repair_audio_stream_player_2d_finished():
