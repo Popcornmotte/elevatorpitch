@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dr7iv0lc1y6cm"]
+[gd_scene load_steps=17 format=3 uid="uid://dr7iv0lc1y6cm"]
 
 [ext_resource type="Script" path="res://Scripts/net.gd" id="1_x70qs"]
 [ext_resource type="Texture2D" uid="uid://jw3x05upjjw" path="res://Assets/Sprites/FX/net0.png" id="2_ft0q8"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="4_6xjfr"]
 [ext_resource type="PackedScene" uid="uid://dmngxba4ka6hb" path="res://Scenes/Objects/rigidbodyFollower.tscn" id="4_ih8j3"]
 [ext_resource type="Texture2D" uid="uid://cwxent7fxtqdu" path="res://Assets/Sprites/Net/ball.png" id="5_7ocim"]
+[ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="8_rwfkj"]
 
 [sub_resource type="Animation" id="Animation_vvpv2"]
 tracks/0/type = "value"
@@ -122,7 +123,6 @@ modification_stack = SubResource("SkeletonModificationStack2D_gi01s")
 
 [node name="UpperArm" type="Bone2D" parent="ArmLeft"]
 rest = Transform2D(1, 0, 0, 1, 0, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="upperArm" type="Sprite2D" parent="ArmLeft/UpperArm"]
 position = Vector2(-64, 0)
@@ -131,7 +131,6 @@ texture = ExtResource("3_jqhew")
 [node name="LowerArm" type="Bone2D" parent="ArmLeft/UpperArm"]
 position = Vector2(-128, 0)
 rest = Transform2D(1, 0, 0, 1, -128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="lowerArm" type="Sprite2D" parent="ArmLeft/UpperArm/LowerArm"]
 position = Vector2(-64, 0)
@@ -151,7 +150,6 @@ modification_stack = SubResource("SkeletonModificationStack2D_3nyc3")
 
 [node name="UpperArm" type="Bone2D" parent="ArmRight"]
 rest = Transform2D(1, 0, 0, 1, 0, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="ArmRight/UpperArm"]
 position = Vector2(-64, 0)
@@ -160,7 +158,6 @@ texture = ExtResource("3_jqhew")
 [node name="LowerArm" type="Bone2D" parent="ArmRight/UpperArm"]
 position = Vector2(-128, 0)
 rest = Transform2D(1, 0, 0, 1, -128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="ArmRight/UpperArm/LowerArm"]
 position = Vector2(-64, 0)
@@ -217,6 +214,10 @@ metadata/_edit_lock_ = true
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Repair" parent="." instance=ExtResource("8_rwfkj")]
+visible = false
+parent = 1
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

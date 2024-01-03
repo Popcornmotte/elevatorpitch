@@ -7,7 +7,7 @@ var health = maxHealth
 var dropping = false
 var speed = 0.0
 #modules which can be broken by incoming damage
-@onready var breakableModules=[$interior/Brake, $Arms/PhysicalArmLeft]#, $Arms/PhysicalArmRight, $Net ]
+@onready var breakableModules=[$Net]#[$interior/Brake, $Arms/PhysicalArmLeft,$Arms/PhysicalArmRight, $Net ]
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D

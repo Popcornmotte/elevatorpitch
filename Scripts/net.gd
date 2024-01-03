@@ -15,6 +15,25 @@ var rope
 var extended = true
 var animating = false
 var deploying = true
+@onready var repairStation=find_child("Repair")
+var operatingMode=OPERATIONMODE.Normal
+
+func damaged():
+	repairStation.visible=true
+	repairStation.enableOptionalRepair()
+	operatingMode=OPERATIONMODE.Damaged
+
+func disable():
+	repairStation.visible=true
+	repairStation.enableRepair()
+	operatingMode=OPERATIONMODE.Broken
+	print("retracted net")
+	setDeployment(false)
+
+func repaired():
+	repairStation.visible=false
+	operatingMode=OPERATIONMODE.Normal
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rope = ROPE.instantiate()
@@ -43,19 +62,18 @@ func _ready():
 
 
 func setDeployment(deploy : bool):
-	if !animating:
-		animating = true
-		if deploy:
-			rope.process_mode = Node.PROCESS_MODE_INHERIT
-			show()
-			deploying = true
-			$AnimationPlayer.play_backwards("retract")
-			extended = true
-		else:
-			deploying = false
-			extended = false
-			$AnimationPlayer.play("RESET")
-			$Timer.start()
+	animating = true
+	if operatingMode!=OPERATIONMODE.Broken and deploy:
+		rope.process_mode = Node.PROCESS_MODE_INHERIT
+		show()
+		deploying = true
+		$AnimationPlayer.play_backwards("retract")
+		extended = true
+	else:
+		deploying = false
+		extended = false
+		$AnimationPlayer.play("RESET")
+		$Timer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
