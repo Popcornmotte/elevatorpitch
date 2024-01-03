@@ -1,4 +1,4 @@
-extends Node2D
+extends GenericDestroyable
 
 const ROPE = preload("res://Scenes/Objects/Test/rope.tscn")
 @export var texture : Texture2D

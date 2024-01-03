@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c30yxwkogsbvo"]
+[gd_scene load_steps=25 format=3 uid="uid://c30yxwkogsbvo"]
 
 [ext_resource type="Script" path="res://Scripts/brake.gd" id="1_0mcm2"]
 [ext_resource type="Texture2D" uid="uid://bi01hy0epd2cl" path="res://Assets/Sprites/InteriorObjects/brake_normal_to_off.png" id="2_8eq1r"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://daocc6ha8kl5p" path="res://Assets/Sprites/InteriorObjects/brake_fast_to_normal.png" id="2_r3eno"]
 [ext_resource type="Texture2D" uid="uid://blfk4l6irafm5" path="res://Assets/Sprites/InteriorObjects/brake_normal_to_fast.png" id="3_jcumh"]
 [ext_resource type="Texture2D" uid="uid://bvxjbk46cokgm" path="res://Assets/Sprites/InteriorObjects/brake_off_to_normal.png" id="3_yb18g"]
+[ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="7_n3dmt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dwoyk"]
 atlas = ExtResource("2_r3eno")
@@ -153,15 +154,22 @@ height = 32.0
 script = ExtResource("1_0mcm2")
 
 [node name="BrakeSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, 0)
 sprite_frames = SubResource("SpriteFrames_ov0sn")
 animation = &"normal_to_off"
 
 [node name="BrakeArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BrakeArea2D"]
 shape = SubResource("CapsuleShape2D_r53wr")
+
+[node name="RepairArea" parent="." instance=ExtResource("7_n3dmt")]
+visible = false
+position = Vector2(0, 3)
+parent = 1
 
 [connection signal="body_entered" from="BrakeArea2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="BrakeArea2D" to="." method="_on_area_2d_body_exited"]

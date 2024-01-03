@@ -2,7 +2,8 @@ extends GenericInteractible
 
 const REPAIR = preload("res://Assets/Audio/sfx/repair.wav")
 const REPAIRNEEDED = preload("res://Assets/Audio/sfx/repairNeeded.wav")
-
+enum PARENTOBJECT {Arm, Brake, Net, ElevatorEngine}#settable parent object to select correct animation
+@export var parent=PARENTOBJECT.Arm
 @export var repairInterior:bool
 @export var mirrorAnimation:bool
 @onready var player=Global.player
@@ -11,14 +12,41 @@ var sfxRepairing
 var sfxRepairNeeded
 var repairNeeded=false
 var repairing=false
+var onlyDamaged=true#set to false for broken
 
-func enable():
+#damaged, can be repaired
+func enableOptionalRepair():
+	onlyDamaged=true
 	$RepairArea/RepairCollisionShape.set_deferred("disabled",false)
 	$RepairArea/RepairAnimatedSprite2D.visible=true
+	match parent:
+		PARENTOBJECT.Arm: 
+			$RepairArea/RepairAnimatedSprite2D.play("damagedArm")
+		PARENTOBJECT.Brake:
+			$RepairArea/RepairAnimatedSprite2D.play("damagedBrake")
 	$RepairArea/RepairAudioStreamPlayer2D.play()
 	repairNeeded=true
-	$RepairArea/RepairAnimatedSprite2D.play("repairNeeded")
-	print("enabled")
+	if mirrorAnimation:#flip according to bool 
+		$RepairArea/RepairAnimatedSprite2D.flip_h=true
+	$RepairArea/Sparks.emitting = true
+	if(sfxRepairNeeded):
+		if(!sfxRepairNeeded.playing):
+			sfxRepairNeeded = Audio.playSfx(REPAIRNEEDED,true)
+	else:
+		sfxRepairNeeded=Audio.playSfx(REPAIRNEEDED,true)
+		
+#has to be repaired
+func enableRepair():
+	onlyDamaged=false
+	$RepairArea/RepairCollisionShape.set_deferred("disabled",false)
+	$RepairArea/RepairAnimatedSprite2D.visible=true
+	match parent:
+		PARENTOBJECT.Arm: 
+			$RepairArea/RepairAnimatedSprite2D.play("brokenArm")
+		PARENTOBJECT.Brake:
+			$RepairArea/RepairAnimatedSprite2D.play("brokenBrake")
+	$RepairArea/RepairAudioStreamPlayer2D.play()
+	repairNeeded=true
 	if mirrorAnimation:#flip according to bool 
 		$RepairArea/RepairAnimatedSprite2D.flip_h=true
 	$RepairArea/Sparks.emitting = true

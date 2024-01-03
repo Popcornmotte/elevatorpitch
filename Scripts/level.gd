@@ -53,7 +53,6 @@ func _process(delta):
 			combat = false
 			Global.elevator.brake.turnOffLightOnly()
 			Global.elevator.brake.unlock()
-			print("wave concluded")
 			$WaveTimer.start()
 	#check height for finish
 	if not finishedLevel and Global.height>finishHeight:
@@ -69,7 +68,6 @@ func endLevel(): #the elevator calls this when the docking animation is finished
 
 func _on_wave_timer_timeout():
 	if not finishedLevel:# do not spawn new enemies when level is already finished
-		print("spawn")
 		if(randi()%100 <= spawnChance):
 			spawnEnemies()
 		else:

@@ -1,4 +1,4 @@
-extends Node2D
+extends GenericDestroyable
 class_name PhysicalArm
 
 signal firstDestroyed
@@ -81,7 +81,7 @@ func setControlled(value : bool):
 
 func disable():
 	repairStation.visible=true
-	repairStation.enable()
+	repairStation.enableRepair()
 	functional = false
 	sparks.emitting = true
 	upperArmPhys.gravity_scale = 1

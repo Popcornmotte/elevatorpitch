@@ -1,17 +1,24 @@
-extends Node
+extends Node2D
 
+class_name GenericDestroyable
 @export var health=10
-@export var damagedThreshold=5
+@export var damagedThreshold=9
+enum OPERATIONMODE {Normal, Damaged, Broken}
 
 func damage(damage:int):
 	health-=damage
-	if health < damagedThreshold:
+	if health < damagedThreshold and health>0:
 		damaged()
 	elif health<=0:
-		broken()
+		disable()
 
+#can be repaired to regain health, still partially functional
 func damaged():
-	print("damaged module!")
+	pass
 
-func broken():
-	print("broken module!")
+#has to be repaired, module is not functional
+func disable():
+	pass
+
+func repaired():
+	pass
