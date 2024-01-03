@@ -35,6 +35,7 @@ var interactionObject:Node2D #object that the player is interacting with
 var dispenserObject:Node2D #object that the player is interacting with to dispense fuel or scrap
 var brakeObject:Node2D
 var refuelEngineObject:Node2D
+var jetpack = false
 
 func _ready():
 	Global.player = self
@@ -118,9 +119,19 @@ func dropObject():
 			get_parent().add_child(loadedScrap)
 			loadedScrap.global_position=scrapSprite.get_global_position()
 
+func toggleJetpack(state : bool):
+	jetpack = state
+	if state:
+		gravity = 0
+		$jetpackParticles.emitting = true
+		$jetpackSound.play()
+	else:
+		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+		$jetpackParticles.emitting = false
+		$jetpackSound.stop()
 
-func move(direction):
-	if direction:
+func move(direction, vertical = 0.0):
+	if direction or vertical:
 		if is_on_floor():
 			#flip animation if necessary
 			sprite.play("walk")
@@ -128,10 +139,14 @@ func move(direction):
 			playPlayerSound(WALKINGSOUND)
 		#allow the player to also move mid jump
 		velocity.x = direction * speed
+		if jetpack:
+			velocity.y = vertical * speed
 	else:
 		if is_on_floor():
 			sprite.play("idle")
 		velocity.x = move_toward(velocity.x, 0, speed)
+		if jetpack:
+			velocity.y = move_toward(velocity.y, 0, speed)
 
 func removeScrap():#called when carrying scrap and repairing something
 	scrapSprite.visible=false
@@ -144,7 +159,10 @@ func removeFuel():#called when carrying fuel and refuelled
 
 func fall(direction,delta):
 	velocity.y += gravity * delta
-	sprite.play("jump")
+	if jetpack:
+		sprite.play("idle")
+	else:
+		sprite.play("jump")
 	flipAnimation(direction)
 	#cap falling speed
 	if velocity.y>maxFallingSpeed:
@@ -165,6 +183,9 @@ func climb(direction):
 			scrapSprite.visible=false
 		
 func _process(delta):
+	if Input.is_action_just_pressed("Debug"):
+		toggleJetpack(!jetpack)
+	
 	if refuelEngineObject and Input.is_action_just_released("interact"):
 		refuelEngineObject.stopRefuel()
 	
@@ -202,6 +223,9 @@ func _physics_process(delta):
 	if controlPlayer:	
 		#direction is used to flip animations accordingly
 		var direction = Input.get_axis("left", "right")
+		var vertical = 0
+		if jetpack:
+			vertical = Input.get_axis("up","down")
 		if not climbing and not is_on_floor():
 			fall(direction,delta)
 			set_collision_mask_value(5,true)
@@ -215,7 +239,7 @@ func _physics_process(delta):
 					fuelSprite.visible=true
 				if carryType==Item.TYPE.Scrap:
 					scrapSprite.visible=true
-		move(direction)
+		move(direction,vertical)
 		move_and_slide()
 		collideWithRigidbodies()
 		
