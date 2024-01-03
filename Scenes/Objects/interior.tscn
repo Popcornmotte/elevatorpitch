@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=32 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c63a8jhcdui3s" path="res://Scenes/Objects/Items/fuel.tscn" id="15_chetq"]
 [ext_resource type="PackedScene" uid="uid://lxw23nax6ltw" path="res://Scenes/Objects/refuel_engine.tscn" id="15_ypbq6"]
 [ext_resource type="PackedScene" uid="uid://carwfjsbvtpt" path="res://Scenes/Objects/dispenser.tscn" id="16_i5pwy"]
+[ext_resource type="PackedScene" uid="uid://c7pe1q2xscf8x" path="res://Scenes/Objects/engine_drop_button.tscn" id="16_pnqvl"]
 [ext_resource type="PackedScene" uid="uid://6hicfxna1rk5" path="res://Scenes/Objects/door.tscn" id="17_wh202"]
 [ext_resource type="Texture2D" uid="uid://cdctfqbg3nsb5" path="res://Assets/Sprites/InteriorObjects/catwalk.png" id="18_y582k"]
 [ext_resource type="Texture2D" uid="uid://3ddthobiwpmc" path="res://Assets/Sprites/InteriorObjects/catwalkBackground.png" id="19_8e5sh"]
@@ -108,10 +109,9 @@ position = Vector2(-1, 0)
 [node name="edges" type="Node2D" parent="floor"]
 
 [node name="Lower" type="StaticBody2D" parent="floor/edges"]
-position = Vector2(0, 96)
+position = Vector2(2, 93)
 collision_layer = 176
 collision_mask = 176
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Lower"]
 position = Vector2(0, 3)
@@ -400,4 +400,8 @@ flip_h = true
 position = Vector2(64, -64)
 
 [node name="Fuel2" parent="." instance=ExtResource("15_chetq")]
+z_index = 0
 position = Vector2(-22, -52)
+
+[node name="EngineDropButton" parent="." instance=ExtResource("16_pnqvl")]
+position = Vector2(-1, -49)

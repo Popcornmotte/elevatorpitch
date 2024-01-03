@@ -26,8 +26,12 @@ func _enter_tree():
 	Global.elevator = self
 
 func dropElevator():#drops the elvator for example on finished game
-	dropping=true
-	$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
+	if(get_parent().get_node("LevelCam")):#otherwise we are still in the hangar
+		dropping=true
+		get_parent().get_node("LevelCam").set_enabled(true)# enables level cam, so that elevator actually moves out of frame
+		get_parent().get_node("LevelCam").make_current()
+		get_parent().get_node("LevelFinish").get_node("EndTimer").start()#start timer and drop elevator
+		$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control(controlArms)

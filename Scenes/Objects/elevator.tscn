@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://b0ppts6vp0e7c" path="res://Assets/Sprites/ElevatorBody/Chutes.png" id="26_gdchp"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="27_ahenx"]
 [ext_resource type="Script" path="res://Scripts/itemChute.gd" id="27_jb5os"]
-[ext_resource type="PackedScene" uid="uid://cg3c7c58b4b2w" path="res://Scenes/Objects/net.tscn" id="29_ajdbk"]
+[ext_resource type="PackedScene" uid="uid://dr7iv0lc1y6cm" path="res://Scenes/Objects/net.tscn" id="29_ajdbk"]
 [ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="29_atdgi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohd1j"]
@@ -970,7 +970,7 @@ libraries = {
 [node name="Tutorial" type="Node2D" parent="."]
 
 [node name="FuelPlace" parent="Tutorial" instance=ExtResource("29_atdgi")]
-position = Vector2(32, -64)
+position = Vector2(32, -80)
 scale = Vector2(0.75, 0.75)
 tutorialIndex = 1
 
@@ -981,15 +981,14 @@ offset_right = 112.0
 offset_bottom = -5.33333
 
 [node name="Textfield" parent="Tutorial/FuelPlace" index="1"]
-offset_top = -5.33333
-offset_right = 96.0
-offset_bottom = 15.6667
+offset_top = -5.0
+offset_right = 88.0
+offset_bottom = 31.0
 
 [node name="RichTextLabel" parent="Tutorial/FuelPlace/Textfield/MarginContainer" index="0"]
-text = "Place fuel here"
+text = "Hold E when carrying Fuel"
 
 [node name="Arrow" parent="Tutorial/FuelPlace" index="2"]
-visible = true
 position = Vector2(42.6667, 21.3333)
 
 [node name="Valve" parent="Tutorial" instance=ExtResource("29_atdgi")]
@@ -999,13 +998,13 @@ tutorialIndex = 1
 
 [node name="Textfield" parent="Tutorial/Valve" index="1"]
 offset_right = 139.0
-offset_bottom = 24.0
+offset_bottom = 39.0
 
 [node name="RichTextLabel" parent="Tutorial/Valve/Textfield/MarginContainer" index="0"]
-text = "Press E here to refuel"
+text = "Press E to open 
+Press E again to drop"
 
 [node name="Arrow" parent="Tutorial/Valve" index="2"]
-visible = true
 position = Vector2(64, 32)
 
 [node name="Dispenser" parent="Tutorial" instance=ExtResource("29_atdgi")]

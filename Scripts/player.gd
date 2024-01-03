@@ -175,7 +175,7 @@ func _process(delta):
 		#check if player is interacting with something
 		if interactionObject:
 			interactionObject.use()
-		if refuelEngineObject:
+		if refuelEngineObject and carrying and carryType==Item.TYPE.Fuel:
 			refuelEngineObject.startRefuel()
 	
 	if carrying and Input.is_action_pressed("repair") and interactionObject:
@@ -234,7 +234,11 @@ func _on_interaction_area_area_entered(area):
 
 
 func _on_interaction_area_area_exited(area):
+	if area.owner==null:
+		return
 	if area.owner==interactionObject:
+		if interactionObject.name=="EngineDropButton":
+			interactionObject.close()
 		interactionObject=null
 	if area.owner==dispenserObject:
 		dispenserObject=null

@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://em8ovy0rq3jl" path="res://Assets/Sprites/FX/cone.png" id="13_rvsa6"]
 [ext_resource type="Texture2D" uid="uid://bgkjkvklvto1i" path="res://Assets/Sprites/Claws/Test0/TestArm.png" id="14_2xlwc"]
 [ext_resource type="Texture2D" uid="uid://bncium1i82qj0" path="res://Assets/Sprites/hatchButtonSign.png" id="15_pntbt"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/tutorial_textbox.tscn" id="16_nd0oi"]
+[ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="16_nd0oi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a0ag"]
 size = Vector2(960, 128)
@@ -323,8 +323,18 @@ autoplay = ""
 [node name="EngineSound" parent="Elevator/HullBody" index="7"]
 autoplay = false
 
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 scale = Vector2(1, 1)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
 
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
 position = Vector2(0, 6)
@@ -335,7 +345,7 @@ position = Vector2(12.5, -7)
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Left" index="0"]
 position = Vector2(-5, 15.5)
 
-[node name="Brake" parent="Elevator/interior" index="9"]
+[node name="Brake" parent="Elevator/interior" index="7"]
 braking = true
 currentSpeed = 0
 locked = true
@@ -528,6 +538,11 @@ text = "W/S -> Change speed"
 [editable path="Elevator"]
 [editable path="Elevator/interior"]
 [editable path="Elevator/interior/Brake"]
+[editable path="Elevator/Tutorial/FuelPlace"]
+[editable path="Elevator/Tutorial/Valve"]
+[editable path="Elevator/Tutorial/Dispenser"]
+[editable path="Elevator/Tutorial/Alert"]
+[editable path="Elevator/Tutorial/ArmRepair"]
 [editable path="Tutorial/MovementText"]
 [editable path="Tutorial/ArmStationText"]
 [editable path="Tutorial/ArmText"]
