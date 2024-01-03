@@ -1,7 +1,7 @@
 extends Node2D
 class_name EnemyPart
 
-var parent : GenericEnemy
+var parent : Enemy
 
 @export var mass = 1.0
 @export var drag = 0.0
