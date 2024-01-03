@@ -49,6 +49,7 @@ func fuelEngine(fuel):
 		Global.elevator.fuel+=fuel
 		Global.elevator.updateFuel()
 		Global.elevator.fuelAlert.visible = false
+		Global.tutorialsCompleted[1] = true
 		
 func calculateRefuelAmount(passedTime):
 	var timeToWait=$RefuelEngineTimer.get_wait_time()

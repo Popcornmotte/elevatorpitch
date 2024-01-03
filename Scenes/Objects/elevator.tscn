@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=69 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -325,6 +325,8 @@ _data = {
 "deployChutes": SubResource("Animation_mujv5"),
 "retractChutes": SubResource("Animation_hkstk")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwhif"]
 
 [node name="Elevator" type="Node2D" node_paths=PackedStringArray("healthBar", "fuelBar", "fuelAlert", "heightMeter")]
 script = ExtResource("1_gs4x1")
@@ -970,7 +972,7 @@ libraries = {
 [node name="Tutorial" type="Node2D" parent="."]
 
 [node name="FuelPlace" parent="Tutorial" instance=ExtResource("29_atdgi")]
-position = Vector2(32, -80)
+position = Vector2(32, -88)
 scale = Vector2(0.75, 0.75)
 tutorialIndex = 1
 
@@ -986,10 +988,11 @@ offset_right = 88.0
 offset_bottom = 31.0
 
 [node name="RichTextLabel" parent="Tutorial/FuelPlace/Textfield/MarginContainer" index="0"]
-text = "Hold E when carrying Fuel"
+text = "Hold E while carrying Fuel"
 
 [node name="Arrow" parent="Tutorial/FuelPlace" index="2"]
-position = Vector2(42.6667, 21.3333)
+visible = true
+position = Vector2(42.6667, 34.6667)
 
 [node name="Valve" parent="Tutorial" instance=ExtResource("29_atdgi")]
 position = Vector2(-48, -88)
@@ -1010,7 +1013,6 @@ position = Vector2(64, 32)
 [node name="Dispenser" parent="Tutorial" instance=ExtResource("29_atdgi")]
 position = Vector2(-12, 31)
 scale = Vector2(0.75, 0.75)
-startVisible = true
 tutorialIndex = 1
 
 [node name="Textfield" parent="Tutorial/Dispenser" index="1"]
@@ -1049,6 +1051,14 @@ offset_bottom = 75.0
 [node name="RichTextLabel" parent="Tutorial/ArmRepair/Textfield/MarginContainer" index="0"]
 text = "Your arm has been disabled! Grab scrap from the dispenser below and hold R by the affected arm to fix it!"
 
+[node name="DispenserTrigger" type="Area2D" parent="Tutorial"]
+position = Vector2(37, 73)
+collision_layer = 0
+collision_mask = 4096
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorial/DispenserTrigger"]
+shape = SubResource("RectangleShape2D_xwhif")
+
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
 [connection signal="finished" from="HullBody/EngineSound" to="HullBody/EngineSound" method="_on_finished"]
 [connection signal="firstDestroyed" from="Arms/PhysicalArmRight" to="Tutorial/ArmRepair" method="open"]
@@ -1063,6 +1073,7 @@ text = "Your arm has been disabled! Grab scrap from the dispenser below and hold
 [connection signal="body_entered" from="ItemChutes/AreaLeft" to="ItemChutes" method="_on_area_2d_body_entered"]
 [connection signal="enemiesDetected" from="interior/Brake" to="Tutorial/Alert" method="open"]
 [connection signal="animation_finished" from="EndAnimation" to="." method="_on_animation_player_elevator_animation_finished"]
+[connection signal="body_entered" from="Tutorial/DispenserTrigger" to="Tutorial/Dispenser" method="_on_area_2d_body_entered"]
 
 [editable path="interior"]
 [editable path="Tutorial/FuelPlace"]
