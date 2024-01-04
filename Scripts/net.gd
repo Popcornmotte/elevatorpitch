@@ -49,10 +49,10 @@ func _ready():
 	var vertexArray = [$AnchorLeftFollower.global_position]
 	for i in arrSize:
 		vertexArray.append(ropeArr[i].global_position)
-		print("added Vertex "+str(i)+" at pos: "+str(ropeArr[i].global_position))
+		#print("added Vertex "+str(i)+" at pos: "+str(ropeArr[i].global_position))
 	netPolygon.polygon = PackedVector2Array(vertexArray)
 	add_child(netPolygon)
-	print(str(netPolygon))
+	#print(str(netPolygon))
 	rightEnd = ropeArr[arrSize-1]
 	
 	#quickly hide and retract:

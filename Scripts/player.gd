@@ -181,8 +181,11 @@ func climb(direction):
 			fuelSprite.visible=false
 		if carryType==Item.TYPE.Scrap:
 			scrapSprite.visible=false
-		
+
+
 func _process(delta):
+	if Input.is_action_just_pressed("Grab"):
+		$GrapplingHook.shoot()
 	if Input.is_action_just_pressed("Debug"):
 		toggleJetpack(!jetpack)
 	

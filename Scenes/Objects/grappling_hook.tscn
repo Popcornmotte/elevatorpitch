@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkm63siogigem"]
+
+[ext_resource type="Texture2D" uid="uid://dmq6b7rbsutv0" path="res://Assets/Sprites/Player/chain.png" id="1_oxxm8"]
+[ext_resource type="Script" path="res://Scenes/Objects/grappling_hook.gd" id="1_vn0r4"]
+[ext_resource type="Texture2D" uid="uid://c03chpo2ofbdm" path="res://Assets/Sprites/Player/Hook.png" id="2_ljcs5"]
+[ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="2_wxfgd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lxd2e"]
+radius = 8.0
+
+[node name="GrapplingHookTest0" type="Node2D"]
+script = ExtResource("1_vn0r4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wxfgd")
+
+[node name="Chain" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+texture = ExtResource("1_oxxm8")
+texture_mode = 1
+
+[node name="Hook" type="RigidBody2D" parent="."]
+collision_layer = 0
+gravity_scale = 0.1
+max_contacts_reported = 2
+contact_monitor = true
+
+[node name="HookSprite" type="Sprite2D" parent="Hook"]
+texture = ExtResource("2_ljcs5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hook"]
+shape = SubResource("CircleShape2D_lxd2e")
+
+[connection signal="body_entered" from="Hook" to="." method="_on_hook_body_entered"]
