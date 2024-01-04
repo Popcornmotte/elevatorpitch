@@ -25,8 +25,9 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Flamethrower" type="Node2D"]
+[node name="Flamethrower" type="Node2D" node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_qsif3")
+sprite = NodePath("AnimatedSprite2D")
 
 [node name="Forward" type="Node2D" parent="."]
 position = Vector2(64, 0)

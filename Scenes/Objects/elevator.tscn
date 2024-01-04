@@ -767,6 +767,7 @@ position = Vector2(138, 0)
 script = ExtResource("9_ltb0c")
 
 [node name="ModuleAttachment" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" instance=ExtResource("21_7g4is")]
+left = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw"]
 position = Vector2(6, 0)

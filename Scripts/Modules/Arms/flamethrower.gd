@@ -23,5 +23,5 @@ func _process(delta):
 			var particleInstance = FLAME.instantiate()
 			Global.level.add_child(particleInstance)
 			particleInstance.global_position = global_position + forwardVec
-			particleInstance.linear_velocity = forwardVec.normalized() * 300
+			particleInstance.linear_velocity = forwardVec.normalized().rotated(randf_range(-0.2,0.2)) * 300
 			

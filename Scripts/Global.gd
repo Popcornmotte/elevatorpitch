@@ -14,6 +14,7 @@ enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }
 
 var height = 0
 var aliveEnemies = 0
+var enemies : Array[Enemy]
 var inventoryMaxSize = 16
 var inventory = Array()
 var funds=0

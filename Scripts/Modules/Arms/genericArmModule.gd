@@ -1,6 +1,7 @@
 extends Node2D
 class_name GenericArmModule
 
+@export var sprite : Node2D
 var parent : ArmModuleHandler
 var active = false
 var selected = true
@@ -19,3 +20,7 @@ func activate():
 	
 func deactivate():
 	pass
+
+func flipSprite():
+	if sprite:
+		sprite.scale = Vector2(1,-1)

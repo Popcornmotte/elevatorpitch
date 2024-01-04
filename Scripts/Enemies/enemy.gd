@@ -47,6 +47,7 @@ var dbm
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.aliveEnemies += 1
+	Global.enemies.push_back(self)
 	elevatorPos = Global.elevator.global_position
 	if weapon != null:
 		attackTime = weapon.reloadTime * attacksPerTurn
@@ -91,6 +92,7 @@ func release(linVel):
 func die():
 	dead = true
 	Global.aliveEnemies -= 1
+	Global.enemies.erase(self)
 	gravity_scale = 1
 
 func takeDamage(damage : int, type):
