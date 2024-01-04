@@ -16,6 +16,9 @@ enum SPEED {Off,Normal,Fast}
 @onready var repairStation=find_child("RepairArea")
 var operatingMode=OPERATIONMODE.Normal
 
+func _ready():
+	if Global.elevator:
+		Global.elevator.moving=false
 func damaged():
 	repairStation.visible=true
 	repairStation.enableOptionalRepair()
