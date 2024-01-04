@@ -12,18 +12,20 @@ var sfxRepairing
 var sfxRepairNeeded
 var repairNeeded=false
 var repairing=false
-var onlyDamaged=true#set to false for broken
 
 #damaged, can be repaired
 func enableOptionalRepair():
-	onlyDamaged=true
-	$RepairArea/RepairCollisionShape.set_deferred("disabled",false)
 	$RepairArea/RepairAnimatedSprite2D.visible=true
 	match parent:
 		PARENTOBJECT.Arm: 
+			$RepairArea/RepairCollisionShape.set_deferred("disabled",false)
 			$RepairArea/RepairAnimatedSprite2D.play("damagedArm")
 		PARENTOBJECT.Brake:
+			$RepairArea/RepairCollisionShape.set_deferred("disabled",false)
 			$RepairArea/RepairAnimatedSprite2D.play("damagedBrake")
+		PARENTOBJECT.Net:
+			$RepairArea/RepairCollisionShapeNet.set_deferred("disabled",false)
+			$RepairArea/RepairAnimatedSprite2D.play("damagedNet")
 	$RepairArea/RepairAudioStreamPlayer2D.play()
 	repairNeeded=true
 	if mirrorAnimation:#flip according to bool 
@@ -37,14 +39,17 @@ func enableOptionalRepair():
 		
 #has to be repaired
 func enableRepair():
-	onlyDamaged=false
-	$RepairArea/RepairCollisionShape.set_deferred("disabled",false)
 	$RepairArea/RepairAnimatedSprite2D.visible=true
 	match parent:
-		PARENTOBJECT.Arm: 
+		PARENTOBJECT.Arm:
+			$RepairArea/RepairCollisionShape.set_deferred("disabled",false)
 			$RepairArea/RepairAnimatedSprite2D.play("brokenArm")
 		PARENTOBJECT.Brake:
+			$RepairArea/RepairCollisionShape.set_deferred("disabled",false)
 			$RepairArea/RepairAnimatedSprite2D.play("brokenBrake")
+		PARENTOBJECT.Net:
+			$RepairArea/RepairCollisionShapeNet.set_deferred("disabled",false)
+			$RepairArea/RepairAnimatedSprite2D.play("brokenNet")
 	$RepairArea/RepairAudioStreamPlayer2D.play()
 	repairNeeded=true
 	if mirrorAnimation:#flip according to bool 
@@ -95,6 +100,7 @@ func _on_repair_timer_timeout():
 	repairNeeded=false
 	$RepairArea/RepairAudioStreamPlayer2D.stop()
 	$RepairArea/RepairCollisionShape.set_deferred("disabled",true)
+	$RepairArea/RepairCollisionShapeNet.set_deferred("disabled",true)
 	repairing=false
 	finishRepair()
 

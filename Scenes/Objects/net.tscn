@@ -217,7 +217,8 @@ one_shot = true
 
 [node name="Repair" parent="." instance=ExtResource("8_rwfkj")]
 visible = false
-parent = 1
+position = Vector2(0, 25)
+parent = 2
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
