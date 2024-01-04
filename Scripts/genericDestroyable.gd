@@ -7,10 +7,12 @@ class_name GenericDestroyable
 enum OPERATIONMODE {Normal, Damaged, Broken}
 
 func damage(damage:int):
+	if health<0:
+		return
 	health-=damage
 	if health < damagedThreshold and health>0:
 		damaged()
-	elif health<=0:
+	elif health==0:
 		disable()
 
 func repair(repairAmount:int):

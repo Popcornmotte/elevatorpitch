@@ -9,6 +9,8 @@ func damaged():
 func disable():
 	repairStation.visible=true
 	repairStation.enableRepair()
+	Global.elevator.startLeaking()
 
 func repaired():
 	repairStation.visible=false
+	Global.elevator.stopLeaking()

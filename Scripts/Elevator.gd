@@ -25,7 +25,7 @@ var leakingFuel=false
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
 @onready var engineSFX = $HullBody/Engine/EngineSound
-@export var movementFactor=1.0
+
 func _enter_tree():
 	Global.elevator = self
 
@@ -44,12 +44,12 @@ func _ready():
 
 func moveFast():
 	speedModifier=2.0
-	Global.elevator.movementFactor=speedModifier
+	$LegsAndCable/Legs.movementFactor=speedModifier
 	fuelConsumption=20
 	
 func moveNormal():
 	speedModifier=1.0
-	Global.elevator.movementFactor=speedModifier
+	$LegsAndCable/Legs.movementFactor=speedModifier
 	fuelConsumption=10
 	engineSFX.startEngine()
 	
@@ -103,7 +103,6 @@ func decrease_fuel(delta):
 	if fuel<=0:
 		brake.noFuel()#set brake to turned off position
 		moving=false
-		print("Elevator not moving")
 		engineSFX.stopEngine()
 		fuelAlert.visible = true
 	else:
@@ -125,15 +124,13 @@ func updateFuel():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#if leakingFuel:
-	#	decrease_fuel(delta* 0.1)
-	
-	Global.elevator.decrease_fuel(delta * 0.1)
-	Global.height += delta*movementFactor
+	if leakingFuel:
+		decrease_fuel(delta* 0.1)
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
-	
+	if moving:
+		decrease_fuel(delta * 0.1)
 	if(controlArms):
 		if(!chutesDeployed and Input.is_action_just_pressed("down") and !$ChutesAnimation.is_playing()):
 			chutesDeployed = true

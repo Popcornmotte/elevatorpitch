@@ -85,14 +85,16 @@ func switchDown():
 
 # used when elevator encounters enemies or no more fuel available
 func lock(enemies=true):
+	if enemies: 
+		alarmIsSounding = true
+		Audio.playSfx(ALERT)
+		if currentSpeed!=SPEED.Off:
+			Audio.playSfx(BRAKESOUND)
+		alarmLightAnimation.play("alert")
+		if !Global.tutorialsCompleted[2]:
+			enemiesDetected.emit()
 	if not locked:
 		Audio.playSfx(BRAKESOUND)
-		if enemies: 
-			alarmIsSounding = true
-			Audio.playSfx(ALERT)
-			alarmLightAnimation.play("alert")
-			if !Global.tutorialsCompleted[2]:
-				enemiesDetected.emit()
 		match currentSpeed:
 			SPEED.Fast:
 				brakeSprite.play("fast_to_off")

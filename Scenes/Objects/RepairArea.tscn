@@ -46,6 +46,22 @@ region = Rect2(56, 0, 28, 24)
 atlas = ExtResource("4_ejav2")
 region = Rect2(84, 0, 28, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbwwa"]
+atlas = ExtResource("10_jab2m")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nghcd"]
+atlas = ExtResource("10_jab2m")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okwvy"]
+atlas = ExtResource("10_jab2m")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfd8j"]
+atlas = ExtResource("10_jab2m")
+region = Rect2(768, 0, 256, 256)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_02ae5"]
 atlas = ExtResource("5_vndxq")
 region = Rect2(0, 0, 170, 32)
@@ -77,22 +93,6 @@ region = Rect2(0, 0, 256, 256)
 [sub_resource type="AtlasTexture" id="AtlasTexture_p3jgx"]
 atlas = ExtResource("8_u8hlf")
 region = Rect2(0, 0, 170, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xbwwa"]
-atlas = ExtResource("10_jab2m")
-region = Rect2(0, 0, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nghcd"]
-atlas = ExtResource("10_jab2m")
-region = Rect2(256, 0, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_okwvy"]
-atlas = ExtResource("10_jab2m")
-region = Rect2(512, 0, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gfd8j"]
-atlas = ExtResource("10_jab2m")
-region = Rect2(768, 0, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bjlj8"]
 animations = [{
@@ -128,6 +128,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"brokenBrake",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbwwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nghcd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okwvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfd8j")
+}],
+"loop": true,
+"name": &"brokenEngine",
 "speed": 5.0
 }, {
 "frames": [{
@@ -178,23 +195,6 @@ animations = [{
 "loop": true,
 "name": &"damagedNet",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xbwwa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nghcd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_okwvy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gfd8j")
-}],
-"loop": true,
-"name": &"destroyedEngine",
-"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8eth3"]
@@ -222,7 +222,7 @@ process_material = ExtResource("3_ls4ia")
 
 [node name="RepairAnimatedSprite2D" type="AnimatedSprite2D" parent="RepairArea"]
 sprite_frames = SubResource("SpriteFrames_bjlj8")
-animation = &"destroyedEngine"
+animation = &"brokenEngine"
 
 [node name="RepairAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="RepairArea"]
 stream = ExtResource("4_exayi")

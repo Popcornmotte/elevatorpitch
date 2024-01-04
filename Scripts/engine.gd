@@ -19,7 +19,6 @@ func _ready():
 
 func startEngine():
 	if(stopped):
-		print("Engine: Start engine")
 		stopped = false
 		animation.play("EngineJiggle")
 		sprite.play()
@@ -27,7 +26,6 @@ func startEngine():
 		play()
 
 func stopEngine():
-	print("Engine: Stop engine")
 	stopped = true
 	animation.pause()
 	sprite.pause()
