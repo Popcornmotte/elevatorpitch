@@ -21,7 +21,7 @@ func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("elevator is moving: ",Global.elevator.moving)
+	Global.elevator.moving=true
 
 func finishedScene():
 	$Elevator.onGoal()#plays the animation for elevator moving out of view

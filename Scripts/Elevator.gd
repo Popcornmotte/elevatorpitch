@@ -8,7 +8,7 @@ var dropping = false
 var speed = 0.0
 var leakingFuel=false
 #modules which can be broken by incoming damage
-@onready var breakableModules=[$interior/Brake, $Arms/PhysicalArmLeft,$Arms/PhysicalArmRight, $Net, $HullBody/Engine]
+@onready var breakableModules=[$interior/Brake, $Net, $HullBody/Engine]
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
