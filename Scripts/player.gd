@@ -36,6 +36,8 @@ var dispenserObject:Node2D #object that the player is interacting with to dispen
 var brakeObject:Node2D
 var refuelEngineObject:Node2D
 var jetpack = false
+var hooked = false
+var hookPos : Vector2
 
 func _ready():
 	Global.player = self
@@ -131,6 +133,8 @@ func toggleJetpack(state : bool):
 		$jetpackSound.stop()
 
 func move(direction, vertical = 0.0):
+	if hooked:
+		velocity += global_position.direction_to(hookPos).normalized() * velocity
 	if direction or vertical:
 		if is_on_floor():
 			#flip animation if necessary
@@ -141,6 +145,7 @@ func move(direction, vertical = 0.0):
 		velocity.x = direction * speed
 		if jetpack:
 			velocity.y = vertical * speed
+		
 	else:
 		if is_on_floor():
 			sprite.play("idle")
@@ -185,7 +190,13 @@ func climb(direction):
 
 func _process(delta):
 	if Input.is_action_just_pressed("Grab"):
-		$GrapplingHook.shoot()
+		var h = $GrapplingHook.shoot()
+		if h != null:
+			hookPos = h
+			hooked = true
+		else:
+			hookPos = Vector2()
+			hooked = false
 	if Input.is_action_just_pressed("Debug"):
 		toggleJetpack(!jetpack)
 	

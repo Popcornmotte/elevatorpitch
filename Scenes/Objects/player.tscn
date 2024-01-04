@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://xcgdf4cn2vir"]
+[gd_scene load_steps=40 format=3 uid="uid://xcgdf4cn2vir"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_mnd8j"]
 [ext_resource type="Texture2D" uid="uid://cj56gvxbatwq7" path="res://Assets/Sprites/Player/PlayerClimb.png" id="2_lc3sb"]
@@ -8,8 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d4fvj3u3xidli" path="res://Assets/Sprites/InteriorObjects/gas_can.png" id="7_l87e4"]
 [ext_resource type="Texture2D" uid="uid://87nwbe24kw8j" path="res://Assets/Sprites/InteriorObjects/scrap.png" id="7_wt0yo"]
 [ext_resource type="Texture2D" uid="uid://bb36mwhht2hya" path="res://Assets/Sprites/spark.png" id="8_3uad8"]
-[ext_resource type="AudioStream" uid="uid://c7pbfune0a8bt" path="res://Assets/Audio/sfx/jetpack.wav" id="9_nk5m3"]
-[ext_resource type="PackedScene" uid="uid://d00tdwcwwhj4y" path="res://Scenes/Objects/grappling_hook1.tscn" id="10_bd5qr"]
+[ext_resource type="AudioStream" path="res://Assets/Audio/sfx/jetpack.wav" id="9_nk5m3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tucjc"]
 radius = 5.0
@@ -306,9 +305,6 @@ texture = ExtResource("8_3uad8")
 
 [node name="jetpackSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_nk5m3")
-
-[node name="GrapplingHook" parent="." instance=ExtResource("10_bd5qr")]
-node_a = NodePath("..")
 
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]

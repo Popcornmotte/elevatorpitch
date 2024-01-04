@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://d00tdwcwwhj4y"]
+[gd_scene load_steps=3 format=3 uid="uid://r1wktx7i53sl"]
 
 [ext_resource type="Script" path="res://Scripts/GrapplingHook.gd" id="1_l0d82"]
-[ext_resource type="Texture2D" uid="uid://dmq6b7rbsutv0" path="res://Assets/Sprites/Player/chain.png" id="2_wgh7v"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Player/chain.png" id="2_wgh7v"]
 
 [node name="GrapplingHook" type="DampedSpringJoint2D"]
 disable_collision = false

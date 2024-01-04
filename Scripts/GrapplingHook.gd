@@ -24,7 +24,9 @@ func shoot():
 		length = distance
 		hooked = true
 		node_b = collider.get_path()
+		return hookPos
 		pass
+	return null
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
