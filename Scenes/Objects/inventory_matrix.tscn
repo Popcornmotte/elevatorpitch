@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://tnkiqjebs3d7"]
+
+[ext_resource type="Script" path="res://Scripts/inventory_matrix.gd" id="1_5317k"]
+[ext_resource type="Texture2D" uid="uid://dfhot6xgyni00" path="res://Assets/Sprites/UI/InventoryMatrix.png" id="1_rg2sa"]
+
+[node name="InventoryMatrix" type="Node2D"]
+script = ExtResource("1_5317k")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_rg2sa")
+
+[node name="Dots" type="Node2D" parent="."]
+
+[node name="dot0" type="Polygon2D" parent="Dots"]
+position = Vector2(-8, -8)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot1" type="Polygon2D" parent="Dots"]
+position = Vector2(-3, -8)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot2" type="Polygon2D" parent="Dots"]
+position = Vector2(2, -8)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot3" type="Polygon2D" parent="Dots"]
+position = Vector2(7, -8)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot4" type="Polygon2D" parent="Dots"]
+position = Vector2(-8, -3)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot5" type="Polygon2D" parent="Dots"]
+position = Vector2(-3, -3)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot6" type="Polygon2D" parent="Dots"]
+position = Vector2(2, -3)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot7" type="Polygon2D" parent="Dots"]
+position = Vector2(7, -3)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot8" type="Polygon2D" parent="Dots"]
+position = Vector2(-8, 2)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot9" type="Polygon2D" parent="Dots"]
+position = Vector2(-3, 2)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot10" type="Polygon2D" parent="Dots"]
+position = Vector2(2, 2)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot11" type="Polygon2D" parent="Dots"]
+position = Vector2(7, 2)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot12" type="Polygon2D" parent="Dots"]
+position = Vector2(-8, 7)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot13" type="Polygon2D" parent="Dots"]
+position = Vector2(-3, 7)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot14" type="Polygon2D" parent="Dots"]
+position = Vector2(2, 7)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)
+
+[node name="dot15" type="Polygon2D" parent="Dots"]
+position = Vector2(7, 7)
+polygon = PackedVector2Array(0, 0, 2, 0, 2, 2, 0, 2)

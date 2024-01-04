@@ -11,6 +11,8 @@ var player : Node2D
 #current Level Scene. since it is different than root
 var level
 
+var inventoryMatrix : Node2D
+
 enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }
 
 var height = 0
@@ -50,6 +52,8 @@ func removeFunds(amount:int) -> bool:
 func addToInventory(item : Item) -> bool:
 	if inventory.size() < inventoryMaxSize:
 		inventory.append(item)
+		if(inventoryMatrix != null):
+			inventoryMatrix.update()
 		return true
 	else:
 		return false
@@ -57,13 +61,16 @@ func addToInventory(item : Item) -> bool:
 func takeFromInventory(type : Item.TYPE):
 	for i in inventory.size():
 		if inventory[i].type == type:
+			if(inventoryMatrix != null):
+				inventoryMatrix.update()
 			return inventory.pop_at(i)
+	
 	return null
 
 func listInventory():
 	print("Listing Inventory:")
 	for item in inventory:
-		print(str(item)) 
+		print(str(item))
 
 func countItem(type : Item.TYPE):
 	var count = 0
