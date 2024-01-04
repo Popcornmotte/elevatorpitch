@@ -12,13 +12,15 @@ var stopped = false
 
 func _ready():
 	if Global.elevator.moving:
-		animation.play("EngineJiggle")
-		sprite.play()
+		startEngine()
 	else:
+		animation.pause()
+		sprite.pause()
 		stopped = true
 
 func startEngine():
 	if(stopped):
+		print("moving elevator")
 		stopped = false
 		animation.play("EngineJiggle")
 		sprite.play()

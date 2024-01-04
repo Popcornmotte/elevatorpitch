@@ -15,7 +15,7 @@ var leakingFuel=false
 @export var fuelAlert : Node2D
 @export var heightMeter : Label
 @export var controlArms:bool #make it accessible whether or not the arms are being controlled
-@export var moving:bool=true
+@export var moving:bool=false
 @export var chutesDeployed = false
 @export var fuelConsumption=10
 @export var fuel = 5.0

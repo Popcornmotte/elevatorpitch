@@ -132,7 +132,6 @@ texture = ExtResource("2_s7bn1")
 
 [node name="EngineSound" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("animation", "sprite")]
 stream = ExtResource("3_kgc0d")
-autoplay = true
 script = ExtResource("4_tvwhu")
 animation = NodePath("../AnimationPlayer")
 sprite = NodePath("../EngineSprite")
