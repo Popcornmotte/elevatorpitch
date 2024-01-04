@@ -71,8 +71,7 @@ func takeDamage(damage:int,type):
 func on_area_entered(area : Area2D):
 	if(area.has_meta("isProjectile")):
 		if(area.damage != null):
-			health -= area.damage
-			update_health()
+			takeDamage(area.damage,Global.DMG.Bludgeoning)
 	pass
 
 func update_health():
