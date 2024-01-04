@@ -16,6 +16,8 @@ func _ready():
 		sprite.play()
 		play()
 	else:
+		sprite.pause()
+		animation.pause()
 		stopped = true
 
 func startEngine():
