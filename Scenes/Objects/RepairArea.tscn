@@ -217,6 +217,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Sparks" type="GPUParticles2D" parent="RepairArea"]
+visible = false
 emitting = false
 process_material = ExtResource("3_ls4ia")
 
