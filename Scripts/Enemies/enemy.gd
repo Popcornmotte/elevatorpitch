@@ -162,7 +162,7 @@ func attackBehavior(delta):
 func stealCargo():
 	if(Global.checkForCargo()):
 		var lootPath = Global.takeFromInventory(Item.TYPE.Cargo).getObjectInstance()
-		$Crate.visible = true
+		$Crate.set_enabled(true)
 		$Crate.mass = 5
 		state = STATE.Fleeing
 		chooseTarget()

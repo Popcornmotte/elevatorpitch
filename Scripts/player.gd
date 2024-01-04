@@ -36,6 +36,7 @@ var dispenserObject:Node2D #object that the player is interacting with to dispen
 var brakeObject:Node2D
 var refuelEngineObject:Node2D
 var jetpack = false
+var lerpFactor = 0.3
 
 func _ready():
 	Global.player = self
@@ -49,8 +50,8 @@ func playPlayerSound(clip : AudioStream):
 	else:
 		sfx=Audio.playSfx(clip,true)
 		
-func flipAnimation(direction):
-	if direction>0:
+func flipAnimation(right):
+	if right:
 		sprite.flip_h=false
 		fuelSprite.position=carryPos
 		scrapSprite.position=carryPos
@@ -122,32 +123,44 @@ func dropObject():
 func toggleJetpack(state : bool):
 	jetpack = state
 	if state:
+		$Gun.setEnabled(true)
+		$PlayerCam.setMousePeek(true)
+		lerpFactor = 0.02
 		gravity = 0
 		$jetpackParticles.emitting = true
 		$jetpackSound.play()
 	else:
+		$Gun.setEnabled(false)
+		$PlayerCam.setMousePeek(false)
+		lerpFactor = 0.3
 		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 		$jetpackParticles.emitting = false
 		$jetpackSound.stop()
 
 func move(direction, vertical = 0.0):
+	if velocity.x >=0:
+		flipAnimation(true)
+	else:
+		flipAnimation(false)
+		
 	if direction or vertical:
 		if is_on_floor():
-			#flip animation if necessary
 			sprite.play("walk")
-			flipAnimation(direction)
 			playPlayerSound(WALKINGSOUND)
+		else:
+			sprite.play("jetpack")
 		#allow the player to also move mid jump
-		velocity.x = direction * speed
+		velocity.x = lerpf(velocity.x, direction*speed, lerpFactor)
 		if jetpack:
-			velocity.y = vertical * speed
+			velocity.y = lerpf(velocity.y,vertical * speed, lerpFactor)
 		
 	else:
 		if is_on_floor():
 			sprite.play("idle")
-		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.x = lerpf(velocity.x,0.0,lerpFactor)
 		if jetpack:
-			velocity.y = move_toward(velocity.y, 0, speed)
+			sprite.play("jetpackIdle")
+			velocity.y = lerpf(velocity.y,0.0,lerpFactor)
 
 func removeScrap():#called when carrying scrap and repairing something
 	scrapSprite.visible=false
@@ -164,7 +177,7 @@ func fall(direction,delta):
 		sprite.play("idle")
 	else:
 		sprite.play("jump")
-	flipAnimation(direction)
+
 	#cap falling speed
 	if velocity.y>maxFallingSpeed:
 		velocity.y=maxFallingSpeed
@@ -185,6 +198,8 @@ func climb(direction):
 
 
 func _process(delta):
+	if Input.is_action_just_pressed("Grab"):
+		$Gun.shoot()
 	if Input.is_action_just_pressed("Debug"):
 		toggleJetpack(!jetpack)
 	
