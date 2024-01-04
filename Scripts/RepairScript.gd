@@ -26,6 +26,9 @@ func enableOptionalRepair():
 		PARENTOBJECT.Net:
 			$RepairArea/RepairCollisionShapeNet.set_deferred("disabled",false)
 			$RepairArea/RepairAnimatedSprite2D.play("damagedNet")
+		PARENTOBJECT.ElevatorEngine:
+			$RepairArea/RepairCollisionShapeNet.set_deferred("disabled",false)
+			$RepairArea/RepairAnimatedSprite2D.play("damagedEngine")
 	$RepairArea/RepairAudioStreamPlayer2D.play()
 	repairNeeded=true
 	if mirrorAnimation:#flip according to bool 
@@ -50,6 +53,9 @@ func enableRepair():
 		PARENTOBJECT.Net:
 			$RepairArea/RepairCollisionShapeNet.set_deferred("disabled",false)
 			$RepairArea/RepairAnimatedSprite2D.play("brokenNet")
+		PARENTOBJECT.ElevatorEngine:
+			$RepairArea/RepairCollisionShapeNet.set_deferred("disabled",false)
+			$RepairArea/RepairAnimatedSprite2D.play("brokenEngine")
 	$RepairArea/RepairAudioStreamPlayer2D.play()
 	repairNeeded=true
 	if mirrorAnimation:#flip according to bool 

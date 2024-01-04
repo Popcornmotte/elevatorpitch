@@ -6,8 +6,9 @@ var health = maxHealth
 
 var dropping = false
 var speed = 0.0
+var leakingFuel=false
 #modules which can be broken by incoming damage
-@onready var breakableModules=[$interior/Brake, $Arms/PhysicalArmLeft,$Arms/PhysicalArmRight, $Net ]
+@onready var breakableModules=[$interior/Brake, $Arms/PhysicalArmLeft,$Arms/PhysicalArmRight, $Net, $HullBody/Engine]
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
@@ -23,7 +24,8 @@ var speed = 0.0
 @export var speedModifier=1
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
-@onready var engineSFX = $HullBody/EngineSound
+@onready var engineSFX = $HullBody/Engine/EngineSound
+@export var movementFactor=1.0
 func _enter_tree():
 	Global.elevator = self
 
@@ -42,12 +44,12 @@ func _ready():
 
 func moveFast():
 	speedModifier=2.0
-	$LegsAndCable/Legs.movementFactor=speedModifier
+	Global.elevator.movementFactor=speedModifier
 	fuelConsumption=20
 	
 func moveNormal():
 	speedModifier=1.0
-	$LegsAndCable/Legs.movementFactor=speedModifier
+	Global.elevator.movementFactor=speedModifier
 	fuelConsumption=10
 	engineSFX.startEngine()
 	
@@ -99,7 +101,9 @@ func update_height(climbed):
 func decrease_fuel(delta):
 	fuel -= fuelConsumption*delta
 	if fuel<=0:
-		brake.noFuel()#(brake.SPEED.Off,false,false)#set brake to turned off position
+		brake.noFuel()#set brake to turned off position
+		moving=false
+		print("Elevator not moving")
 		engineSFX.stopEngine()
 		fuelAlert.visible = true
 	else:
@@ -107,6 +111,12 @@ func decrease_fuel(delta):
 	updateFuel()
 	pass
 
+func startLeaking():
+	leakingFuel=true
+
+func stopLeaking():
+	leakingFuel=false
+	
 func updateFuel():
 	fuelBar.scale = Vector2(fuel / 100.0, 1)
 	if brake.locked and fuel > 0:
@@ -115,11 +125,11 @@ func updateFuel():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#if leakingFuel:
+	#	decrease_fuel(delta* 0.1)
 	
-#	if(get_local_mouse_position().y < 0):
-#		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,true)
-#	else:
-#		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,false)
+	Global.elevator.decrease_fuel(delta * 0.1)
+	Global.height += delta*movementFactor
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
@@ -133,7 +143,6 @@ func _process(delta):
 			chutesDeployed = false
 			$ChutesAnimation.play("retractChutes")
 			setChutesDeployed()
-
 	pass
 	
 func setChutesDeployed():

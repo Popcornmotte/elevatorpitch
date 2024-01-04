@@ -48,7 +48,6 @@ func switchUp():
 				Global.elevator.moveNormal()
 				Global.elevator.moving=true
 		SPEED.Normal:
-			print("current operating mode: ",operatingMode)
 			if operatingMode!=OPERATIONMODE.Broken: #cannot go into fast mode if broken
 				if Global.elevator:
 					Global.elevator.moveFast()
@@ -86,23 +85,24 @@ func switchDown():
 
 # used when elevator encounters enemies or no more fuel available
 func lock(enemies=true):
-	Audio.playSfx(BRAKESOUND)
-	if enemies: 
-		alarmIsSounding = true
-		Audio.playSfx(ALERT)
-		alarmLightAnimation.play("alert")
-		if !Global.tutorialsCompleted[2]:
-			enemiesDetected.emit()
-	match currentSpeed:
-		SPEED.Fast:
-			brakeSprite.play("fast_to_off")
-		SPEED.Normal:
-			brakeSprite.play("normal_to_off")
-	currentSpeed=SPEED.Off
-	locked = true
-	if Global.elevator:#check that elevator exists 
-		Global.elevator.moving=false
-	return
+	if not locked:
+		Audio.playSfx(BRAKESOUND)
+		if enemies: 
+			alarmIsSounding = true
+			Audio.playSfx(ALERT)
+			alarmLightAnimation.play("alert")
+			if !Global.tutorialsCompleted[2]:
+				enemiesDetected.emit()
+		match currentSpeed:
+			SPEED.Fast:
+				brakeSprite.play("fast_to_off")
+			SPEED.Normal:
+				brakeSprite.play("normal_to_off")
+		currentSpeed=SPEED.Off
+		locked = true
+		if Global.elevator:#check that elevator exists 
+			Global.elevator.moving=false
+		return
 
 func unlock():
 	if startLocked:
