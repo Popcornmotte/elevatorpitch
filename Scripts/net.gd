@@ -43,18 +43,19 @@ func _ready():
 
 
 func setDeployment(deploy : bool):
-	animating = true
-	if deploy:
-		rope.process_mode = Node.PROCESS_MODE_INHERIT
-		show()
-		deploying = true
-		$AnimationPlayer.play_backwards("retract")
-		extended = true
-	else:
-		deploying = false
-		extended = false
-		$AnimationPlayer.play("RESET")
-		$Timer.start()
+	if !animating:
+		animating = true
+		if deploy:
+			rope.process_mode = Node.PROCESS_MODE_INHERIT
+			show()
+			deploying = true
+			$AnimationPlayer.play_backwards("retract")
+			extended = true
+		else:
+			deploying = false
+			extended = false
+			$AnimationPlayer.play("RESET")
+			$Timer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
