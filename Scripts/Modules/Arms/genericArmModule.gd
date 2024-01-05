@@ -23,4 +23,4 @@ func deactivate():
 
 func flipSprite():
 	if sprite:
-		sprite.scale = Vector2(1,-1)
+		sprite.scale = Vector2(sprite.scale.x, -sprite.scale.y)

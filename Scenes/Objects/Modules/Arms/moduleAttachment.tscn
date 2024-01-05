@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://da4m2la28h4n3"]
+[gd_scene load_steps=25 format=3 uid="uid://da4m2la28h4n3"]
 
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/armModuleHandler.gd" id="1_lx6vx"]
 [ext_resource type="Texture2D" uid="uid://dr6vonga67o7v" path="res://Assets/Sprites/Modules/parry.png" id="2_pvm84"]
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/shield.gd" id="2_xnrre"]
 [ext_resource type="Texture2D" uid="uid://cfxs00gu07iny" path="res://Assets/Sprites/Modules/shield.png" id="3_ic3qt"]
+[ext_resource type="Texture2D" uid="uid://x42xx4fntgjy" path="res://Assets/Sprites/Modules/mask.png" id="6_a6ksk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e2ajw"]
 atlas = ExtResource("2_pvm84")
@@ -101,6 +102,63 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_jvgfc"]
 radius = 64.4981
 
+[sub_resource type="Animation" id="Animation_xt5gd"]
+resource_name = "extend_module"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaskingGroup/AnimationParent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(2, 0.517632, 1),
+"update": 0,
+"values": [Vector2(-64, 0), Vector2(8, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_l8npa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaskingGroup/AnimationParent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-64, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1g7fp"]
+resource_name = "retract_module"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaskingGroup/AnimationParent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, 0), Vector2(-64, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kfkf3"]
+_data = {
+"RESET": SubResource("Animation_l8npa"),
+"extend_module": SubResource("Animation_xt5gd"),
+"retract_module": SubResource("Animation_1g7fp")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c6nhu"]
+blend_mode = 3
+
 [node name="ModuleAttachment" type="Node2D"]
 script = ExtResource("1_lx6vx")
 
@@ -139,7 +197,23 @@ offset_right = 112.0
 offset_bottom = -56.0
 text = "Module"
 
+[node name="Extension" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kfkf3")
+}
+
+[node name="MaskingGroup" type="CanvasGroup" parent="."]
+
+[node name="AnimationParent" type="Node2D" parent="MaskingGroup"]
+position = Vector2(-64, 0)
+
+[node name="Mask" type="Sprite2D" parent="MaskingGroup"]
+material = SubResource("CanvasItemMaterial_c6nhu")
+scale = Vector2(2, 2)
+texture = ExtResource("6_a6ksk")
+
 [connection signal="area_entered" from="Shield" to="Shield" method="_on_area_entered"]
 [connection signal="area_exited" from="Shield" to="Shield" method="_on_area_exited"]
 [connection signal="body_entered" from="Shield" to="Shield" method="_on_body_entered"]
 [connection signal="body_exited" from="Shield" to="Shield" method="_on_body_exited"]
+[connection signal="animation_finished" from="Extension" to="." method="_on_extension_animation_finished"]

@@ -32,9 +32,9 @@ func _ready():
 		MODULE.Arclight:
 			module = arclightProjector.instantiate()
 	
-	add_child(module)
+	$MaskingGroup/AnimationParent.add_child(module)
 	module.parent = self
-	module.global_position = global_position
+	module.global_position = $MaskingGroup/AnimationParent.global_position
 	module.rotation = rotation
 	
 	module.selected = moduleSelected
@@ -43,13 +43,21 @@ func _ready():
 	if left:
 		module.flipSprite()
 		shield.flipSprite()
+	
+	$Extension.play("extend_module" if moduleSelected else "retract_module")
 
 func _process(delta):
 	if Input.is_action_just_pressed("ScrollUp") or Input.is_action_just_pressed("ScrollDown"):
 		moduleSelected = !moduleSelected
 		module.selected = moduleSelected
-		module.visible = moduleSelected
+		if moduleSelected:
+			module.visible = true
 		shield.selected = !moduleSelected
+		$Extension.play("extend_module" if moduleSelected else "retract_module")
 		$Text.text = "Module" if moduleSelected else "Shield"
 		# TODO: visualise which one is active
 	pass
+
+func _on_extension_animation_finished(anim_name):
+	if !moduleSelected:
+		module.visible = false
