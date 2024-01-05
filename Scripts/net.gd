@@ -65,20 +65,18 @@ func _ready():
 
 func setDeployment(deploy : bool):
 	animating = true
-	if operatingMode!=OPERATIONMODE.Broken:
-		if deploy:
-			rope.process_mode = Node.PROCESS_MODE_INHERIT
-			show()
-			deploying = true
-			$AnimationPlayer.play_backwards("retract")
-			extended = true
-		else:
-			deploying = false
-			extended = false
-			$AnimationPlayer.play("RESET")
-			$Timer.start()
+	if deploy:
+		rope.process_mode = Node.PROCESS_MODE_INHERIT
+		show()
+		deploying = true
+		$AnimationPlayer.play_backwards("retract")
+		extended = true
 	else:
-		Audio.playSfx(ERROR)
+		deploying = false
+		extended = false
+		$AnimationPlayer.play("RESET")
+		$Timer.start()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -89,7 +87,7 @@ func _process(delta):
 	lineLeft.points[0] = $AnchorLeftFollower.global_position - global_position
 	lineRight.points[1] = $ArmRight/UpperArm/LowerArm/Tip.global_position - global_position
 	lineRight.points[0] = $AnchorRightFollower.global_position - global_position
-	
+
 	if !animating and get_parent().controlArms:
 		if extended and operatingMode!=OPERATIONMODE.Broken:
 			if Input.is_action_pressed("right"):
@@ -102,11 +100,11 @@ func _process(delta):
 					$AnchorRight.global_position.x -= speed * delta
 					$AnchorLeft.global_position.x -= speed * delta
 				#rope.global_position = $AnchorLeft.global_position
-		if Input.is_action_just_pressed("Q"):
-			if extended:
-				setDeployment(false)
-			else:
-				setDeployment(true)
+			if Input.is_action_just_pressed("Q"):
+				if extended:
+					setDeployment(false)
+				else:
+					setDeployment(true)
 	
 	if Input.is_action_just_pressed("Debug"):
 		print("AnchorRight: "+str($AnchorRight.position))
