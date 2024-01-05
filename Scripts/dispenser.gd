@@ -30,7 +30,6 @@ func dispenseItem():
 	match dispense:
 		DispenseItem.FUEL:
 			if Global.takeFromInventory(Item.TYPE.Fuel):#only dispense fuel if in inventory
-				print("fuel dispensed")
 				var loadedFuel=FUELITEM.instantiate()
 				loadedFuel.position=dropPosition
 				add_child(loadedFuel)
@@ -39,7 +38,6 @@ func dispenseItem():
 				Audio.playSfx(ERROR)
 				return
 		DispenseItem.SCRAP:
-			print("scrap dispensed")
 			var loadedScrap=SCRAPITEM.instantiate()
 			loadedScrap.position=dropPosition
 			add_child(loadedScrap)

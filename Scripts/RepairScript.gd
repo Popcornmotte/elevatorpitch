@@ -63,7 +63,6 @@ func enableRepair():
 	
 func repair():
 	if not repairing:
-		print("start timer")
 		$RepairArea/RepairTimer.start()
 	if(sfxRepairing):
 		if(!sfxRepairing.playing):
@@ -71,14 +70,14 @@ func repair():
 	else:
 		sfxRepairing=Audio.playSfx(REPAIR,true)
 	repairing=true
-	var timeToWait=$RepairArea/RepairTimer.get_wait_time()
-	var repairAmount=timeToWait-$RepairArea/RepairTimer.get_time_left()
-	get_parent().repair(repairAmount)
+	
 	
 
 func finishRepair():
 	Global.player.removeScrap()
 	$RepairArea/RepairTimer.stop()
+	print("repair is finished")
+	get_parent().repair()#fix 
 	
 func _on_body_entered(body):
 	if body.name=="player":
@@ -91,7 +90,7 @@ func _on_body_exited(body):
 	if body.name=="player":
 		Global.player.startRepair=false 
 		if repairing:
-			finishRepair()
+			$RepairArea/RepairTimer.set_paused(true)
 		
 
 

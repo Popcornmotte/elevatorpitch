@@ -62,8 +62,10 @@ func control(isControlled : bool):
 
 func takeDamage(damage:int,type):
 	#type is currently ignored in elevator
+	print("Eleveator took damage: ", damage)
 	health -= damage
 	var moduleToDamage=breakableModules[randi()%breakableModules.size()]
+	print("damage is propagated to: ", moduleToDamage)
 	moduleToDamage.damage(damage)
 	update_health()
 	pass

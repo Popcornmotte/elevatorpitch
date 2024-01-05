@@ -12,15 +12,12 @@ func damage(damage:int):
 	health-=damage
 	if health < damagedThreshold and health>0:
 		damaged()
-	elif health==0:
+	elif health<=0:
 		disable()
 
-func repair(repairAmount:int):
-	health+=repairAmount
-	if health > damagedThreshold:
-		repaired()
-	elif health<=damagedThreshold:
-		damaged()
+func repair():
+	health=10
+	repaired()
 		
 #can be repaired to regain health, still partially functional
 func damaged():

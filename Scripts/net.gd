@@ -1,6 +1,7 @@
 extends GenericDestroyable
 
 const ROPE = preload("res://Scenes/Objects/Test/rope.tscn")
+const ERROR = preload("res://Assets/Audio/sfx/error.wav")
 @export var texture : Texture2D
 @export var ropeColor = Color.BLACK
 @export var speed = 400
@@ -19,11 +20,15 @@ var deploying = true
 var operatingMode=OPERATIONMODE.Normal
 
 func damaged():
+	if not extended:#let net fall down in case it is not deployed to show repair area
+		setDeployment(true)
 	repairStation.visible=true
 	repairStation.enableOptionalRepair()
 	operatingMode=OPERATIONMODE.Damaged
 
 func disable():
+	if not extended:#let net fall down in case it is not deployed to show repair area
+		setDeployment(true)
 	repairStation.visible=true
 	repairStation.enableRepair()
 	operatingMode=OPERATIONMODE.Broken
@@ -37,7 +42,6 @@ func _ready():
 	rope = ROPE.instantiate()
 	rope.global_position = $AnchorLeftFollower.global_position
 	add_child(rope)
-	#rope.spawn($AnchorLeft.global_position,$AnchorRight.global_position,true)
 	rope.spawnAtBodies($AnchorLeftFollower,$AnchorRightFollower,ropeColor)
 	ropeArr = rope.getSegments()
 	arrSize = ropeArr.size()
@@ -73,6 +77,8 @@ func setDeployment(deploy : bool):
 			extended = false
 			$AnimationPlayer.play("RESET")
 			$Timer.start()
+	else:
+		Audio.playSfx(ERROR)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -98,12 +104,8 @@ func _process(delta):
 				#rope.global_position = $AnchorLeft.global_position
 		if Input.is_action_just_pressed("Q"):
 			if extended:
-				#$AnimationPlayer.play("retract")
-				#extended = false
 				setDeployment(false)
 			else:
-				#$AnimationPlayer.play_backwards("retract")
-				#extended = true
 				setDeployment(true)
 	
 	if Input.is_action_just_pressed("Debug"):
