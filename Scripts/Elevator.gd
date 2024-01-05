@@ -77,10 +77,8 @@ func on_area_entered(area : Area2D):
 func update_health():
 	if(!dropping):
 		if(health <= 0):
-			# Lose
-			dropping = true
-			speed = 150
-			pass
+			dropElevator()
+			return
 		healthBar.scale = Vector2(health / maxHealth, 1)
 	pass
 
