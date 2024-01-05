@@ -7,8 +7,8 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_isnnf"]
 shader = ExtResource("1_nh6r8")
-shader_parameter/Frames = 5
-shader_parameter/FPS = 0.0
+shader_parameter/Frames = 4
+shader_parameter/FPS = 10.0
 
 [sub_resource type="Curve" id="Curve_w51rr"]
 
