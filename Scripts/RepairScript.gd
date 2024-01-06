@@ -6,6 +6,8 @@ enum PARENTOBJECT {Arm, Brake, Net, ElevatorEngine}#settable parent object to se
 @export var parent=PARENTOBJECT.Arm
 @export var repairInterior:bool
 @export var mirrorAnimation:bool
+@export var repairTimeDamaged=2
+@export var repairTimeDestroyed=4
 @onready var player=Global.player
 var collided=false
 var sfxRepairing
@@ -15,6 +17,7 @@ var repairing=false
 
 #damaged, can be repaired
 func enableOptionalRepair():
+	$RepairArea/RepairTimer.set_wait_time(repairTimeDamaged)
 	$RepairArea/RepairAnimatedSprite2D.visible=true
 	match parent:
 		PARENTOBJECT.Arm: 
@@ -39,6 +42,7 @@ func enableOptionalRepair():
 #has to be repaired
 func enableRepair():
 	$RepairArea/RepairAnimatedSprite2D.visible=true
+	$RepairArea/RepairTimer.set_wait_time(repairTimeDestroyed)
 	match parent:
 		PARENTOBJECT.Arm:
 			$RepairArea/RepairCollisionShape.set_deferred("disabled",false)
@@ -62,8 +66,11 @@ func enableRepair():
 
 	
 func repair():
-	if not repairing:
+	if $RepairArea/RepairTimer.paused:
+		$RepairArea/RepairTimer.set_paused(false)
+	elif not repairing:
 		$RepairArea/RepairTimer.start()
+	
 	if(sfxRepairing):
 		if(!sfxRepairing.playing):
 			sfxRepairing = Audio.playSfx(REPAIR,true)
@@ -72,6 +79,8 @@ func repair():
 	repairing=true
 	
 	
+func pauseRepair():
+	$RepairArea/RepairTimer.set_paused(true)
 
 func finishRepair():
 	Global.player.removeScrap()

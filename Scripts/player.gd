@@ -180,6 +180,9 @@ func _process(delta):
 	
 	if carrying and Input.is_action_pressed("repair") and interactionObject:
 		interactionObject.repair()
+	
+	if carrying and Input.is_action_just_released("repair") and interactionObject:
+		interactionObject.pauseRepair()
 		
 	if dispenserObject and Input.is_action_just_pressed("down"):
 		dispenserObject.switchDispenseType()
