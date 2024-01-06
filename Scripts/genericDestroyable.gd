@@ -5,6 +5,7 @@ class_name GenericDestroyable
 @onready var maxHealth=health
 @export var damagedThreshold=9
 enum OPERATIONMODE {Normal, Damaged, Broken}
+var update=true
 
 func damage(damage:int):
 	if health<0:
@@ -13,10 +14,16 @@ func damage(damage:int):
 	if health < damagedThreshold and health>0:
 		damaged()
 	elif health<=0:
+		if update: 
+			print("new broken module")
+			Global.elevator.newBrokenModule()
+			update=false
 		disable()
 
 func repair():
 	health=10
+	Global.elevator.newFixedModule()
+	update=true
 	repaired()
 		
 #can be repaired to regain health, still partially functional

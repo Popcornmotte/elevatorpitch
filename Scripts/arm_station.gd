@@ -10,13 +10,14 @@ func _input(event):
 			use()
 
 func use():
-	controlArms=!controlArms#change whether arms are being controlled or not
-	if Global.elevator:# this makes the scene still useable on its own
-		Global.elevator.control(controlArms)
-		if controlArms:
-			Global.player.zoomIn(false)
-		else:
-			Global.player.zoomIn(true)
+	if !Global.player.get_node("PlayerCam/ZoomAnimation").is_playing():
+		controlArms=!controlArms#change whether arms are being controlled or not
+		if Global.elevator:# this makes the scene still useable on its own
+			Global.elevator.control(controlArms)
+			if controlArms:
+				Global.player.zoomIn(false)
+			else:
+				Global.player.zoomIn(true)
 
 
 

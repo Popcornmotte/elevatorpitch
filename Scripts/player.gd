@@ -59,6 +59,7 @@ func flipAnimation(direction):
 		scrapSprite.position=carryPos*Vector2(-1,1)
 
 func zoomIn(state : bool):
+	print("zoom is called: ", state)
 	if state:
 		zoomAnimation.play("zoom_in")
 		for side in range(0,4):

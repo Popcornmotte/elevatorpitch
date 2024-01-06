@@ -33,6 +33,7 @@ func enableOptionalRepair():
 			$RepairArea/RepairCollisionShapeNet.set_deferred("disabled",false)
 			$RepairArea/RepairAnimatedSprite2D.play("damagedEngine")
 	$RepairArea/RepairAudioStreamPlayer2D.play()
+	$RepairArea/Sparks.visible=true
 	repairNeeded=true
 	if mirrorAnimation:#flip according to bool 
 		$RepairArea/RepairAnimatedSprite2D.flip_h=true

@@ -6,7 +6,10 @@ var functioning=true
 
 func repair():
 	pass
-
+	
+func pauseRepair():
+	pass
+	
 func use():
 	pass
 

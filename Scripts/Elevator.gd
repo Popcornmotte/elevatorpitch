@@ -7,9 +7,10 @@ var health = maxHealth
 var dropping = false
 var speed = 0.0
 var leakingFuel=false
+var numberOperationalModules=5
+var maximumOperationalModules=5
 #modules which can be broken by incoming damage
-#@onready var breakableModules=[$interior/Brake, $Net, $HullBody/Engine]
-@onready var breakableModules=[$Net]
+@onready var breakableModules=[$interior/Brake, $Net, $HullBody/Engine]
 
 @export var healthBar : Node2D
 @export var fuelBar : Node2D
@@ -26,6 +27,7 @@ var leakingFuel=false
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
 @onready var engineSFX = $HullBody/Engine/EngineSound
+@onready var operationalDisplay= $interior/Display/Operational/MarginContainer/RichTextLabel
 
 func _enter_tree():
 	Global.elevator = self
@@ -41,8 +43,22 @@ func dropElevator():#drops the elvator for example on finished game
 func _ready():
 	control(controlArms)
 	updateFuel()#show correct fuel on game start
+	updateDisplay()
 	pass # Replace with function body.
 
+func updateDisplay():
+	operationalDisplay.text="Operational: "+str(numberOperationalModules)+ " / 5"
+
+func newBrokenModule():
+	if numberOperationalModules>0:
+		numberOperationalModules-=1
+		updateDisplay()
+	
+func newFixedModule():
+	if numberOperationalModules<maximumOperationalModules:
+		numberOperationalModules+=1
+		updateDisplay()
+	
 func moveFast():
 	speedModifier=2.0
 	$LegsAndCable/Legs.movementFactor=speedModifier
