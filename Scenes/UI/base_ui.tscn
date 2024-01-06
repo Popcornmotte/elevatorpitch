@@ -61,6 +61,7 @@ texture = ExtResource("1_1c46o")
 metadata/_edit_lock_ = true
 
 [node name="Header" type="MarginContainer" parent="Monitor"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -124,22 +125,25 @@ layout_mode = 2
 [node name="Contracts" type="ItemList" parent="Monitor/Terminal/ContractsView"]
 layout_mode = 2
 auto_height = true
-item_count = 1
-item_0/text = "Open Contract: Deliver Power Converters"
-item_0/icon = ExtResource("2_03vra")
 
 [node name="ContractInspector" type="VBoxContainer" parent="Monitor/Terminal"]
+visible = false
 layout_mode = 2
+alignment = 1
 
 [node name="Info" type="HBoxContainer" parent="Monitor/Terminal/ContractInspector"]
 layout_mode = 2
 
+[node name="Icon" type="TextureRect" parent="Monitor/Terminal/ContractInspector/Info"]
+layout_mode = 2
+texture = ExtResource("2_03vra")
+
 [node name="ShortDescription" type="Label" parent="Monitor/Terminal/ContractInspector/Info"]
 layout_mode = 2
-text = "Contracts"
+text = "Food Delivery to Appa Station"
 
 [node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/ContractInspector/Info"]
-custom_minimum_size = Vector2(600, 0)
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
 [node name="Risk" type="Label" parent="Monitor/Terminal/ContractInspector/Info"]
@@ -148,11 +152,32 @@ text = "Risk: Low
 "
 
 [node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/ContractInspector"]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
 [node name="Description" type="Label" parent="Monitor/Terminal/ContractInspector"]
 layout_mode = 2
 text = "Lorem Ipsum blabablablablabla"
+
+[node name="Pay" type="Label" parent="Monitor/Terminal/ContractInspector"]
+layout_mode = 2
+text = "Pays: 10$ per Crate"
+
+[node name="HSeparator2" type="HSeparator" parent="Monitor/Terminal/ContractInspector"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="Monitor/Terminal/ContractInspector"]
+layout_mode = 2
+alignment = 1
+
+[node name="BackButton" type="Button" parent="Monitor/Terminal/ContractInspector/Buttons"]
+layout_mode = 2
+text = " [ BACK ] "
+
+[node name="AcceptButton" type="Button" parent="Monitor/Terminal/ContractInspector/Buttons"]
+layout_mode = 2
+text = " [ ACCEPT ] "
 
 [node name="Elevator" type="VBoxContainer" parent="Monitor/Terminal"]
 visible = false
@@ -216,6 +241,8 @@ offset_bottom = 128.0
 texture_normal = ExtResource("3_awf02")
 
 [connection signal="item_clicked" from="Monitor/Terminal/ContractsView/Contracts" to="." method="_on_contract_item_list_item_clicked"]
+[connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/AcceptButton" to="." method="_on_accept_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/Fuel/decrementFuelButton" to="." method="_on_decrement_fuel_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/Fuel/incrementFuelButton" to="." method="_on_increment_fuel_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/ContractCargo/decrementCargoButton" to="." method="_on_decrement_cargo_button_pressed"]

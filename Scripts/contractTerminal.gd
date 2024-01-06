@@ -16,9 +16,11 @@ var cargoslots = 0
 var fontSize = 50.0
 @export var flashMode = true
 @onready var flashLabel = $Monitor/Terminal/FlashLabel
+@onready var FundsLabel = $Monitor/Header/HBox/Funds
 var index = -1
 var flashText = ["SELECT A CONTRACT", "CLIMB UP! DEFEND!", "FALL BACK DOWN!"]
 var contracts = []
+var selectedContract : int
 var contractList
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,7 +46,7 @@ func getIcon(risk):
 				return RISK0
 
 func updateLabels():
-	$Monitor/Terminal/ContractsView/ContractsHeader/Funds.text = "Funds: "+str(Global.funds)+"$"
+	FundsLabel.text = "Current Account Balance: "+str(Global.funds)+"$"
 	$Monitor/Terminal/Elevator/Fuel/FuelLabel.text = "Fuel Units ("+str(fuelUnits)+")"
 	$Monitor/Terminal/Elevator/ContractCargo/CargoLabel.text = "Contracted Cargo ("+str(cargoCrates)+")"
 	$Monitor/Terminal/Elevator/ElevatorHeader.text = "Cargo Capacity: "+str(cargoslots)+"/"+str(Global.inventoryMaxSize)
@@ -56,11 +58,22 @@ func flashNext():
 	if index >= flashText.size():
 		flashMode = false
 		flashLabel.hide()
+		$Monitor/Header.show()
 		$Monitor/Terminal/ContractsView.show()
 		Audio.playSfx(FLASHBULB)
 	else:
 		flashLabel.text = flashText[index]
 		Audio.playSfx(FLASHBULB)
+
+func showContractInspector(contractID : int):
+	selectedContract = contractID
+	var contract = contracts[contractID]
+	$Monitor/Terminal/ContractInspector/Info/ShortDescription.text = contract.shortDescription
+	$Monitor/Terminal/ContractInspector/Info/Icon.set_texture(getIcon(contract.risk))
+	$Monitor/Terminal/ContractInspector/Description.text = contract.description
+	$Monitor/Terminal/ContractInspector/Pay.text = str(contract.pay)+"$ for each Crate"
+	$Monitor/Terminal/ContractInspector.show()
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -76,7 +89,8 @@ func _process(delta):
 func _on_contract_item_list_item_clicked(index, at_position, mouse_button_index):
 	#Just for low target but later this should deliver contract ID
 	$Monitor/Terminal/ContractsView.hide()
-	$Monitor/Terminal/Elevator.show()
+	showContractInspector(index)
+	#$Monitor/Terminal/Elevator.show()
 	pass # Replace with function body.
 
 
@@ -138,4 +152,17 @@ func _on_start_button_pressed():
 
 func _on_off_button_pressed():
 	Global.exitGame()
+	pass # Replace with function body.
+
+
+func _on_back_button_pressed():
+	#return from contract inspector to contracts overview
+	$Monitor/Terminal/ContractInspector.hide()
+	$Monitor/Terminal/ContractsView.show()
+	pass # Replace with function body.
+
+
+func _on_accept_button_pressed():
+	$Monitor/Terminal/ContractInspector.hide()
+	$Monitor/Terminal/Elevator.show()
 	pass # Replace with function body.
