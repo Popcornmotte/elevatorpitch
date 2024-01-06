@@ -4,25 +4,51 @@ const FLASHBULB = preload("res://Assets/Audio/sfx/flashbulb.wav")
 const ERROR = preload("res://Assets/Audio/sfx/error.wav")
 const CLICK = preload("res://Assets/Audio/sfx/click.wav")
 
+const RISK0 = preload("res://Assets/Sprites/UI/Contract.png")
+const RISK1 = preload("res://Assets/Sprites/UI/Contract1.png")
+const RISK2 = preload("res://Assets/Sprites/UI/Contract2.png")
+const ANARCHY = preload("res://Assets/Sprites/UI/ContractAnarchy.png")
+
 var fuelUnits = 0
 var cargoCrates = 0
 var cargoslots = 0
 
 var fontSize = 50.0
 @export var flashMode = true
-@onready var flashLabel = $Monitor/Terminal/FlashLabel 
+@onready var flashLabel = $Monitor/Terminal/FlashLabel
 var index = -1
-var flashText = ["SELECT A CONTRACT", "LOAD UP YOUR CARGO SPACE", "CLIMB UP! DEFEND! DELIVER!", "FALL BACK DOWN!"]
+var flashText = ["SELECT A CONTRACT", "CLIMB UP! DEFEND!", "FALL BACK DOWN!"]
+var contracts = []
+var contractList
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	updateLabels()
+	contractList = $Monitor/Terminal/ContractsView/Contracts
+	for i in range(5):
+		var contract = Contract.new()
+		contracts.append(contract)
+		contractList.add_item(contract.shortDescription, getIcon(contract.risk))
 	pass # Replace with function body.
 
+func getIcon(risk):
+		match risk:
+			0:
+				return RISK0
+			1:
+				return RISK1
+			2:
+				return RISK2
+			3:
+				return ANARCHY
+			_:
+				return RISK0
+
 func updateLabels():
-	$Monitor/Terminal/Contracts/ContractsHeader/Funds.text = "Funds: "+str(Global.funds)+"$"
+	$Monitor/Terminal/ContractsView/ContractsHeader/Funds.text = "Funds: "+str(Global.funds)+"$"
 	$Monitor/Terminal/Elevator/Fuel/FuelLabel.text = "Fuel Units ("+str(fuelUnits)+")"
 	$Monitor/Terminal/Elevator/ContractCargo/CargoLabel.text = "Contracted Cargo ("+str(cargoCrates)+")"
 	$Monitor/Terminal/Elevator/ElevatorHeader.text = "Cargo Capacity: "+str(cargoslots)+"/"+str(Global.inventoryMaxSize)
+
 
 func flashNext():
 	index += 1
@@ -30,7 +56,7 @@ func flashNext():
 	if index >= flashText.size():
 		flashMode = false
 		flashLabel.hide()
-		$Monitor/Terminal/Contracts.show()
+		$Monitor/Terminal/ContractsView.show()
 		Audio.playSfx(FLASHBULB)
 	else:
 		flashLabel.text = flashText[index]
@@ -49,7 +75,7 @@ func _process(delta):
 
 func _on_contract_item_list_item_clicked(index, at_position, mouse_button_index):
 	#Just for low target but later this should deliver contract ID
-	$Monitor/Terminal/Contracts.hide()
+	$Monitor/Terminal/ContractsView.hide()
 	$Monitor/Terminal/Elevator.show()
 	pass # Replace with function body.
 
