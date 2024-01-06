@@ -1,6 +1,13 @@
-extends GenericInteractible
+extends Node2D
 
 var controlArms=false
+var playerPresent = false
+
+
+func _input(event):
+	if Input.is_action_just_pressed("interact"):
+		if playerPresent:
+			use()
 
 func use():
 	controlArms=!controlArms#change whether arms are being controlled or not
@@ -11,3 +18,14 @@ func use():
 		else:
 			Global.player.zoomIn(true)
 
+
+
+func _on_arm_station_area_body_entered(body):
+	if body.name == "player":
+		playerPresent = true
+	pass # Replace with function body.
+
+
+func _on_arm_station_area_body_exited(body):
+	if body.name == "player":
+		playerPresent = false

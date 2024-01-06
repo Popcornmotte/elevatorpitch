@@ -20,16 +20,14 @@ var deploying = true
 var operatingMode=OPERATIONMODE.Normal
 
 func damaged():
-	if not extended:#let net fall down in case it is not deployed to show repair area
-		setDeployment(true)
-	repairStation.visible=true
+	repairStation.show()
 	repairStation.enableOptionalRepair()
 	operatingMode=OPERATIONMODE.Damaged
 
 func disable():
 	if not extended:#let net fall down in case it is not deployed to show repair area
 		setDeployment(true)
-	repairStation.visible=true
+	repairStation.show()
 	repairStation.enableRepair()
 	operatingMode=OPERATIONMODE.Broken
 
@@ -58,16 +56,34 @@ func _ready():
 	rightEnd = ropeArr[arrSize-1]
 	
 	#quickly hide and retract:
-	hide()
-	rope.process_mode = Node.PROCESS_MODE_DISABLED
+	#hide()
+	toggleVisibility(false)
+	#rope.process_mode = Node.PROCESS_MODE_DISABLED
 	setDeployment(false)
 
+func toggleVisibility(state : bool):
+	if !state: # meaning visible:
+		$LineLeft.hide()
+		$LineRight.hide()
+		$ArmLeft.hide()
+		$ArmRight.hide()
+		rope.hide()
+		rope.toggleCollision(false)
+		netPolygon.hide()
+	else:
+		$LineLeft.show()
+		$LineRight.show()
+		$ArmLeft.show()
+		$ArmRight.show()
+		rope.show()
+		rope.toggleCollision(true)
+		netPolygon.show()
 
 func setDeployment(deploy : bool):
 	animating = true
 	if deploy:
-		rope.process_mode = Node.PROCESS_MODE_INHERIT
-		show()
+		#rope.process_mode = Node.PROCESS_MODE_INHERIT
+		toggleVisibility(true)
 		deploying = true
 		$AnimationPlayer.play_backwards("retract")
 		extended = true
@@ -88,8 +104,8 @@ func _process(delta):
 	lineRight.points[1] = $ArmRight/UpperArm/LowerArm/Tip.global_position - global_position
 	lineRight.points[0] = $AnchorRightFollower.global_position - global_position
 
-	if !animating and get_parent().controlArms:
-		if extended and operatingMode!=OPERATIONMODE.Broken:
+	if !animating and get_parent().controlArms and operatingMode!=OPERATIONMODE.Broken:
+		if extended:
 			if Input.is_action_pressed("right"):
 				if($AnchorRight.position.x < maxDistance):
 					$AnchorRight.global_position.x += speed * delta
@@ -100,11 +116,11 @@ func _process(delta):
 					$AnchorRight.global_position.x -= speed * delta
 					$AnchorLeft.global_position.x -= speed * delta
 				#rope.global_position = $AnchorLeft.global_position
-			if Input.is_action_just_pressed("Q"):
-				if extended:
-					setDeployment(false)
-				else:
-					setDeployment(true)
+		if Input.is_action_just_pressed("Q"):
+			if extended:
+				setDeployment(false)
+			else:
+				setDeployment(true)
 	
 	if Input.is_action_just_pressed("Debug"):
 		print("AnchorRight: "+str($AnchorRight.position))
@@ -120,8 +136,8 @@ func _process(delta):
 	
 func _on_animation_player_animation_finished(anim_name):
 	if !extended:
-		hide()
-		rope.process_mode = Node.PROCESS_MODE_DISABLED
+		toggleVisibility(false)
+		#rope.process_mode = Node.PROCESS_MODE_DISABLED
 	animating = false
 
 
