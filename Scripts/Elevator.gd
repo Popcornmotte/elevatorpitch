@@ -70,13 +70,11 @@ func updateDisplay():
 func brokenModulesWarning():
 	warningDisplay.text="FAILURE IN "+ str(roundi(endTimer.get_time_left()))+"\nREPAIR NOW"
 	if not dropping:
-		if(sfxWarning):
-			if(!sfxWarning.playing):
-				sfxWarning = Audio.playSfx(REPAIRWARNING,true)
-		else:
+		if(!sfxWarning):
 			sfxWarning=Audio.playSfx(REPAIRWARNING,true)
-	else:
-		sfxWarning=null
+		if(!sfxWarning.playing):
+			sfxWarning=Audio.playSfx(REPAIRWARNING,true)
+			
 			
 func newBrokenModule():
 	if numberOperationalModules>0:
@@ -94,6 +92,8 @@ func newFixedModule():
 		if numberOperationalModules==minOperationalModules+1:
 			operationalDisplay.show()
 			warningDisplay.hide()
+			if sfxWarning:
+				sfxWarning.stop()
 			warningBrokenModules=false
 			endTimer.stop()
 			warningDisplay.clear()
@@ -205,5 +205,5 @@ func startFuelTutorial():
 
 func _on_end_timer_timeout():
 	dropping=true
-	sfxWarning=null
+	sfxWarning.stop()
 	dropElevator(true)#activate gameover scene

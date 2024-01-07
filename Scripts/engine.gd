@@ -25,20 +25,22 @@ func startEngine():
 		stopped = false
 		animation.play("EngineJiggle")
 		sprite.play()
-		#stream = startup
-		#play()
+		stream = startup
+		play()
 
 func stopEngine():
-	stopped = true
-	animation.pause()
-	sprite.pause()
-	#stream = shutoff
-	#play()
-
+	if(!stopped):
+		stopped = true
+		animation.pause()
+		sprite.pause()
+		stream = shutoff
+		play()
+	
 func _on_finished():
 	if(!stopped && Global.elevator.fuel > 0):
 		stream = loop
-		#play()
+		play()
+		pass
 	elif(!stopped):
-		#stopEngine()
+		stopEngine()
 		pass
