@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://ch4gaqg5mdxnq"]
+[gd_scene load_steps=12 format=3 uid="uid://ch4gaqg5mdxnq"]
 
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/arclightProjector.gd" id="1_6tuwf"]
 [ext_resource type="Texture2D" uid="uid://cbah0uno2miyx" path="res://Assets/Sprites/Modules/arclightProjector.png" id="1_jf7n5"]
 [ext_resource type="Texture2D" uid="uid://dk8bw6b5qb0uv" path="res://Assets/Sprites/Modules/arclightCharge.png" id="2_5tjw7"]
+[ext_resource type="AudioStream" uid="uid://bm6jep42kms2m" path="res://Assets/Audio/sfx/modules/arcLoop.wav" id="4_a2ea3"]
 
 [sub_resource type="Curve" id="Curve_xi0o5"]
 _data = [Vector2(0, 0), 0.0, 2.62008, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -67,3 +68,6 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_x3i65")
 autoplay = "default"
 frame_progress = 0.061767
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_a2ea3")

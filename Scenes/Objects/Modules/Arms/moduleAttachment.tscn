@@ -1,10 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://da4m2la28h4n3"]
+[gd_scene load_steps=28 format=3 uid="uid://da4m2la28h4n3"]
 
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/armModuleHandler.gd" id="1_lx6vx"]
 [ext_resource type="Texture2D" uid="uid://dr6vonga67o7v" path="res://Assets/Sprites/Modules/parry.png" id="2_pvm84"]
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/shield.gd" id="2_xnrre"]
 [ext_resource type="Texture2D" uid="uid://cfxs00gu07iny" path="res://Assets/Sprites/Modules/shield.png" id="3_ic3qt"]
+[ext_resource type="AudioStream" uid="uid://b04hwa5pry37j" path="res://Assets/Audio/sfx/modules/shieldLoop.wav" id="5_a1g31"]
 [ext_resource type="Texture2D" uid="uid://x42xx4fntgjy" path="res://Assets/Sprites/Modules/mask.png" id="6_a6ksk"]
+[ext_resource type="AudioStream" uid="uid://b3xbfjjy2xxnx" path="res://Assets/Audio/sfx/modules/shieldDeflect.wav" id="6_om1pr"]
+[ext_resource type="AudioStream" uid="uid://8y4p153hql4d" path="res://Assets/Audio/sfx/modules/arcFail.wav" id="7_wm4aq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e2ajw"]
 atlas = ExtResource("2_pvm84")
@@ -102,6 +105,21 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_jvgfc"]
 radius = 64.4981
 
+[sub_resource type="Animation" id="Animation_l8npa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaskingGroup/AnimationParent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-64, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_xt5gd"]
 resource_name = "extend_module"
 length = 0.5
@@ -116,21 +134,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(2, 0.517632, 1),
 "update": 0,
 "values": [Vector2(-64, 0), Vector2(8, 0), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_l8npa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MaskingGroup/AnimationParent:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-64, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_1g7fp"]
@@ -182,6 +185,7 @@ autoplay = "default"
 frame_progress = 0.479865
 
 [node name="Text" type="RichTextLabel" parent="Shield"]
+visible = false
 offset_left = 88.0
 offset_top = -96.0
 offset_right = 168.0
@@ -191,7 +195,17 @@ text = "Inactive"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
 shape = SubResource("CircleShape2D_jvgfc")
 
+[node name="AudioLoop" type="AudioStreamPlayer2D" parent="Shield"]
+stream = ExtResource("5_a1g31")
+
+[node name="AudioDeflect" type="AudioStreamPlayer2D" parent="Shield"]
+stream = ExtResource("6_om1pr")
+
+[node name="AudioAbsorb" type="AudioStreamPlayer2D" parent="Shield"]
+stream = ExtResource("7_wm4aq")
+
 [node name="Text" type="RichTextLabel" parent="."]
+visible = false
 offset_top = -96.0
 offset_right = 112.0
 offset_bottom = -56.0

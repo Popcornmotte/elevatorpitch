@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bun3b3wjvo2gd"]
+[gd_scene load_steps=15 format=3 uid="uid://bun3b3wjvo2gd"]
 
 [ext_resource type="Texture2D" uid="uid://br05p2ecxecmc" path="res://Assets/Sprites/Modules/arclightLine.png" id="1_5pmg4"]
 [ext_resource type="Shader" uid="uid://ds20jdccrgpyj" path="res://Shader/animatedLine2D.tres" id="1_nh6r8"]
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/arclightBolt.gd" id="3_1556o"]
 [ext_resource type="Texture2D" uid="uid://dr6vonga67o7v" path="res://Assets/Sprites/Modules/parry.png" id="4_lsxm6"]
+[ext_resource type="AudioStream" uid="uid://8y4p153hql4d" path="res://Assets/Audio/sfx/modules/arcFail.wav" id="5_nc0og"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_isnnf"]
 shader = ExtResource("1_nh6r8")
@@ -76,3 +77,6 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_vb7cd")
 frame = 5
 frame_progress = 1.0
+
+[node name="Spark" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_nc0og")

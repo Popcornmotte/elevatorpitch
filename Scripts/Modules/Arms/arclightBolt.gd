@@ -1,5 +1,11 @@
 extends Line2D
 
+const bolt0 = preload("res://Assets/Audio/sfx/modules/arcBolt0.wav")
+const bolt1 = preload("res://Assets/Audio/sfx/modules/arcBolt1.wav")
+const bolt2 = preload("res://Assets/Audio/sfx/modules/arcBolt2.wav")
+
+const audio = [bolt0, bolt1, bolt2]
+
 var charge = -1
 var linePoints : PackedVector2Array
 var widths : Array[float]
@@ -21,11 +27,14 @@ func _process(delta):
 			return
 		if charge > 0:
 			shot = true
+			$Spark.play()
 			if Global.aliveEnemies == 0:
 				$Fail.play()
 			else:
 				performSearch(null, global_position)
 				finalize()
+				if linePoints.size() > 1:
+					Audio.playSfx(audio.pick_random())
 	pass
 
 

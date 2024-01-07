@@ -3,15 +3,20 @@ extends GenericArmModule
 const FLAME = preload("res://Scenes/Objects/Modules/Arms/flameProjectile.tscn")
 @export var emissionFrequency = 5
 @onready var emissionCooldown = 1/emissionFrequency
+var audioPos = 0.0
 
 func activate():
 	active = true
 	parent.claw.setGrabLock(true, false)
+	$Audio.play()
+	$Audio.seek(audioPos)
 	pass
 	
 func deactivate():
 	active = false
 	parent.claw.setGrabLock(false, false)
+	audioPos = $Audio.get_playback_position()
+	$Audio.stop()
 	pass
 
 func _process(delta):

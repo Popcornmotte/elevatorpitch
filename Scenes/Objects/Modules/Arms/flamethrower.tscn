@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dprtymj748rxh"]
+[gd_scene load_steps=7 format=3 uid="uid://dprtymj748rxh"]
 
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/flamethrower.gd" id="1_qsif3"]
 [ext_resource type="Texture2D" uid="uid://ddt25f20fxtnv" path="res://Assets/Sprites/Modules/flamethrower.png" id="2_lfsne"]
+[ext_resource type="AudioStream" uid="uid://cdogujwkbdv" path="res://Assets/Audio/sfx/modules/flamethrowerLoop.wav" id="3_hpk1v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yj78y"]
 atlas = ExtResource("2_lfsne")
@@ -37,3 +38,7 @@ position = Vector2(32, 0)
 sprite_frames = SubResource("SpriteFrames_desuy")
 autoplay = "default"
 frame_progress = 0.818668
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(56, 0)
+stream = ExtResource("3_hpk1v")
