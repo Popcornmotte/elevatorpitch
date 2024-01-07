@@ -69,9 +69,9 @@ func showContractInspector(contractID : int):
 	selectedContract = contractID
 	var contract = contracts[contractID]
 	$Monitor/Terminal/ContractInspector/Info/ShortDescription.text = contract.shortDescription
-	$Monitor/Terminal/ContractInspector/Info/Icon.set_texture(getIcon(contract.risk))
+	$Monitor/Terminal/ContractInspector/Info/Icon.set_texture(getIcon(contract.risk+randi_range(0,2)))
 	$Monitor/Terminal/ContractInspector/Description.text = contract.description
-	$Monitor/Terminal/ContractInspector/Pay.text = str(contract.pay)+"$ for each Crate"
+	$Monitor/Terminal/ContractInspector/Pay.text = str(contract.pay+randi_range(-5,20))+"$ for each Crate"
 	$Monitor/Terminal/ContractInspector.show()
 	pass
 

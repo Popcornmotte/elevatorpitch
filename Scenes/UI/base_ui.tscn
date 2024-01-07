@@ -234,11 +234,13 @@ layout_mode = 2
 text = "[ START ASCENSION ]"
 
 [node name="OffButton" type="TextureButton" parent="Monitor"]
-offset_left = 456.0
-offset_top = 88.0
-offset_right = 496.0
-offset_bottom = 128.0
+offset_left = 435.0
+offset_top = 67.7494
+offset_right = 507.0
+offset_bottom = 141.749
 texture_normal = ExtResource("3_awf02")
+stretch_mode = 3
+metadata/_edit_lock_ = true
 
 [connection signal="item_clicked" from="Monitor/Terminal/ContractsView/Contracts" to="." method="_on_contract_item_list_item_clicked"]
 [connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/BackButton" to="." method="_on_back_button_pressed"]
