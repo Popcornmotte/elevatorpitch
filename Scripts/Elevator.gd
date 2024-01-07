@@ -27,7 +27,7 @@ var maximumOperationalModules=5
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
 @onready var engineSFX = $HullBody/Engine/EngineSound
-@onready var operationalDisplay= $interior/Display/Operational/MarginContainer/RichTextLabel
+@onready var operationalDisplay= $interior/DisplayText/Operational/MarginContainer/RichTextLabel
 
 func _enter_tree():
 	Global.elevator = self
@@ -47,8 +47,18 @@ func _ready():
 	pass # Replace with function body.
 
 func updateDisplay():
-	operationalDisplay.text="Operational: "+str(numberOperationalModules)+ " / 5"
-
+	print("updating display to:",numberOperationalModules)
+	if numberOperationalModules>maximumOperationalModules/2:
+		operationalDisplay.clear()
+		operationalDisplay.append_text("[color=green]%s[/color]"%["Operational: "+str(numberOperationalModules)+ " / 5"])
+	if numberOperationalModules<=maximumOperationalModules/2 and numberOperationalModules>0:
+		operationalDisplay.clear()
+		operationalDisplay.append_text("[color=orange]%s[/color]"%["Operational: "+str(numberOperationalModules)+ " / 5"])
+	if numberOperationalModules==0:
+		operationalDisplay.clear()
+		operationalDisplay.append_text("[color=red]%s[/color]"%["Operational: "+str(numberOperationalModules)+ " / 5"])
+		
+	
 func newBrokenModule():
 	if numberOperationalModules>0:
 		numberOperationalModules-=1
@@ -79,10 +89,8 @@ func control(isControlled : bool):
 
 func takeDamage(damage:int,type):
 	#type is currently ignored in elevator
-	print("Eleveator took damage: ", damage)
 	health -= damage
 	var moduleToDamage=breakableModules[randi()%breakableModules.size()]
-	print("damage is propagated to: ", moduleToDamage)
 	moduleToDamage.damage(damage)
 	update_health()
 	pass
@@ -96,7 +104,7 @@ func on_area_entered(area : Area2D):
 func update_health():
 	if(!dropping):
 		if(health <= 0):
-			dropElevator()
+			#dropElevator()
 			return
 		healthBar.scale = Vector2(health / maxHealth, 1)
 	pass

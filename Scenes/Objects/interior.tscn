@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=37 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
@@ -14,8 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://carwfjsbvtpt" path="res://Scenes/Objects/dispenser.tscn" id="16_i5pwy"]
 [ext_resource type="PackedScene" uid="uid://c7pe1q2xscf8x" path="res://Scenes/Objects/engine_drop_button.tscn" id="16_pnqvl"]
 [ext_resource type="FontFile" uid="uid://dgd0hsl0u56xs" path="res://Fonts/m5x7.ttf" id="17_r7idb"]
+[ext_resource type="Texture2D" uid="uid://l7286pcfrrps" path="res://Assets/Sprites/InteriorObjects/display.png" id="17_t4obn"]
 [ext_resource type="PackedScene" uid="uid://6hicfxna1rk5" path="res://Scenes/Objects/door.tscn" id="17_wh202"]
 [ext_resource type="Texture2D" uid="uid://cdctfqbg3nsb5" path="res://Assets/Sprites/InteriorObjects/catwalk.png" id="18_y582k"]
+[ext_resource type="Texture2D" uid="uid://bldfhk10xo5wu" path="res://Assets/Sprites/InteriorObjects/displayDetails.png" id="19_4yh2b"]
 [ext_resource type="Texture2D" uid="uid://3ddthobiwpmc" path="res://Assets/Sprites/InteriorObjects/catwalkBackground.png" id="19_8e5sh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
@@ -102,7 +104,7 @@ MarginContainer/constants/margin_right = 2
 MarginContainer/constants/margin_top = 2
 
 [sub_resource type="Theme" id="Theme_dxorq"]
-RichTextLabel/colors/default_color = Color(0.0470588, 0.65098, 0, 1)
+RichTextLabel/colors/default_color = Color(0.0470588, 1, 0, 1)
 RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.490196)
 RichTextLabel/constants/shadow_outline_size = 0
 RichTextLabel/fonts/normal_font = ExtResource("17_r7idb")
@@ -419,25 +421,34 @@ position = Vector2(-22, -52)
 [node name="EngineDropButton" parent="." instance=ExtResource("16_pnqvl")]
 position = Vector2(-1, -49)
 
-[node name="Display" type="Node2D" parent="."]
-position = Vector2(-13, -13)
+[node name="DisplayBackground" type="Sprite2D" parent="."]
+position = Vector2(-2, -22)
+texture = ExtResource("17_t4obn")
+
+[node name="DisplayText" type="Node2D" parent="."]
+position = Vector2(-12, -17)
 scale = Vector2(0.5, 0.5)
 
-[node name="Operational" type="MarginContainer" parent="Display"]
+[node name="Operational" type="MarginContainer" parent="DisplayText"]
 offset_left = -32.0
 offset_top = -34.0
 offset_right = 74.0
 offset_bottom = -8.0
 theme = SubResource("Theme_6f1hf")
 
-[node name="ColorRect" type="ColorRect" parent="Display/Operational"]
+[node name="ColorRect" type="ColorRect" parent="DisplayText/Operational"]
+visible = false
 layout_mode = 2
 color = Color(0.211765, 0.211765, 0.211765, 0.615686)
 
-[node name="MarginContainer" type="MarginContainer" parent="Display/Operational"]
+[node name="MarginContainer" type="MarginContainer" parent="DisplayText/Operational"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Display/Operational/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="DisplayText/Operational/MarginContainer"]
 layout_mode = 2
 theme = SubResource("Theme_dxorq")
 text = "Operational: "
+
+[node name="DisplayDetails" type="Sprite2D" parent="."]
+position = Vector2(-2, -22)
+texture = ExtResource("19_4yh2b")
