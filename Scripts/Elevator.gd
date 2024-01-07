@@ -30,7 +30,7 @@ var sfxWarning
 @onready var endTimer=$EndTimer
 var warningBrokenModules=false
 const REPAIRWARNING = preload("res://Assets/Audio/sfx/repairTimer.wav")
-
+var explosion = preload("res://Scenes/Objects/explosion.tscn")
 
 func _enter_tree():
 	Global.elevator = self
@@ -44,6 +44,10 @@ func dropElevator(gameOver=false):#drops the elvator for example on finished gam
 		get_parent().setGameOver(gameOver)
 		get_parent().get_node("LevelFinish").get_node("EndTimer").start()#start timer and drop elevator
 		$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
+		if gameOver:
+			var newExplosion = explosion.instantiate()
+			newExplosion.global_position = global_position
+			get_parent().call_deferred("add_child",newExplosion)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control(controlArms)
@@ -71,6 +75,8 @@ func brokenModulesWarning():
 				sfxWarning = Audio.playSfx(REPAIRWARNING,true)
 		else:
 			sfxWarning=Audio.playSfx(REPAIRWARNING,true)
+	else:
+		sfxWarning=null
 			
 func newBrokenModule():
 	if numberOperationalModules>0:
@@ -198,4 +204,6 @@ func startFuelTutorial():
 
 
 func _on_end_timer_timeout():
+	dropping=true
+	sfxWarning=null
 	dropElevator(true)#activate gameover scene

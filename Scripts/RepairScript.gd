@@ -1,7 +1,6 @@
 extends GenericInteractible
 
 const REPAIR = preload("res://Assets/Audio/sfx/repair.wav")
-const REPAIRNEEDED = preload("res://Assets/Audio/sfx/repairNeeded.wav")
 enum PARENTOBJECT {Arm, Brake, Net, ElevatorEngine}#settable parent object to select correct animation
 @export var parent=PARENTOBJECT.Arm
 @export var repairInterior:bool
@@ -38,7 +37,6 @@ func enableOptionalRepair():
 	if mirrorAnimation:#flip according to bool 
 		$RepairArea/RepairAnimatedSprite2D.flip_h=true
 	$RepairArea/Sparks.emitting = true
-	#Audio.playSfx(REPAIRNEEDED)
 		
 #has to be repaired
 func enableRepair():
@@ -63,8 +61,6 @@ func enableRepair():
 	if mirrorAnimation:#flip according to bool 
 		$RepairArea/RepairAnimatedSprite2D.flip_h=true
 	$RepairArea/Sparks.emitting = true
-	#Audio.playSfx(REPAIRNEEDED)
-
 	
 func repair():
 	if $RepairArea/RepairTimer.paused:

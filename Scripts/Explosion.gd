@@ -2,7 +2,11 @@ extends DeleteSelf
 
 @export var damage = 150.0
 var dealtDamageTo = []
+const BOOM = preload("res://Assets/Audio/sfx/explosion.wav")
 
+func _ready():
+	Audio.playSfx(BOOM)
+	
 func onAreaEntered(other : Node2D):
 	print("Checking " + other.name)
 	if dealtDamageTo.has(other):

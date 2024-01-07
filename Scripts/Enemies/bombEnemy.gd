@@ -1,7 +1,6 @@
 extends Enemy
 
 const THUDS = [preload("res://Assets/Audio/sfx/wood_thud0.wav"), preload("res://Assets/Audio/sfx/wood_thud1.wav"), preload("res://Assets/Audio/sfx/wood_thud2.wav")]
-const BOOM = preload("res://Assets/Audio/sfx/explosion.wav")
 
 var explosion = preload("res://Scenes/Objects/explosion.tscn")
 var engine = preload("res://Scenes/Objects/Enemies/low_bomb_engine.tscn")
@@ -31,7 +30,6 @@ func _on_body_entered(body):
 			Audio.playSfx(THUDS.pick_random())
 
 func explode():
-	Audio.playSfx(BOOM)
 	var newExplosion = explosion.instantiate()
 	newExplosion.global_position = global_position
 	get_parent().call_deferred("add_child",newExplosion)
