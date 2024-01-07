@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=57 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
