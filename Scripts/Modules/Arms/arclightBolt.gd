@@ -48,7 +48,7 @@ func performSearch(startEnemy, previousPos : Vector2):
 	
 	var reachDist = maxDist * (charge/maxCharge)
 	var nextEnemy = findNearestEnemy(startPos)
-	if !startEnemy and startPos.distance_to(nextEnemy.global_position) > reachDist:
+	if !startEnemy and (!nextEnemy or startPos.distance_to(nextEnemy.global_position) > reachDist):
 		$Fail.play()
 		return
 	
