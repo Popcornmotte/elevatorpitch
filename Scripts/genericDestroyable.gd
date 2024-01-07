@@ -15,7 +15,6 @@ func damage(damage:int):
 		damaged()
 	elif health<=0:
 		if update: 
-			print("new broken module")
 			Global.elevator.newBrokenModule()
 			update=false
 		disable()

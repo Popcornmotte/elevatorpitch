@@ -8,6 +8,7 @@ var dropping = false
 var speed = 0.0
 var leakingFuel=false
 var numberOperationalModules=5
+var minOperationalModules=2
 var maximumOperationalModules=5
 #modules which can be broken by incoming damage
 @onready var breakableModules=[$interior/Brake, $Net, $HullBody/Engine]
@@ -27,7 +28,10 @@ var maximumOperationalModules=5
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
 @onready var engineSFX = $HullBody/Engine/EngineSound
-@onready var operationalDisplay= $interior/DisplayText/Operational/MarginContainer/RichTextLabel
+@onready var operationalDisplay= $interior/DisplayText/Operational/MarginContainer/RichTextLabelDisplay
+@onready var warningDisplay= $interior/DisplayText/MarginContainerWarning/RichTextLabelWarning
+@onready var endTimer=$EndTimer
+var warningBrokenModules=false
 
 func _enter_tree():
 	Global.elevator = self
@@ -47,26 +51,38 @@ func _ready():
 	pass # Replace with function body.
 
 func updateDisplay():
-	print("updating display to:",numberOperationalModules)
-	if numberOperationalModules>maximumOperationalModules/2:
+	if numberOperationalModules>4:
 		operationalDisplay.clear()
-		operationalDisplay.append_text("[color=green]%s[/color]"%["Operational: "+str(numberOperationalModules)+ " / 5"])
-	if numberOperationalModules<=maximumOperationalModules/2 and numberOperationalModules>0:
+		operationalDisplay.append_text("[color=green]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
+	if numberOperationalModules==4||numberOperationalModules==3:
 		operationalDisplay.clear()
-		operationalDisplay.append_text("[color=orange]%s[/color]"%["Operational: "+str(numberOperationalModules)+ " / 5"])
-	if numberOperationalModules==0:
+		operationalDisplay.append_text("[color=orange]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
+	if numberOperationalModules<=minOperationalModules:
 		operationalDisplay.clear()
-		operationalDisplay.append_text("[color=red]%s[/color]"%["Operational: "+str(numberOperationalModules)+ " / 5"])
+		operationalDisplay.append_text("[color=red]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
 		
-	
+func brokenModulesWarning():
+	warningDisplay.text="FAILURE IN "+ str(roundi(endTimer.get_time_left()))+"\nREPAIR NOW"
+
 func newBrokenModule():
 	if numberOperationalModules>0:
 		numberOperationalModules-=1
+		if numberOperationalModules==minOperationalModules:
+			operationalDisplay.hide()
+			warningDisplay.show()
+			warningBrokenModules=true
+			endTimer.start()
 		updateDisplay()
 	
 func newFixedModule():
 	if numberOperationalModules<maximumOperationalModules:
 		numberOperationalModules+=1
+		if numberOperationalModules==minOperationalModules+1:
+			operationalDisplay.show()
+			warningDisplay.hide()
+			warningBrokenModules=false
+			endTimer.stop()
+			warningDisplay.clear()
 		updateDisplay()
 	
 func moveFast():
@@ -148,8 +164,10 @@ func updateFuel():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if warningBrokenModules:
+		brokenModulesWarning()
 	if leakingFuel:
-		decrease_fuel(delta* 0.1)
+		decrease_fuel(delta* 0.001)
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
@@ -179,3 +197,7 @@ func _on_animation_player_elevator_animation_finished(anim_name):
 func startFuelTutorial():
 	if $Tutorial/FuelPlace:
 		$Tutorial/FuelPlace.open()
+
+
+func _on_end_timer_timeout():
+	dropElevator()

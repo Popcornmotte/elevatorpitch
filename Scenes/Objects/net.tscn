@@ -123,7 +123,6 @@ modification_stack = SubResource("SkeletonModificationStack2D_gi01s")
 
 [node name="UpperArm" type="Bone2D" parent="ArmLeft"]
 rest = Transform2D(1, 0, 0, 1, 0, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="upperArm" type="Sprite2D" parent="ArmLeft/UpperArm"]
 position = Vector2(-64, 0)
@@ -132,7 +131,6 @@ texture = ExtResource("3_jqhew")
 [node name="LowerArm" type="Bone2D" parent="ArmLeft/UpperArm"]
 position = Vector2(-128, 0)
 rest = Transform2D(1, 0, 0, 1, -128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="lowerArm" type="Sprite2D" parent="ArmLeft/UpperArm/LowerArm"]
 position = Vector2(-64, 0)
@@ -152,7 +150,6 @@ modification_stack = SubResource("SkeletonModificationStack2D_3nyc3")
 
 [node name="UpperArm" type="Bone2D" parent="ArmRight"]
 rest = Transform2D(1, 0, 0, 1, 0, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="ArmRight/UpperArm"]
 position = Vector2(-64, 0)
@@ -161,7 +158,6 @@ texture = ExtResource("3_jqhew")
 [node name="LowerArm" type="Bone2D" parent="ArmRight/UpperArm"]
 position = Vector2(-128, 0)
 rest = Transform2D(1, 0, 0, 1, -128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="ArmRight/UpperArm/LowerArm"]
 position = Vector2(-64, 0)
