@@ -56,6 +56,7 @@ func defuse():
 
 func die():
 	Global.aliveEnemies -= 1
+	Global.enemies.erase(self)
 	call_deferred("queue_free")
 	
 

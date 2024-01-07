@@ -37,11 +37,17 @@ var elevatorPos : Vector2
 
 #possible stolen loot to take away
 var loot
+# Start burning after being engulfed in flames for a second
+var timeSpentInFire = 0.0
+var timeOnFire = 0.0
+var intersectingFlameParticles = 0
+
 #debug marker
 var dbm
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.aliveEnemies += 1
+	Global.enemies.push_back(self)
 	elevatorPos = Global.elevator.global_position
 	if weapon != null:
 		attackTime = weapon.reloadTime * attacksPerTurn
@@ -86,6 +92,7 @@ func release(linVel):
 func die():
 	dead = true
 	Global.aliveEnemies -= 1
+	Global.enemies.erase(self)
 	gravity_scale = 1
 
 func takeDamage(damage : int, type):
@@ -194,5 +201,18 @@ func _process(delta):
 		dbm = debugmarker.instantiate()
 		get_parent().add_child(dbm)
 		dbm.global_position = target
+	
+	if intersectingFlameParticles > 0:
+		timeSpentInFire += delta
+		if(timeSpentInFire > 0.5):
+			timeOnFire = 3
+	elif timeSpentInFire > 0:
+		timeSpentInFire -= 2 * delta
+	if timeOnFire > 0 or timeSpentInFire > 0:
+		timeOnFire -= delta
+		takeDamage(10 * delta, 3)
+	if $Flame:
+		$Flame.visible = timeOnFire > 0
+
 	if(reload>0):reload-=delta
 	pass

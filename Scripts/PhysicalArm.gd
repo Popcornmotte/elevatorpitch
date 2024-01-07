@@ -23,12 +23,20 @@ var lowerArmLength = 0.0
 
 @export var left = false
 @onready var repairStation=find_child("RepairArea")
+var upperArmMass = 0.0
+var lowerArmMass = 0.0
+var clawMass = 0.0
+
+var aimClaw = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	upperArmPhys = find_child("UpperArm")
+	upperArmMass = upperArmPhys.mass
 	lowerArmPhys = find_child("LowerArm")
+	lowerArmMass = lowerArmPhys.mass
 	clawPhys = find_child("Claw")
+	clawMass = clawPhys.mass
 	sparks = upperArmPhys.find_child("Sparks")
 	
 	lowerArmLength = lowerArmPhys.global_position.distance_to(clawPhys.global_position)
@@ -44,7 +52,12 @@ func _physics_process(delta):
 	if(functional):
 		rotatePart(delta, upperArmPhys, upperArmRef)
 		rotatePart(delta, lowerArmPhys, lowerArmRef)
-		rotatePart(delta, clawPhys, clawRef)
+		if !aimClaw:
+			rotatePart(delta, clawPhys, clawRef)
+		else:
+			var angle = upperArmPhys.global_position.direction_to(clawPhys.global_position).angle()
+			var diff = angle_difference(clawPhys.global_rotation, angle)
+			clawPhys.angular_velocity = diff * acceleration * delta
 	pass
 	
 func _integrate_forces(state):
@@ -71,9 +84,12 @@ func disable():
 	repairStation.enable()
 	functional = false
 	sparks.emitting = true
-	upperArmPhys.gravity_scale = 10
-	lowerArmPhys.gravity_scale = 10
-	clawPhys.gravity_scale = 10
+	upperArmPhys.gravity_scale = 1
+	upperArmPhys.mass = 10
+	lowerArmPhys.gravity_scale = 1
+	lowerArmPhys.mass = 10
+	clawPhys.gravity_scale = 1
+	clawPhys.mass = 10
 	if !Global.tutorialsCompleted[3]:
 		firstDestroyed.emit()
 	
@@ -82,6 +98,9 @@ func repaired():
 	functional = true
 	sparks.emitting = false
 	upperArmPhys.gravity_scale = 0
+	upperArmPhys.mass = upperArmMass
 	lowerArmPhys.gravity_scale = 0
+	lowerArmPhys.mass = lowerArmMass
 	clawPhys.gravity_scale = 0
+	clawPhys.mass = clawMass
 	Global.tutorialsCompleted[3] = true

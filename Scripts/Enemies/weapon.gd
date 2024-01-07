@@ -26,7 +26,7 @@ func _ready():
 		nozzlePosX = $Nozzle.position.x
 
 func flipH(arg : bool):
-	$Sprite.flip_h = arg
+	$Sprite.set_flip_h(arg)
 	if arg:
 		if ranged:
 			$Nozzle.position.x = -nozzlePosX

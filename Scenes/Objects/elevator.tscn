@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=72 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -23,7 +23,9 @@
 [ext_resource type="Texture2D" uid="uid://bb36mwhht2hya" path="res://Assets/Sprites/spark.png" id="11_eb7jo"]
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="17_epo4g"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
+[ext_resource type="PackedScene" uid="uid://da4m2la28h4n3" path="res://Scenes/Objects/Modules/Arms/moduleAttachment.tscn" id="21_7g4is"]
 [ext_resource type="PackedScene" uid="uid://sdnx788wgxud" path="res://Scenes/Objects/arm_target.tscn" id="21_fuon1"]
+[ext_resource type="Texture2D" uid="uid://c5aykdr7678h" path="res://Assets/Sprites/Claws/Test0/TestClaw2.png" id="22_gvx6l"]
 [ext_resource type="Shader" uid="uid://dqaejjhskwfic" path="res://Assets/Shaders/alphaPulse.tres" id="26_3tmyj"]
 [ext_resource type="Texture2D" uid="uid://b0ppts6vp0e7c" path="res://Assets/Sprites/ElevatorBody/Chutes.png" id="26_gdchp"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="27_ahenx"]
@@ -199,6 +201,10 @@ height = 120.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_xb8wr"]
 radius = 13.3417
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbhoy"]
+atlas = ExtResource("22_gvx6l")
+region = Rect2(0, 0, 64, 128)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_4fprc"]
 animations = [{
 "frames": [{
@@ -215,6 +221,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbhoy")
+}],
+"loop": true,
+"name": &"shield",
 "speed": 5.0
 }]
 
@@ -636,6 +650,8 @@ node_b = NodePath("..")
 position = Vector2(138, 0)
 script = ExtResource("9_ltb0c")
 
+[node name="ModuleAttachment" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" instance=ExtResource("21_7g4is")]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw"]
 position = Vector2(6, 0)
 shape = SubResource("CircleShape2D_xb8wr")
@@ -749,6 +765,9 @@ node_b = NodePath("..")
 [node name="Claw" type="RigidBody2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm"]
 position = Vector2(138, 0)
 script = ExtResource("9_ltb0c")
+
+[node name="ModuleAttachment" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" instance=ExtResource("21_7g4is")]
+left = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw"]
 position = Vector2(6, 0)
@@ -1075,6 +1094,8 @@ shape = SubResource("RectangleShape2D_xwhif")
 [connection signal="animation_finished" from="EndAnimation" to="." method="_on_animation_player_elevator_animation_finished"]
 [connection signal="body_entered" from="Tutorial/DispenserTrigger" to="Tutorial/Dispenser" method="_on_area_2d_body_entered"]
 
+[editable path="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/ModuleAttachment"]
+[editable path="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/ModuleAttachment"]
 [editable path="interior"]
 [editable path="Tutorial/FuelPlace"]
 [editable path="Tutorial/Valve"]

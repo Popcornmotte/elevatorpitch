@@ -326,6 +326,12 @@ autoplay = false
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 scale = Vector2(1, 1)
 
+[node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" index="0"]
+active = false
+
+[node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" index="0"]
+active = false
+
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
 position = Vector2(0, 6)
 
@@ -521,7 +527,6 @@ offset_bottom = 21.0
 [node name="RichTextLabel" parent="Tutorial/BrakeText/Textfield/MarginContainer" index="0"]
 text = "W/S -> Change speed"
 
-[connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="area_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="open"]

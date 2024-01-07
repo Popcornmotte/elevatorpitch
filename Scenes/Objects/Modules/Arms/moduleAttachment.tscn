@@ -1,0 +1,233 @@
+[gd_scene load_steps=28 format=3 uid="uid://da4m2la28h4n3"]
+
+[ext_resource type="Script" path="res://Scripts/Modules/Arms/armModuleHandler.gd" id="1_lx6vx"]
+[ext_resource type="Texture2D" uid="uid://dr6vonga67o7v" path="res://Assets/Sprites/Modules/parry.png" id="2_pvm84"]
+[ext_resource type="Script" path="res://Scripts/Modules/Arms/shield.gd" id="2_xnrre"]
+[ext_resource type="Texture2D" uid="uid://cfxs00gu07iny" path="res://Assets/Sprites/Modules/shield.png" id="3_ic3qt"]
+[ext_resource type="AudioStream" uid="uid://b04hwa5pry37j" path="res://Assets/Audio/sfx/modules/shieldLoop.wav" id="5_a1g31"]
+[ext_resource type="Texture2D" uid="uid://x42xx4fntgjy" path="res://Assets/Sprites/Modules/mask.png" id="6_a6ksk"]
+[ext_resource type="AudioStream" uid="uid://b3xbfjjy2xxnx" path="res://Assets/Audio/sfx/modules/shieldDeflect.wav" id="6_om1pr"]
+[ext_resource type="AudioStream" uid="uid://8y4p153hql4d" path="res://Assets/Audio/sfx/modules/arcFail.wav" id="7_wm4aq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2ajw"]
+atlas = ExtResource("2_pvm84")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_muan7"]
+atlas = ExtResource("2_pvm84")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3xla"]
+atlas = ExtResource("2_pvm84")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5t8h8"]
+atlas = ExtResource("2_pvm84")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ug4yv"]
+atlas = ExtResource("2_pvm84")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvn06"]
+atlas = ExtResource("2_pvm84")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cf0p7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2ajw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_muan7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3xla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5t8h8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ug4yv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvn06")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mtr2"]
+atlas = ExtResource("3_ic3qt")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7pr0"]
+atlas = ExtResource("3_ic3qt")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b52s4"]
+atlas = ExtResource("3_ic3qt")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bwwc"]
+atlas = ExtResource("3_ic3qt")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3g24"]
+atlas = ExtResource("3_ic3qt")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fuabn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mtr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7pr0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b52s4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8bwwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3g24")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jvgfc"]
+radius = 64.4981
+
+[sub_resource type="Animation" id="Animation_l8npa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaskingGroup/AnimationParent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-64, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xt5gd"]
+resource_name = "extend_module"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaskingGroup/AnimationParent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(2, 0.517632, 1),
+"update": 0,
+"values": [Vector2(-64, 0), Vector2(8, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1g7fp"]
+resource_name = "retract_module"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaskingGroup/AnimationParent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, 0), Vector2(-64, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kfkf3"]
+_data = {
+"RESET": SubResource("Animation_l8npa"),
+"extend_module": SubResource("Animation_xt5gd"),
+"retract_module": SubResource("Animation_1g7fp")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c6nhu"]
+blend_mode = 3
+
+[node name="ModuleAttachment" type="Node2D"]
+script = ExtResource("1_lx6vx")
+
+[node name="Shield" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
+position = Vector2(24, 0)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("2_xnrre")
+sprite = NodePath("ShieldSprite")
+
+[node name="Parry" type="AnimatedSprite2D" parent="Shield"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_cf0p7")
+frame = 5
+
+[node name="ShieldSprite" type="AnimatedSprite2D" parent="Shield"]
+visible = false
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fuabn")
+autoplay = "default"
+frame_progress = 0.479865
+
+[node name="Text" type="RichTextLabel" parent="Shield"]
+visible = false
+offset_left = 88.0
+offset_top = -96.0
+offset_right = 168.0
+offset_bottom = -56.0
+text = "Inactive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
+shape = SubResource("CircleShape2D_jvgfc")
+
+[node name="AudioLoop" type="AudioStreamPlayer2D" parent="Shield"]
+stream = ExtResource("5_a1g31")
+
+[node name="AudioDeflect" type="AudioStreamPlayer2D" parent="Shield"]
+stream = ExtResource("6_om1pr")
+
+[node name="AudioAbsorb" type="AudioStreamPlayer2D" parent="Shield"]
+stream = ExtResource("7_wm4aq")
+
+[node name="Text" type="RichTextLabel" parent="."]
+visible = false
+offset_top = -96.0
+offset_right = 112.0
+offset_bottom = -56.0
+text = "Module"
+
+[node name="Extension" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kfkf3")
+}
+
+[node name="MaskingGroup" type="CanvasGroup" parent="."]
+
+[node name="AnimationParent" type="Node2D" parent="MaskingGroup"]
+position = Vector2(-64, 0)
+
+[node name="Mask" type="Sprite2D" parent="MaskingGroup"]
+material = SubResource("CanvasItemMaterial_c6nhu")
+scale = Vector2(2, 2)
+texture = ExtResource("6_a6ksk")
+
+[connection signal="area_entered" from="Shield" to="Shield" method="_on_area_entered"]
+[connection signal="area_exited" from="Shield" to="Shield" method="_on_area_exited"]
+[connection signal="body_entered" from="Shield" to="Shield" method="_on_body_entered"]
+[connection signal="body_exited" from="Shield" to="Shield" method="_on_body_exited"]
+[connection signal="animation_finished" from="Extension" to="." method="_on_extension_animation_finished"]

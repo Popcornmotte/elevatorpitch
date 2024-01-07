@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqp1miq1x3acf"]
+
+[ext_resource type="Script" path="res://Scripts/Modules/Arms/flameProjectile.gd" id="1_8r0t3"]
+[ext_resource type="SpriteFrames" uid="uid://uwfycti5gw1f" path="res://Assets/Sprites/Modules/flameProjectile.tres" id="2_tp8wa"]
+
+[sub_resource type="Curve" id="Curve_ad5n3"]
+_data = [Vector2(0, 0.505494), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d3ynb"]
+radius = 32.0
+
+[node name="FlameProjectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 255
+script = ExtResource("1_8r0t3")
+sizeCurve = SubResource("Curve_ad5n3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d3ynb")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
+color = Color(1, 0.6, 0, 0.596078)
+polygon = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("2_tp8wa")
+autoplay = "default"
+frame = 62
+frame_progress = 0.666558
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]

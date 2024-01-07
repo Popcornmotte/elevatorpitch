@@ -16,7 +16,7 @@ func playSfx(clip : AudioStream, loop : bool = false):
 
 #play SFX at specific point. Untested.
 func playSfxLocalized(clip : AudioStream, pos : Vector2 ,loop : bool = false):
-	for child in $sfx.get_children():
+	for child in $sfxLocalized.get_children():
 		if child.playing == false:
 			child.stream = clip
 			child.global_position = pos
