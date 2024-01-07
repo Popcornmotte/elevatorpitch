@@ -10,6 +10,7 @@ var leakingFuel=false
 var numberOperationalModules=5
 var minOperationalModules=2
 var maximumOperationalModules=5
+var sfxWarning
 #modules which can be broken by incoming damage
 @onready var breakableModules=[$interior/Brake, $Net, $HullBody/Engine]
 
@@ -32,15 +33,18 @@ var maximumOperationalModules=5
 @onready var warningDisplay= $interior/DisplayText/MarginContainerWarning/RichTextLabelWarning
 @onready var endTimer=$EndTimer
 var warningBrokenModules=false
+const REPAIRWARNING = preload("res://Assets/Audio/sfx/repairTimer.wav")
+
 
 func _enter_tree():
 	Global.elevator = self
 
-func dropElevator():#drops the elvator for example on finished game
+func dropElevator(gameOver=false):#drops the elvator for example on finished game
 	if(get_parent().get_node("LevelCam")):#otherwise we are still in the hangar
 		dropping=true
 		get_parent().get_node("LevelCam").set_enabled(true)# enables level cam, so that elevator actually moves out of frame
 		get_parent().get_node("LevelCam").make_current()
+		get_parent().setGameOver(gameOver)
 		get_parent().get_node("LevelFinish").get_node("EndTimer").start()#start timer and drop elevator
 		$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
 # Called when the node enters the scene tree for the first time.
@@ -64,7 +68,13 @@ func updateDisplay():
 		
 func brokenModulesWarning():
 	warningDisplay.text="FAILURE IN "+ str(roundi(endTimer.get_time_left()))+"\nREPAIR NOW"
-
+	if not dropping:
+		if(sfxWarning):
+				if(!sfxWarning.playing):
+					sfxWarning = Audio.playSfx(REPAIRWARNING,true)
+		else:
+			sfxWarning=Audio.playSfx(REPAIRWARNING,true)
+			
 func newBrokenModule():
 	if numberOperationalModules>0:
 		numberOperationalModules-=1
@@ -201,4 +211,4 @@ func startFuelTutorial():
 
 
 func _on_end_timer_timeout():
-	dropElevator()
+	dropElevator(true)#activate gameover scene

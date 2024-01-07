@@ -12,17 +12,23 @@ var elevatorDropping=false
 @onready var finishedLevel=false
 @onready var enemies = [D_BARREL,D_RIFLE,D_SAW]
 @onready var LevelFinish=get_node("LevelFinish")
+@onready var gameOverText=get_node("GameOver")
 @export var finishHeight=50
 var cargoCount = 0
 var gainedFunds = 0
 var lastHeight = 0
+var gameOver=false
 
 func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	gameOverText.hide()
 	Global.elevator.moving=true
-
+	
+func setGameOver(state:bool):
+	gameOver=state
+	
 func finishedScene():
 	$Elevator.onGoal()#plays the animation for elevator moving out of view
 	$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
@@ -96,5 +102,14 @@ func _on_deliver_button_pressed():
 
 func _on_end_timer_timeout():
 	Global.height = 0
-	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
+	if gameOver:
+		#$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
+		#$LevelCam.make_current()
+		gameOverText.show()
+	else:
+		get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
 
+
+
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")

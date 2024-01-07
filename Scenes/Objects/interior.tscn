@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://3ddthobiwpmc" path="res://Assets/Sprites/InteriorObjects/catwalkBackground.png" id="19_8e5sh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
-size = Vector2(208, 8)
+size = Vector2(208, 19.875)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_raajs"]
 size = Vector2(135, 8)
@@ -129,9 +129,8 @@ collision_layer = 176
 collision_mask = 176
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/edges/Lower"]
-position = Vector2(0, 3)
+position = Vector2(-3, 10)
 shape = SubResource("RectangleShape2D_gqa2i")
-metadata/_edit_lock_ = true
 
 [node name="Upper" type="StaticBody2D" parent="floor/edges"]
 position = Vector2(0, -93)
@@ -354,7 +353,6 @@ libraries = {
 position = Vector2(37, 73)
 
 [node name="Doors" type="Node2D" parent="."]
-z_index = 4
 
 [node name="Door4" parent="Doors" instance=ExtResource("17_wh202")]
 position = Vector2(-100, -52)
@@ -423,7 +421,7 @@ position = Vector2(-22, -52)
 position = Vector2(0, -49)
 
 [node name="DisplayBackground" type="Sprite2D" parent="."]
-z_index = 3
+z_index = 2
 position = Vector2(0, -23)
 texture = ExtResource("17_t4obn")
 
@@ -434,7 +432,7 @@ position = Vector2(0, -1)
 texture = ExtResource("19_4yh2b")
 
 [node name="DisplayText" type="Node2D" parent="."]
-z_index = 3
+z_index = 2
 position = Vector2(-4, -17)
 scale = Vector2(0.6, 0.6)
 

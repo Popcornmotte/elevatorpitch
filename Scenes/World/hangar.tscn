@@ -317,12 +317,6 @@ position = Vector2(-400, 432)
 [node name="Elevator" parent="." instance=ExtResource("9_yyd37")]
 moving = false
 
-[node name="EngineSprite" parent="Elevator/HullBody" index="4"]
-autoplay = ""
-
-[node name="EngineSound" parent="Elevator/HullBody" index="7"]
-autoplay = false
-
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 scale = Vector2(1, 1)
 
