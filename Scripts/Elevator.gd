@@ -48,6 +48,7 @@ func _ready():
 	control(controlArms)
 	updateFuel()#show correct fuel on game start
 	updateDisplay()
+	warningDisplay.hide()
 	pass # Replace with function body.
 
 func updateDisplay():
