@@ -9,9 +9,9 @@ var risk : int #0 (low), 1 (medium) or 2 (high)
 var destination : int
 #var optionalObjective : 
 
-func _init():
+func _init(descr = "Lorem Ipsum", risk_ = 0):
 	shortDescription = "Lorem"
-	description = "Lorem Ipsum"
-	pay = 10
-	risk = 0
+	description = descr
+	risk = risk_
+	pay = 10+risk*8
 	destination = 0

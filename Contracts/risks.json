@@ -1,0 +1,6 @@
+{
+	"0" : 4,
+	"1" : {"risk" : 0, "text" : "This contract should pose no extraordinary danger to the contractor."},
+	"2" : {"risk" : 1, "text" : "Pirates are known for looting in the contracts region lately. Expect more trouble than usual."},
+	"3" : {"risk" : 2, "text" : "The urgency and nature of this contract's cargo will make for a high risk."}
+}

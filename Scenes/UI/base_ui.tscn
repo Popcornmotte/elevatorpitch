@@ -29,7 +29,7 @@ animations = [{
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_klupq"]
 
-[node name="BaseUI" type="Control"]
+[node name="ContractTerminal" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,8 +156,10 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
 [node name="Description" type="Label" parent="Monitor/Terminal/ContractInspector"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 text = "Lorem Ipsum blabablablablabla"
+autowrap_mode = 3
 
 [node name="Pay" type="Label" parent="Monitor/Terminal/ContractInspector"]
 layout_mode = 2

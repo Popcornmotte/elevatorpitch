@@ -9,6 +9,13 @@ const RISK1 = preload("res://Assets/Sprites/UI/Contract1.png")
 const RISK2 = preload("res://Assets/Sprites/UI/Contract2.png")
 const ANARCHY = preload("res://Assets/Sprites/UI/ContractAnarchy.png")
 
+const CARGOLIST = "res://Contracts/cargo.txt"
+var cargoList = []
+const SCENARIOLIST = "res://Contracts/scenarios.json"
+const RISKLIST = "res://Contracts/risks.json"
+
+const DESTINATIONS = ["Relay Station BETA-42", "Attack Platform Boromir", "Defense Platform Faramir"]
+
 var fuelUnits = 0
 var cargoCrates = 0
 var cargoslots = 0
@@ -24,13 +31,28 @@ var selectedContract : int
 var contractList
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var file = FileAccess.open(CARGOLIST, FileAccess.READ)
+	while(!file.eof_reached()):
+		cargoList.append(file.get_line())
 	updateLabels()
+	generateContracts()
+
+func generateContracts():
 	contractList = $Monitor/Terminal/ContractsView/Contracts
+	var scenarioList = JSON.parse_string(FileAccess.open(SCENARIOLIST,FileAccess.READ).get_as_text())
+	var riskList = JSON.parse_string(FileAccess.open(RISKLIST,FileAccess.READ).get_as_text())
 	for i in range(5):
-		var contract = Contract.new()
+		var riskIndex = str(randi_range(1, riskList.get("0")-1))
+		var cargo = cargoList[randi()%cargoList.size()]
+		var destinationIndex = randi()%DESTINATIONS.size()
+		var contractDescription = scenarioList.get(str(randi_range(1,scenarioList.get("0")-1)))+riskList.get(riskIndex).get("text")
+		contractDescription = contractDescription.replace("[cargo]", cargo)
+		contractDescription = contractDescription.replace("[destination]", DESTINATIONS[destinationIndex])
+		var contract = Contract.new(contractDescription, riskList.get(riskIndex).get("risk"))
+		contract.destination = destinationIndex
+		contract.shortDescription = "Deliver "+cargo+" to "+DESTINATIONS[destinationIndex]
 		contracts.append(contract)
 		contractList.add_item(contract.shortDescription, getIcon(contract.risk))
-	pass # Replace with function body.
 
 func getIcon(risk):
 		match risk:
@@ -69,9 +91,21 @@ func showContractInspector(contractID : int):
 	selectedContract = contractID
 	var contract = contracts[contractID]
 	$Monitor/Terminal/ContractInspector/Info/ShortDescription.text = contract.shortDescription
-	$Monitor/Terminal/ContractInspector/Info/Icon.set_texture(getIcon(contract.risk+randi_range(0,2)))
+	$Monitor/Terminal/ContractInspector/Info/Icon.set_texture(getIcon(contract.risk))
 	$Monitor/Terminal/ContractInspector/Description.text = contract.description
-	$Monitor/Terminal/ContractInspector/Pay.text = str(contract.pay+randi_range(-5,20))+"$ for each Crate"
+	
+	$Monitor/Terminal/ContractInspector/Pay.text = str(contract.pay)+"$ for each Crate"
+	var riskText
+	match contract.risk:
+		0:
+			riskText = "Risk: Low"
+		1:
+			riskText = "Risk: Medium"
+		2:
+			riskText = "Risk: High"
+		_:
+			riskText = "Risk: Unkown"
+	$Monitor/Terminal/ContractInspector/Info/Risk.text = riskText
 	$Monitor/Terminal/ContractInspector.show()
 	pass
 
