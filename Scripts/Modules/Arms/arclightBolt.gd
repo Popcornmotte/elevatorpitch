@@ -3,9 +3,11 @@ extends Line2D
 const bolt0 = preload("res://Assets/Audio/sfx/modules/arcBolt0.wav")
 const bolt1 = preload("res://Assets/Audio/sfx/modules/arcBolt1.wav")
 const bolt2 = preload("res://Assets/Audio/sfx/modules/arcBolt2.wav")
+const spark = preload("res://Assets/Audio/sfx/modules/arcFail.wav")
 
 const audio = [bolt0, bolt1, bolt2]
 
+var maxCharge = 200
 var charge = -1
 var linePoints : PackedVector2Array
 var widths : Array[float]
@@ -27,14 +29,14 @@ func _process(delta):
 			return
 		if charge > 0:
 			shot = true
-			$Spark.play()
+			Audio.playSfxLocalized(spark, global_position)
 			if Global.aliveEnemies == 0:
 				$Fail.play()
 			else:
 				performSearch(null, global_position)
 				finalize()
 				if linePoints.size() > 1:
-					Audio.playSfx(audio.pick_random())
+					Audio.playSfxLocalized(audio.pick_random(), global_position)
 	pass
 
 
@@ -44,14 +46,15 @@ func performSearch(startEnemy, previousPos : Vector2):
 		exemptEnemies.push_back(startEnemy)
 		startPos = startEnemy.global_position
 	
+	var reachDist = maxDist * (charge/maxCharge)
 	var nextEnemy = findNearestEnemy(startPos)
-	if !startEnemy and startPos.distance_to(nextEnemy.global_position) > maxDist:
+	if !startEnemy and startPos.distance_to(nextEnemy.global_position) > reachDist:
 		$Fail.play()
 		return
 	
 	if startEnemy:
 		var chargeLost = min(startEnemy.hitPoints, min(charge, 100))
-		if !nextEnemy or startPos.distance_to(nextEnemy.global_position) > maxDist:
+		if !nextEnemy or startPos.distance_to(nextEnemy.global_position) > reachDist:
 			chargeLost = charge
 		
 		charge -= chargeLost
@@ -62,7 +65,7 @@ func performSearch(startEnemy, previousPos : Vector2):
 		startEnemy.takeDamage(damage, 4)
 		
 	linePoints.push_back(startPos - global_position)
-	widths.push_back(charge/200)
+	widths.push_back(charge/maxCharge)
 	
 	if charge > 0 and exemptEnemies.size() < Global.enemies.size():
 		performSearch(nextEnemy, startPos)

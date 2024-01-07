@@ -1,6 +1,8 @@
 extends GenericArmModule
 
 const pling = preload("res://Assets/Audio/sfx/modules/shieldPling.wav")
+const deflect = preload("res://Assets/Audio/sfx/modules/shieldDeflect.wav")
+const absorb = preload("res://Assets/Audio/sfx/modules/arcFail.wav")
 
 @export var cooldown = 2.0
 var projectilesInRange : Array[Node2D]
@@ -14,6 +16,7 @@ func activate():
 	$ShieldSprite.visible = true
 	$AudioLoop.play()
 	$AudioLoop.seek(audioPos)
+	Audio.playSfxLocalized(deflect, global_position)
 	pass
 
 func deactivate():
@@ -52,12 +55,11 @@ func _on_body_exited(body):
 
 func repellProjectiles():
 	if projectilesInRange.size() > 0:
-		$AudioDeflect.play()
 		Audio.playSfx(pling)
 	for projectile in projectilesInRange:
 		projectile.velocity = -projectile.velocity
 
 func blockProjectiles(projectile):
 	if "isProjectile" in projectile and projectile.isProjectile:
-		$AudioAbsorb.play()
+		Audio.playSfxLocalized(absorb, global_position)
 		projectile.call_deferred("queue_free")

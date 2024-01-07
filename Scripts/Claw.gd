@@ -51,6 +51,7 @@ func setControlled(value : bool):
 
 func setGrabLock(value, shield):
 	grabLocked = value
+	arm.aimClaw = grabLocked
 	if grabLocked:
 		release()
 	if shield:
