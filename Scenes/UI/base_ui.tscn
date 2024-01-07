@@ -46,7 +46,6 @@ position = Vector2(960, 540)
 scale = Vector2(15, 8.4375)
 sprite_frames = SubResource("SpriteFrames_migvv")
 autoplay = "default"
-metadata/_edit_lock_ = true
 
 [node name="Flavor" type="Sprite2D" parent="."]
 modulate = Color(0.627451, 0.627451, 0.627451, 1)

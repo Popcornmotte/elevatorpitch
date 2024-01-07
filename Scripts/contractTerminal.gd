@@ -46,7 +46,7 @@ func generateContracts():
 		var cargo = cargoList[randi()%cargoList.size()]
 		var destinationIndex = randi()%DESTINATIONS.size()
 		var contractDescription = scenarioList.get(str(randi_range(1,scenarioList.get("0")-1)))+riskList.get(riskIndex).get("text")
-		contractDescription = contractDescription.replace("[cargo]", cargo)
+		contractDescription = contractDescription.replace("[cargo]", cargo+"s")
 		contractDescription = contractDescription.replace("[destination]", DESTINATIONS[destinationIndex])
 		var contract = Contract.new(contractDescription, riskList.get(riskIndex).get("risk"))
 		contract.destination = destinationIndex
@@ -197,6 +197,7 @@ func _on_back_button_pressed():
 
 
 func _on_accept_button_pressed():
+	Global.currentContract = contracts[selectedContract]
 	$Monitor/Terminal/ContractInspector.hide()
 	$Monitor/Terminal/Elevator.show()
 	pass # Replace with function body.

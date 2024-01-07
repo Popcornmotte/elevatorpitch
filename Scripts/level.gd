@@ -46,7 +46,7 @@ func spawnEnemies():
 	Global.elevator.brake.lock(true)
 	lastHeight = Global.height
 	var sign
-	for i in range(randi()%6 + wave):
+	for i in range(randi()%6 + wave + Global.currentContract.risk * 3):
 		var enemy = enemies[randi()%enemies.size()].instantiate()
 		if(randi()%2 == 0):
 			sign = 1
@@ -91,7 +91,7 @@ func _on_deliver_button_pressed():
 		$LevelFinish/NinePatchRect/CargoLabel.text = " : "+str(cargoCount)
 		FX.playFX("crateVanish",$LevelFinish/NinePatchRect/CargoSprite.global_position+Vector2(0,-64))
 		Audio.playSfx(KATSCHING)
-		gainedFunds += 10
+		gainedFunds += Global.currentContract.pay
 		$LevelFinish/NinePatchRect/FundsLabel.text = "Funds : "+str(gainedFunds)
 		$LevelFinish/NinePatchRect/FundsLabel/AnimationPlayer.play("FundsWiggle")
 		if(cargoCount == 0):

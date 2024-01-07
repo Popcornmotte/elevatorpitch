@@ -20,6 +20,7 @@ var inventory = Array()
 var funds=0
 var armModule = ArmModuleHandler.MODULE.Arclight
 
+var currentContract : Contract
 # In order: Hangar, Fuel, Enemies, Repair
 var tutorialsCompleted = [false, false, false, false]
 
