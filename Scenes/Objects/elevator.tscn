@@ -237,9 +237,8 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwhif"]
 
-[node name="Elevator" type="Node2D" node_paths=PackedStringArray("healthBar", "fuelBar", "fuelAlert", "heightMeter")]
+[node name="Elevator" type="Node2D" node_paths=PackedStringArray("fuelBar", "fuelAlert", "heightMeter")]
 script = ExtResource("1_gs4x1")
-healthBar = NodePath("HealthBar/Polygon2D")
 fuelBar = NodePath("FuelBar/Fuel")
 fuelAlert = NodePath("FuelBar/AlertOverlay")
 heightMeter = NodePath("Heightmeter/Height")
@@ -742,22 +741,6 @@ position = Vector2(-96, -40)
 texture = ExtResource("7_xkf6p")
 script = ExtResource("9_3heke")
 TargetGear = NodePath("../../Arms/PhysicalArmLeft/UpperArm")
-
-[node name="HealthBar" type="Node2D" parent="."]
-position = Vector2(143, -162)
-
-[node name="Polygon2D" type="Polygon2D" parent="HealthBar"]
-color = Color(0, 1, 0, 0.537255)
-polygon = PackedVector2Array(0, -14, 0, 14, 127, 14, 127, -14)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HealthBar"]
-custom_minimum_size = Vector2(70, 0)
-offset_left = -58.0
-offset_top = -14.0
-offset_right = 12.0
-offset_bottom = 26.0
-text = "Health"
-scroll_active = false
 
 [node name="FuelBar" type="Node2D" parent="."]
 position = Vector2(-46, -61)

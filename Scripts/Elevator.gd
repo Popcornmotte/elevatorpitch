@@ -1,9 +1,6 @@
 extends Node2D
 class_name Elevator
 
-var maxHealth = 300.0
-var health = maxHealth
-
 var dropping = false
 var speed = 0.0
 var leakingFuel=false
@@ -14,7 +11,6 @@ var sfxWarning
 #modules which can be broken by incoming damage
 @onready var breakableModules=[$interior/Brake, $Net, $HullBody/Engine]
 
-@export var healthBar : Node2D
 @export var fuelBar : Node2D
 @export var fuelAlert : Node2D
 @export var heightMeter : Label
@@ -42,6 +38,7 @@ func _enter_tree():
 func dropElevator(gameOver=false):#drops the elvator for example on finished game
 	if(get_parent().get_node("LevelCam")):#otherwise we are still in the hangar
 		dropping=true
+		Global.player.hide()
 		get_parent().get_node("LevelCam").set_enabled(true)# enables level cam, so that elevator actually moves out of frame
 		get_parent().get_node("LevelCam").make_current()
 		get_parent().setGameOver(gameOver)
@@ -70,8 +67,8 @@ func brokenModulesWarning():
 	warningDisplay.text="FAILURE IN "+ str(roundi(endTimer.get_time_left()))+"\nREPAIR NOW"
 	if not dropping:
 		if(sfxWarning):
-				if(!sfxWarning.playing):
-					sfxWarning = Audio.playSfx(REPAIRWARNING,true)
+			if(!sfxWarning.playing):
+				sfxWarning = Audio.playSfx(REPAIRWARNING,true)
 		else:
 			sfxWarning=Audio.playSfx(REPAIRWARNING,true)
 			
@@ -116,24 +113,14 @@ func control(isControlled : bool):
 
 func takeDamage(damage:int,type):
 	#type is currently ignored in elevator
-	health -= damage
 	var moduleToDamage=breakableModules[randi()%breakableModules.size()]
 	moduleToDamage.damage(damage)
-	update_health()
 	pass
 
 func on_area_entered(area : Area2D):
 	if(area.has_meta("isProjectile")):
 		if(area.damage != null):
 			takeDamage(area.damage,Global.DMG.Bludgeoning)
-	pass
-
-func update_health():
-	if(!dropping):
-		if(health <= 0):
-			#dropElevator()
-			return
-		healthBar.scale = Vector2(health / maxHealth, 1)
 	pass
 
 func onGoal():

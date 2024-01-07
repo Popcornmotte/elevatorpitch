@@ -101,11 +101,8 @@ func _on_deliver_button_pressed():
 
 
 func _on_end_timer_timeout():
-	Global.height = 0
 	if gameOver:
-		#$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
-		#$LevelCam.make_current()
-		gameOverText.show()
+		gameOverText.visible=true
 	else:
 		get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
 

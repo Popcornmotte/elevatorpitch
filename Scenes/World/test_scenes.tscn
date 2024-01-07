@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=15 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
@@ -34,6 +34,8 @@ _data = {
 "FundsWiggle": SubResource("Animation_gh5je"),
 "RESET": SubResource("Animation_8q23r")
 }
+
+[sub_resource type="Theme" id="Theme_xwwjg"]
 
 [sub_resource type="Theme" id="Theme_t80x2"]
 RichTextLabel/colors/default_color = Color(0.0470588, 1, 0, 1)
@@ -123,6 +125,7 @@ offset_left = -30.0
 offset_top = -22.0
 offset_right = 30.0
 offset_bottom = -10.0
+theme = SubResource("Theme_xwwjg")
 theme_override_colors/font_pressed_color = Color(0, 0, 0.682353, 1)
 
 [node name="GameOverText" type="RichTextLabel" parent="GameOver/Button"]
@@ -130,6 +133,7 @@ offset_left = -28.0
 offset_top = -24.0
 offset_right = 27.0
 offset_bottom = -11.0
+mouse_filter = 2
 theme = SubResource("Theme_t80x2")
 theme_override_colors/default_color = Color(1, 0, 0, 1)
 text = "Start over"
