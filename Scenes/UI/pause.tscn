@@ -100,22 +100,57 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="VolumeBox" type="HBoxContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/VolumeBox"]
+[node name="MasterVolumeLabel" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_hhjpr")
 theme_override_font_sizes/font_size = 35
-text = "Volume: 100"
+text = "Master Volume: 100"
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 256
 theme_override_constants/margin_right = 256
 
-[node name="VolumeSlider" type="HSlider" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="MasterVolumeSlider" type="HSlider" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+
+[node name="MusicVolumeLabel" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_hhjpr")
+theme_override_font_sizes/font_size = 35
+text = "Music Volume: 100"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_right = 256
+
+[node name="MusicVolumeSlider" type="HSlider" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+
+[node name="EffectsVolumeLabel" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_hhjpr")
+theme_override_font_sizes/font_size = 35
+text = "Effects Volume: 100"
+horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_right = 256
+
+[node name="EffectsVolumeSlider" type="HSlider" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
@@ -141,5 +176,7 @@ text = "Quit"
 anchor_mode = 0
 enabled = false
 
-[connection signal="value_changed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer/VolumeSlider" to="Pause" method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer/MasterVolumeSlider" to="Pause" method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer2/MusicVolumeSlider" to="Pause" method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider" to="Pause" method="_on_effects_volume_slider_value_changed"]
 [connection signal="pressed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/ButtonBox/QuitButton" to="Pause" method="_on_quit_button_pressed"]

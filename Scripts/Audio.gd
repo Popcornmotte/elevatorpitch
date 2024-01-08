@@ -3,6 +3,8 @@ extends Node
 # Preload Music tracks like this 
 #const jazz = preload("res://Assets/Sounds/Music/Hard_Boiled_by_Kevin_MacLeod.ogg")
 #const frankenstein = preload("res://Assets/Sounds/music/Of Far Different Nature - Frankenstein (CC-BY).ogg")
+const hangar = preload("res://Assets/Audio/music/kitchenDanceHangarTune.mp3")
+const calmClimb = preload("res://Assets/Audio/music/boringBeat.mp3")
 
 #Loop should probably be never utilized
 func playSfx(clip : AudioStream, loop : bool = false):
@@ -25,12 +27,17 @@ func playSfxLocalized(clip : AudioStream, pos : Vector2 ,loop : bool = false):
 				return child
 			break
 
-#func playMusic(music : String):
-#	match music:
-#		"jazz":
-#			$music/musicPlayer.stream = jazz
-#	$music/musicPlayer.play()
+func playMusic(music : String):
+	match music:
+		"hangar":
+			$music/MusicPlayer.stream = hangar
+		"calm":
+			$music/MusicPlayer.stream = calmClimb
+		_:
+			printerr("[Audio.playMusic] track name "+music+" not recognized")
+			$music/MusicPlayer.stream = null
+	$music/MusicPlayer.play()
 
 
 func stopMusic():
-	$music/musicPlayer.stop()
+	$music/MusicPlayer.stop()

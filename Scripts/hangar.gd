@@ -15,6 +15,7 @@ var buttonDeployed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Audio.playMusic("hangar")
 	var spawnAreaRect = crateSpawnArea.shape.get_rect()
 	var i = 0
 	while(i < Global.inventory.size()):
@@ -54,6 +55,7 @@ func _on_area_2d_body_entered(body):
 	onHatchButtonHit()
 
 func _on_transitionTimer_timeout():
+	Audio.stopMusic()
 	get_tree().change_scene_to_file("res://Scenes/World/transition_scene.tscn")
 	
 func _on_fadeTimer_timeout():

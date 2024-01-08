@@ -29,6 +29,8 @@ var currentContract = Contract.new("Dummy description", 1)
 
 #Options
 var masterVolume = 1.0
+var musicVolume = 1.0
+var effectsVolume = 1.0
 
 func _enter_tree():
 	loadGame()
@@ -91,6 +93,8 @@ func makeSaveDict():
 	var saveDict = {
 		"funds" : funds,
 		"masterVolume" : masterVolume,
+		"musicVolume" : musicVolume,
+		"effectsVolume" : effectsVolume,
 		"tutorialsCompleted" : tutorialsCompleted,
 		"modulesUnlocked" : modulesUnlocked,
 		"newUser" : newUser,
@@ -124,11 +128,15 @@ func loadGame():
 		if typeof(dict) == TYPE_DICTIONARY:
 			funds=loadDataFromDictSafe(dict, funds, "funds")
 			masterVolume = loadDataFromDictSafe(dict,masterVolume, "masterVolume")
+			musicVolume = loadDataFromDictSafe(dict,musicVolume, "musicVolume")
+			effectsVolume = loadDataFromDictSafe(dict,effectsVolume, "effectsVolume")
 			tutorialsCompleted = loadDataFromDictSafe(dict,tutorialsCompleted, "tutorialsCompleted")
 			modulesUnlocked = loadDataFromDictSafe(dict,modulesUnlocked,"modulesUnlocked")
 			newUser = loadDataFromDictSafe(dict,newUser,"newUser")
 			username = loadDataFromDictSafe(dict,username,"username")
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(masterVolume))
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(musicVolume))
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Effects"), linear_to_db(effectsVolume))
 		else:
 			printerr("Corrupted data!")
 	else:
