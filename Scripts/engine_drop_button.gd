@@ -7,12 +7,13 @@ var sfxDropping
 var dropping=false
 
 func close():
-	$EngineDropText.visible=false
-	$EngineDropButtonClosedSprite.visible=true
-	$EngineDropButtonOpenSprite2D.visible=false
-	$EngineDropButtonPressedSprite2D.visible=false
-	Audio.playSfx(OPEN)
-	openButton=false
+	if openButton:
+		$EngineDropText.visible=false
+		$EngineDropButtonClosedSprite.visible=true
+		$EngineDropButtonOpenSprite2D.visible=false
+		$EngineDropButtonPressedSprite2D.visible=false
+		Audio.playSfx(OPEN)
+		openButton=false
 	
 func open():
 	$EngineDropButtonClosedSprite.visible=false
