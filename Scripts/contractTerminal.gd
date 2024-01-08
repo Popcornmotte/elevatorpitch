@@ -100,9 +100,9 @@ func updateLabels():
 	FundsLabel.text = "Current Account Balance: "+str(Global.funds)+"$"
 	$Monitor/Terminal/Elevator/Fuel/FuelLabel.text = "Fuel Units ("+str(Global.countItem(Item.TYPE.Fuel))+")"
 	$Monitor/Terminal/Elevator/ContractCargo/CargoLabel.text = "Contracted Cargo ("+str(Global.countItem(Item.TYPE.Cargo))+")"
-	$Monitor/Terminal/Elevator/Scrap/ScrapLabel.text = "Scrap ("+str(Global.countItem(Item.TYPE.Scrap))+")"
+	$Monitor/Terminal/Elevator/Scrap/ScrapLabel.text = "Scrap Units ("+str(Global.countItem(Item.TYPE.Scrap))+")"
 	$Monitor/Terminal/Elevator/ElevatorHeader.text = "Cargo Capacity: "+str(Global.inventoryCapacity())+"/"+str(Global.inventoryMaxSize)
-
+	$Monitor/Terminal/Elevator/Ammo/AmmoLabel.text = "Ammo Units ("+str(Global.countItem(Item.TYPE.Ammo))+")"
 
 func flashNext():
 	index += 1

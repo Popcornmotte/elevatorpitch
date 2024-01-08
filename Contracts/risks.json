@@ -1,6 +1,9 @@
 {
-	"0" : 4,
+	"0" : 7,
 	"1" : {"risk" : 0, "text" : "This contract should pose no extraordinary danger to the contractor."},
-	"2" : {"risk" : 1, "text" : "Pirates are known for looting in the contracts region lately. Expect more trouble than usual."},
-	"3" : {"risk" : 2, "text" : "The urgency and nature of this contract's cargo will make for a high risk."}
+	"2" : {"risk" : 0, "text" : "Nothing special concerning delivery risk with this one."},
+	"3" : {"risk" : 1, "text" : "Pirates are known for looting in the contracts region lately. Expect more trouble than usual."},
+	"4" : {"risk" : 1, "text" : "The cargo is in very high demand. Expect more trouble than usual on the way."},
+	"5" : {"risk" : 2, "text" : "The urgency and nature of this contract's cargo will make for a high risk."},
+	"6" : {"risk" : 2, "text" : "The Pirate King has recently announced his hate for space elevators. Take care on this contract."},
 }

@@ -1,6 +1,9 @@
 {
-	"0" : 4,
-	"1" : "A solar flare has destroyed equipment at [destination]. Deliver [cargo]. ",
+	"0" : 7,
+	"1" : "A solar flare has destroyed equipment at [destination] which is now in need of replacements. Deliver [cargo]. ",
 	"2" : "Someone wants to have [cargo] delivered to [destination] as soon as possible. ",
 	"3" : "Radiation damage has killed half the population of [destination]. They'd pay good for any [cargo] right now. ",
+	"4" : "[destination] has requested as much [cargo] as we can deliver. ",
+	"5" : "There is increased need of [cargo] at [destination]. Deliver the goods and return safely!  ",
+	"6" : "Never underestimate the power of [cargo]! [destination] wants some delivered. ",
 }
