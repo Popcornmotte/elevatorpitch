@@ -1,7 +1,7 @@
 extends Node2D
 
 class_name GenericDestroyable
-@export var health=10
+@export var health=5
 @onready var maxHealth=health
 @export var damagedThreshold=9
 enum OPERATIONMODE {Normal, Damaged, Broken}
@@ -20,7 +20,7 @@ func damage(damage:int):
 		disable()
 
 func repair():
-	health=10
+	health=maxHealth
 	Global.elevator.newFixedModule()
 	update=true
 	repaired()
