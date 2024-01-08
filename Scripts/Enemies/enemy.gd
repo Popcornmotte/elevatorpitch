@@ -16,6 +16,7 @@ const isEnemyEntity = true
 @export var maxSpeed = 50
 @export var despawnOnScreenExitTimer = 30.0
 @export var attacksPerTurn = 2
+@export var yields = Item.TYPE.Scrap
 #if debug mode enabled, draw target positions
 @export var DebugMode = false
 

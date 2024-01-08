@@ -350,15 +350,15 @@ factorV = 1.0
 position = Vector2(0, 32)
 
 [node name="Sprite" type="Sprite2D" parent="Background/Cable"]
-position = Vector2(0, -440)
+position = Vector2(0, -392)
 texture = ExtResource("7_rea0b")
 
 [node name="Sprite2" type="Sprite2D" parent="Background/Cable"]
-position = Vector2(0, -200)
+position = Vector2(0, -152)
 texture = ExtResource("7_rea0b")
 
 [node name="Sprite3" type="Sprite2D" parent="Background/Cable"]
-position = Vector2(0, 56)
+position = Vector2(0, 88)
 texture = ExtResource("7_rea0b")
 
 [node name="Catwalk" type="Sprite2D" parent="Background"]
@@ -530,7 +530,6 @@ texture = ExtResource("13_rvsa6")
 [node name="ButtonArm" type="Node2D" parent="ButtonArmCanvasGroup"]
 position = Vector2(664, -128)
 rotation = 1.63712
-scale = Vector2(1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="ButtonArmCanvasGroup/ButtonArm"]
 position = Vector2(0, 64)
