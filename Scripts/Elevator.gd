@@ -1,6 +1,9 @@
 extends Node2D
 class_name Elevator
 
+const chutesDownSFX = preload("res://Assets/Audio/sfx/chuteDrop.wav")
+const chutesUpSFX = preload("res://Assets/Audio/sfx/chuteRetract.wav")
+
 var dropping = false
 var speed = 0.0
 var leakingFuel=false
@@ -182,10 +185,12 @@ func _process(delta):
 		if(!chutesDeployed and Input.is_action_just_pressed("down") and !$ChutesAnimation.is_playing()):
 			chutesDeployed = true
 			$ChutesAnimation.play("deployChutes")
+			Audio.playSfx(chutesDownSFX)
 			setChutesDeployed()
 		elif(chutesDeployed and Input.is_action_just_pressed("up") and !$ChutesAnimation.is_playing()):
 			chutesDeployed = false
 			$ChutesAnimation.play("retractChutes")
+			Audio.playSfx(chutesUpSFX)
 			setChutesDeployed()
 	pass
 	
