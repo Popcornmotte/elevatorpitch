@@ -222,11 +222,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uavan"]
 size = Vector2(160, 30)
 
-[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button")]
+[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button", "doorAreas")]
 script = ExtResource("1_7h618")
 crateSpawnArea = NodePath("spawnAreas/crateSpawnArea")
 brake = NodePath("Elevator/interior/Brake")
 button = NodePath("ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton")
+doorAreas = [NodePath("Elevator/interior/Doors/Door4/DoorOpenArea2D"), NodePath("Elevator/interior/Doors/Door3/DoorOpenArea2D")]
 
 [node name="Collision" type="StaticBody2D" parent="."]
 collision_layer = 524305
@@ -416,6 +417,9 @@ position = Vector2(-224, 280)
 [node name="Elevator" parent="." instance=ExtResource("9_yyd37")]
 moving = false
 
+[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
+scale = Vector2(1, 1)
+
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" index="0"]
 active = false
 
@@ -489,8 +493,10 @@ libraries = {
 "": SubResource("AnimationLibrary_0vt87")
 }
 
-[node name="Timer" type="Timer" parent="RiseSequence"]
+[node name="TransitionTimer" type="Timer" parent="RiseSequence"]
 wait_time = 3.0
+
+[node name="FadeTimer" type="Timer" parent="RiseSequence"]
 
 [node name="Truck" type="RigidBody2D" parent="."]
 position = Vector2(239, 180)
@@ -633,8 +639,8 @@ offset_bottom = 21.0
 [node name="RichTextLabel" parent="Tutorial/BrakeText/Textfield/MarginContainer" index="0"]
 text = "W/S -> Change speed"
 
-[connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
-[connection signal="timeout" from="RiseSequence/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
+[connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
 [connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="open"]
 [connection signal="body_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
@@ -647,6 +653,8 @@ text = "W/S -> Change speed"
 [editable path="Elevator/Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/ModuleAttachment"]
 [editable path="Elevator/interior"]
 [editable path="Elevator/interior/Brake"]
+[editable path="Elevator/interior/Doors/Door4"]
+[editable path="Elevator/interior/Doors/Door3"]
 [editable path="Elevator/interior/Doors/Door2"]
 [editable path="Elevator/interior/Doors/Door"]
 [editable path="Elevator/Tutorial/FuelPlace"]

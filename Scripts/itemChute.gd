@@ -24,5 +24,6 @@ func checkForItem(thing):
 func addItem(thing : Node2D, type : Item.TYPE):
 	Global.addToInventory(Item.new(type))
 	thing.call_deferred("queue_free")
-	Audio.playSfxLocalized(shreddingNoise, global_position)
+	if type != Item.TYPE.Cargo and type != Item.TYPE.Luggage:
+		Audio.playSfxLocalized(shreddingNoise, global_position)
 	return

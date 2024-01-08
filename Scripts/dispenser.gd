@@ -9,6 +9,7 @@ const ERROR = preload("res://Assets/Audio/sfx/error.wav")
 @onready var fuelSprite=get_node("FuelSelectionSprite")
 @onready var scrapSprite=get_node("ScrapSelectionSprite")
 var dispense:DispenseItem
+@export var locked = false
 
 func _ready():
 	dispense=DispenseItem.FUEL
@@ -27,6 +28,9 @@ func switchDispenseType():
 			scrapSprite.set_visible(false)
 	
 func dispenseItem():
+	if locked:
+		Audio.playSfx(ERROR)
+		return
 	match dispense:
 		DispenseItem.FUEL:
 			if Global.takeFromInventory(Item.TYPE.Fuel):#only dispense fuel if in inventory

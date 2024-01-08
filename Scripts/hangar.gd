@@ -1,8 +1,11 @@
 extends Node
 
+const fade = preload("res://Scenes/UI/fade_out.tscn")
+
 @export var crateSpawnArea : CollisionShape2D
 @export var brake : Node2D
 @export var button : AnimatedSprite2D
+@export var doorAreas : Array[Area2D]
 var cratePrefab = preload("res://Scenes/Objects/Items/crate.tscn")
 var hatchSound = preload("res://Assets/Audio/sfx/vaultOpen.wav")
 var hatchOpen = false
@@ -36,18 +39,26 @@ func onHatchButtonHit():
 		hatchOpen = true
 		brake.startLocked = false
 		brake.unlock()
+		
+		for area in doorAreas:
+			area.call_deferred("queue_free")
 	
 func onElevatorStarted():
 	$RiseSequence/ElevatorRise.play("elevatorRise")
-	$RiseSequence/Timer.start()
+	$RiseSequence/TransitionTimer.start()
+	$RiseSequence/FadeTimer.start()
 	elevatorRising = true
 	Global.tutorialsCompleted[0] = true
 
 func _on_area_2d_body_entered(body):
 	onHatchButtonHit()
 
-func _on_timer_timeout():
+func _on_transitionTimer_timeout():
 	get_tree().change_scene_to_file("res://Scenes/World/transition_scene.tscn")
+	
+func _on_fadeTimer_timeout():
+	var fadeout = fade.instantiate()
+	add_child(fadeout)
 
 func _process(delta):
 	if !buttonDeployed:
