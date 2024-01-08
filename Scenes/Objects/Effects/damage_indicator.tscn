@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://vuaucj3xjieq"]
 
 [ext_resource type="Script" path="res://Scripts/Effects/damageIndicator.gd" id="1_adnwq"]
-[ext_resource type="Theme" uid="uid://dhhf30soudvfh" path="res://Fonts/PixelText.tres" id="1_rmht2"]
+[ext_resource type="Theme" path="res://Fonts/PixelText.tres" id="1_rmht2"]
 
 [sub_resource type="Animation" id="Animation_3yi5x"]
 resource_name = "scale"

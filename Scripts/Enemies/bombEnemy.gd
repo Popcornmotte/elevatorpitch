@@ -26,7 +26,7 @@ func takeDamage(damage, type):
 func _on_body_entered(body):
 	if(body.is_class("RigidBody2D")):
 		if (body.linear_velocity - linear_velocity).length() > 500.0:
-			hitPoints -= body.mass * (0.1 * body.linear_velocity.length())
+			takeDamage(body.mass * (0.1 * body.linear_velocity.length()),Global.DMG.Bludgeoning)
 			Audio.playSfx(THUDS.pick_random())
 
 func explode():

@@ -105,7 +105,8 @@ func _on_deliver_button_pressed():
 
 func spawnFadeOut():#called from elevator when dropping
 	var fadeOut=FADEOUT.instantiate()
-	failTrumpetSfx=Audio.playSfx(FAILTRUMPET,true)
+	if gameOver:
+		failTrumpetSfx=Audio.playSfx(FAILTRUMPET,true)
 	add_child(fadeOut)
 
 
