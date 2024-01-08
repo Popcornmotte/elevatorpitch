@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://kp1oqkpnoovo"]
+
+[ext_resource type="Script" path="res://Scripts/fade_out.gd" id="1_mgdby"]
+[ext_resource type="Texture2D" uid="uid://cjyingullo40p" path="res://Assets/Sprites/World/almostBlack.png" id="2_ilduk"]
+
+[node name="FadeOut" type="Node2D"]
+script = ExtResource("1_mgdby")
+
+[node name="darkness" type="Sprite2D" parent="."]
+z_index = 400
+position = Vector2(960, 540)
+scale = Vector2(30, 16.875)
+texture = ExtResource("2_ilduk")

@@ -44,6 +44,7 @@ func dropElevator(gameOver=false):#drops the elvator for example on finished gam
 		get_parent().setGameOver(gameOver)
 		get_parent().get_node("LevelFinish").get_node("EndTimer").start()#start timer and drop elevator
 		$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
+		get_parent().spawnFadeOut()
 		if gameOver:
 			var newExplosion = explosion.instantiate()
 			newExplosion.global_position = global_position

@@ -317,8 +317,18 @@ position = Vector2(-400, 432)
 [node name="Elevator" parent="." instance=ExtResource("9_yyd37")]
 moving = false
 
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 scale = Vector2(1, 1)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
+
+[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
+metadata/_local_pose_override_enabled_ = true
 
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" index="0"]
 active = false
@@ -530,6 +540,8 @@ text = "W/S -> Change speed"
 [connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmText" method="on_body_entered"]
 
 [editable path="Elevator"]
+[editable path="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/ModuleAttachment"]
+[editable path="Elevator/Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/ModuleAttachment"]
 [editable path="Elevator/interior"]
 [editable path="Elevator/interior/Brake"]
 [editable path="Elevator/Tutorial/FuelPlace"]

@@ -5,6 +5,8 @@ const KATSCHING = preload("res://Assets/Audio/sfx/katsching.wav")
 const D_RIFLE = preload("res://Scenes/Objects/Enemies/drone_rifle.tscn")
 const D_SAW = preload("res://Scenes/Objects/Enemies/drone_saw.tscn")
 const D_BARREL = preload("res://Scenes/Objects/Enemies/low_bomb.tscn")
+const FADEOUT=preload("res://Scenes/UI/fade_out.tscn")
+const FAILTRUMPET=preload("res://Assets/Audio/sfx/failTrumpet.wav")
 var spawnChance = 20
 var combat = false
 var wave = 1
@@ -18,6 +20,7 @@ var cargoCount = 0
 var gainedFunds = 0
 var lastHeight = 0
 var gameOver=false
+var failTrumpetSfx#used to stop trumpet if switching to main scene before the end of the sound
 
 func _enter_tree():
 	Global.level = self
@@ -98,6 +101,10 @@ func _on_deliver_button_pressed():
 		Global.addFunds(gainedFunds)
 		$Elevator.dropElevator()
 
+func spawnFadeOut():#called from elevator when dropping
+	var fadeOut=FADEOUT.instantiate()
+	failTrumpetSfx=Audio.playSfx(FAILTRUMPET,true)
+	add_child(fadeOut)
 
 
 func _on_end_timer_timeout():
