@@ -18,10 +18,14 @@ var enemies : Array[Enemy]
 var inventoryMaxSize = 16
 var inventory = Array()
 var funds=0
+var newUser = true
+var username = ""
 var armModule = ArmModuleHandler.MODULE.Arclight
-
+# In order: Arclight, Flamethrower
+var modulesUnlocked = [false, false]
 # In order: Hangar, Fuel, Enemies, Repair
 var tutorialsCompleted = [false, false, false, false]
+var currentContract : Contract
 
 #Options
 var masterVolume = 1.0
@@ -29,8 +33,16 @@ var masterVolume = 1.0
 func _enter_tree():
 	loadGame()
 
-func addFunds(newFunds:int):
-	funds+=newFunds
+func addFunds(amount:int):
+	funds += amount
+	return true
+
+func removeFunds(amount:int) -> bool:
+	if (funds >= amount):
+		funds -= amount
+		return true
+	else:
+		return false
 
 func addToInventory(item : Item) -> bool:
 	if inventory.size() < inventoryMaxSize:
@@ -57,9 +69,18 @@ func countItem(type : Item.TYPE):
 			count += 1
 	return count
 
+func inventoryCapacity():
+	return inventory.size()
+
 #for letting enemies efficiently check for Cargo to steal
 func checkForCargo() -> bool:
 	return (inventory.any(func(item : Item): return(item.type == Item.TYPE.Cargo)))
+
+func gameOver():
+	funds = 0
+	newUser = true
+	modulesUnlocked = [false, false]
+	saveGame()
 
 func exitGame():
 	saveGame()
@@ -69,7 +90,10 @@ func makeSaveDict():
 	var saveDict = {
 		"funds" : funds,
 		"masterVolume" : masterVolume,
-		"tutorialsCompleted" : tutorialsCompleted
+		"tutorialsCompleted" : tutorialsCompleted,
+		"modulesUnlocked" : modulesUnlocked,
+		"newUser" : newUser,
+		"username" : username
 	}
 	return saveDict
 
@@ -86,6 +110,7 @@ func loadDataFromDictSafe(dict, value, data : String):
 	if(temp != null):
 		return temp
 	else:
+		printerr("[Global.loadDataFromDictSafe] dict.get("+data+") returned null")
 		return value
 
 func loadGame():
@@ -97,10 +122,11 @@ func loadGame():
 		file.close()
 		if typeof(dict) == TYPE_DICTIONARY:
 			funds=loadDataFromDictSafe(dict, funds, "funds")
-			#funds = data.get("funds")
 			masterVolume = loadDataFromDictSafe(dict,masterVolume, "masterVolume")
-			#masterVolume = data.get("masterVolume")
 			tutorialsCompleted = loadDataFromDictSafe(dict,tutorialsCompleted, "tutorialsCompleted")
+			modulesUnlocked = loadDataFromDictSafe(dict,modulesUnlocked,"modulesUnlocked")
+			newUser = loadDataFromDictSafe(dict,newUser,"newUser")
+			username = loadDataFromDictSafe(dict,username,"username")
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(masterVolume))
 		else:
 			printerr("Corrupted data!")

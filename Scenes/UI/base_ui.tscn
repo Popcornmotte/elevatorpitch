@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdejgb0kj4otg"]
+[gd_scene load_steps=12 format=3 uid="uid://cdejgb0kj4otg"]
 
 [ext_resource type="Texture2D" uid="uid://c1h8twtlpunil" path="res://Assets/Sprites/UI/CRT-Monitor.png" id="1_1c46o"]
 [ext_resource type="Script" path="res://Scripts/contractTerminal.gd" id="1_5xgiu"]
@@ -27,7 +27,9 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="BaseUI" type="Control"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_klupq"]
+
+[node name="ContractTerminal" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +37,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5xgiu")
+flashMode = false
+metadata/_edit_lock_ = true
 
 [node name="Wall" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.380392, 0.321569, 0.301961, 1)
@@ -43,7 +47,6 @@ position = Vector2(960, 540)
 scale = Vector2(15, 8.4375)
 sprite_frames = SubResource("SpriteFrames_migvv")
 autoplay = "default"
-metadata/_edit_lock_ = true
 
 [node name="Flavor" type="Sprite2D" parent="."]
 modulate = Color(0.627451, 0.627451, 0.627451, 1)
@@ -57,17 +60,45 @@ scale = Vector2(1, 1.0037)
 texture = ExtResource("1_1c46o")
 metadata/_edit_lock_ = true
 
+[node name="Header" type="MarginContainer" parent="Monitor"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -512.0
+offset_top = -313.0
+offset_right = -1656.0
+offset_bottom = -1345.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox" type="HBoxContainer" parent="Monitor/Header"]
+layout_mode = 2
+alignment = 1
+
+[node name="Username" type="Label" parent="Monitor/Header/HBox"]
+layout_mode = 2
+text = "User: Tav"
+
+[node name="VSeparator" type="VSeparator" parent="Monitor/Header/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 256
+theme_override_styles/separator = SubResource("StyleBoxEmpty_klupq")
+
+[node name="Funds" type="Label" parent="Monitor/Header/HBox"]
+layout_mode = 2
+text = "Current Account Balance: 0$"
+
 [node name="Terminal" type="MarginContainer" parent="Monitor"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -520.0
-offset_top = -296.0
+offset_top = -249.0
 offset_right = -1640.0
 offset_bottom = -848.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_lock_ = true
 
 [node name="FlashLabel" type="Label" parent="Monitor/Terminal"]
 layout_mode = 2
@@ -75,34 +106,108 @@ theme_override_fonts/font = ExtResource("7_2k8x0")
 theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 
-[node name="Contracts" type="VBoxContainer" parent="Monitor/Terminal"]
+[node name="LogInContainer" type="VBoxContainer" parent="Monitor/Terminal"]
+layout_mode = 2
+
+[node name="LoginText" type="RichTextLabel" parent="Monitor/Terminal/LogInContainer"]
+layout_mode = 2
+text = "Starting PitchOS . . .
+
+POWER       . . . OK
+MOS_6510 . . . OK
+MOS_6567 . . . OK
+SID_6581    . . . OK
+
+38 / 64 KB available
+
+New user detected!
+Erasing previous user's funds  . . . OK 
+New Balance:  0$
+Congratulations!
+
+Welcome! Please enter your username below:
+"
+fit_content = true
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="LineEdit" type="LineEdit" parent="Monitor/Terminal/LogInContainer"]
+visible = false
+layout_mode = 2
+max_length = 12
+
+[node name="ContractsView" type="VBoxContainer" parent="Monitor/Terminal"]
 visible = false
 layout_mode = 2
 
-[node name="ContractsHeader" type="HBoxContainer" parent="Monitor/Terminal/Contracts"]
+[node name="ContractsHeader" type="HBoxContainer" parent="Monitor/Terminal/ContractsView"]
 layout_mode = 2
 
-[node name="MenuName" type="Label" parent="Monitor/Terminal/Contracts/ContractsHeader"]
+[node name="MenuName" type="Label" parent="Monitor/Terminal/ContractsView/ContractsHeader"]
 layout_mode = 2
 text = "Contracts"
 
-[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Contracts/ContractsHeader"]
-custom_minimum_size = Vector2(600, 0)
+[node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/ContractsView"]
 layout_mode = 2
 
-[node name="Funds" type="Label" parent="Monitor/Terminal/Contracts/ContractsHeader"]
-layout_mode = 2
-text = "Funds: 0$"
-
-[node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/Contracts"]
-layout_mode = 2
-
-[node name="ContractItemList" type="ItemList" parent="Monitor/Terminal/Contracts"]
+[node name="Contracts" type="ItemList" parent="Monitor/Terminal/ContractsView"]
 layout_mode = 2
 auto_height = true
-item_count = 1
-item_0/text = "Open Contract: Deliver Power Converters"
-item_0/icon = ExtResource("2_03vra")
+
+[node name="ContractInspector" type="VBoxContainer" parent="Monitor/Terminal"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="Info" type="HBoxContainer" parent="Monitor/Terminal/ContractInspector"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Monitor/Terminal/ContractInspector/Info"]
+layout_mode = 2
+texture = ExtResource("2_03vra")
+
+[node name="ShortDescription" type="Label" parent="Monitor/Terminal/ContractInspector/Info"]
+layout_mode = 2
+text = "Food Delivery to Appa Station"
+
+[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/ContractInspector/Info"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="Risk" type="Label" parent="Monitor/Terminal/ContractInspector/Info"]
+layout_mode = 2
+text = "Risk: Low
+"
+
+[node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/ContractInspector"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Description" type="Label" parent="Monitor/Terminal/ContractInspector"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "Lorem Ipsum blabablablablabla"
+autowrap_mode = 3
+
+[node name="Pay" type="Label" parent="Monitor/Terminal/ContractInspector"]
+layout_mode = 2
+text = "Pays: 10$ per Crate"
+
+[node name="HSeparator2" type="HSeparator" parent="Monitor/Terminal/ContractInspector"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="Monitor/Terminal/ContractInspector"]
+layout_mode = 2
+alignment = 1
+
+[node name="BackButton" type="Button" parent="Monitor/Terminal/ContractInspector/Buttons"]
+layout_mode = 2
+text = " [ BACK ] "
+
+[node name="AcceptButton" type="Button" parent="Monitor/Terminal/ContractInspector/Buttons"]
+layout_mode = 2
+text = " [ ACCEPT ] "
 
 [node name="Elevator" type="VBoxContainer" parent="Monitor/Terminal"]
 visible = false
@@ -131,6 +236,38 @@ text = "Fuel Units (0)"
 layout_mode = 2
 text = " [ + ] "
 
+[node name="Scrap" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="decrementScrapButton" type="Button" parent="Monitor/Terminal/Elevator/Scrap"]
+layout_mode = 2
+text = " [ - ]  "
+
+[node name="ScrapLabel" type="Label" parent="Monitor/Terminal/Elevator/Scrap"]
+layout_mode = 2
+text = "Scrap Units (0)"
+
+[node name="incrementScrapButton" type="Button" parent="Monitor/Terminal/Elevator/Scrap"]
+layout_mode = 2
+text = " [ + ] "
+
+[node name="Ammo" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="decrementAmmoButton" type="Button" parent="Monitor/Terminal/Elevator/Ammo"]
+layout_mode = 2
+text = " [ - ]  "
+
+[node name="AmmoLabel" type="Label" parent="Monitor/Terminal/Elevator/Ammo"]
+layout_mode = 2
+text = "Ammo Units (0)"
+
+[node name="incrementAmmoButton" type="Button" parent="Monitor/Terminal/Elevator/Ammo"]
+layout_mode = 2
+text = " [ + ] "
+
 [node name="ContractCargo" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
 alignment = 1
@@ -150,6 +287,48 @@ text = " [ + ] "
 [node name="HSeparator2" type="HSeparator" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
 
+[node name="Modules" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Monitor/Terminal/Elevator/Modules"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer"]
+layout_mode = 2
+text = "Elevator Modular System"
+horizontal_alignment = 1
+
+[node name="ArcLightBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer"]
+layout_mode = 2
+
+[node name="ArcLightCheckBox" type="CheckBox" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox"]
+layout_mode = 2
+disabled = true
+text = "Arclight"
+alignment = 1
+
+[node name="ArcLightBuyButton" type="Button" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox"]
+layout_mode = 2
+text = " [ BUY (200$ ) ] "
+
+[node name="FlameThrowerBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer"]
+layout_mode = 2
+
+[node name="FlameThrowerCheckBox" type="CheckBox" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox"]
+layout_mode = 2
+disabled = true
+text = "Flamethrower"
+alignment = 1
+
+[node name="FlameThrowerBuyButton" type="Button" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox"]
+layout_mode = 2
+text = " [ BUY (120$ ) ] "
+
+[node name="HSeparator3" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+
 [node name="StartButtonHBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
 alignment = 1
@@ -159,16 +338,29 @@ layout_mode = 2
 text = "[ START ASCENSION ]"
 
 [node name="OffButton" type="TextureButton" parent="Monitor"]
-offset_left = 456.0
-offset_top = 88.0
-offset_right = 496.0
-offset_bottom = 128.0
+offset_left = 435.0
+offset_top = 67.7494
+offset_right = 507.0
+offset_bottom = 141.749
 texture_normal = ExtResource("3_awf02")
+stretch_mode = 3
+metadata/_edit_lock_ = true
 
-[connection signal="item_clicked" from="Monitor/Terminal/Contracts/ContractItemList" to="." method="_on_contract_item_list_item_clicked"]
+[connection signal="text_submitted" from="Monitor/Terminal/LogInContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="item_clicked" from="Monitor/Terminal/ContractsView/Contracts" to="." method="_on_contract_item_list_item_clicked"]
+[connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/AcceptButton" to="." method="_on_accept_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/Fuel/decrementFuelButton" to="." method="_on_decrement_fuel_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/Fuel/incrementFuelButton" to="." method="_on_increment_fuel_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Scrap/decrementScrapButton" to="." method="_on_decrement_scrap_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Scrap/incrementScrapButton" to="." method="_on_increment_scrap_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Ammo/decrementAmmoButton" to="." method="_on_decrement_ammo_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Ammo/incrementAmmoButton" to="." method="_on_increment_ammo_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/ContractCargo/decrementCargoButton" to="." method="_on_decrement_cargo_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/ContractCargo/incrementCargoButton" to="." method="_on_increment_cargo_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightCheckBox" to="." method="_on_arc_light_check_box_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightBuyButton" to="." method="_on_arc_light_buy_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerCheckBox" to="." method="_on_flame_thrower_check_box_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerBuyButton" to="." method="_on_flame_thrower_buy_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/StartButtonHBox/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Monitor/OffButton" to="." method="_on_off_button_pressed"]
