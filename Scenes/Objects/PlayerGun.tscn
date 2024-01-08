@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqcr0n8l5iu6u"]
+[gd_scene load_steps=8 format=3 uid="uid://c0ur0a1yll1xy"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerGun.gd" id="1_5x8mu"]
-[ext_resource type="Texture2D" uid="uid://4tmhtb4rcar2" path="res://Assets/Sprites/Player/Gun.png" id="1_uw4ul"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/Player/Gun.png" id="1_uw4ul"]
 [ext_resource type="Texture2D" uid="uid://b4r52ebyps3b0" path="res://Assets/Sprites/Player/GunShot/GunShot1.png" id="3_xqsvs"]
 [ext_resource type="Texture2D" uid="uid://bf30r1d7ly3vj" path="res://Assets/Sprites/Player/GunShot/GunShot2.png" id="4_0grqc"]
 [ext_resource type="Texture2D" uid="uid://er31sl6kk0ug" path="res://Assets/Sprites/Player/GunShot/GunShot3.png" id="5_47gna"]

@@ -80,6 +80,7 @@ func gameOver():
 	funds = 0
 	newUser = true
 	modulesUnlocked = [false, false]
+	level = null
 	saveGame()
 
 func exitGame():

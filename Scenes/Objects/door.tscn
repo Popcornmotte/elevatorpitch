@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://6hicfxna1rk5"]
+[gd_scene load_steps=8 format=3 uid="uid://bhmpyg0px3wca"]
 
 [ext_resource type="Texture2D" uid="uid://bh3gcsyqympc2" path="res://Assets/Sprites/InteriorObjects/doorClosed.png" id="1_apdo8"]
 [ext_resource type="Script" path="res://Scripts/door.gd" id="1_sul6m"]
@@ -10,18 +10,27 @@ size = Vector2(33.5, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53j0c"]
 size = Vector2(14, 32)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1kug7"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nr4tx"]
+radius = 5.0
+
 [node name="Door" type="Node2D"]
 script = ExtResource("1_sul6m")
 
 [node name="DoorClosedSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_apdo8")
+metadata/_edit_lock_ = true
 
 [node name="DoorOpenedSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_vsh71")
+metadata/_edit_lock_ = true
 
 [node name="DoorOpenArea2D" type="Area2D" parent="."]
 collision_layer = 176
 collision_mask = 176
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorOpenArea2D"]
 shape = SubResource("RectangleShape2D_eolij")
@@ -29,7 +38,29 @@ shape = SubResource("RectangleShape2D_eolij")
 [node name="LimitPlayerWithDoorStaticBody" type="StaticBody2D" parent="."]
 collision_layer = 16
 collision_mask = 16
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LimitPlayerWithDoorStaticBody"]
 shape = SubResource("RectangleShape2D_53j0c")
 debug_color = Color(0.764706, 0.372549, 0.65098, 0.419608)
+
+[node name="JetpackOnArea" type="Area2D" parent="."]
+position = Vector2(12, 0)
+collision_layer = 0
+collision_mask = 4112
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JetpackOnArea"]
+shape = SubResource("CircleShape2D_1kug7")
+debug_color = Color(0, 0.647059, 0.180392, 0.419608)
+
+[node name="JetpackOffArea" type="Area2D" parent="."]
+position = Vector2(-12, 0)
+collision_layer = 0
+collision_mask = 4112
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JetpackOffArea"]
+shape = SubResource("CircleShape2D_nr4tx")
+debug_color = Color(0.996078, 0, 0.211765, 0.419608)
+
+[connection signal="body_entered" from="JetpackOnArea" to="." method="_on_jetpack_on_area_body_entered"]
+[connection signal="body_entered" from="JetpackOffArea" to="." method="_on_jetpack_off_area_body_entered"]

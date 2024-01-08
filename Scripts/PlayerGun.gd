@@ -5,7 +5,7 @@ const HIT = preload("res://Assets/Audio/sfx/panHit.wav")
 
 @onready var ray = $ray
 @onready var sprite = $sprite
-@export var damage = 200
+@export var damage = 20
 
 var enabled = true
 
