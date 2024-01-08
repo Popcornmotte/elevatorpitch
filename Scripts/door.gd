@@ -6,13 +6,19 @@ extends Node2D
 @onready var doorOpenedPositionFlipped=Vector2(32,-16)
 const DOOROPEN = preload("res://Assets/Audio/sfx/door_open.wav")
 var isDoor=true#only needed to check for door
+var jetpackToggle = true
 
 func _ready():
 	$DoorClosedSprite.flip_h=flip
 	$DoorOpenedSprite.flip_h=flip
 	$DoorClosedSprite.visible=true
 	$DoorOpenedSprite.visible=false
-	
+	if flip:
+		$JetpackOnArea.position.x *= -1
+		$JetpackOffArea.position.x *= -1
+	if Global.level == null:
+		jetpackToggle = false
+
 func openDoor():
 	$DoorClosedSprite.visible=false
 	$DoorOpenedSprite.visible=true
@@ -23,3 +29,17 @@ func closeDoor():
 	$DoorClosedSprite.visible=true
 	$DoorOpenedSprite.visible=false
 	$LimitPlayerWithDoorStaticBody/CollisionShape2D.set_deferred("disabled",false)
+
+
+func _on_jetpack_on_area_body_entered(body):
+	if jetpackToggle:
+		if body.name == "player":
+			body.toggleJetpack(true)
+	pass # Replace with function body.
+
+
+func _on_jetpack_off_area_body_entered(body):
+	if jetpackToggle:
+		if body.name == "player":
+			body.toggleJetpack(false)
+	pass # Replace with function body.

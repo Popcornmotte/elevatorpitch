@@ -13,6 +13,8 @@ var popped = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()
+	if !rangedBehavior:
+		$Crate.set_enabled(false)
 	$BalloonSprite.play("default")
 	$BodySprite.play("default") 
 

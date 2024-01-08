@@ -30,6 +30,8 @@ func _ready():
 	Global.elevator.moving=true
 	
 func setGameOver(state:bool):
+	if state:
+		Global.gameOver()
 	gameOver=state
 	
 func finishedScene():

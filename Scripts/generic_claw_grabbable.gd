@@ -11,6 +11,14 @@ func grab(clawA):
 	grabbed = true
 	claw = clawA
 
+func set_enabled(state):
+	if state:
+		show()
+		$colShape.disabled = false
+	else:
+		hide()
+		$colShape.disabled = true
+
 func release(velocity):
 	
 	grabbed = false
