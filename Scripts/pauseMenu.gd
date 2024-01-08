@@ -11,9 +11,9 @@ func _ready():
 	masterSlider.value = Global.masterVolume
 	masterLabel.text = "Master Volume: "+str(int(Global.masterVolume*100))
 	musicSlider.value = Global.masterVolume
-	musicLabel.text = "Master Volume: "+str(int(Global.musicVolume*100))
+	musicLabel.text = "Music Volume: "+str(int(Global.musicVolume*100))
 	effectsSlider.value = Global.masterVolume
-	effectsLabel.text = "Master Volume: "+str(int(Global.effectsVolume*100))
+	effectsLabel.text = "Effects Volume: "+str(int(Global.effectsVolume*100))
 	Global.optionsMenu = self
 	pass # Replace with function body.
 

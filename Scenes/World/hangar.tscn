@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dn1h17rgyu5yq"]
+[gd_scene load_steps=57 format=3 uid="uid://dn1h17rgyu5yq"]
 
 [ext_resource type="Script" path="res://Scripts/hangar.gd" id="1_7h618"]
 [ext_resource type="Texture2D" uid="uid://jaoxkqmx7jsf" path="res://Assets/Sprites/Hangar/pipeOverlay.png" id="2_ndkxd"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bncium1i82qj0" path="res://Assets/Sprites/hatchButtonSign.png" id="15_pntbt"]
 [ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="16_nd0oi"]
 [ext_resource type="Texture2D" uid="uid://cq61jwury46lg" path="res://Assets/Sprites/Hangar/backgroundGradient.png" id="26_d12tj"]
+[ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="28_f1l3k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a0ag"]
 size = Vector2(800, 128)
@@ -638,6 +639,8 @@ offset_bottom = 21.0
 
 [node name="RichTextLabel" parent="Tutorial/BrakeText/Textfield/MarginContainer" index="0"]
 text = "W/S -> Change speed"
+
+[node name="PauseMenu" parent="." instance=ExtResource("28_f1l3k")]
 
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
 [connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
