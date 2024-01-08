@@ -33,7 +33,7 @@ func disable():
 	operatingMode=OPERATIONMODE.Broken
 
 func repaired():
-	#repairStation.visible=false
+	repairStation.hide()
 	operatingMode=OPERATIONMODE.Normal
 	
 # Called when the node enters the scene tree for the first time.
