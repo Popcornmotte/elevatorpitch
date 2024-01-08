@@ -291,6 +291,7 @@ func _on_interaction_area_area_exited(area):
 		brakeObject=null
 	if area.owner==refuelEngineObject:
 		refuelEngineObject.appearNormal()
+		refuelEngineObject.stopRefuel()
 		refuelEngineObject=null
 		canDrop=true
 	#null check
