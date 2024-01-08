@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbg22d4e6cd3f"]
+
+[ext_resource type="SpriteFrames" uid="uid://uwfycti5gw1f" path="res://Assets/Sprites/Modules/flameProjectile.tres" id="1_hyehc"]
+[ext_resource type="Script" path="res://Scripts/Effects/flame.gd" id="2_76wkw"]
+
+[node name="Flame" type="AnimatedSprite2D"]
+z_index = -1
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("1_hyehc")
+autoplay = "default"
+frame = 18
+frame_progress = 0.85469
+script = ExtResource("2_76wkw")
+
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

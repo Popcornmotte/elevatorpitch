@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://deu8xdoktbmf1"]
+[gd_scene load_steps=7 format=3 uid="uid://deu8xdoktbmf1"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/balloonMinion.gd" id="1_e6c3c"]
 [ext_resource type="SpriteFrames" uid="uid://8strop1dp8tp" path="res://Assets/Sprites/Enemies/drone_balloon.tres" id="2_0fdhy"]
 [ext_resource type="SpriteFrames" uid="uid://ycew4m1ft0c0" path="res://Assets/Sprites/Enemies/drone_body.tres" id="3_2tint"]
 [ext_resource type="PackedScene" uid="uid://cqt125igrje6t" path="res://Scenes/Objects/Enemies/weapons/rifle.tscn" id="4_s7o0v"]
-[ext_resource type="SpriteFrames" uid="uid://uwfycti5gw1f" path="res://Assets/Sprites/Modules/flameProjectile.tres" id="5_uuukg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3d6d3"]
 radius = 19.0
@@ -49,10 +48,5 @@ shape = SubResource("CapsuleShape2D_0tloo")
 [node name="WeaponMount" type="Marker2D" parent="."]
 
 [node name="Rifle" parent="WeaponMount" instance=ExtResource("4_s7o0v")]
-
-[node name="Flame" type="AnimatedSprite2D" parent="."]
-z_index = -1
-scale = Vector2(4, 4)
-sprite_frames = ExtResource("5_uuukg")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

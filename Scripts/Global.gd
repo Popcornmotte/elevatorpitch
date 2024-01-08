@@ -1,5 +1,6 @@
 extends Node
 
+const damageIndicatorPrefab = preload("res://Scenes/Objects/Effects/damage_indicator.tscn")
 const SAVEFILE_NAME = "elevatorpitch.save"
 #Put here all variables that make sense to be globally accessible
 var optionsMenu = null
