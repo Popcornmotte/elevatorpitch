@@ -82,11 +82,11 @@ func _process(delta):
 		arm.acceleration *= flingAccFac
 	if !grabLocked and (Input.is_action_just_pressed("Grab")):
 		grab()
-		if controlled:
+		if Global.elevator.controlArms:
 			Audio.playSfx(GRAB)
 	if !grabLocked and (Input.is_action_just_released("Grab") and !(aboutToFling or flinging)):
 		release()
-		if controlled:
+		if Global.elevator.controlArms:
 			Audio.playSfx(RELEASE)
 #	if Input.is_action_just_pressed("Debug"):
 #		print("Claw's current grabbable: "+str(grabbable))
