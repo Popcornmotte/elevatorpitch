@@ -37,6 +37,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5xgiu")
+flashMode = false
 metadata/_edit_lock_ = true
 
 [node name="Wall" type="AnimatedSprite2D" parent="."]
@@ -75,13 +76,11 @@ grow_vertical = 2
 layout_mode = 2
 alignment = 1
 
-[node name="MenuName" type="Label" parent="Monitor/Header/HBox"]
-visible = false
+[node name="Username" type="Label" parent="Monitor/Header/HBox"]
 layout_mode = 2
-text = "MenuName"
+text = "User: Tav"
 
 [node name="VSeparator" type="VSeparator" parent="Monitor/Header/HBox"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 256
 theme_override_styles/separator = SubResource("StyleBoxEmpty_klupq")
@@ -106,6 +105,36 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("7_2k8x0")
 theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
+
+[node name="LogInContainer" type="VBoxContainer" parent="Monitor/Terminal"]
+layout_mode = 2
+
+[node name="LoginText" type="RichTextLabel" parent="Monitor/Terminal/LogInContainer"]
+layout_mode = 2
+text = "Starting PitchOS . . .
+
+POWER       . . . OK
+MOS_6510 . . . OK
+MOS_6567 . . . OK
+SID_6581    . . . OK
+
+38 / 64 KB available
+
+New user detected!
+Erasing previous user's funds  . . . OK 
+New Balance:  0$
+Congratulations!
+
+Welcome! Please enter your username below:
+"
+fit_content = true
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="LineEdit" type="LineEdit" parent="Monitor/Terminal/LogInContainer"]
+visible = false
+layout_mode = 2
+max_length = 12
 
 [node name="ContractsView" type="VBoxContainer" parent="Monitor/Terminal"]
 visible = false
@@ -207,6 +236,38 @@ text = "Fuel Units (0)"
 layout_mode = 2
 text = " [ + ] "
 
+[node name="Scrap" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="decrementScrapButton" type="Button" parent="Monitor/Terminal/Elevator/Scrap"]
+layout_mode = 2
+text = " [ - ]  "
+
+[node name="ScrapLabel" type="Label" parent="Monitor/Terminal/Elevator/Scrap"]
+layout_mode = 2
+text = "Scrap Units (0)"
+
+[node name="incrementScrapButton" type="Button" parent="Monitor/Terminal/Elevator/Scrap"]
+layout_mode = 2
+text = " [ + ] "
+
+[node name="Ammo" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="decrementAmmoButton" type="Button" parent="Monitor/Terminal/Elevator/Ammo"]
+layout_mode = 2
+text = " [ - ]  "
+
+[node name="AmmoLabel" type="Label" parent="Monitor/Terminal/Elevator/Ammo"]
+layout_mode = 2
+text = "Ammo Units (0)"
+
+[node name="incrementAmmoButton" type="Button" parent="Monitor/Terminal/Elevator/Ammo"]
+layout_mode = 2
+text = " [ + ] "
+
 [node name="ContractCargo" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
 alignment = 1
@@ -226,6 +287,48 @@ text = " [ + ] "
 [node name="HSeparator2" type="HSeparator" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
 
+[node name="Modules" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Monitor/Terminal/Elevator/Modules"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer"]
+layout_mode = 2
+text = "Elevator Modular System"
+horizontal_alignment = 1
+
+[node name="ArcLightBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer"]
+layout_mode = 2
+
+[node name="ArcLightCheckBox" type="CheckBox" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox"]
+layout_mode = 2
+disabled = true
+text = "Arclight"
+alignment = 1
+
+[node name="ArcLightBuyButton" type="Button" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox"]
+layout_mode = 2
+text = " [ BUY (200$ ) ] "
+
+[node name="FlameThrowerBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer"]
+layout_mode = 2
+
+[node name="FlameThrowerCheckBox" type="CheckBox" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox"]
+layout_mode = 2
+disabled = true
+text = "Flamethrower"
+alignment = 1
+
+[node name="FlameThrowerBuyButton" type="Button" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox"]
+layout_mode = 2
+text = " [ BUY (120$ ) ] "
+
+[node name="HSeparator3" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+
 [node name="StartButtonHBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
 alignment = 1
@@ -243,12 +346,21 @@ texture_normal = ExtResource("3_awf02")
 stretch_mode = 3
 metadata/_edit_lock_ = true
 
+[connection signal="text_submitted" from="Monitor/Terminal/LogInContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="item_clicked" from="Monitor/Terminal/ContractsView/Contracts" to="." method="_on_contract_item_list_item_clicked"]
 [connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/AcceptButton" to="." method="_on_accept_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/Fuel/decrementFuelButton" to="." method="_on_decrement_fuel_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/Fuel/incrementFuelButton" to="." method="_on_increment_fuel_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Scrap/decrementScrapButton" to="." method="_on_decrement_scrap_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Scrap/incrementScrapButton" to="." method="_on_increment_scrap_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Ammo/decrementAmmoButton" to="." method="_on_decrement_ammo_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Ammo/incrementAmmoButton" to="." method="_on_increment_ammo_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/ContractCargo/decrementCargoButton" to="." method="_on_decrement_cargo_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/ContractCargo/incrementCargoButton" to="." method="_on_increment_cargo_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightCheckBox" to="." method="_on_arc_light_check_box_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightBuyButton" to="." method="_on_arc_light_buy_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerCheckBox" to="." method="_on_flame_thrower_check_box_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerBuyButton" to="." method="_on_flame_thrower_buy_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/StartButtonHBox/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Monitor/OffButton" to="." method="_on_off_button_pressed"]

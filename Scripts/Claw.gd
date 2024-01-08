@@ -1,6 +1,9 @@
 extends RigidBody2D
 class_name Claw
 
+const GRAB = preload("res://Assets/Audio/sfx/clawGrab.wav")
+const RELEASE = preload("res://Assets/Audio/sfx/clawRelease.wav")
+
 var grabbing = false
 var grabbables : Array
 var grabbed
@@ -79,8 +82,10 @@ func _process(delta):
 		arm.acceleration *= flingAccFac
 	if !grabLocked and (Input.is_action_just_pressed("Grab")):
 		grab()
+		Audio.playSfx(GRAB)
 	if !grabLocked and (Input.is_action_just_released("Grab") and !(aboutToFling or flinging)):
 		release()
+		Audio.playSfx(RELEASE)
 #	if Input.is_action_just_pressed("Debug"):
 #		print("Claw's current grabbable: "+str(grabbable))
 	
