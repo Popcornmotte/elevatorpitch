@@ -26,3 +26,4 @@ func _process(delta):
 			child.global_position.x += delta * cloudSpeed
 			if (cloudSpeed > 0 && child.global_position.x > 1500) or (cloudSpeed < 0 && child.global_position.x < -1500):
 				child.global_position.x -= 3000 * sign(cloudSpeed)
+	

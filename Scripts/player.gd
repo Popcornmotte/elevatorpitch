@@ -59,6 +59,7 @@ func flipAnimation(direction):
 		scrapSprite.position=carryPos*Vector2(-1,1)
 
 func zoomIn(state : bool):
+	print("zoom is called: ", state)
 	if state:
 		zoomAnimation.play("zoom_in")
 		for side in range(0,4):
@@ -181,6 +182,9 @@ func _process(delta):
 	if carrying and Input.is_action_pressed("repair") and interactionObject:
 		interactionObject.repair()
 	
+	if carrying and Input.is_action_just_released("repair") and interactionObject:
+		interactionObject.pauseRepair()
+		
 	if dispenserObject and Input.is_action_just_pressed("down"):
 		dispenserObject.switchDispenseType()
 	

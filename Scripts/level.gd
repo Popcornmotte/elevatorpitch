@@ -5,6 +5,8 @@ const KATSCHING = preload("res://Assets/Audio/sfx/katsching.wav")
 const D_RIFLE = preload("res://Scenes/Objects/Enemies/drone_rifle.tscn")
 const D_SAW = preload("res://Scenes/Objects/Enemies/drone_saw.tscn")
 const D_BARREL = preload("res://Scenes/Objects/Enemies/low_bomb.tscn")
+const FADEOUT=preload("res://Scenes/UI/fade_out.tscn")
+const FAILTRUMPET=preload("res://Assets/Audio/sfx/failTrumpet.wav")
 var spawnChance = 20
 var combat = false
 var wave = 1
@@ -12,17 +14,24 @@ var elevatorDropping=false
 @onready var finishedLevel=false
 @onready var enemies = [D_BARREL,D_RIFLE,D_SAW]
 @onready var LevelFinish=get_node("LevelFinish")
+@onready var gameOverText=get_node("GameOver")
 @export var finishHeight=50
 var cargoCount = 0
 var gainedFunds = 0
 var lastHeight = 0
+var gameOver=false
+var failTrumpetSfx#used to stop trumpet if switching to main scene before the end of the sound
 
 func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-
+	gameOverText.hide()
+	Global.elevator.moving=true
+	
+func setGameOver(state:bool):
+	gameOver=state
+	
 func finishedScene():
 	$Elevator.onGoal()#plays the animation for elevator moving out of view
 	$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
@@ -53,7 +62,6 @@ func _process(delta):
 			combat = false
 			Global.elevator.brake.turnOffLightOnly()
 			Global.elevator.brake.unlock()
-			print("wave concluded")
 			$WaveTimer.start()
 	#check height for finish
 	if not finishedLevel and Global.height>finishHeight:
@@ -69,7 +77,6 @@ func endLevel(): #the elevator calls this when the docking animation is finished
 
 func _on_wave_timer_timeout():
 	if not finishedLevel:# do not spawn new enemies when level is already finished
-		print("spawn")
 		if(randi()%100 <= spawnChance):
 			spawnEnemies()
 		else:
@@ -94,9 +101,19 @@ func _on_deliver_button_pressed():
 		Global.addFunds(gainedFunds)
 		$Elevator.dropElevator()
 
+func spawnFadeOut():#called from elevator when dropping
+	var fadeOut=FADEOUT.instantiate()
+	failTrumpetSfx=Audio.playSfx(FAILTRUMPET,true)
+	add_child(fadeOut)
 
 
 func _on_end_timer_timeout():
-	Global.height = 0
-	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
+	if gameOver:
+		gameOverText.visible=true
+	else:
+		get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
 
+
+
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")

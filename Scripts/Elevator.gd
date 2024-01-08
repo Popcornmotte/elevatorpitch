@@ -1,13 +1,16 @@
 extends Node2D
 class_name Elevator
 
-var maxHealth = 300.0
-var health = maxHealth
-
 var dropping = false
 var speed = 0.0
+var leakingFuel=false
+var numberOperationalModules=5
+var minOperationalModules=2
+var maximumOperationalModules=5
+var sfxWarning
+#modules which can be broken by incoming damage
+@onready var breakableModules=[$interior/Brake, $Net, $HullBody/Engine]
 
-@export var healthBar : Node2D
 @export var fuelBar : Node2D
 @export var fuelAlert : Node2D
 @export var heightMeter : Label
@@ -21,23 +24,82 @@ var speed = 0.0
 @export var speedModifier=1
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
-@onready var engineSFX = $HullBody/EngineSound
+@onready var engineSFX = $HullBody/Engine/EngineSound
+@onready var operationalDisplay= $interior/DisplayText/Operational/MarginContainer/RichTextLabelDisplay
+@onready var warningDisplay= $interior/DisplayText/MarginContainerWarning/RichTextLabelWarning
+@onready var endTimer=$EndTimer
+var warningBrokenModules=false
+const REPAIRWARNING = preload("res://Assets/Audio/sfx/repairTimer.wav")
+var explosion = preload("res://Scenes/Objects/explosion.tscn")
+
 func _enter_tree():
 	Global.elevator = self
 
-func dropElevator():#drops the elvator for example on finished game
+func dropElevator(gameOver=false):#drops the elvator for example on finished game
 	if(get_parent().get_node("LevelCam")):#otherwise we are still in the hangar
 		dropping=true
+		Global.player.hide()
 		get_parent().get_node("LevelCam").set_enabled(true)# enables level cam, so that elevator actually moves out of frame
 		get_parent().get_node("LevelCam").make_current()
+		get_parent().setGameOver(gameOver)
 		get_parent().get_node("LevelFinish").get_node("EndTimer").start()#start timer and drop elevator
 		$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
+		get_parent().spawnFadeOut()
+		if gameOver:
+			var newExplosion = explosion.instantiate()
+			newExplosion.global_position = global_position
+			get_parent().call_deferred("add_child",newExplosion)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control(controlArms)
 	updateFuel()#show correct fuel on game start
+	updateDisplay()
+	warningDisplay.hide()
 	pass # Replace with function body.
 
+func updateDisplay():
+	if numberOperationalModules>4:
+		operationalDisplay.clear()
+		operationalDisplay.append_text("[color=green]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
+	if numberOperationalModules==4||numberOperationalModules==3:
+		operationalDisplay.clear()
+		operationalDisplay.append_text("[color=orange]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
+	if numberOperationalModules<=minOperationalModules:
+		operationalDisplay.clear()
+		operationalDisplay.append_text("[color=red]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
+		
+func brokenModulesWarning():
+	warningDisplay.text="FAILURE IN "+ str(roundi(endTimer.get_time_left()))+"\nREPAIR NOW"
+	if not dropping:
+		if(!sfxWarning):
+			sfxWarning=Audio.playSfx(REPAIRWARNING,true)
+		if(!sfxWarning.playing):
+			sfxWarning=Audio.playSfx(REPAIRWARNING,true)
+			
+			
+func newBrokenModule():
+	if numberOperationalModules>0:
+		numberOperationalModules-=1
+		if numberOperationalModules==minOperationalModules:
+			operationalDisplay.hide()
+			warningDisplay.show()
+			warningBrokenModules=true
+			endTimer.start()
+		updateDisplay()
+	
+func newFixedModule():
+	if numberOperationalModules<maximumOperationalModules:
+		numberOperationalModules+=1
+		if numberOperationalModules==minOperationalModules+1:
+			operationalDisplay.show()
+			warningDisplay.hide()
+			if sfxWarning:
+				sfxWarning.stop()
+			warningBrokenModules=false
+			endTimer.stop()
+			warningDisplay.clear()
+		updateDisplay()
+	
 func moveFast():
 	speedModifier=2.0
 	$LegsAndCable/Legs.movementFactor=speedModifier
@@ -58,25 +120,14 @@ func control(isControlled : bool):
 
 func takeDamage(damage:int,type):
 	#type is currently ignored in elevator
-	health -= damage
-	update_health()
+	var moduleToDamage=breakableModules[randi()%breakableModules.size()]
+	moduleToDamage.damage(damage)
 	pass
 
 func on_area_entered(area : Area2D):
 	if(area.has_meta("isProjectile")):
 		if(area.damage != null):
-			health -= area.damage
-			update_health()
-	pass
-
-func update_health():
-	if(!dropping):
-		if(health <= 0):
-			# Lose
-			dropping = true
-			speed = 150
-			pass
-		healthBar.scale = Vector2(health / maxHealth, 1)
+			takeDamage(area.damage,Global.DMG.Bludgeoning)
 	pass
 
 func onGoal():
@@ -95,7 +146,8 @@ func update_height(climbed):
 func decrease_fuel(delta):
 	fuel -= fuelConsumption*delta
 	if fuel<=0:
-		brake.noFuel()#(brake.SPEED.Off,false,false)#set brake to turned off position
+		brake.noFuel()#set brake to turned off position
+		moving=false
 		engineSFX.stopEngine()
 		fuelAlert.visible = true
 	else:
@@ -103,6 +155,12 @@ func decrease_fuel(delta):
 	updateFuel()
 	pass
 
+func startLeaking():
+	leakingFuel=true
+
+func stopLeaking():
+	leakingFuel=false
+	
 func updateFuel():
 	fuelBar.scale = Vector2(fuel / 100.0, 1)
 	if brake.locked and fuel > 0:
@@ -111,15 +169,15 @@ func updateFuel():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-#	if(get_local_mouse_position().y < 0):
-#		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,true)
-#	else:
-#		$Skeleton2D.get_modification_stack().get_modification(0).set_ccdik_joint_constraint_angle_invert(2,false)
+	if warningBrokenModules:
+		brokenModulesWarning()
+	if leakingFuel:
+		decrease_fuel(delta* 0.001)
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
-	
+	if moving:
+		decrease_fuel(delta * 0.1)
 	if(controlArms):
 		if(!chutesDeployed and Input.is_action_just_pressed("down") and !$ChutesAnimation.is_playing()):
 			chutesDeployed = true
@@ -129,7 +187,6 @@ func _process(delta):
 			chutesDeployed = false
 			$ChutesAnimation.play("retractChutes")
 			setChutesDeployed()
-
 	pass
 	
 func setChutesDeployed():
@@ -145,3 +202,9 @@ func _on_animation_player_elevator_animation_finished(anim_name):
 func startFuelTutorial():
 	if $Tutorial/FuelPlace:
 		$Tutorial/FuelPlace.open()
+
+
+func _on_end_timer_timeout():
+	dropping=true
+	sfxWarning.stop()
+	dropElevator(true)#activate gameover scene

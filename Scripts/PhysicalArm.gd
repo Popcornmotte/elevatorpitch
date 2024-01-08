@@ -1,4 +1,4 @@
-extends Node2D
+extends GenericDestroyable
 class_name PhysicalArm
 
 signal firstDestroyed
@@ -81,7 +81,7 @@ func setControlled(value : bool):
 
 func disable():
 	repairStation.visible=true
-	repairStation.enable()
+	repairStation.enableRepair()
 	functional = false
 	sparks.emitting = true
 	upperArmPhys.gravity_scale = 1
@@ -90,9 +90,17 @@ func disable():
 	lowerArmPhys.mass = 10
 	clawPhys.gravity_scale = 1
 	clawPhys.mass = 10
+	Global.elevator.newBrokenModule()
 	if !Global.tutorialsCompleted[3]:
 		firstDestroyed.emit()
-	
+
+func damaged():
+	repairStation.visible=true
+	repairStation.enableOptionalRepair()
+	sparks.emitting = true
+	if !Global.tutorialsCompleted[3]:
+		firstDestroyed.emit()
+		
 func repaired():
 	repairStation.visible=false
 	functional = true

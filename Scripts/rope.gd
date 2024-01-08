@@ -90,6 +90,18 @@ func spawnAtBodies(startBody : PhysicsBody2D, endBody : PhysicsBody2D, setColor 
 			joint.node_a = segments[i-1].get_path()
 			joint.node_b = segment.get_path()
 
+func toggleCollision(state : bool):
+	var range
+	if netRope:
+		range = segments.size()-1
+	else:
+		range = segments.size()
+	for i in range(range):
+		if state:
+			segments[i].get_node("ColShape").set_deferred("disabled",false)
+		else:
+			segments[i].get_node("ColShape").set_deferred("disabled",true)
+
 func getSegments() -> Array :
 	return segments
 

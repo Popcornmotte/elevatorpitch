@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=15 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="6_6rves"]
 [ext_resource type="PackedScene" uid="uid://76relfo52far" path="res://Scenes/World/climbEnvironment.tscn" id="7_mr16y"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="8_qhk4p"]
+[ext_resource type="FontFile" uid="uid://dgd0hsl0u56xs" path="res://Fonts/m5x7.ttf" id="9_dd0a3"]
 
 [sub_resource type="Animation" id="Animation_gh5je"]
 resource_name = "FundsWiggle"
@@ -33,6 +34,14 @@ _data = {
 "FundsWiggle": SubResource("Animation_gh5je"),
 "RESET": SubResource("Animation_8q23r")
 }
+
+[sub_resource type="Theme" id="Theme_xwwjg"]
+
+[sub_resource type="Theme" id="Theme_t80x2"]
+RichTextLabel/colors/default_color = Color(0.0470588, 1, 0, 1)
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.490196)
+RichTextLabel/constants/shadow_outline_size = 0
+RichTextLabel/fonts/normal_font = ExtResource("9_dd0a3")
 
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
@@ -97,15 +106,64 @@ text = "Deliver cargo
 "
 
 [node name="EndTimer" type="Timer" parent="LevelFinish"]
-wait_time = 5.0
+wait_time = 3.0
 
 [node name="FadeIn" parent="." instance=ExtResource("5_em6cv")]
 
 [node name="ClimbEnvironment" parent="." instance=ExtResource("7_mr16y")]
 
 [node name="player" parent="." instance=ExtResource("8_qhk4p")]
-z_index = 3
+z_index = 4
+
+[node name="GameOver" type="Node2D" parent="."]
+z_index = 401
+position = Vector2(0, 150)
+
+[node name="Button" type="Node2D" parent="GameOver"]
+scale = Vector2(10, 10)
+
+[node name="Button" type="Button" parent="GameOver/Button"]
+offset_left = -30.0
+offset_top = -22.0
+offset_right = 30.0
+offset_bottom = -10.0
+theme = SubResource("Theme_xwwjg")
+theme_override_colors/font_pressed_color = Color(0, 0, 0.682353, 1)
+
+[node name="GameOverText" type="RichTextLabel" parent="GameOver/Button"]
+offset_left = -28.0
+offset_top = -24.0
+offset_right = 28.0
+offset_bottom = -11.0
+mouse_filter = 2
+theme = SubResource("Theme_t80x2")
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]Start over[/center]"
+fit_content = true
+scroll_active = false
+tab_size = 0
+
+[node name="Text" type="Node2D" parent="GameOver"]
+scale = Vector2(15, 15)
+
+[node name="GameOver" type="MarginContainer" parent="GameOver/Text"]
+offset_left = -29.0
+offset_top = -33.0
+offset_right = 29.0
+offset_bottom = -20.0
+
+[node name="GameOverText" type="RichTextLabel" parent="GameOver/Text/GameOver"]
+layout_mode = 2
+theme = SubResource("Theme_t80x2")
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+bbcode_enabled = true
+text = "[center] YOU DIED [/center]"
+fit_content = true
+scroll_active = false
+tab_size = 0
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
 [connection signal="pressed" from="LevelFinish/NinePatchRect/DeliverButton" to="." method="_on_deliver_button_pressed"]
 [connection signal="timeout" from="LevelFinish/EndTimer" to="." method="_on_end_timer_timeout"]
+[connection signal="pressed" from="GameOver/Button/Button" to="." method="_on_button_pressed"]

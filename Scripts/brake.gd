@@ -1,4 +1,4 @@
-extends Node2D
+extends GenericDestroyable
 
 signal enemiesDetected
 
@@ -13,7 +13,28 @@ enum SPEED {Off,Normal,Fast}
 @export var currentSpeed=SPEED.Normal;
 @export var locked = false
 @onready var startLocked = locked
+@onready var repairStation=find_child("RepairArea")
+var operatingMode=OPERATIONMODE.Normal
 
+func _ready():
+	if Global.elevator:
+		Global.elevator.moving=false
+func damaged():
+	repairStation.visible=true
+	repairStation.enableOptionalRepair()
+	operatingMode=OPERATIONMODE.Damaged
+
+func disable():
+	repairStation.visible=true
+	repairStation.enableRepair()
+	operatingMode=OPERATIONMODE.Broken
+	if currentSpeed==SPEED.Fast:#if we are going fast, automatically slow down
+		switchDown()
+
+func repaired():
+	repairStation.visible=false
+	operatingMode=OPERATIONMODE.Normal
+	
 func turnOffLightOnly():
 	alarmLightAnimation.stop()
 
@@ -30,10 +51,14 @@ func switchUp():
 				Global.elevator.moveNormal()
 				Global.elevator.moving=true
 		SPEED.Normal:
-			if Global.elevator:
-				Global.elevator.moveFast()
-			brakeSprite.play("normal_to_fast")
-			currentSpeed=SPEED.Fast	
+			if operatingMode!=OPERATIONMODE.Broken: #cannot go into fast mode if broken
+				if Global.elevator:
+					Global.elevator.moveFast()
+				brakeSprite.play("normal_to_fast")
+				currentSpeed=SPEED.Fast	
+			else:
+				Audio.playSfx(ERROR)
+				return
 		SPEED.Fast:
 			Audio.playSfx(ERROR)
 			return
@@ -63,23 +88,26 @@ func switchDown():
 
 # used when elevator encounters enemies or no more fuel available
 func lock(enemies=true):
-	Audio.playSfx(BRAKESOUND)
 	if enemies: 
 		alarmIsSounding = true
 		Audio.playSfx(ALERT)
+		if currentSpeed!=SPEED.Off:
+			Audio.playSfx(BRAKESOUND)
 		alarmLightAnimation.play("alert")
 		if !Global.tutorialsCompleted[2]:
 			enemiesDetected.emit()
-	match currentSpeed:
-		SPEED.Fast:
-			brakeSprite.play("fast_to_off")
-		SPEED.Normal:
-			brakeSprite.play("normal_to_off")
-	currentSpeed=SPEED.Off
-	locked = true
-	if Global.elevator:#check that elevator exists 
-		Global.elevator.moving=false
-	return
+	if not locked:
+		Audio.playSfx(BRAKESOUND)
+		match currentSpeed:
+			SPEED.Fast:
+				brakeSprite.play("fast_to_off")
+			SPEED.Normal:
+				brakeSprite.play("normal_to_off")
+		currentSpeed=SPEED.Off
+		locked = true
+		if Global.elevator:#check that elevator exists 
+			Global.elevator.moving=false
+		return
 
 func unlock():
 	if startLocked:

@@ -14,12 +14,14 @@ func _ready():
 	if Global.elevator.moving:
 		animation.play("EngineJiggle")
 		sprite.play()
+		play()
 	else:
+		sprite.pause()
+		animation.pause()
 		stopped = true
 
 func startEngine():
 	if(stopped):
-		print("Start engine")
 		stopped = false
 		animation.play("EngineJiggle")
 		sprite.play()
@@ -27,16 +29,18 @@ func startEngine():
 		play()
 
 func stopEngine():
-	print("Stop engine")
-	stopped = true
-	animation.pause()
-	sprite.pause()
-	stream = shutoff
-	play()
-
+	if(!stopped):
+		stopped = true
+		animation.pause()
+		sprite.pause()
+		stream = shutoff
+		play()
+	
 func _on_finished():
 	if(!stopped && Global.elevator.fuel > 0):
 		stream = loop
 		play()
+		pass
 	elif(!stopped):
 		stopEngine()
+		pass
