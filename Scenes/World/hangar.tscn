@@ -416,22 +416,6 @@ position = Vector2(-224, 280)
 [node name="Elevator" parent="." instance=ExtResource("9_yyd37")]
 moving = false
 
-[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
-scale = Vector2(1, 1)
-metadata/_local_pose_override_enabled_ = true
-
-[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
-
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" index="0"]
 active = false
 
@@ -439,7 +423,7 @@ active = false
 active = false
 
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
-position = Vector2(0, 4.5)
+position = Vector2(-1, 9)
 
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Upper" index="0"]
 position = Vector2(12.5, -7)
@@ -462,6 +446,9 @@ monitorable = false
 [node name="DoorOpenArea2D" parent="Elevator/interior/Doors/Door" index="2"]
 monitoring = false
 monitorable = false
+
+[node name="Net" parent="Elevator" index="8"]
+locked = true
 
 [node name="DispenserTrigger" parent="Elevator/Tutorial" index="5"]
 monitoring = false
@@ -646,6 +633,7 @@ offset_bottom = 21.0
 [node name="RichTextLabel" parent="Tutorial/BrakeText/Textfield/MarginContainer" index="0"]
 text = "W/S -> Change speed"
 
+[connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="open"]

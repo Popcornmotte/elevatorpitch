@@ -1,14 +1,17 @@
 extends Node2D
 class_name ArmModuleHandler
 
-enum MODULE {Flamethrower, Arclight}
+enum MODULE {None, Flamethrower, Arclight}
 
 const flamethrower = preload("res://Scenes/Objects/Modules/Arms/flamethrower.tscn")
 const arclightProjector = preload("res://Scenes/Objects/Modules/Arms/arclightProjector.tscn")
 
+const extensionSFX = preload("res://Assets/Audio/sfx/modules/moduleExtend.wav")
+const retractionSFX = preload("res://Assets/Audio/sfx/modules/moduleRetract.wav")
+
 @export var active = true
 @export var left = false
-var moduleSelected = true
+var moduleSelected = false
 var module : GenericArmModule
 @onready var shield = $Shield
 var claw : Claw
@@ -32,28 +35,29 @@ func _ready():
 		MODULE.Arclight:
 			module = arclightProjector.instantiate()
 	
-	$MaskingGroup/AnimationParent.add_child(module)
-	module.parent = self
-	module.global_position = $MaskingGroup/AnimationParent.global_position
-	module.rotation = rotation
-	
-	module.selected = moduleSelected
-	shield.selected = !moduleSelected
+	if module:
+		$MaskingGroup/AnimationParent.add_child(module)
+		module.parent = self
+		module.global_position = $MaskingGroup/AnimationParent.global_position
+		module.rotation = rotation
+		
+		module.selected = moduleSelected
+	shield.selected = !moduleSelected or !module
 	
 	if left:
-		module.flipSprite()
+		if module:
+			module.flipSprite()
 		shield.flipSprite()
-	
-	$Extension.play("extend_module" if moduleSelected else "retract_module")
 
 func _process(delta):
-	if Input.is_action_just_pressed("ScrollUp") or Input.is_action_just_pressed("ScrollDown"):
+	if module and (Input.is_action_just_pressed("ScrollUp") or Input.is_action_just_pressed("ScrollDown")):
 		moduleSelected = !moduleSelected
 		module.selected = moduleSelected
 		if moduleSelected:
 			module.visible = true
 		shield.selected = !moduleSelected
 		$Extension.play("extend_module" if moduleSelected else "retract_module")
+		Audio.playSfxLocalized(extensionSFX if moduleSelected else retractionSFX, global_position)
 		$Text.text = "Module" if moduleSelected else "Shield"
 		# TODO: visualise which one is active
 	pass

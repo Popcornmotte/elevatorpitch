@@ -5,7 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://ycew4m1ft0c0" path="res://Assets/Sprites/Enemies/drone_body.tres" id="3_fim7g"]
 [ext_resource type="PackedScene" uid="uid://bu02lx654uo5r" path="res://Scenes/Objects/Enemies/weapons/saw.tscn" id="4_04cwc"]
 [ext_resource type="PackedScene" uid="uid://bsa8g0bq1qvsk" path="res://Scenes/Objects/Items/crate.tscn" id="5_ephof"]
-[ext_resource type="SpriteFrames" uid="uid://uwfycti5gw1f" path="res://Assets/Sprites/Modules/flameProjectile.tres" id="6_4um5h"]
+[ext_resource type="SpriteFrames" uid="uid://uwfycti5gw1f" path="res://Assets/Sprites/Modules/flameProjectile.tres" id="6_cn6xv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3d6d3"]
 radius = 19.0
@@ -65,10 +65,8 @@ node_a = NodePath("..")
 node_b = NodePath("../Crate")
 
 [node name="Flame" type="AnimatedSprite2D" parent="."]
-visible = false
-z_index = -5
+z_index = -1
 scale = Vector2(4, 4)
-sprite_frames = ExtResource("6_4um5h")
-autoplay = "default"
+sprite_frames = ExtResource("6_cn6xv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

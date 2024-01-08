@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cfr4ycsmcfwck" path="res://Assets/Sprites/Enemies/low_bomb_body.png" id="1_66s51"]
 [ext_resource type="Texture2D" uid="uid://dnxhr055pq23p" path="res://Assets/Sprites/Enemies/low_bomb_defuse.png" id="2_a2udm"]
 [ext_resource type="Script" path="res://Scripts/Enemies/bombEnemyDefuse.gd" id="3_xhmkc"]
-[ext_resource type="SpriteFrames" uid="uid://uwfycti5gw1f" path="res://Assets/Sprites/Modules/flameProjectile.tres" id="5_a2n02"]
+[ext_resource type="SpriteFrames" uid="uid://uwfycti5gw1f" path="res://Assets/Sprites/Modules/flameProjectile.tres" id="5_pdmtu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jo11d"]
 radius = 24.0
@@ -246,6 +246,7 @@ script = ExtResource("1_2kgrk")
 hitPoints = 50.0
 effectiveRange = 0
 effectiveRangeVariance = 0
+yields = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
@@ -285,11 +286,9 @@ position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_d7o1y")
 
 [node name="Flame" type="AnimatedSprite2D" parent="."]
-visible = false
-z_index = -5
+z_index = -1
 scale = Vector2(5, 5)
-sprite_frames = ExtResource("5_a2n02")
-autoplay = "default"
+sprite_frames = ExtResource("5_pdmtu")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Trigger" to="." method="_on_trigger_area_entered"]
