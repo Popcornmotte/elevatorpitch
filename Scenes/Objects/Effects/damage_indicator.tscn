@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://vuaucj3xjieq"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/damageIndicator.gd" id="1_adnwq"]
+[ext_resource type="Theme" uid="uid://dhhf30soudvfh" path="res://Fonts/PixelText.tres" id="1_rmht2"]
+
+[sub_resource type="Animation" id="Animation_3yi5x"]
+resource_name = "scale"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_185qe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vqfkf"]
+_data = {
+"RESET": SubResource("Animation_185qe"),
+"scale": SubResource("Animation_3yi5x")
+}
+
+[node name="DamageIndicator" type="Node2D"]
+z_index = 10
+scale = Vector2(2, 2)
+script = ExtResource("1_adnwq")
+
+[node name="Text" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -8.0
+offset_right = 24.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_rmht2")
+bbcode_enabled = true
+text = "[center][color=#FF2000FF]-100[/color][/center]"
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vqfkf")
+}
+
+[node name="CutoffTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="CutoffTimer" to="." method="_on_cutoff_timer_timeout"]

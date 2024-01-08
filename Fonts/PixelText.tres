@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dhhf30soudvfh"]
+
+[ext_resource type="FontFile" uid="uid://dgd0hsl0u56xs" path="res://Fonts/m5x7.ttf" id="1_01gva"]
+
+[resource]
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.490196)
+RichTextLabel/constants/shadow_outline_size = 0
+RichTextLabel/fonts/normal_font = ExtResource("1_01gva")

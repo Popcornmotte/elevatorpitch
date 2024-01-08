@@ -2,9 +2,10 @@ extends RigidBody2D
 
 class_name Enemy
 
+const flamePrefab = preload("res://Scenes/Objects/Effects/flame.tscn")
 const isEnemyEntity = true
 #damage types in order: bludgeoning, piercing, force, fire, lighting
-@export var damageFactors = [1,1,1,1,1]
+@export var damageFactors = [1.0,1.0,1.0,1.0,1.0]
 @export var hitPoints = 100.0
 @onready var maxHitPoints = hitPoints
 @export var rangedBehavior = false
@@ -17,6 +18,7 @@ const isEnemyEntity = true
 @export var despawnOnScreenExitTimer = 30.0
 @export var attacksPerTurn = 2
 @export var yields = Item.TYPE.Scrap
+@export var flameScale = 4.0
 #if debug mode enabled, draw target positions
 @export var DebugMode = false
 
@@ -40,8 +42,10 @@ var elevatorPos : Vector2
 var loot
 # Start burning after being engulfed in flames for a second
 var timeSpentInFire = 0.0
-var timeOnFire = 0.0
 var intersectingFlameParticles = 0
+
+var damageIndicator : DamageIndicator
+var flame : Node2D
 
 #debug marker
 var dbm
@@ -97,8 +101,18 @@ func die():
 	gravity_scale = 1
 
 func takeDamage(damage : int, type):
+	if dead:
+		return
 	var factor = damageFactors[type]
-	hitPoints -= damage * factor
+	var dealtDamage = damage * factor
+	dealtDamage = min(hitPoints, dealtDamage)
+	if !(damageIndicator and weakref(damageIndicator).get_ref()):
+		damageIndicator = Global.damageIndicatorPrefab.instantiate()
+		damageIndicator.parent = self
+		add_sibling(damageIndicator)
+		damageIndicator.global_position = global_position + Vector2(0,-64)
+	damageIndicator.addDamage(dealtDamage)
+	hitPoints -= dealtDamage
 	if(!dead && hitPoints <=0 ):
 		die()
 
@@ -206,14 +220,16 @@ func _process(delta):
 	if intersectingFlameParticles > 0:
 		timeSpentInFire += delta
 		if(timeSpentInFire > 0.5):
-			timeOnFire = 3
+			if flame and weakref(flame).get_ref():
+				flame.restartTimer()
+			else:
+				flame = flamePrefab.instantiate()
+				flame.parent = self
+				add_child(flame)
+				flame.global_position = global_position
+				flame.scale = Vector2(flameScale, flameScale)
 	elif timeSpentInFire > 0:
 		timeSpentInFire -= 2 * delta
-	if timeOnFire > 0 or timeSpentInFire > 0:
-		timeOnFire -= delta
-		takeDamage(10 * delta, 3)
-	if $Flame:
-		$Flame.visible = timeOnFire > 0
 
 	if(reload>0):reload-=delta
 	pass
