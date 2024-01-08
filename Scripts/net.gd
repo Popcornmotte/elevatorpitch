@@ -6,6 +6,7 @@ const ERROR = preload("res://Assets/Audio/sfx/error.wav")
 @export var ropeColor = Color.BLACK
 @export var speed = 400
 @export var maxDistance = 600
+@export var locked = false
 @onready var lineLeft = $LineLeft
 @onready var lineRight = $LineRight
 var ropeArr : Array
@@ -80,6 +81,8 @@ func toggleVisibility(state : bool):
 		netPolygon.show()
 
 func setDeployment(deploy : bool):
+	if locked:
+		return
 	animating = true
 	if deploy:
 		#rope.process_mode = Node.PROCESS_MODE_INHERIT

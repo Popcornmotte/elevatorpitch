@@ -1,14 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmnrht4x7e6kp"]
 
+[ext_resource type="Script" path="res://Scripts/Enemies/low_bomb_barrel.gd" id="1_1tix5"]
 [ext_resource type="Texture2D" uid="uid://bda7wesos41vm" path="res://Assets/Sprites/Enemies/low_bomb_barrel.png" id="1_8eiro"]
-[ext_resource type="Script" path="res://Scripts/DeleteSelf.gd" id="1_gyem6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_74qg5"]
 radius = 24.0
 height = 66.0
 
 [node name="low_bomb_barrel" type="RigidBody2D"]
-script = ExtResource("1_gyem6")
+collision_layer = 7
+script = ExtResource("1_1tix5")
+isItem = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 20)

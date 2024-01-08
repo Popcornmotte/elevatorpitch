@@ -20,12 +20,12 @@ var inventory = Array()
 var funds=0
 var newUser = true
 var username = ""
-var armModule = ArmModuleHandler.MODULE.Arclight
+var armModule = ArmModuleHandler.MODULE.None
 # In order: Arclight, Flamethrower
 var modulesUnlocked = [false, false]
 # In order: Hangar, Fuel, Enemies, Repair
 var tutorialsCompleted = [false, false, false, false]
-var currentContract : Contract
+var currentContract = Contract.new("Dummy description", 1)
 
 #Options
 var masterVolume = 1.0

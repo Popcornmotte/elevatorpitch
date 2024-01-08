@@ -1,33 +1,59 @@
-[gd_scene load_steps=40 format=3 uid="uid://dn1h17rgyu5yq"]
+[gd_scene load_steps=56 format=3 uid="uid://dn1h17rgyu5yq"]
 
 [ext_resource type="Script" path="res://Scripts/hangar.gd" id="1_7h618"]
+[ext_resource type="Texture2D" uid="uid://jaoxkqmx7jsf" path="res://Assets/Sprites/Hangar/pipeOverlay.png" id="2_ndkxd"]
 [ext_resource type="PackedScene" uid="uid://cbnpyi0uo1evc" path="res://Scenes/Objects/ladder.tscn" id="2_vpx34"]
+[ext_resource type="Script" path="res://Scripts/ScreenSpaceParallaxLayer.gd" id="3_3fpqm"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="3_4b3ci"]
 [ext_resource type="Texture2D" uid="uid://du4run1n7hwqk" path="res://Assets/Sprites/Hangar/layer0.png" id="3_07q7o"]
 [ext_resource type="Texture2D" uid="uid://da6lopna0so63" path="res://Assets/Sprites/Hangar/layer1.png" id="4_xjuvv"]
 [ext_resource type="Texture2D" uid="uid://3oj5nh0bnxnq" path="res://Assets/Sprites/Hangar/layer2.png" id="5_y2ten"]
 [ext_resource type="Texture2D" uid="uid://d4jw16trahn4f" path="res://Assets/Sprites/Hangar/layer3.png" id="6_u8q84"]
 [ext_resource type="Texture2D" uid="uid://7bo5dfbwoqi7" path="res://Assets/Sprites/Hangar/layer4.png" id="7_3xxor"]
+[ext_resource type="Texture2D" uid="uid://cdocs2sd6mf" path="res://Assets/Sprites/Cable.png" id="7_rea0b"]
+[ext_resource type="Texture2D" uid="uid://da8sf5yffpdlc" path="res://Assets/Sprites/Hangar/catwalk.png" id="9_xxsop"]
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="9_yyd37"]
+[ext_resource type="Texture2D" uid="uid://bs6u4tqo7rvfm" path="res://Assets/Sprites/Hangar/bedroomBG.png" id="10_4ww8b"]
 [ext_resource type="Texture2D" uid="uid://dyli07gucg4i" path="res://Assets/Sprites/largeButton.png" id="11_2gq7s"]
+[ext_resource type="Texture2D" uid="uid://b7u6q5wk48nwg" path="res://Assets/Sprites/Hangar/bedroomLadderTube.png" id="11_ulvnb"]
 [ext_resource type="Script" path="res://Scripts/generic_claw_grabbable.gd" id="12_b7ptf"]
+[ext_resource type="Texture2D" uid="uid://cjsn1iurb8bi8" path="res://Assets/Sprites/Hangar/lockers.png" id="12_t04e3"]
 [ext_resource type="Texture2D" uid="uid://cfemphjpttb6r" path="res://Assets/Sprites/truck.png" id="12_t5dm1"]
+[ext_resource type="Texture2D" uid="uid://qww0dgjlfkmk" path="res://Assets/Sprites/Hangar/bed.png" id="13_iue1h"]
 [ext_resource type="Texture2D" uid="uid://em8ovy0rq3jl" path="res://Assets/Sprites/FX/cone.png" id="13_rvsa6"]
 [ext_resource type="Texture2D" uid="uid://bgkjkvklvto1i" path="res://Assets/Sprites/Claws/Test0/TestArm.png" id="14_2xlwc"]
+[ext_resource type="Texture2D" uid="uid://cl0y40t0wlg7h" path="res://Assets/Sprites/Hangar/desk.png" id="14_26tb0"]
+[ext_resource type="Texture2D" uid="uid://ug8jrsd5k4es" path="res://Assets/Sprites/Hangar/shelf.png" id="15_jls88"]
 [ext_resource type="Texture2D" uid="uid://bncium1i82qj0" path="res://Assets/Sprites/hatchButtonSign.png" id="15_pntbt"]
 [ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="16_nd0oi"]
+[ext_resource type="Texture2D" uid="uid://cq61jwury46lg" path="res://Assets/Sprites/Hangar/backgroundGradient.png" id="26_d12tj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a0ag"]
-size = Vector2(960, 128)
+size = Vector2(800, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xi66o"]
-size = Vector2(64, 128)
+size = Vector2(88, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlhwc"]
-size = Vector2(320, 128)
+size = Vector2(400, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpda6"]
-size = Vector2(64, 8)
+size = Vector2(40, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ylcsg"]
+size = Vector2(144, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0a6lw"]
+size = Vector2(112, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4w7vb"]
+size = Vector2(12, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sdb8v"]
+size = Vector2(52, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sfxk"]
+size = Vector2(20, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_outgl"]
 size = Vector2(192, 104)
@@ -137,7 +163,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ButtonArm:rotation")
+tracks/0/path = NodePath("ButtonArmCanvasGroup/ButtonArm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -149,7 +175,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonArm/LowerArm:rotation")
+tracks/1/path = NodePath("ButtonArmCanvasGroup/ButtonArm/LowerArm:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -165,7 +191,7 @@ length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ButtonArm:rotation")
+tracks/0/path = NodePath("ButtonArmCanvasGroup/ButtonArm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -177,7 +203,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonArm/LowerArm:rotation")
+tracks/1/path = NodePath("ButtonArmCanvasGroup/ButtonArm/LowerArm:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -196,49 +222,62 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uavan"]
 size = Vector2(160, 30)
 
-[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button")]
+[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button", "doorAreas")]
 script = ExtResource("1_7h618")
 crateSpawnArea = NodePath("spawnAreas/crateSpawnArea")
 brake = NodePath("Elevator/interior/Brake")
-button = NodePath("ButtonArm/LowerArm/HatchButton")
+button = NodePath("ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton")
+doorAreas = [NodePath("Elevator/interior/Doors/Door4/DoorOpenArea2D"), NodePath("Elevator/interior/Doors/Door3/DoorOpenArea2D")]
 
 [node name="Collision" type="StaticBody2D" parent="."]
 collision_layer = 524305
 collision_mask = 524337
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
-position = Vector2(160, 256)
+position = Vector2(240, 256)
 shape = SubResource("RectangleShape2D_3a0ag")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Collision"]
-position = Vector2(-288, 256)
+position = Vector2(-148, 208)
 shape = SubResource("RectangleShape2D_xi66o")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Collision"]
-position = Vector2(-224, 384)
+position = Vector2(-260, 208)
 shape = SubResource("RectangleShape2D_xi66o")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Collision"]
-position = Vector2(-608, 384)
-shape = SubResource("RectangleShape2D_xi66o")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="Collision"]
-position = Vector2(-416, 512)
-shape = SubResource("RectangleShape2D_qlhwc")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="Collision"]
-position = Vector2(-544, 256)
+position = Vector2(-504, 256)
 shape = SubResource("RectangleShape2D_qlhwc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collision"]
 polygon = PackedVector2Array(384, 192, 512, 0, 384, -320, 96, -408, 96, -512, 640, -512, 640, 192)
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="Collision"]
-position = Vector2(-352, 196)
+position = Vector2(-204, 196)
 shape = SubResource("RectangleShape2D_wpda6")
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Collision"]
 polygon = PackedVector2Array(-384, 192, -512, 0, -384, -320, -96, -408, -96, -512, -640, -512, -640, 192)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Collision"]
+position = Vector2(-232, 304)
+shape = SubResource("RectangleShape2D_ylcsg")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Collision"]
+position = Vector2(-160, 148)
+shape = SubResource("RectangleShape2D_0a6lw")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Collision"]
+position = Vector2(-102, 118)
+shape = SubResource("RectangleShape2D_4w7vb")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Collision"]
+position = Vector2(-130, 172)
+shape = SubResource("RectangleShape2D_sdb8v")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Collision"]
+position = Vector2(144, 181)
+shape = SubResource("RectangleShape2D_6sfxk")
 
 [node name="ItemBlockers" type="StaticBody2D" parent="."]
 position = Vector2(0, -448)
@@ -256,79 +295,130 @@ shape = SubResource("RectangleShape2D_r8eyn")
 [node name="Background" type="Node2D" parent="."]
 z_index = -25
 
-[node name="Black" type="Polygon2D" parent="Background"]
-visible = false
-z_index = -5
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-1800, -1200, 1800, -1200, 1800, 1200, -1800, 1200)
-
 [node name="Polygon2D" type="Polygon2D" parent="Background"]
-color = Color(0.0980392, 0.0980392, 0.0980392, 1)
-polygon = PackedVector2Array(-320, 192, -320, 320, -256, 320, -256, 448, -576, 448, -576, 320, -384, 320, -384, 192, -1088, 192, -1088, 1152, 1280, 1152, 1280, 192)
+color = Color(0.164706, 0.12549, 0.164706, 1)
+polygon = PackedVector2Array(-192, 192, -192, 224, -160, 224, -160, 288, -304, 288, -304, 224, -216, 224, -216, 192, -640, 192, -1088, 192, -1088, 1152, 1280, 1152, 1280, 192, 827.939, 192, 640, 192, 128.316, 192, 128, 312, -128, 312, -128.418, 192)
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
+[node name="PipeOverlay" type="Sprite2D" parent="Background"]
+z_index = 50
+position = Vector2(0, -8)
+scale = Vector2(2, 2)
+texture = ExtResource("2_ndkxd")
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+[node name="ParallaxBG" type="Node2D" parent="Background"]
+z_index = -10
 
-[node name="Layer0" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer"]
+[node name="Layer0" type="Sprite2D" parent="Background/ParallaxBG"]
 position = Vector2(0, -8)
 scale = Vector2(2, 2)
 texture = ExtResource("3_07q7o")
+script = ExtResource("3_3fpqm")
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-z_index = -2
-motion_scale = Vector2(1, 0.8)
-
-[node name="Layer1" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
+[node name="Layer1" type="Sprite2D" parent="Background/ParallaxBG"]
+z_index = -1
 scale = Vector2(2, 2)
 texture = ExtResource("4_xjuvv")
+script = ExtResource("3_3fpqm")
+factorH = 0.1
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-z_index = -3
-motion_scale = Vector2(1, 0.7)
-
-[node name="Layer2" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer3"]
+[node name="Layer2" type="Sprite2D" parent="Background/ParallaxBG"]
+z_index = -2
 position = Vector2(0, 8)
 scale = Vector2(2, 2)
 texture = ExtResource("5_y2ten")
+script = ExtResource("3_3fpqm")
+factorH = 0.2
 
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-z_index = -4
-motion_scale = Vector2(1, 0.6)
-
-[node name="Layer3" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer4"]
+[node name="Layer3" type="Sprite2D" parent="Background/ParallaxBG"]
+z_index = -3
 position = Vector2(0, 16)
 scale = Vector2(2, 2)
 texture = ExtResource("6_u8q84")
+script = ExtResource("3_3fpqm")
+factorH = 0.3
+factorV = 1.0
 
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-z_index = -5
-motion_scale = Vector2(1, 0.5)
-
-[node name="Layer4" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer5"]
+[node name="Layer4" type="Sprite2D" parent="Background/ParallaxBG"]
+z_index = -4
 position = Vector2(0, 24)
 scale = Vector2(2, 2)
 texture = ExtResource("7_3xxor")
+script = ExtResource("3_3fpqm")
+factorH = 0.4
+factorV = 1.0
+
+[node name="Cable" type="Node2D" parent="Background"]
+position = Vector2(0, 32)
+
+[node name="Sprite" type="Sprite2D" parent="Background/Cable"]
+position = Vector2(0, -392)
+texture = ExtResource("7_rea0b")
+
+[node name="Sprite2" type="Sprite2D" parent="Background/Cable"]
+position = Vector2(0, -152)
+texture = ExtResource("7_rea0b")
+
+[node name="Sprite3" type="Sprite2D" parent="Background/Cable"]
+position = Vector2(0, 88)
+texture = ExtResource("7_rea0b")
+
+[node name="Catwalk" type="Sprite2D" parent="Background"]
+z_index = -1
+position = Vector2(-160, 160)
+texture = ExtResource("9_xxsop")
+
+[node name="Bedroom" type="Node2D" parent="Background"]
+
+[node name="BedroomBg" type="Sprite2D" parent="Background/Bedroom"]
+position = Vector2(-232, 256)
+texture = ExtResource("10_4ww8b")
+
+[node name="BedroomLadderTube" type="Sprite2D" parent="Background/Bedroom"]
+z_index = 50
+position = Vector2(-232, 256)
+texture = ExtResource("11_ulvnb")
+
+[node name="Lockers" type="Sprite2D" parent="Background/Bedroom"]
+position = Vector2(-248, 272)
+texture = ExtResource("12_t04e3")
+
+[node name="Bed" type="Sprite2D" parent="Background/Bedroom"]
+position = Vector2(-272, 280)
+texture = ExtResource("13_iue1h")
+
+[node name="Desk" type="Sprite2D" parent="Background/Bedroom"]
+position = Vector2(-184, 280)
+texture = ExtResource("14_26tb0")
+
+[node name="Shelf" type="Sprite2D" parent="Background/Bedroom"]
+position = Vector2(-288, 256)
+texture = ExtResource("15_jls88")
+
+[node name="BedroomLadderPlug" type="Polygon2D" parent="Background"]
+z_index = 50
+position = Vector2(-200, 208)
+color = Color(0.164706, 0.12549, 0.164706, 1)
+polygon = PackedVector2Array(-24, -16, 16, -16, 16, 16, -24, 16)
+
+[node name="Backdrop" type="Polygon2D" parent="Background"]
+color = Color(0.164706, 0.12549, 0.164706, 1)
+polygon = PackedVector2Array(-1088, -896, 1280, -896, 1280, 192, 512, 192, 512, -320, -512, -320, -512, 192, -1088, 192)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Background"]
+z_index = 50
+position = Vector2(0, -448)
+color = Color(0.164706, 0.12549, 0.164706, 1)
+polygon = PackedVector2Array(-640, 128, 640, 128, 640, -128, -640, -128)
 
 [node name="player" parent="." instance=ExtResource("3_4b3ci")]
 z_index = 4
-position = Vector2(-400, 432)
+position = Vector2(-224, 280)
 
 [node name="Elevator" parent="." instance=ExtResource("9_yyd37")]
 moving = false
 
-[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
-
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 scale = Vector2(1, 1)
-metadata/_local_pose_override_enabled_ = true
-
-[node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
-
-[node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
-metadata/_local_pose_override_enabled_ = true
 
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" index="0"]
 active = false
@@ -337,7 +427,7 @@ active = false
 active = false
 
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
-position = Vector2(0, 6)
+position = Vector2(-1, 9)
 
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Upper" index="0"]
 position = Vector2(12.5, -7)
@@ -353,6 +443,17 @@ locked = true
 [node name="BrakeSprite" parent="Elevator/interior/Brake" index="0"]
 animation = &"off_to_normal"
 
+[node name="DoorOpenArea2D" parent="Elevator/interior/Doors/Door2" index="2"]
+monitoring = false
+monitorable = false
+
+[node name="DoorOpenArea2D" parent="Elevator/interior/Doors/Door" index="2"]
+monitoring = false
+monitorable = false
+
+[node name="Net" parent="Elevator" index="8"]
+locked = true
+
 [node name="DispenserTrigger" parent="Elevator/Tutorial" index="5"]
 monitoring = false
 monitorable = false
@@ -367,28 +468,22 @@ shape = SubResource("RectangleShape2D_6nr05")
 [node name="Ladders" type="Node2D" parent="."]
 
 [node name="BedLadder" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-352, 224)
+position = Vector2(-203, 168)
 
 [node name="BedLadder2" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-352, 288)
+position = Vector2(-203, 232)
 
 [node name="BedLadder3" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-352, 352)
-
-[node name="BedLadder4" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-352, 416)
+position = Vector2(-203, 256)
 
 [node name="ElevatorLadder" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-120, 160)
+position = Vector2(-120, 112)
 
 [node name="ElevatorLadder2" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-120, 96)
+position = Vector2(-120, 48)
 
 [node name="ElevatorLadder3" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-120, 32)
-
-[node name="ElevatorLadder4" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-120, -32)
+position = Vector2(-120, -16)
 
 [node name="RiseSequence" type="Node2D" parent="."]
 
@@ -398,11 +493,13 @@ libraries = {
 "": SubResource("AnimationLibrary_0vt87")
 }
 
-[node name="Timer" type="Timer" parent="RiseSequence"]
+[node name="TransitionTimer" type="Timer" parent="RiseSequence"]
 wait_time = 3.0
 
+[node name="FadeTimer" type="Timer" parent="RiseSequence"]
+
 [node name="Truck" type="RigidBody2D" parent="."]
-position = Vector2(163, 180)
+position = Vector2(239, 180)
 collision_layer = 32899
 collision_mask = 32899
 script = ExtResource("12_b7ptf")
@@ -419,37 +516,41 @@ position = Vector2(-82, -2)
 rotation = 1.57079
 texture = ExtResource("13_rvsa6")
 
-[node name="ButtonArm" type="Node2D" parent="."]
+[node name="ButtonArmCanvasGroup" type="CanvasGroup" parent="."]
+
+[node name="Mask" type="Sprite2D" parent="ButtonArmCanvasGroup"]
+
+[node name="ButtonArm" type="Node2D" parent="ButtonArmCanvasGroup"]
 position = Vector2(664, -128)
 rotation = 1.63712
 
-[node name="Sprite2D" type="Sprite2D" parent="ButtonArm"]
+[node name="Sprite2D" type="Sprite2D" parent="ButtonArmCanvasGroup/ButtonArm"]
 position = Vector2(0, 64)
 rotation = -1.57079
 texture = ExtResource("14_2xlwc")
 
-[node name="LowerArm" type="Node2D" parent="ButtonArm"]
+[node name="LowerArm" type="Node2D" parent="ButtonArmCanvasGroup/ButtonArm"]
 position = Vector2(0, 128)
 rotation = 2.87979
 
-[node name="Sprite2D2" type="Sprite2D" parent="ButtonArm/LowerArm"]
+[node name="Sprite2D2" type="Sprite2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm"]
 position = Vector2(0, 64)
 rotation = -1.57079
 texture = ExtResource("14_2xlwc")
 
-[node name="HatchButton" type="AnimatedSprite2D" parent="ButtonArm/LowerArm"]
+[node name="HatchButton" type="AnimatedSprite2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm"]
 position = Vector2(0, 128)
 scale = Vector2(2, -2)
 sprite_frames = SubResource("SpriteFrames_uttrf")
 
-[node name="Area2D" type="Area2D" parent="ButtonArm/LowerArm/HatchButton"]
+[node name="Area2D" type="Area2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton"]
 collision_layer = 32768
 collision_mask = 32768
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ButtonArm/LowerArm/HatchButton/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D"]
 shape = SubResource("RectangleShape2D_ql7la")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ButtonArm/LowerArm"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm"]
 z_index = -1
 position = Vector2(-48.4341, 116.463)
 rotation = -1.57079
@@ -457,15 +558,22 @@ sprite_frames = SubResource("SpriteFrames_gfr7m")
 autoplay = "default"
 frame_progress = 0.0324825
 
+[node name="Gradient" type="Sprite2D" parent="ButtonArmCanvasGroup"]
+position = Vector2(608, -88)
+rotation = -1.57079
+scale = Vector2(4, 4)
+texture = ExtResource("26_d12tj")
+
 [node name="ButtonArmAnim" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_w4qtg")
 }
 
 [node name="Tutorial" type="Node2D" parent="."]
+visible = false
 
 [node name="MovementText" parent="Tutorial" instance=ExtResource("16_nd0oi")]
-position = Vector2(-392, 384)
+position = Vector2(-248, 232)
 startVisible = true
 
 [node name="TextureButton" parent="Tutorial/MovementText" index="0"]
@@ -531,11 +639,12 @@ offset_bottom = 21.0
 [node name="RichTextLabel" parent="Tutorial/BrakeText/Textfield/MarginContainer" index="0"]
 text = "W/S -> Change speed"
 
-[connection signal="timeout" from="RiseSequence/Timer" to="." method="_on_timer_timeout"]
-[connection signal="area_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="area_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="open"]
-[connection signal="body_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
+[connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
+[connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="open"]
+[connection signal="body_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="_on_area_2d_body_entered"]
 [connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmStationText" method="on_body_entered"]
 [connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmText" method="on_body_entered"]
 
@@ -544,6 +653,10 @@ text = "W/S -> Change speed"
 [editable path="Elevator/Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/ModuleAttachment"]
 [editable path="Elevator/interior"]
 [editable path="Elevator/interior/Brake"]
+[editable path="Elevator/interior/Doors/Door4"]
+[editable path="Elevator/interior/Doors/Door3"]
+[editable path="Elevator/interior/Doors/Door2"]
+[editable path="Elevator/interior/Doors/Door"]
 [editable path="Elevator/Tutorial/FuelPlace"]
 [editable path="Elevator/Tutorial/Valve"]
 [editable path="Elevator/Tutorial/Dispenser"]

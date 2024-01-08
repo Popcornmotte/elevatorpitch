@@ -803,8 +803,8 @@ script = ExtResource("27_jb5os")
 
 [node name="AreaRight" type="Area2D" parent="ItemChutes"]
 position = Vector2(88, 160)
-collision_layer = 128
-collision_mask = 128
+collision_layer = 0
+collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemChutes/AreaRight"]
 position = Vector2(8, 0)
@@ -813,8 +813,8 @@ disabled = true
 
 [node name="AreaLeft" type="Area2D" parent="ItemChutes"]
 position = Vector2(-96, 160)
-collision_layer = 128
-collision_mask = 128
+collision_layer = 0
+collision_mask = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemChutes/AreaLeft"]
 shape = SubResource("RectangleShape2D_vrlx0")

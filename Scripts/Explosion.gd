@@ -5,10 +5,10 @@ var dealtDamageTo = []
 const BOOM = preload("res://Assets/Audio/sfx/explosion.wav")
 
 func _ready():
-	Audio.playSfx(BOOM)
+	Audio.playSfxLocalized(BOOM, global_position)
 	
 func onAreaEntered(other : Node2D):
-	print("Checking " + other.name)
+	#print("Checking " + other.name)
 	if dealtDamageTo.has(other):
 		# To make sure we dont damage something twice (like the elevator)
 		return
@@ -18,9 +18,9 @@ func onAreaEntered(other : Node2D):
 		distanceFactor = 1/(distanceFactor+1)
 		other.takeDamage(damage * distanceFactor, Global.DMG.Force)
 		dealtDamageTo.push_back(other)
-		print("Dealt " + str(damage * distanceFactor) + " to " + other.name)
-	elif other.get_parent() != null:
-		print(other.name + " didnt have takeDamage.")
+		#print("Dealt " + str(damage * distanceFactor) + " to " + other.name)
+	elif other.get_parent() != null and other.get_parent() is Node2D:
+		#print(other.name + " didnt have takeDamage.")
 		onAreaEntered(other.get_parent())
 
 
