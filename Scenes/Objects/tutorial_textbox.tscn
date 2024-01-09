@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqvnuucs4llig"]
+[gd_scene load_steps=7 format=3 uid="uid://bqvnuucs4llig"]
 
 [ext_resource type="Script" path="res://Scripts/tutorial_textbox.gd" id="1_ko4j2"]
 [ext_resource type="Texture2D" uid="uid://tejwfgy0a8h" path="res://Assets/Sprites/UI/CloseButton.png" id="2_ae27b"]
 [ext_resource type="Texture2D" uid="uid://oqsqojv1cg0d" path="res://Assets/Sprites/UI/CloseButtonHovered.png" id="3_avyy7"]
-[ext_resource type="FontFile" uid="uid://dgd0hsl0u56xs" path="res://Fonts/m5x7.ttf" id="3_b6nep"]
+[ext_resource type="Theme" path="res://Fonts/PixelText.tres" id="4_qyspu"]
 [ext_resource type="Texture2D" uid="uid://b4rjuagncl3u0" path="res://Assets/Sprites/UI/Arrow.png" id="5_42q0v"]
 
 [sub_resource type="Theme" id="Theme_r0qs2"]
@@ -11,12 +11,6 @@ MarginContainer/constants/margin_bottom = 2
 MarginContainer/constants/margin_left = 2
 MarginContainer/constants/margin_right = 2
 MarginContainer/constants/margin_top = 2
-
-[sub_resource type="Theme" id="Theme_r72ei"]
-RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
-RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.490196)
-RichTextLabel/constants/shadow_outline_size = 0
-RichTextLabel/fonts/normal_font = ExtResource("3_b6nep")
 
 [node name="TutorialTextbox" type="Node2D"]
 z_index = 50
@@ -43,7 +37,7 @@ layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Textfield/MarginContainer"]
 layout_mode = 2
-theme = SubResource("Theme_r72ei")
+theme = ExtResource("4_qyspu")
 text = "Sample text"
 
 [node name="Arrow" type="Sprite2D" parent="."]
