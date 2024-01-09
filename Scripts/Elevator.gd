@@ -84,7 +84,11 @@ func brokenModulesWarning():
 func newBrokenModule():
 	if numberOperationalModules>0:
 		numberOperationalModules-=1
-		statusLamps[numberOperationalModules].toggle(false)
+		if numberOperationalModules%2==0:
+			statusLamps[2+numberOperationalModules/2].toggle(false)
+		else:
+			statusLamps[2-(numberOperationalModules/2+1)].toggle(false)
+			
 		if numberOperationalModules==minOperationalModules:
 			operationalDisplay.hide()
 			warningDisplay.show()
@@ -94,7 +98,11 @@ func newBrokenModule():
 	
 func newFixedModule():
 	if numberOperationalModules<maximumOperationalModules:
-		statusLamps[numberOperationalModules].toggle(true)
+		if numberOperationalModules%2==0:
+			statusLamps[2+numberOperationalModules/2].toggle(true)
+		else:
+			statusLamps[2-(numberOperationalModules/2+1)].toggle(true)
+		#statusLamps[numberOperationalModules].toggle(true)
 		numberOperationalModules+=1
 		if numberOperationalModules==minOperationalModules+1:
 			operationalDisplay.show()
