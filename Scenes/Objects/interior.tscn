@@ -470,4 +470,4 @@ text = "SYSTEMS OK: 5/5 "
 fit_content = true
 
 [node name="HeightMeter" parent="." instance=ExtResource("19_mkbnt")]
-position = Vector2(-67, 47)
+position = Vector2(15, -70)
