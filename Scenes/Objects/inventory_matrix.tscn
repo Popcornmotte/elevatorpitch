@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://tnkiqjebs3d7"]
+[gd_scene load_steps=3 format=3 uid="uid://bqw45igp3yau0"]
 
 [ext_resource type="Script" path="res://Scripts/inventory_matrix.gd" id="1_5317k"]
-[ext_resource type="Texture2D" uid="uid://dfhot6xgyni00" path="res://Assets/Sprites/UI/InventoryMatrix.png" id="1_rg2sa"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/UI/InventoryMatrix.png" id="1_rg2sa"]
 
 [node name="InventoryMatrix" type="Node2D"]
 script = ExtResource("1_5317k")

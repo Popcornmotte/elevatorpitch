@@ -61,9 +61,10 @@ func addToInventory(item : Item) -> bool:
 func takeFromInventory(type : Item.TYPE):
 	for i in inventory.size():
 		if inventory[i].type == type:
+			var item = inventory.pop_at(i)
 			if(inventoryMatrix != null):
 				inventoryMatrix.update()
-			return inventory.pop_at(i)
+			return item
 	
 	return null
 
