@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ch4gaqg5mdxnq"]
+[gd_scene load_steps=17 format=3 uid="uid://ch4gaqg5mdxnq"]
 
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/arclightProjector.gd" id="1_6tuwf"]
 [ext_resource type="Texture2D" uid="uid://cbah0uno2miyx" path="res://Assets/Sprites/Modules/arclightProjector.png" id="1_jf7n5"]
@@ -52,6 +52,31 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_eirwl"]
+offsets = PackedFloat32Array(0.26875, 0.7875, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.607843, 0, 1, 1, 0.317647, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7otq8"]
+gradient = SubResource("Gradient_eirwl")
+
+[sub_resource type="Curve" id="Curve_bhwdv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_v75cd"]
+curve = SubResource("Curve_bhwdv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yfkeh"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 98, 0)
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_v75cd")
+color_ramp = SubResource("GradientTexture1D_7otq8")
+
 [node name="ArclightProjector" type="Node2D" node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_6tuwf")
 chargeCurve = SubResource("Curve_xi0o5")
@@ -62,6 +87,7 @@ position = Vector2(40, 0)
 texture = ExtResource("1_jf7n5")
 
 [node name="Charge" type="AnimatedSprite2D" parent="."]
+visible = false
 z_index = -1
 position = Vector2(48, 0)
 scale = Vector2(0.5, 0.5)
@@ -71,3 +97,11 @@ frame_progress = 0.061767
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_a2ea3")
+
+[node name="FailParticles" type="GPUParticles2D" parent="."]
+position = Vector2(48, 0)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_yfkeh")
+lifetime = 0.2
+one_shot = true
