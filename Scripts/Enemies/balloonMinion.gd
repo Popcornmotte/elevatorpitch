@@ -32,8 +32,10 @@ func die():
 	Audio.playSfx(POP)
 	FX.playFX("popsplosion", global_position + Vector2(0,-32))
 	popped = true
-	balloon.queue_free()
-	balloonShape.queue_free()
+	if balloon != null:
+		balloon.queue_free()
+	if balloonShape != null:
+		balloonShape.queue_free()
 
 
 
