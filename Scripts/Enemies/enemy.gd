@@ -207,6 +207,7 @@ func _process(delta):
 	if(global_position.distance_to(elevatorPos) > 3000):
 		if(dbm != null):
 			dbm.queue_free()
+		die()
 		queue_free()
 	if weapon != null:
 		attackBehavior(delta)

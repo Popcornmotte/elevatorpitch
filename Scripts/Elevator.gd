@@ -22,7 +22,7 @@ var sfxWarning
 @export var moving:bool=true
 @export var chutesDeployed = false
 @export var fuelConsumption=10
-@export var fuel = 5.0
+@export var fuel = 15.0
 @export var climbingHeight=0
 @export var climbingRate=100
 @export var speedModifier=1
