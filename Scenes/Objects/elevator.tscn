@@ -294,6 +294,7 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HullBody"]
 shape = SubResource("CapsuleShape2D_ohd1j")
+debug_color = Color(0.984314, 0, 0.34902, 0.419608)
 
 [node name="Hull" type="Sprite2D" parent="HullBody"]
 z_index = 4
