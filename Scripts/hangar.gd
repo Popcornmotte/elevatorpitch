@@ -17,19 +17,16 @@ var buttonDeployed = false
 func _ready():
 	Audio.playMusic("hangar")
 	var spawnAreaRect = crateSpawnArea.shape.get_rect()
-	var i = 0
-	while(i < Global.inventory.size()):
-		if(Global.inventory[i].type != Item.TYPE.Cargo):
-			i += 1
-		else:
-			Global.inventory.remove_at(i)
-			var newCrate = cratePrefab.instantiate()
-			add_child(newCrate)
-			spawnedCrates.push_back(newCrate)
-			var spawnPos = Vector2(0,0)
-			spawnPos.x = randf_range(spawnAreaRect.position.x, spawnAreaRect.position.x + spawnAreaRect.size.x)
-			spawnPos.y = randf_range(spawnAreaRect.position.y, spawnAreaRect.position.y + spawnAreaRect.size.y)
-			newCrate.global_position = spawnPos + crateSpawnArea.global_position
+	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
+	while takenItem != null:
+		var newCrate = cratePrefab.instantiate()
+		add_child(newCrate)
+		spawnedCrates.push_back(newCrate)
+		var spawnPos = Vector2(0,0)
+		spawnPos.x = randf_range(spawnAreaRect.position.x, spawnAreaRect.position.x + spawnAreaRect.size.x)
+		spawnPos.y = randf_range(spawnAreaRect.position.y, spawnAreaRect.position.y + spawnAreaRect.size.y)
+		newCrate.global_position = spawnPos + crateSpawnArea.global_position
+		takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
 	
 	pass # Replace with function body.
 

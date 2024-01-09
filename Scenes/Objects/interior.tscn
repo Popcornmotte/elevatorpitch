@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dhy7o2g76nxox"]
+[gd_scene load_steps=38 format=3 uid="uid://dhy7o2g76nxox"]
 
 [ext_resource type="Texture2D" uid="uid://bv7jc1l4hp5c4" path="res://Assets/Sprites/InteriorObjects/background.png" id="2_1uncr"]
 [ext_resource type="Texture2D" uid="uid://bgoggag2fpci6" path="res://Assets/Sprites/InteriorObjects/casing.png" id="3_bossf"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="13_tkd7y"]
 [ext_resource type="PackedScene" uid="uid://lxw23nax6ltw" path="res://Scenes/Objects/refuel_engine.tscn" id="15_ypbq6"]
 [ext_resource type="PackedScene" uid="uid://carwfjsbvtpt" path="res://Scenes/Objects/dispenser.tscn" id="16_i5pwy"]
-[ext_resource type="PackedScene" uid="uid://c7pe1q2xscf8x" path="res://Scenes/Objects/engine_drop_button.tscn" id="16_pnqvl"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/engine_drop_button.tscn" id="16_pnqvl"]
 [ext_resource type="FontFile" uid="uid://dgd0hsl0u56xs" path="res://Fonts/m5x7.ttf" id="17_r7idb"]
 [ext_resource type="Texture2D" uid="uid://l7286pcfrrps" path="res://Assets/Sprites/InteriorObjects/display.png" id="17_t4obn"]
 [ext_resource type="PackedScene" uid="uid://bhmpyg0px3wca" path="res://Scenes/Objects/door.tscn" id="17_wh202"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bldfhk10xo5wu" path="res://Assets/Sprites/InteriorObjects/displayDetails.png" id="19_4yh2b"]
 [ext_resource type="Texture2D" uid="uid://3ddthobiwpmc" path="res://Assets/Sprites/InteriorObjects/catwalkBackground.png" id="19_8e5sh"]
 [ext_resource type="PackedScene" uid="uid://b2s6pyq26ehep" path="res://Scenes/Objects/heightMeter.tscn" id="19_mkbnt"]
+[ext_resource type="PackedScene" uid="uid://bqw45igp3yau0" path="res://Scenes/Objects/inventory_matrix.tscn" id="20_ck3aw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
 size = Vector2(208, 19.875)
@@ -471,3 +472,6 @@ fit_content = true
 
 [node name="HeightMeter" parent="." instance=ExtResource("19_mkbnt")]
 position = Vector2(-66, 0)
+
+[node name="InventoryMatrix" parent="." instance=ExtResource("20_ck3aw")]
+position = Vector2(0, 77)

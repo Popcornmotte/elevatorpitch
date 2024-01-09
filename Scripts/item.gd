@@ -2,7 +2,7 @@ extends Node
 
 class_name Item
 
-enum TYPE {Fuel, Ammo, Scrap, Cargo, Luggage}
+enum TYPE {Fuel, Ammo, Scrap, Cargo}
 @export var type : TYPE
 var objectPath
 # Called when the node enters the scene tree for the first time.
@@ -16,8 +16,6 @@ func _init(typeArg : TYPE):
 		TYPE.Ammo:
 			pass
 		TYPE.Scrap:
-			pass
-		TYPE.Luggage:
 			pass
 
 func checkType(checkedType : TYPE) -> bool:

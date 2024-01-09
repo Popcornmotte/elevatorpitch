@@ -230,6 +230,8 @@ text = " [ - ]  "
 
 [node name="FuelLabel" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.866667, 0, 0.160784, 1)
+theme_override_colors/font_shadow_color = Color(0.233925, 0.233925, 0.233925, 1)
 text = "Fuel Units (0)"
 
 [node name="incrementFuelButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
@@ -246,6 +248,8 @@ text = " [ - ]  "
 
 [node name="ScrapLabel" type="Label" parent="Monitor/Terminal/Elevator/Scrap"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.388235, 0.580392, 0.992157, 1)
+theme_override_colors/font_shadow_color = Color(0.368627, 0.368627, 0.368627, 1)
 text = "Scrap Units (0)"
 
 [node name="incrementScrapButton" type="Button" parent="Monitor/Terminal/Elevator/Scrap"]
@@ -262,6 +266,8 @@ text = " [ - ]  "
 
 [node name="AmmoLabel" type="Label" parent="Monitor/Terminal/Elevator/Ammo"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.709804, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.345098, 0.345098, 0.345098, 1)
 text = "Ammo Units (0)"
 
 [node name="incrementAmmoButton" type="Button" parent="Monitor/Terminal/Elevator/Ammo"]
@@ -278,6 +284,8 @@ text = " [ - ] "
 
 [node name="CargoLabel" type="Label" parent="Monitor/Terminal/Elevator/ContractCargo"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.839216, 0.509804, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.298039, 0.298039, 0.298039, 1)
 text = "Contracted Cargo (0)"
 
 [node name="incrementCargoButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
