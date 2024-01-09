@@ -16,7 +16,7 @@ func getItemColor(type : Item.TYPE):
 		Item.TYPE.Scrap:
 			return Color.BLUE
 		Item.TYPE.Ammo:
-			return Color.DARK_MAGENTA
+			return Color.GREEN
 	return null
 
 func update():
