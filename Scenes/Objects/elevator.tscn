@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=58 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://sb47ud24jhmx" path="res://Assets/Sprites/Claws/Test0/TestClaw1.png" id="4_hs0s2"]
 [ext_resource type="Texture2D" uid="uid://cps0xktem8rbd" path="res://Assets/Sprites/Claws/Test0/TestClaw0.png" id="5_xhuq0"]
 [ext_resource type="PackedScene" uid="uid://dhy7o2g76nxox" path="res://Scenes/Objects/interior.tscn" id="6_kqtpx"]
+[ext_resource type="PackedScene" uid="uid://jhsy3xo2g347" path="res://Scenes/Objects/lamp.tscn" id="7_6d2ne"]
 [ext_resource type="Texture2D" uid="uid://bgvy1fuq0ilv1" path="res://Assets/Sprites/ElevatorBody/BodyHullInterior.png" id="7_jbnxu"]
 [ext_resource type="Texture2D" uid="uid://dhl16w2kryxft" path="res://Assets/Sprites/ElevatorBody/Gear0.png" id="7_xkf6p"]
 [ext_resource type="PackedScene" uid="uid://cuiln8pt5xl01" path="res://Scenes/Objects/engine.tscn" id="8_cxyt7"]
@@ -237,8 +238,9 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwhif"]
 
-[node name="Elevator" type="Node2D" node_paths=PackedStringArray("fuelBar", "fuelAlert", "heightMeter")]
+[node name="Elevator" type="Node2D" node_paths=PackedStringArray("statusLamps", "fuelBar", "fuelAlert", "heightMeter")]
 script = ExtResource("1_gs4x1")
+statusLamps = [NodePath("HullBody/Hull/Lamps/Lamp"), NodePath("HullBody/Hull/Lamps/Lamp2"), NodePath("HullBody/Hull/Lamps/Lamp3"), NodePath("HullBody/Hull/Lamps/Lamp4"), NodePath("HullBody/Hull/Lamps/Lamp5")]
 fuelBar = NodePath("FuelBar/Fuel")
 fuelAlert = NodePath("FuelBar/AlertOverlay")
 heightMeter = NodePath("Heightmeter/Height")
@@ -294,9 +296,25 @@ metadata/_edit_lock_ = true
 shape = SubResource("CapsuleShape2D_ohd1j")
 
 [node name="Hull" type="Sprite2D" parent="HullBody"]
-visible = false
 z_index = 4
 texture = ExtResource("1_dtexf")
+
+[node name="Lamps" type="Node2D" parent="HullBody/Hull"]
+
+[node name="Lamp" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(-40, 90)
+
+[node name="Lamp2" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(-20, 90)
+
+[node name="Lamp3" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(0, 90)
+
+[node name="Lamp4" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(20, 90)
+
+[node name="Lamp5" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(40, 90)
 
 [node name="HullBackground" type="Sprite2D" parent="HullBody"]
 z_index = -1
