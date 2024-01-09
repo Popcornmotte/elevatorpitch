@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=58 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://sb47ud24jhmx" path="res://Assets/Sprites/Claws/Test0/TestClaw1.png" id="4_hs0s2"]
 [ext_resource type="Texture2D" uid="uid://cps0xktem8rbd" path="res://Assets/Sprites/Claws/Test0/TestClaw0.png" id="5_xhuq0"]
 [ext_resource type="PackedScene" uid="uid://dhy7o2g76nxox" path="res://Scenes/Objects/interior.tscn" id="6_kqtpx"]
+[ext_resource type="PackedScene" uid="uid://jhsy3xo2g347" path="res://Scenes/Objects/lamp.tscn" id="7_6d2ne"]
 [ext_resource type="Texture2D" uid="uid://bgvy1fuq0ilv1" path="res://Assets/Sprites/ElevatorBody/BodyHullInterior.png" id="7_jbnxu"]
 [ext_resource type="Texture2D" uid="uid://dhl16w2kryxft" path="res://Assets/Sprites/ElevatorBody/Gear0.png" id="7_xkf6p"]
 [ext_resource type="PackedScene" uid="uid://cuiln8pt5xl01" path="res://Scenes/Objects/engine.tscn" id="8_cxyt7"]
@@ -237,8 +238,9 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwhif"]
 
-[node name="Elevator" type="Node2D" node_paths=PackedStringArray("fuelBar", "fuelAlert", "heightMeter")]
+[node name="Elevator" type="Node2D" node_paths=PackedStringArray("statusLamps", "fuelBar", "fuelAlert", "heightMeter")]
 script = ExtResource("1_gs4x1")
+statusLamps = [NodePath("HullBody/Hull/Lamps/Lamp"), NodePath("HullBody/Hull/Lamps/Lamp2"), NodePath("HullBody/Hull/Lamps/Lamp3"), NodePath("HullBody/Hull/Lamps/Lamp4"), NodePath("HullBody/Hull/Lamps/Lamp5")]
 fuelBar = NodePath("FuelBar/Fuel")
 fuelAlert = NodePath("FuelBar/AlertOverlay")
 heightMeter = NodePath("Heightmeter/Height")
@@ -292,11 +294,28 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HullBody"]
 shape = SubResource("CapsuleShape2D_ohd1j")
+debug_color = Color(0.984314, 0, 0.34902, 0.419608)
 
 [node name="Hull" type="Sprite2D" parent="HullBody"]
-visible = false
 z_index = 4
 texture = ExtResource("1_dtexf")
+
+[node name="Lamps" type="Node2D" parent="HullBody/Hull"]
+
+[node name="Lamp" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(-40, 90)
+
+[node name="Lamp2" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(-20, 90)
+
+[node name="Lamp3" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(0, 90)
+
+[node name="Lamp4" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(20, 90)
+
+[node name="Lamp5" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(40, 90)
 
 [node name="HullBackground" type="Sprite2D" parent="HullBody"]
 z_index = -1
@@ -331,6 +350,7 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Right/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone"]
 z_index = -2
@@ -342,6 +362,7 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -395,6 +416,7 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Left/GearBone"]
 position = Vector2(7.00006, -1.52588e-05)
 rest = Transform2D(1, 0, 0, 1, 7.00006, -1.52588e-05)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone"]
 z_index = -2
@@ -405,6 +427,7 @@ texture = ExtResource("3_2k2nk")
 position = Vector2(128.002, 6.10352e-05)
 rotation = 0.616101
 rest = Transform2D(0.984808, -0.173648, 0.173648, 0.984808, 128.002, 6.10352e-05)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -553,7 +576,8 @@ shape = SubResource("CircleShape2D_e7x7n")
 [node name="RepairArea" parent="Arms/PhysicalArmRight" instance=ExtResource("27_ahenx")]
 visible = false
 z_index = 1
-position = Vector2(64, 16)
+position = Vector2(125, 0)
+mirrorAnimation = true
 
 [node name="PhysicalArmLeft" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "skeleton", "target")]
 rotation = 3.14159
@@ -671,9 +695,8 @@ shape = SubResource("CircleShape2D_e7x7n")
 [node name="RepairArea" parent="Arms/PhysicalArmLeft" instance=ExtResource("27_ahenx")]
 visible = false
 z_index = 1
-position = Vector2(66, -15.9998)
+position = Vector2(125, 0)
 rotation = -3.14159
-mirrorAnimation = true
 
 [node name="Targets" type="Node2D" parent="Arms"]
 
@@ -776,6 +799,7 @@ text = "Fuel"
 scroll_active = false
 
 [node name="Heightmeter" type="Node2D" parent="."]
+visible = false
 position = Vector2(300, 0)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Heightmeter"]
@@ -936,7 +960,7 @@ collision_mask = 4096
 shape = SubResource("RectangleShape2D_xwhif")
 
 [node name="EndTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 20.0
 
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
 [connection signal="firstDestroyed" from="Arms/PhysicalArmRight" to="Tutorial/ArmRepair" method="open"]

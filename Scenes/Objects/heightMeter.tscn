@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2s6pyq26ehep"]
+
+[ext_resource type="Script" path="res://Scripts/heightMeter.gd" id="1_pfv2r"]
+[ext_resource type="Texture2D" uid="uid://42uwh0q55cg7" path="res://Assets/Sprites/InteriorObjects/heightMeter.png" id="1_umhjv"]
+[ext_resource type="Texture2D" uid="uid://bc47otb7u6hmy" path="res://Assets/Sprites/InteriorObjects/heightMeterLever.png" id="2_pspcs"]
+
+[node name="HeightMeter" type="Node2D"]
+script = ExtResource("1_pfv2r")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_umhjv")
+
+[node name="Lever" type="Sprite2D" parent="."]
+position = Vector2(0, 7)
+texture = ExtResource("2_pspcs")

@@ -216,8 +216,10 @@ func _on_start_button_pressed():
 	beep()
 	if(ArclightCheckbox.button_pressed):
 		Global.armModule=ArmModuleHandler.MODULE.Arclight
-	if(FlamethrowerCheckbox.button_pressed):
+	elif(FlamethrowerCheckbox.button_pressed):
 		Global.armModule=ArmModuleHandler.MODULE.Flamethrower
+	else:
+		Global.armModule=ArmModuleHandler.MODULE.None
 	get_tree().change_scene_to_file("res://Scenes/World/hangar.tscn")
 	
 	pass # Replace with function body.

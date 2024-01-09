@@ -13,6 +13,7 @@ var maximumOperationalModules=5
 var sfxWarning
 #modules which can be broken by incoming damage
 @onready var breakableModules=[$interior/Brake, $Net, $HullBody/Engine]
+@export var statusLamps:Array[Node2D]=[]
 
 @export var fuelBar : Node2D
 @export var fuelAlert : Node2D
@@ -83,6 +84,11 @@ func brokenModulesWarning():
 func newBrokenModule():
 	if numberOperationalModules>0:
 		numberOperationalModules-=1
+		if numberOperationalModules%2==0:
+			statusLamps[2+numberOperationalModules/2].toggle(false)
+		else:
+			statusLamps[2-(numberOperationalModules/2+1)].toggle(false)
+			
 		if numberOperationalModules==minOperationalModules:
 			operationalDisplay.hide()
 			warningDisplay.show()
@@ -92,6 +98,11 @@ func newBrokenModule():
 	
 func newFixedModule():
 	if numberOperationalModules<maximumOperationalModules:
+		if numberOperationalModules%2==0:
+			statusLamps[2+numberOperationalModules/2].toggle(true)
+		else:
+			statusLamps[2-(numberOperationalModules/2+1)].toggle(true)
+		#statusLamps[numberOperationalModules].toggle(true)
 		numberOperationalModules+=1
 		if numberOperationalModules==minOperationalModules+1:
 			operationalDisplay.show()
