@@ -11,6 +11,5 @@ script = ExtResource("1_pfv2r")
 texture = ExtResource("1_umhjv")
 
 [node name="Lever" type="Sprite2D" parent="."]
-position = Vector2(0, 10)
-scale = Vector2(1, 1.5)
+position = Vector2(0, 7)
 texture = ExtResource("2_pspcs")
