@@ -152,6 +152,7 @@ func haltElevator():
 	control(false)
 	$HullBody.get_node("Hull").visible=true
 	moving=false#stops cable from moving
+	fuelConsumption=10 #Not zero to make the flamethrower still consume fuel
 	
 func update_height(climbed):
 	climbingHeight+=climbed*speedModifier
