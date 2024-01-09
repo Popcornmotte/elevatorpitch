@@ -553,7 +553,8 @@ shape = SubResource("CircleShape2D_e7x7n")
 [node name="RepairArea" parent="Arms/PhysicalArmRight" instance=ExtResource("27_ahenx")]
 visible = false
 z_index = 1
-position = Vector2(64, 16)
+position = Vector2(125, 0)
+mirrorAnimation = true
 
 [node name="PhysicalArmLeft" type="Node2D" parent="Arms" node_paths=PackedStringArray("upperArmRef", "lowerArmRef", "clawRef", "skeleton", "target")]
 rotation = 3.14159
@@ -671,9 +672,8 @@ shape = SubResource("CircleShape2D_e7x7n")
 [node name="RepairArea" parent="Arms/PhysicalArmLeft" instance=ExtResource("27_ahenx")]
 visible = false
 z_index = 1
-position = Vector2(66, -15.9998)
+position = Vector2(125, 0)
 rotation = -3.14159
-mirrorAnimation = true
 
 [node name="Targets" type="Node2D" parent="Arms"]
 

@@ -125,6 +125,7 @@ func toggleJetpack(state : bool):
 	if state:
 		$Gun.setEnabled(true)
 		$PlayerCam.setMousePeek(true)
+		z_index=10
 		lerpFactor = 0.02
 		gravity = 0
 		$jetpackParticles.emitting = true
@@ -133,6 +134,7 @@ func toggleJetpack(state : bool):
 		$Gun.setEnabled(false)
 		$PlayerCam.setMousePeek(false)
 		lerpFactor = 0.3
+		z_index=4
 		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 		$jetpackParticles.emitting = false
 		$jetpackSound.stop()
