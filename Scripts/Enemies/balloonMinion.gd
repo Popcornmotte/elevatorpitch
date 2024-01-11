@@ -26,6 +26,8 @@ func flip(dir):
 	$BodySprite.flip_h = dir
 
 func die():
+	if dead:
+		return
 	super()
 	if has_node("PinJoint2D"):
 		$PinJoint2D.queue_free()
