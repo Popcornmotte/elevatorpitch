@@ -1,9 +1,94 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqt125igrje6t"]
+[gd_scene load_steps=19 format=3 uid="uid://cqt125igrje6t"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/weapon.gd" id="1_qgjbn"]
 [ext_resource type="PackedScene" uid="uid://dwxdwntyg1141" path="res://Scenes/Objects/Enemies/projectileBullet.tscn" id="2_jqlub"]
-[ext_resource type="AudioStream" uid="uid://yt7khblas5" path="res://Assets/Audio/sfx/shots/shot2.wav" id="3_i6yp5"]
-[ext_resource type="Texture2D" uid="uid://bm0cocpxfg8ba" path="res://Assets/Sprites/Enemies/low_drone_rifle.png" id="3_jylbf"]
+[ext_resource type="AudioStream" uid="uid://cpocfy1arwqow" path="res://Assets/Audio/sfx/shots/rifleShot.wav" id="3_05krn"]
+[ext_resource type="AudioStream" uid="uid://bu7ttu5rhcso0" path="res://Assets/Audio/sfx/shotgunRack.wav" id="4_eekil"]
+[ext_resource type="Texture2D" uid="uid://bsvg2oldsx0dv" path="res://Assets/Sprites/Enemies/low_drone_rifle_reload.png" id="4_f0il8"]
+[ext_resource type="Texture2D" uid="uid://pfjj60r73eop" path="res://Assets/Sprites/Enemies/low_drone_rifle_shoot.png" id="5_d7r8u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0kdn"]
+atlas = ExtResource("5_d7r8u")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m63sd"]
+atlas = ExtResource("5_d7r8u")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vbnw"]
+atlas = ExtResource("5_d7r8u")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_laml8"]
+atlas = ExtResource("5_d7r8u")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ci5ej"]
+atlas = ExtResource("5_d7r8u")
+region = Rect2(0, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lipp8"]
+atlas = ExtResource("4_f0il8")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvbrl"]
+atlas = ExtResource("4_f0il8")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88pav"]
+atlas = ExtResource("4_f0il8")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu17f"]
+atlas = ExtResource("4_f0il8")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7h38r"]
+atlas = ExtResource("4_f0il8")
+region = Rect2(0, 512, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l4lfr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0kdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m63sd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vbnw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_laml8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ci5ej")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lipp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvbrl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88pav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu17f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7h38r")
+}],
+"loop": false,
+"name": &"reload",
+"speed": 10.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4fv3"]
 radius = 29.0172
@@ -14,12 +99,15 @@ damage = 2
 reloadTime = 3.0
 ranged = true
 projectile = ExtResource("2_jqlub")
-weaponSound = ExtResource("3_i6yp5")
+weaponFireSound = ExtResource("3_05krn")
+weaponReloadSound = ExtResource("4_eekil")
 projectileSpeed = 1000.0
 weaponNozzle = NodePath("Nozzle")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("3_jylbf")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_l4lfr")
+animation = &"reload"
+autoplay = "reload"
 
 [node name="MeleeArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -32,5 +120,9 @@ shape = SubResource("CircleShape2D_b4fv3")
 [node name="Nozzle" type="Marker2D" parent="."]
 position = Vector2(-60, 19)
 
+[node name="ReloadTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="MeleeArea" to="." method="_on_melee_area_body_entered"]
 [connection signal="body_exited" from="MeleeArea" to="." method="_on_melee_area_body_exited"]
+[connection signal="timeout" from="ReloadTimer" to="." method="reload"]

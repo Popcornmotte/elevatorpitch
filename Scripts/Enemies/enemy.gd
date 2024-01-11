@@ -168,7 +168,7 @@ func attackBehavior(delta):
 				attackTimer = attackTime
 			if (reload<=0):
 				Global.elevator.takeDamage(weapon.damage, Global.DMG.Piercing)
-				Audio.playSfx(weapon.weaponSound)
+				Audio.playSfx(weapon.weaponFireSound)
 				if(attacksStealCargo):
 					if(randi()%100 <= stealChancePercent):
 						stealCargo()

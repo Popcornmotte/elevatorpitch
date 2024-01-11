@@ -2,7 +2,6 @@ extends Node2D
 
 class_name Weapon
 
-
 #how much damage when it hits?
 @export var damage : int
 #how long is the cooldown between hits in seconds?
@@ -11,7 +10,8 @@ class_name Weapon
 @export var ranged = false
 #if ranged, what projectile to fire
 @export var projectile : PackedScene
-@export var weaponSound : AudioStream
+@export var weaponFireSound : AudioStream
+@export var weaponReloadSound : AudioStream
 @export var projectileSpeed : float
 @export var weaponNozzle : Node2D
 @onready var colShapePosX = $MeleeArea/CollisionShape2D.position.x
@@ -39,11 +39,20 @@ func flipH(arg : bool):
 			$MeleeArea/CollisionShape2D.position.x = colShapePosX
 
 func fire(trajectory):
+	if $Sprite is AnimatedSprite2D:
+		$Sprite.play("fire")
+	$ReloadTimer.start(reloadTime - 1)
 	var projectileInstance = projectile.instantiate()
 	get_parent().get_parent().get_parent().add_child(projectileInstance)
 	projectileInstance.velocity = get_parent().get_parent().linear_velocity + trajectory * projectileSpeed
 	projectileInstance.global_position = weaponNozzle.global_position
-	Audio.playSfx(weaponSound)
+	Audio.playSfxLocalized(weaponFireSound, global_position)
+
+func reload():
+	if $Sprite is AnimatedSprite2D:
+		$Sprite.play("reload")
+	if weaponReloadSound:
+		Audio.playSfxLocalized(weaponReloadSound, global_position)
 
 func checkMeleeHit() -> bool:
 	return elevatorBodyInRange
