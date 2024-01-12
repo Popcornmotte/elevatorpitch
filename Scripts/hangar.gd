@@ -33,6 +33,9 @@ func _ready():
 func onHatchButtonHit():
 	if !hatchOpen:
 		Audio.playSfx(hatchSound)
+		$Background/OpenHatch.play("open")
+		$ButtonArmAnim.play("retractButton")
+		$Background/LightBlink.start()
 		button.play("default")
 		hatchOpen = true
 		brake.startLocked = false
@@ -70,3 +73,7 @@ func _process(delta):
 			buttonDeployed = true
 	if hatchOpen and !elevatorRising and Global.elevator.moving:
 		onElevatorStarted()
+
+
+func _on_light_blink_timeout():
+	$Background/ParallaxBG/Layer2Lit.visible = !$Background/ParallaxBG/Layer2Lit.visible

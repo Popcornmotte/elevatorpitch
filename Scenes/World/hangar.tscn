@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dn1h17rgyu5yq"]
+[gd_scene load_steps=63 format=3 uid="uid://dn1h17rgyu5yq"]
 
 [ext_resource type="Script" path="res://Scripts/hangar.gd" id="1_7h618"]
 [ext_resource type="Texture2D" uid="uid://jaoxkqmx7jsf" path="res://Assets/Sprites/Hangar/pipeOverlay.png" id="2_ndkxd"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://3oj5nh0bnxnq" path="res://Assets/Sprites/Hangar/layer2.png" id="5_y2ten"]
 [ext_resource type="Texture2D" uid="uid://d4jw16trahn4f" path="res://Assets/Sprites/Hangar/layer3.png" id="6_u8q84"]
 [ext_resource type="Texture2D" uid="uid://7bo5dfbwoqi7" path="res://Assets/Sprites/Hangar/layer4.png" id="7_3xxor"]
+[ext_resource type="Texture2D" uid="uid://calj2h8biklwn" path="res://Assets/Sprites/Hangar/layer2_lit.png" id="7_o5647"]
 [ext_resource type="Texture2D" uid="uid://cdocs2sd6mf" path="res://Assets/Sprites/Cable.png" id="7_rea0b"]
 [ext_resource type="Texture2D" uid="uid://da8sf5yffpdlc" path="res://Assets/Sprites/Hangar/catwalk.png" id="9_xxsop"]
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="9_yyd37"]
@@ -26,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://ug8jrsd5k4es" path="res://Assets/Sprites/Hangar/shelf.png" id="15_jls88"]
 [ext_resource type="Texture2D" uid="uid://bncium1i82qj0" path="res://Assets/Sprites/hatchButtonSign.png" id="15_pntbt"]
 [ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="16_nd0oi"]
+[ext_resource type="Texture2D" uid="uid://bm1fpmmidvm24" path="res://Assets/Sprites/Hangar/hatchLight.png" id="17_7f6go"]
 [ext_resource type="Texture2D" uid="uid://cq61jwury46lg" path="res://Assets/Sprites/Hangar/backgroundGradient.png" id="26_d12tj"]
 [ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="28_f1l3k"]
 
@@ -61,6 +63,43 @@ size = Vector2(192, 104)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8eyn"]
 size = Vector2(160, 80)
+
+[sub_resource type="Animation" id="Animation_es3yp"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HatchLight:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(1e-05, 2), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_tsr3s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HatchLight:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_svdsp"]
+_data = {
+"RESET": SubResource("Animation_tsr3s"),
+"open": SubResource("Animation_es3yp")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nr05"]
 size = Vector2(192, 160)
@@ -214,10 +253,39 @@ tracks/1/keys = {
 "values": [2.87979, 0.934033, 1.10872, 0.933751, 0.96619]
 }
 
+[sub_resource type="Animation" id="Animation_eid3u"]
+resource_name = "retractButton"
+length = 1.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonArmCanvasGroup/ButtonArm:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 0.7, 1.5, 1.7),
+"transitions": PackedFloat32Array(0.517633, 2, 0.5, 1),
+"update": 0,
+"values": [0.523599, 0.486145, 1.78133, 1.5814]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonArmCanvasGroup/ButtonArm/LowerArm:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 0.8, 1.4, 1.5, 1.6),
+"transitions": PackedFloat32Array(1, 2.07053, 0.5, 2, 1),
+"update": 0,
+"values": [0.96619, 0.858947, 3.02689, 2.90307, 3.0264]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w4qtg"]
 _data = {
 "RESET": SubResource("Animation_qcpgc"),
-"deployButton": SubResource("Animation_c7haq")
+"deployButton": SubResource("Animation_c7haq"),
+"retractButton": SubResource("Animation_eid3u")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uavan"]
@@ -330,6 +398,15 @@ texture = ExtResource("5_y2ten")
 script = ExtResource("3_3fpqm")
 factorH = 0.2
 
+[node name="Layer2Lit" type="Sprite2D" parent="Background/ParallaxBG"]
+visible = false
+z_index = -2
+position = Vector2(0, 8)
+scale = Vector2(2, 2)
+texture = ExtResource("7_o5647")
+script = ExtResource("3_3fpqm")
+factorH = 0.2
+
 [node name="Layer3" type="Sprite2D" parent="Background/ParallaxBG"]
 z_index = -3
 position = Vector2(0, 16)
@@ -347,6 +424,10 @@ texture = ExtResource("7_3xxor")
 script = ExtResource("3_3fpqm")
 factorH = 0.4
 factorV = 1.0
+
+[node name="HatchLight" type="Sprite2D" parent="Background"]
+scale = Vector2(1e-05, 2)
+texture = ExtResource("17_7f6go")
 
 [node name="Cable" type="Node2D" parent="Background"]
 position = Vector2(0, 32)
@@ -411,6 +492,14 @@ position = Vector2(0, -448)
 color = Color(0.164706, 0.12549, 0.164706, 1)
 polygon = PackedVector2Array(-640, 128, 640, 128, 640, -128, -640, -128)
 
+[node name="OpenHatch" type="AnimationPlayer" parent="Background"]
+libraries = {
+"": SubResource("AnimationLibrary_svdsp")
+}
+
+[node name="LightBlink" type="Timer" parent="Background"]
+wait_time = 0.5
+
 [node name="player" parent="." instance=ExtResource("3_4b3ci")]
 z_index = 4
 position = Vector2(-224, 280)
@@ -420,10 +509,10 @@ moving = false
 
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
 rotation = -0.394666
+scale = Vector2(1, 1)
 
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 rotation = -0.0151657
-scale = Vector2(1, 1)
 
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
 rotation = 3.14159
@@ -651,7 +740,7 @@ text = "W/S -> Change speed"
 
 [node name="PauseMenu" parent="." instance=ExtResource("28_f1l3k")]
 
-[connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
+[connection signal="timeout" from="Background/LightBlink" to="." method="_on_light_blink_timeout"]
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
 [connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
 [connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
