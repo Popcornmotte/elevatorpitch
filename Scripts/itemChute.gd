@@ -1,6 +1,7 @@
 extends Node2D
 
 const shreddingNoise = preload("res://Assets/Audio/sfx/shredder.wav")
+const FULLINVENTORY = preload("res://Assets/Audio/sfx/fullInventory.wav")
 
 func _on_area_2d_area_entered(area):
 	checkForItem(area)
@@ -22,8 +23,11 @@ func checkForItem(thing):
 		checkForItem(thing.get_parent())
 
 func addItem(thing : Node2D, type : Item.TYPE):
-	Global.addToInventory(Item.new(type))
-	thing.call_deferred("queue_free")
-	if type != Item.TYPE.Cargo:
-		Audio.playSfxLocalized(shreddingNoise, global_position)
-	return
+	if Global.inventory.size() < Global.inventoryMaxSize: 
+		Global.addToInventory(Item.new(type))
+		thing.call_deferred("queue_free")
+		if type != Item.TYPE.Cargo:
+			Audio.playSfxLocalized(shreddingNoise, global_position)
+		return
+	else: 
+		Audio.playSfxLocalized(FULLINVENTORY, global_position)
