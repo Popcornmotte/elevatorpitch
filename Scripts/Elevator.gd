@@ -50,9 +50,10 @@ func dropElevator(gameOver=false):#drops the elvator for example on finished gam
 		$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
 		get_parent().spawnFadeOut()
 		if gameOver:
-			var newExplosion = explosion.instantiate()
-			newExplosion.global_position = global_position
-			get_parent().call_deferred("add_child",newExplosion)
+			for i in range(5):
+				var newExplosion = explosion.instantiate()
+				newExplosion.global_position = global_position+Vector2(randf_range(-100,100),randf_range(-100,100))
+				get_parent().call_deferred("add_child",newExplosion)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control(controlArms)
