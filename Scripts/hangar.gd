@@ -7,11 +7,13 @@ const fade = preload("res://Scenes/UI/fade_out.tscn")
 @export var button : AnimatedSprite2D
 @export var doorAreas : Array[Area2D]
 var cratePrefab = preload("res://Scenes/Objects/Items/crate.tscn")
-var hatchSound = preload("res://Assets/Audio/sfx/vaultOpen.wav")
+var hatchSound = preload("res://Assets/Audio/sfx/HangarVaultDoorNew.wav")
 var hatchOpen = false
 var elevatorRising = false
 var spawnedCrates : Array[RigidBody2D]
 var buttonDeployed = false
+var redLight = false
+var redLightFac = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -73,7 +75,13 @@ func _process(delta):
 			buttonDeployed = true
 	if hatchOpen and !elevatorRising and Global.elevator.moving:
 		onElevatorStarted()
+	
+	if redLight:
+		redLightFac = min(1, redLightFac + 16*delta)
+	else:
+		redLightFac = max(0, redLightFac - 16*delta)
+	$Background/ParallaxBG/Lit.set_modulate(Color(1,1,1,redLightFac))
 
 
 func _on_light_blink_timeout():
-	$Background/ParallaxBG/Layer2Lit.visible = !$Background/ParallaxBG/Layer2Lit.visible
+	redLight = !redLight

@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dn1h17rgyu5yq"]
+[gd_scene load_steps=67 format=3 uid="uid://dn1h17rgyu5yq"]
 
 [ext_resource type="Script" path="res://Scripts/hangar.gd" id="1_7h618"]
 [ext_resource type="Texture2D" uid="uid://jaoxkqmx7jsf" path="res://Assets/Sprites/Hangar/pipeOverlay.png" id="2_ndkxd"]
@@ -12,16 +12,20 @@
 [ext_resource type="Texture2D" uid="uid://7bo5dfbwoqi7" path="res://Assets/Sprites/Hangar/layer4.png" id="7_3xxor"]
 [ext_resource type="Texture2D" uid="uid://calj2h8biklwn" path="res://Assets/Sprites/Hangar/layer2_lit.png" id="7_o5647"]
 [ext_resource type="Texture2D" uid="uid://cdocs2sd6mf" path="res://Assets/Sprites/Cable.png" id="7_rea0b"]
+[ext_resource type="Texture2D" uid="uid://bwctjud8al3t3" path="res://Assets/Sprites/Hangar/layer0_lit.png" id="9_xw4qn"]
 [ext_resource type="Texture2D" uid="uid://da8sf5yffpdlc" path="res://Assets/Sprites/Hangar/catwalk.png" id="9_xxsop"]
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="9_yyd37"]
 [ext_resource type="Texture2D" uid="uid://bs6u4tqo7rvfm" path="res://Assets/Sprites/Hangar/bedroomBG.png" id="10_4ww8b"]
+[ext_resource type="Texture2D" uid="uid://cdln7oyfiakpl" path="res://Assets/Sprites/Hangar/layer1_lit.png" id="10_eja0u"]
 [ext_resource type="Texture2D" uid="uid://dyli07gucg4i" path="res://Assets/Sprites/largeButton.png" id="11_2gq7s"]
 [ext_resource type="Texture2D" uid="uid://b7u6q5wk48nwg" path="res://Assets/Sprites/Hangar/bedroomLadderTube.png" id="11_ulvnb"]
 [ext_resource type="Script" path="res://Scripts/generic_claw_grabbable.gd" id="12_b7ptf"]
+[ext_resource type="Texture2D" uid="uid://dbyasqlnssgbm" path="res://Assets/Sprites/Hangar/layer3_lit.png" id="12_j6wg7"]
 [ext_resource type="Texture2D" uid="uid://cjsn1iurb8bi8" path="res://Assets/Sprites/Hangar/lockers.png" id="12_t04e3"]
 [ext_resource type="Texture2D" uid="uid://cfemphjpttb6r" path="res://Assets/Sprites/truck.png" id="12_t5dm1"]
 [ext_resource type="Texture2D" uid="uid://qww0dgjlfkmk" path="res://Assets/Sprites/Hangar/bed.png" id="13_iue1h"]
 [ext_resource type="Texture2D" uid="uid://em8ovy0rq3jl" path="res://Assets/Sprites/FX/cone.png" id="13_rvsa6"]
+[ext_resource type="Texture2D" uid="uid://bdqyysr4leget" path="res://Assets/Sprites/Hangar/layer4_lit.png" id="13_wpnyj"]
 [ext_resource type="Texture2D" uid="uid://bgkjkvklvto1i" path="res://Assets/Sprites/Claws/Test0/TestArm.png" id="14_2xlwc"]
 [ext_resource type="Texture2D" uid="uid://cl0y40t0wlg7h" path="res://Assets/Sprites/Hangar/desk.png" id="14_26tb0"]
 [ext_resource type="Texture2D" uid="uid://ug8jrsd5k4es" path="res://Assets/Sprites/Hangar/shelf.png" id="15_jls88"]
@@ -64,22 +68,6 @@ size = Vector2(192, 104)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8eyn"]
 size = Vector2(160, 80)
 
-[sub_resource type="Animation" id="Animation_es3yp"]
-resource_name = "open"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HatchLight:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(2, 1),
-"update": 0,
-"values": [Vector2(1e-05, 2), Vector2(2, 2)]
-}
-
 [sub_resource type="Animation" id="Animation_tsr3s"]
 length = 0.001
 tracks/0/type = "value"
@@ -93,6 +81,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1e-05, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_es3yp"]
+resource_name = "open"
+length = 5.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HatchLight:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.5, 1.7, 2, 3, 5.6),
+"transitions": PackedFloat32Array(0.554785, 0.535887, 1, 2, 1),
+"update": 0,
+"values": [Vector2(1e-05, 2), Vector2(0.478, 2), Vector2(0.393, 2), Vector2(0.393, 2), Vector2(2, 2)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_svdsp"]
@@ -377,20 +381,22 @@ texture = ExtResource("2_ndkxd")
 [node name="ParallaxBG" type="Node2D" parent="Background"]
 z_index = -10
 
-[node name="Layer0" type="Sprite2D" parent="Background/ParallaxBG"]
+[node name="Unlit" type="Node2D" parent="Background/ParallaxBG"]
+
+[node name="Layer0" type="Sprite2D" parent="Background/ParallaxBG/Unlit"]
 position = Vector2(0, -8)
 scale = Vector2(2, 2)
 texture = ExtResource("3_07q7o")
 script = ExtResource("3_3fpqm")
 
-[node name="Layer1" type="Sprite2D" parent="Background/ParallaxBG"]
+[node name="Layer1" type="Sprite2D" parent="Background/ParallaxBG/Unlit"]
 z_index = -1
 scale = Vector2(2, 2)
 texture = ExtResource("4_xjuvv")
 script = ExtResource("3_3fpqm")
 factorH = 0.1
 
-[node name="Layer2" type="Sprite2D" parent="Background/ParallaxBG"]
+[node name="Layer2" type="Sprite2D" parent="Background/ParallaxBG/Unlit"]
 z_index = -2
 position = Vector2(0, 8)
 scale = Vector2(2, 2)
@@ -398,16 +404,7 @@ texture = ExtResource("5_y2ten")
 script = ExtResource("3_3fpqm")
 factorH = 0.2
 
-[node name="Layer2Lit" type="Sprite2D" parent="Background/ParallaxBG"]
-visible = false
-z_index = -2
-position = Vector2(0, 8)
-scale = Vector2(2, 2)
-texture = ExtResource("7_o5647")
-script = ExtResource("3_3fpqm")
-factorH = 0.2
-
-[node name="Layer3" type="Sprite2D" parent="Background/ParallaxBG"]
+[node name="Layer3" type="Sprite2D" parent="Background/ParallaxBG/Unlit"]
 z_index = -3
 position = Vector2(0, 16)
 scale = Vector2(2, 2)
@@ -416,11 +413,53 @@ script = ExtResource("3_3fpqm")
 factorH = 0.3
 factorV = 1.0
 
-[node name="Layer4" type="Sprite2D" parent="Background/ParallaxBG"]
+[node name="Layer4" type="Sprite2D" parent="Background/ParallaxBG/Unlit"]
 z_index = -4
 position = Vector2(0, 24)
 scale = Vector2(2, 2)
 texture = ExtResource("7_3xxor")
+script = ExtResource("3_3fpqm")
+factorH = 0.4
+factorV = 1.0
+
+[node name="Lit" type="Node2D" parent="Background/ParallaxBG"]
+modulate = Color(1, 1, 1, 0)
+
+[node name="Layer0" type="Sprite2D" parent="Background/ParallaxBG/Lit"]
+position = Vector2(0, -8)
+scale = Vector2(2, 2)
+texture = ExtResource("9_xw4qn")
+script = ExtResource("3_3fpqm")
+
+[node name="Layer1" type="Sprite2D" parent="Background/ParallaxBG/Lit"]
+z_index = -1
+scale = Vector2(2, 2)
+texture = ExtResource("10_eja0u")
+script = ExtResource("3_3fpqm")
+factorH = 0.1
+
+[node name="Layer2" type="Sprite2D" parent="Background/ParallaxBG/Lit"]
+z_index = -2
+position = Vector2(0, 8)
+scale = Vector2(2, 2)
+texture = ExtResource("7_o5647")
+script = ExtResource("3_3fpqm")
+factorH = 0.2
+
+[node name="Layer3" type="Sprite2D" parent="Background/ParallaxBG/Lit"]
+z_index = -3
+position = Vector2(0, 16)
+scale = Vector2(2, 2)
+texture = ExtResource("12_j6wg7")
+script = ExtResource("3_3fpqm")
+factorH = 0.3
+factorV = 1.0
+
+[node name="Layer4" type="Sprite2D" parent="Background/ParallaxBG/Lit"]
+z_index = -4
+position = Vector2(0, 24)
+scale = Vector2(2, 2)
+texture = ExtResource("13_wpnyj")
 script = ExtResource("3_3fpqm")
 factorH = 0.4
 factorV = 1.0
