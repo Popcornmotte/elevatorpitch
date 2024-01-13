@@ -70,7 +70,15 @@ func _process(delta):
 		finishedScene()
 	pass
 
+func spawnExplosions():
+	print("BOOM")
+
 func endLevel(): #the elevator calls this when the docking animation is finished
+	if Global.currentContract.risk == 3:
+		if Global.anarchyContractsIndex == 1:
+			spawnExplosions()
+		Global.anarchyContractsIndex += 1
+	
 	$Elevator.haltElevator()
 	$LevelFinish.show()
 	cargoCount = Global.countItem(Item.TYPE.Cargo)

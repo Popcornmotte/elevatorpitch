@@ -14,16 +14,19 @@ const RISK0 = preload("res://Assets/Sprites/UI/Contract.png")
 const RISK1 = preload("res://Assets/Sprites/UI/Contract1.png")
 const RISK2 = preload("res://Assets/Sprites/UI/Contract2.png")
 const ANARCHY = preload("res://Assets/Sprites/UI/ContractAnarchy.png")
+const ELYSIUM = preload("res://Assets/Sprites/UI/FinalTicket.png")
 
 const CARGOLIST = "res://Contracts/cargo.txt"
 var cargoList = []
 const SCENARIOLIST = "res://Contracts/scenarios.json"
 const RISKLIST = "res://Contracts/risks.json"
+const ANARCHYLIST = "res://Contracts/anarchy.json"
 
 const DESTINATIONS = ["Relay Station BETA-42", "Attack Platform Boromir", "Defense Platform Faramir"]
 
 const ArclightPrice = 200
 const FlamethrowerPrice = 120
+const finalTicketPrice = 20
 
 var fontSize = 50.0
 @export var flashMode = true
@@ -69,7 +72,7 @@ func generateContracts():
 	contractList = $Monitor/Terminal/ContractsView/Contracts
 	var scenarioList = JSON.parse_string(FileAccess.open(SCENARIOLIST,FileAccess.READ).get_as_text())
 	var riskList = JSON.parse_string(FileAccess.open(RISKLIST,FileAccess.READ).get_as_text())
-	for i in range(5):
+	for i in range(4):
 		var riskIndex = str(randi_range(1, riskList.get("0")-1))
 		var cargo = cargoList[randi()%cargoList.size()]
 		var destinationIndex = randi()%DESTINATIONS.size()
@@ -81,6 +84,24 @@ func generateContracts():
 		contract.shortDescription = "Deliver "+cargo+" to "+DESTINATIONS[destinationIndex]
 		contracts.append(contract)
 		contractList.add_item(contract.shortDescription, getIcon(contract.risk))
+	
+	var anarchyList = JSON.parse_string(FileAccess.open(ANARCHYLIST,FileAccess.READ).get_as_text()) 
+	var anarchyContractDescr = anarchyList.get(str(Global.anarchyContractsIndex))
+	anarchyContractDescr = anarchyContractDescr.replace("[destination]", DESTINATIONS[randi()%DESTINATIONS.size()])
+	anarchyContractDescr = anarchyContractDescr.replace("[revolutionists]", Global.revolutionists)
+	anarchyContractDescr = anarchyContractDescr.replace("[username]",Global.username)
+	var anarchyContract = Contract.new(anarchyContractDescr,3)
+	anarchyContract.shortDescription = "[REDACTED] #"+str(Global.anarchyContractsIndex)
+	anarchyContract.pay = 5
+	contracts.append(anarchyContract)
+	contractList.add_item(anarchyContract.shortDescription, getIcon(anarchyContract.risk))
+	
+	var finalDescription = "With this contract you buy a ticket to Elysium Station for the purpose of Retirement among the stars."
+	var finalContract = Contract.new(finalDescription,4)
+	finalContract.shortDescription = "Elysium Retirement Ticket "+str(finalTicketPrice)+"$$$"
+	finalContract.pay = -finalTicketPrice
+	contracts.append(finalContract)
+	contractList.add_item(finalContract.shortDescription,getIcon(finalContract.risk))
 
 func getIcon(risk):
 		match risk:
@@ -92,6 +113,8 @@ func getIcon(risk):
 				return RISK2
 			3:
 				return ANARCHY
+			4:
+				return ELYSIUM
 			_:
 				return RISK0
 
@@ -123,8 +146,12 @@ func showContractInspector(contractID : int):
 	$Monitor/Terminal/ContractInspector/Info/ShortDescription.text = contract.shortDescription
 	$Monitor/Terminal/ContractInspector/Info/Icon.set_texture(getIcon(contract.risk))
 	$Monitor/Terminal/ContractInspector/Description.text = contract.description
-	
-	$Monitor/Terminal/ContractInspector/Pay.text = str(contract.pay)+"$ for each Crate"
+	if contract.risk != 4:
+		$Monitor/Terminal/ContractInspector/Buttons/AcceptButton.text = " [ ACCEPT ] "
+		$Monitor/Terminal/ContractInspector/Pay.text = str(contract.pay)+"$ for each Crate"
+	else:
+		$Monitor/Terminal/ContractInspector/Buttons/AcceptButton.text = " [ BUY TICKET ] "
+		$Monitor/Terminal/ContractInspector/Pay.text = str(contract.pay)+"$ fee for ascension ticket!"
 	var riskText
 	match contract.risk:
 		0:
@@ -239,10 +266,24 @@ func _on_back_button_pressed():
 
 
 func _on_accept_button_pressed():
-	beep()
-	Global.currentContract = contracts[selectedContract]
-	$Monitor/Terminal/ContractInspector.hide()
-	$Monitor/Terminal/Elevator.show()
+	var contract = contracts[selectedContract]
+	if ((contract.risk == 4) or (contract.risk == 3 and Global.anarchyContractsIndex == Global.maxAnarchyIndex)):
+		if(Global.removeFunds(finalTicketPrice)):
+			Audio.playSfx(KATSCHING)
+			var ending
+			if contract.risk == 4:
+				ending = 0
+			elif contract.risk == 3:
+				ending = 1
+			Global.winGame(ending)
+			
+		else:
+			Audio.playSfx(ERROR)
+	else:
+		beep()
+		Global.currentContract = contracts[selectedContract]
+		$Monitor/Terminal/ContractInspector.hide()
+		$Monitor/Terminal/Elevator.show()
 	pass # Replace with function body.
 
 

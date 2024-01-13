@@ -28,6 +28,11 @@ var armModule = ArmModuleHandler.MODULE.None
 var modulesUnlocked = [false, false]
 # In order: Hangar, Fuel, Enemies, Repair
 var tutorialsCompleted = [false, false, false, false]
+# AnarchyContracts completed
+var anarchyContractsIndex = 1
+var maxAnarchyIndex = 7
+const REVOLUTIONISTS = ["the Rust Red Dawn", "the Alliance of back-down-to-earth Workers", "the Party of Solidarity Reform", "the Rising Rust Revolution"]
+var revolutionists = "" 
 var currentContract = Contract.new("Dummy description", 1)
 
 #Options
@@ -37,6 +42,9 @@ var effectsVolume = 1.0
 
 func _enter_tree():
 	loadGame()
+
+func _ready():
+	revolutionists = REVOLUTIONISTS[randi()%REVOLUTIONISTS.size()]
 
 func addFunds(amount:int):
 	funds += amount
@@ -94,6 +102,10 @@ func gameOver():
 	level = null
 	saveGame()
 
+func winGame(_ending):
+	Global.ending = _ending
+	get_tree().change_scene_to_file("res://Scenes/World/end_screen.tscn")
+
 func exitGame():
 	saveGame()
 	get_tree().quit()
@@ -107,7 +119,8 @@ func makeSaveDict():
 		"tutorialsCompleted" : tutorialsCompleted,
 		"modulesUnlocked" : modulesUnlocked,
 		"newUser" : newUser,
-		"username" : username
+		"username" : username,
+		"anarchyContractsIndex" : anarchyContractsIndex
 	}
 	return saveDict
 
@@ -143,6 +156,7 @@ func loadGame():
 			modulesUnlocked = loadDataFromDictSafe(dict,modulesUnlocked,"modulesUnlocked")
 			newUser = loadDataFromDictSafe(dict,newUser,"newUser")
 			username = loadDataFromDictSafe(dict,username,"username")
+			anarchyContractsIndex = loadDataFromDictSafe(dict,anarchyContractsIndex,"anarchyContractsIndex")
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(masterVolume))
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(musicVolume))
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Effects"), linear_to_db(effectsVolume))
