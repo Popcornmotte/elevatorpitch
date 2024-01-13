@@ -50,6 +50,10 @@ func defuse():
 	newBarrel.global_position = global_position
 	get_parent().call_deferred("add_child",newBarrel)
 	
+	var anchor = $anchor
+	remove_child($anchor)
+	get_parent().add_child(anchor)
+	
 	die()
 
 func die():

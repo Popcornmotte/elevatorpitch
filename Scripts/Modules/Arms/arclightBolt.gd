@@ -61,7 +61,7 @@ func performSearch(startEnemy, previousPos : Vector2):
 		
 		var dist = previousPos.distance_to(startEnemy.global_position) / maxDist
 		var damage = float(chargeLost) / max(dist, 1.0)
-		print("Charge lost: " + str(chargeLost) + ". Dealing " + str(damage) + " damage to " + startEnemy.name)
+		#print("Charge lost: " + str(chargeLost) + ". Dealing " + str(damage) + " damage to " + startEnemy.name)
 		startEnemy.takeDamage(damage, 4)
 		
 	linePoints.push_back(startPos - global_position)
