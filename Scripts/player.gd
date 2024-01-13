@@ -65,6 +65,7 @@ func flipAnimation(right):
 func takeDamage(damage:int,type):
 	#type is currently ignored in elevator
 	health-=damage
+	$Healthbar/TextureProgressBar.value=health
 	if health<=0:
 		Global.elevator.dropping=true
 		Global.elevator.dropElevator(true)#activate gameover scene
