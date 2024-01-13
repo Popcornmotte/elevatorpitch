@@ -50,6 +50,8 @@ func onElevatorStarted():
 	$RiseSequence/ElevatorRise.play("elevatorRise")
 	$RiseSequence/TransitionTimer.start()
 	$RiseSequence/FadeTimer.start()
+	Global.elevator.get_node("HullBody").get_node("Hull").visible=true
+	Global.player.controlPlayer=false
 	elevatorRising = true
 	Global.tutorialsCompleted[0] = true
 
