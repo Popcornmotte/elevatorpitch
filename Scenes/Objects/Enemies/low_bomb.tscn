@@ -1,9 +1,10 @@
-[gd_scene load_steps=39 format=3 uid="uid://d28b73w1tt3p8"]
+[gd_scene load_steps=40 format=3 uid="uid://d28b73w1tt3p8"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/bombEnemy.gd" id="1_2kgrk"]
 [ext_resource type="Texture2D" uid="uid://cfr4ycsmcfwck" path="res://Assets/Sprites/Enemies/low_bomb_body.png" id="1_66s51"]
 [ext_resource type="Texture2D" uid="uid://dnxhr055pq23p" path="res://Assets/Sprites/Enemies/low_bomb_defuse.png" id="2_a2udm"]
 [ext_resource type="Script" path="res://Scripts/Enemies/bombEnemyDefuse.gd" id="3_xhmkc"]
+[ext_resource type="Texture2D" uid="uid://bqca28ojh8fui" path="res://Assets/Sprites/Enemies/low_bomb_anchor.png" id="5_o2bdt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jo11d"]
 radius = 24.0
@@ -259,24 +260,28 @@ position = Vector2(0, -29)
 sprite_frames = SubResource("SpriteFrames_agkfb")
 autoplay = "default"
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(0, 23)
+[node name="anchor" type="RigidBody2D" parent="."]
+position = Vector2(0, 104)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("3_xhmkc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(0, 86)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="anchor"]
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_i8juo")
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-position = Vector2(0, 45)
+[node name="SpriteWithRope" type="Sprite2D" parent="anchor"]
+position = Vector2(0, -40)
 texture = ExtResource("2_a2udm")
+
+[node name="SpriteWithoutRope" type="Sprite2D" parent="anchor"]
+position = Vector2(0, -1)
+texture = ExtResource("5_o2bdt")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 position = Vector2(0, 31)
 node_a = NodePath("..")
-node_b = NodePath("../RigidBody2D")
+node_b = NodePath("../anchor")
 
 [node name="Trigger" type="Area2D" parent="."]
 collision_layer = 256
