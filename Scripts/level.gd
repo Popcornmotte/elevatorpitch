@@ -26,6 +26,7 @@ func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.elevator.get_node("interior/Dispenser").locked=false
 	gameOverText.hide()
 	Global.elevator.moving=true
 
