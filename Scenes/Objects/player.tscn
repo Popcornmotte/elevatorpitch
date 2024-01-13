@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://xcgdf4cn2vir"]
+[gd_scene load_steps=46 format=3 uid="uid://xcgdf4cn2vir"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_mnd8j"]
 [ext_resource type="Texture2D" uid="uid://cj56gvxbatwq7" path="res://Assets/Sprites/Player/PlayerClimb.png" id="2_lc3sb"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://Scripts/PlayerCam.gd" id="8_5uc6h"]
 [ext_resource type="AudioStream" uid="uid://c7pbfune0a8bt" path="res://Assets/Audio/sfx/jetpack.wav" id="9_nk5m3"]
 [ext_resource type="PackedScene" uid="uid://c0ur0a1yll1xy" path="res://Scenes/Objects/PlayerGun.tscn" id="12_7oi1g"]
+[ext_resource type="Texture2D" uid="uid://23fcpqdcjp8k" path="res://Assets/Sprites/Player/healthbarBackground.png" id="14_mdwmt"]
+[ext_resource type="Texture2D" uid="uid://dpu5wkk46v1ci" path="res://Assets/Sprites/Player/healthbar.png" id="15_6ko7i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tucjc"]
 radius = 5.0
@@ -328,6 +330,18 @@ texture = ExtResource("8_3uad8")
 stream = ExtResource("9_nk5m3")
 
 [node name="Gun" parent="." instance=ExtResource("12_7oi1g")]
+
+[node name="Healthbar" type="Node2D" parent="."]
+position = Vector2(-16, -14)
+scale = Vector2(0.5, 0.5)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Healthbar"]
+offset_right = 64.0
+offset_bottom = 8.0
+max_value = 5.0
+value = 5.0
+texture_under = ExtResource("14_mdwmt")
+texture_progress = ExtResource("15_6ko7i")
 
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]

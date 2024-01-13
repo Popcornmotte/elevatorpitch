@@ -37,11 +37,13 @@ var brakeObject:Node2D
 var refuelEngineObject:Node2D
 var jetpack = false
 var lerpFactor = 0.3
+@export var health=5
 
 func _ready():
 	Global.player = self
 	cameraMargins = $PlayerCam.get_drag_margin(0)
 	zoomIn(startZoomedIn)
+	$Healthbar.hide()
 
 func playPlayerSound(clip : AudioStream):
 	if(sfx):
@@ -60,6 +62,14 @@ func flipAnimation(right):
 		fuelSprite.position=carryPos*Vector2(-1,1)
 		scrapSprite.position=carryPos*Vector2(-1,1)
 
+func takeDamage(damage:int,type):
+	#type is currently ignored in elevator
+	health-=damage
+	if health<=0:
+		Global.elevator.dropping=true
+		Global.elevator.dropElevator(true)#activate gameover scene
+	pass
+	
 func zoomIn(state : bool):
 	if state:
 		zoomAnimation.play("zoom_in")
@@ -122,6 +132,7 @@ func dropObject():
 func toggleJetpack(state : bool):
 	jetpack = state
 	if state:
+		$Healthbar.show()
 		$Gun.setEnabled(true)
 		$PlayerCam.setMousePeek(true)
 		z_index=10
@@ -130,6 +141,7 @@ func toggleJetpack(state : bool):
 		$jetpackParticles.emitting = true
 		$jetpackSound.play()
 	else:
+		$Healthbar.hide()
 		$Gun.setEnabled(false)
 		$PlayerCam.setMousePeek(false)
 		lerpFactor = 0.3
