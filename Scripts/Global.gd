@@ -11,6 +11,8 @@ var player : Node2D
 #current Level Scene. since it is different than root
 var level
 
+var ending = null
+
 var inventoryMatrix : Node2D
 
 enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }
@@ -28,6 +30,11 @@ var armModule = ArmModuleHandler.MODULE.None
 var modulesUnlocked = [false, false]
 # In order: Hangar, Fuel, Enemies, Repair
 var tutorialsCompleted = [false, false, false, false]
+# AnarchyContracts completed
+var anarchyContractsIndex = 1
+var maxAnarchyIndex = 7
+const REVOLUTIONISTS = ["the Rust Red Dawn", "the Alliance of back-down-to-earth Workers", "the Party of Solidarity Reform", "the Rising Rust Revolution"]
+var revolutionists = "" 
 var currentContract = Contract.new("Dummy description", 1)
 
 #Options
@@ -37,6 +44,9 @@ var effectsVolume = 1.0
 
 func _enter_tree():
 	loadGame()
+
+func _ready():
+	revolutionists = REVOLUTIONISTS[randi()%REVOLUTIONISTS.size()]
 
 func addFunds(amount:int):
 	funds += amount
@@ -89,10 +99,15 @@ func checkForCargo() -> bool:
 
 func gameOver():
 	funds = 0
+	anarchyContractsIndex = 1
 	newUser = true
 	modulesUnlocked = [false, false]
 	level = null
 	saveGame()
+
+func winGame(_ending):
+	ending = _ending
+	get_tree().change_scene_to_file("res://Scenes/World/end_screen.tscn")
 
 func exitGame():
 	saveGame()
@@ -107,7 +122,8 @@ func makeSaveDict():
 		"tutorialsCompleted" : tutorialsCompleted,
 		"modulesUnlocked" : modulesUnlocked,
 		"newUser" : newUser,
-		"username" : username
+		"username" : username,
+		"anarchyContractsIndex" : anarchyContractsIndex
 	}
 	return saveDict
 
@@ -143,6 +159,7 @@ func loadGame():
 			modulesUnlocked = loadDataFromDictSafe(dict,modulesUnlocked,"modulesUnlocked")
 			newUser = loadDataFromDictSafe(dict,newUser,"newUser")
 			username = loadDataFromDictSafe(dict,username,"username")
+			anarchyContractsIndex = loadDataFromDictSafe(dict,anarchyContractsIndex,"anarchyContractsIndex")
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(masterVolume))
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(musicVolume))
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Effects"), linear_to_db(effectsVolume))

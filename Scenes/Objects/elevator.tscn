@@ -329,6 +329,8 @@ collision_mask = 16
 shape = SubResource("RectangleShape2D_t4i8w")
 
 [node name="Engine" parent="HullBody" instance=ExtResource("8_cxyt7")]
+z_index = 7
+position = Vector2(0, -146)
 
 [node name="Arms" type="Node2D" parent="."]
 
@@ -766,9 +768,10 @@ position = Vector2(-46, -61)
 
 [node name="Fuel" type="Polygon2D" parent="FuelBar"]
 z_index = 7
+position = Vector2(22, -23)
 rotation = -1.5708
 color = Color(0.705882, 0.380392, 0, 1)
-polygon = PackedVector2Array(0, -14, 0, 14, 68, 14, 68, -14)
+polygon = PackedVector2Array(0, 0, -3.05176e-05, 10, 25, 10.0001, 25, 9.15527e-05)
 
 [node name="AlertOverlay" type="Polygon2D" parent="FuelBar"]
 visible = false
@@ -776,13 +779,14 @@ z_index = 7
 material = SubResource("ShaderMaterial_ffijk")
 rotation = -1.5708
 color = Color(1, 0.192157, 0, 1)
-polygon = PackedVector2Array(0, -14, 0, 14, 68, 14, 68, -14)
+polygon = PackedVector2Array(22.9999, 22.0001, 22.9999, 32.0001, 47.9999, 32.0002, 47.9999, 22.0002)
 
 [node name="Background" type="Polygon2D" parent="FuelBar"]
 z_index = 6
+position = Vector2(34, 22)
 rotation = -1.5708
 color = Color(0.133333, 0.0941176, 0.0627451, 1)
-polygon = PackedVector2Array(0, -14, 0, 14, 68, 14, 68, -14)
+polygon = PackedVector2Array(45, -11.9998, 45, -1.99984, 70, -1.99975, 70, -11.9997)
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="FuelBar"]
 visible = false

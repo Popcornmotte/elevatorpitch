@@ -28,7 +28,7 @@ var sfxWarning
 @export var speedModifier=1
 @onready var targets = $Arms/Targets
 @onready var brake=$interior/Brake
-@onready var engineSFX = $HullBody/Engine/EngineSound
+@onready var engine = $HullBody/Engine
 @onready var operationalDisplay= $interior/DisplayText/Operational/MarginContainer/RichTextLabelDisplay
 @onready var warningDisplay= $interior/DisplayText/MarginContainerWarning/RichTextLabelWarning
 @onready var endTimer=$EndTimer
@@ -123,7 +123,7 @@ func moveNormal():
 	speedModifier=1.0
 	$LegsAndCable/Legs.movementFactor=speedModifier
 	fuelConsumption=10
-	engineSFX.startEngine()
+	engine.startEngine()
 	
 func control(isControlled : bool):
 	controlArms=isControlled
@@ -163,7 +163,7 @@ func decrease_fuel(delta):
 	if fuel<=0:
 		brake.noFuel()#set brake to turned off position
 		moving=false
-		engineSFX.stopEngine()
+		engine.stopEngine()
 		fuelAlert.visible = true
 	else:
 		update_height(climbingRate*speedModifier*delta)
