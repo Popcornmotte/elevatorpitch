@@ -26,7 +26,7 @@ const DESTINATIONS = ["Relay Station BETA-42", "Attack Platform Boromir", "Defen
 
 const ArclightPrice = 200
 const FlamethrowerPrice = 120
-const finalTicketPrice = 2000
+const finalTicketPrice = 0
 
 var fontSize = 50.0
 @export var flashMode = true

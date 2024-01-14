@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://0y3xlis0i07e"]
+[gd_scene load_steps=4 format=3 uid="uid://b8x3eljfoyyu"]
 
 [ext_resource type="Texture2D" uid="uid://ca27mp3shlyqm" path="res://Assets/Sprites/UI/RustyPanel2.png" id="1_fr8t5"]
 [ext_resource type="Script" path="res://Scripts/end_screen.gd" id="1_rrgrj"]
+[ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="3_2is8u"]
 
 [node name="EndScreen" type="Node2D"]
 script = ExtResource("1_rrgrj")
@@ -24,3 +25,5 @@ bbcode_enabled = true
 text = "[center]You won the Game"
 fit_content = true
 scroll_active = false
+
+[node name="PauseMenu" parent="." instance=ExtResource("3_2is8u")]
