@@ -18,6 +18,8 @@ var inventoryMatrix : Node2D
 enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }
 
 var height = 0
+var heatMeter=0
+@export var maxHeat=100
 var aliveEnemies = 0
 var enemies : Array[Enemy]
 var inventoryMaxSize = 16
@@ -52,6 +54,13 @@ func addFunds(amount:int):
 	funds += amount
 	return true
 
+func changeHeat(amount:int):
+	if heatMeter<maxHeat and heatMeter>=0:
+		heatMeter+=amount
+		if heatMeter>=maxHeat:
+			Global.elevator.get_node("HullBody/Engine").damage(maxHeat)#blow engine
+		print("Heatmeter: ", heatMeter)
+		
 func removeFunds(amount:int) -> bool:
 	if (funds >= amount):
 		funds -= amount

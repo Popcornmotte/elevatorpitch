@@ -19,6 +19,16 @@ var operatingMode=OPERATIONMODE.Normal
 func _ready():
 	if Global.elevator:
 		Global.elevator.moving=false
+		
+func _process(delta):
+	match currentSpeed:
+		SPEED.Off:
+			Global.changeHeat(-2)
+		SPEED.Normal:
+			Global.changeHeat(1)
+		SPEED.Fast:
+			Global.changeHeat(5)
+	
 func damaged():
 	repairStation.visible=true
 	repairStation.enableOptionalRepair()
