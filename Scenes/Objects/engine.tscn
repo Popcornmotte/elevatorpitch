@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bp5sk22ri6522" path="res://Assets/Sprites/ElevatorBody/EngineNew-Sheet.png" id="2_tivhv"]
 [ext_resource type="AudioStream" uid="uid://d2l0fiuq2cefa" path="res://Assets/Audio/sfx/engine_loop.wav" id="3_kgc0d"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="5_drvpr"]
+[ext_resource type="Texture2D" uid="uid://bckr7plfe50lb" path="res://Assets/Sprites/ElevatorBody/heatMeter.png" id="7_304su"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uapqk"]
 atlas = ExtResource("2_tivhv")
@@ -134,3 +135,10 @@ amount = 16
 process_material = SubResource("ParticleProcessMaterial_08v0o")
 
 [connection signal="finished" from="EngineSound" to="." method="_on_engine_sound_finished"]
+[node name="HeatMeter" type="PointLight2D" parent="."]
+position = Vector2(-8, -128)
+energy = 0.0
+texture = ExtResource("7_304su")
+
+[connection signal="finished" from="EngineSound" to="EngineSound" method="_on_finished"]
+

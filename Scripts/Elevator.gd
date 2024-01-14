@@ -189,7 +189,7 @@ func _process(delta):
 	if warningBrokenModules:
 		brokenModulesWarning()
 	if leakingFuel:
-		decrease_fuel(delta* 0.001)
+		decrease_fuel(delta* 0.1)
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
