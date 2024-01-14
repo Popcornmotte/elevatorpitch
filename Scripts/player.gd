@@ -61,7 +61,6 @@ func flipAnimation(right):
 		scrapSprite.position=carryPos*Vector2(-1,1)
 
 func zoomIn(state : bool):
-	print("zoom is called: ", state)
 	if state:
 		zoomAnimation.play("zoom_in")
 		for side in range(0,4):
@@ -217,8 +216,8 @@ func _process(delta):
 			#check if player is interacting with something
 			if interactionObject:
 				interactionObject.use()
-		if refuelEngineObject and carrying and carryType==Item.TYPE.Fuel:
-			refuelEngineObject.startRefuel()
+			if refuelEngineObject and carrying and carryType==Item.TYPE.Fuel:
+				refuelEngineObject.startRefuel()
 	
 		if carrying and Input.is_action_pressed("repair") and interactionObject:
 			interactionObject.repair()
