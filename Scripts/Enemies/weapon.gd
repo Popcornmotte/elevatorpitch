@@ -18,6 +18,7 @@ class_name Weapon
 var nozzlePosX
 #is elevator in melee range?
 var elevatorBodyInRange : bool
+var playerBody = null
 #trajectory for ranged attacks
 var trajectory : Vector2
 
@@ -55,6 +56,8 @@ func reload():
 		Audio.playSfxLocalized(weaponReloadSound, global_position)
 
 func checkMeleeHit() -> bool:
+	if playerBody != null:
+		playerBody.takeDamage(damage, Global.DMG.Piercing)
 	return elevatorBodyInRange
 
 #make sure to set collision mask and layer in a way
@@ -62,12 +65,18 @@ func checkMeleeHit() -> bool:
 func _on_melee_area_body_entered(body):
 	if(!ranged):
 		$Sprite.play("attack")
-		elevatorBodyInRange = true
+		if body.name == "HullBody":
+			elevatorBodyInRange = true
+		if body.name == "player":
+			playerBody = body
 		pass # Replace with function body.
 
 
 func _on_melee_area_body_exited(body):
 	if(!ranged):
 		$Sprite.play("idle")
-		elevatorBodyInRange = false
+		if body.name == "HullBody":
+			elevatorBodyInRange = false
+		if body.name == "player":
+			playerBody = null
 		pass # Replace with function body.

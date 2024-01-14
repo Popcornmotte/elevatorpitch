@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/bullet.gd" id="1_wprt0"]
 [ext_resource type="Texture2D" uid="uid://bbr6y1ffopfih" path="res://Assets/Sprites/Enemies/Bullet1.png" id="2_qdkh3"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pa5kx"]
-radius = 5.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ol1sf"]
+radius = 4.0
+height = 42.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8o7tq"]
 animations = [{
@@ -37,7 +38,8 @@ collision_mask = 524546
 script = ExtResource("1_wprt0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_pa5kx")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ol1sf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
