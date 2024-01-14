@@ -46,8 +46,7 @@ func disable():
 	sprite.pause()
 	$Smoke.emitting = true
 	brake.brokenEngine()#switch from fastest to normal mode in brake
-	print("global position is ",position)
-	super.spawnExplosion(position)
+	super.spawnExplosion(repairStation.global_position)
 	repairStation.visible=true
 	repairStation.enableRepair()
 	Global.elevator.startLeaking()
