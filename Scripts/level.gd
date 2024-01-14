@@ -40,10 +40,11 @@ func setGameOver(state:bool):
 	gameOver=state
 	
 func finishedScene():
-	$Elevator.onGoal()#plays the animation for elevator moving out of view
-	$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
-	$LevelCam.make_current()
-	finishedLevel=true
+	if !finishedLevel:#only play once
+		$Elevator.onGoal()#plays the animation for elevator moving out of view
+		$LevelCam.set_enabled(true)# enables level cam, so that elevator actually moves out of frame
+		$LevelCam.make_current()
+		finishedLevel=true
 	
 func spawnEnemies():
 	combat = true
