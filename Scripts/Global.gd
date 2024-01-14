@@ -54,12 +54,12 @@ func addFunds(amount:int):
 	funds += amount
 	return true
 
-func changeHeat(amount:int):
-	if heatMeter<maxHeat and heatMeter>=0:
+func changeHeat(amount):
+	if (amount<0 and heatMeter>=0) or (amount>0 and heatMeter<maxHeat):
 		heatMeter+=amount
 		if heatMeter>=maxHeat:
 			Global.elevator.get_node("HullBody/Engine").damage(maxHeat)#blow engine
-		print("Heatmeter: ", heatMeter)
+		
 		
 func removeFunds(amount:int) -> bool:
 	if (funds >= amount):
