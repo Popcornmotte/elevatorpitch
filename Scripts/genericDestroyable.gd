@@ -23,7 +23,9 @@ func damage(damage:int):
 func spawnExplosion(position:Vector2):
 	var newExplosion = explosion.instantiate()
 	newExplosion.global_position = position
+	newExplosion.set_collision_mask_value(3,false)#disable collision
 	get_parent().call_deferred("add_child",newExplosion)
+	
 			
 func repair():
 	health=maxHealth
