@@ -58,7 +58,7 @@ func checkMeleeHit() -> bool:
 	return elevatorBodyInRange
 
 #make sure to set collision mask and layer in a way
-#that only elevator parts are registered
+#that only elevator parts are registeredja
 func _on_melee_area_body_entered(body):
 	if(!ranged):
 		$Sprite.play("attack")

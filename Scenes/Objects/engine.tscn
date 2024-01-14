@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cuiln8pt5xl01"]
+[gd_scene load_steps=20 format=3 uid="uid://cuiln8pt5xl01"]
 
 [ext_resource type="Script" path="res://Scripts/engineLogic.gd" id="1_v7bh1"]
 [ext_resource type="Texture2D" uid="uid://hi3n6rh8ffcu" path="res://Assets/Sprites/ElevatorBody/TankTest.png" id="2_s7bn1"]
 [ext_resource type="Texture2D" uid="uid://bp5sk22ri6522" path="res://Assets/Sprites/ElevatorBody/EngineNew-Sheet.png" id="2_tivhv"]
 [ext_resource type="AudioStream" uid="uid://d2l0fiuq2cefa" path="res://Assets/Audio/sfx/engine_loop.wav" id="3_kgc0d"]
-[ext_resource type="Script" path="res://Scripts/engine.gd" id="4_tvwhu"]
 [ext_resource type="PackedScene" uid="uid://dkk1ky06bbfgo" path="res://Scenes/Objects/RepairArea.tscn" id="5_drvpr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uapqk"]
@@ -71,43 +70,36 @@ animations = [{
 "speed": 24.0
 }]
 
-[sub_resource type="Animation" id="Animation_d71to"]
-resource_name = "EngineJiggle"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Engine/EngineSprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-8, -136), Vector2(-8, -134), Vector2(-8, -136)]
-}
+[sub_resource type="Gradient" id="Gradient_4hp0k"]
+offsets = PackedFloat32Array(0, 0.836237, 1)
+colors = PackedColorArray(0, 0, 0, 0.760784, 0.192157, 0.192157, 0.192157, 0.772549, 0.227451, 0.227451, 0.227451, 0)
 
-[sub_resource type="Animation" id="Animation_wuymh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Engine/EngineSprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-8, -136)]
-}
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5roaq"]
+gradient = SubResource("Gradient_4hp0k")
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_leylr"]
-_data = {
-"EngineJiggle": SubResource("Animation_d71to"),
-"RESET": SubResource("Animation_wuymh")
-}
+[sub_resource type="Curve" id="Curve_tedfo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.698413, 0.96713), 0.0, 0.0, 0, 0, Vector2(1, 0.26043), -3.72889, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_irdxa"]
+curve = SubResource("Curve_tedfo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_08v0o"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+angle_min = -151.6
+angle_max = 168.4
+direction = Vector3(0, -1, 0)
+spread = 25.0
+initial_velocity_min = 29.23
+initial_velocity_max = 111.11
+gravity = Vector3(0, 0, 0)
+scale_min = 8.0
+scale_max = 16.0
+scale_curve = SubResource("CurveTexture_irdxa")
+color = Color(0.266667, 0.266667, 0.266667, 0.815686)
+color_ramp = SubResource("GradientTexture1D_5roaq")
 
 [node name="Engine" type="Node2D"]
 script = ExtResource("1_v7bh1")
@@ -118,28 +110,27 @@ sprite_frames = SubResource("SpriteFrames_wehto")
 animation = &"running"
 frame_progress = 0.861896
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_leylr")
-}
-
 [node name="TankSprite" type="Sprite2D" parent="."]
 visible = false
 z_index = 8
 position = Vector2(-43, -125)
 texture = ExtResource("2_s7bn1")
 
-[node name="EngineSound" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("animation", "sprite")]
+[node name="EngineSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_kgc0d")
 bus = &"Effects"
-script = ExtResource("4_tvwhu")
-animation = NodePath("../AnimationPlayer")
-sprite = NodePath("../EngineSprite")
 
 [node name="Repair" parent="." instance=ExtResource("5_drvpr")]
+visible = false
 z_index = 5
-position = Vector2(4, 8)
+z_as_relative = true
 parent = 3
 
-[connection signal="finished" from="EngineSound" to="EngineSound" method="_on_finished"]
+[node name="Smoke" type="GPUParticles2D" parent="."]
+z_index = 8
+position = Vector2(-44, 8)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_08v0o")
+
+[connection signal="finished" from="EngineSound" to="." method="_on_engine_sound_finished"]

@@ -22,7 +22,7 @@ const SCENARIOLIST = "res://Contracts/scenarios.json"
 const RISKLIST = "res://Contracts/risks.json"
 const ANARCHYLIST = "res://Contracts/anarchy.json"
 
-const DESTINATIONS = ["Relay Station BETA-42", "Attack Platform Boromir", "Defense Platform Faramir"]
+const DESTINATIONS = ["Relay Station BETA-42", "Attack Platform Boromir", "Defense Platform Faramir", "Elysium"]
 
 const ArclightPrice = 200
 const FlamethrowerPrice = 120
@@ -75,7 +75,7 @@ func generateContracts():
 	for i in range(4):
 		var riskIndex = str(randi_range(1, riskList.get("0")-1))
 		var cargo = cargoList[randi()%cargoList.size()]
-		var destinationIndex = randi()%DESTINATIONS.size()
+		var destinationIndex = randi()%(DESTINATIONS.size()-1)
 		var contractDescription = scenarioList.get(str(randi_range(1,scenarioList.get("0")-1)))+riskList.get(riskIndex).get("text")
 		contractDescription = contractDescription.replace("[cargo]", cargo+"s")
 		contractDescription = contractDescription.replace("[destination]", DESTINATIONS[destinationIndex])
@@ -98,6 +98,7 @@ func generateContracts():
 	
 	var finalDescription = "With this contract you buy a ticket to Elysium Station for the purpose of Retirement among the stars."
 	var finalContract = Contract.new(finalDescription,4)
+	finalContract.destination = 3
 	finalContract.shortDescription = "Elysium Retirement Ticket "+str(finalTicketPrice)+"$$$"
 	finalContract.pay = -finalTicketPrice
 	contracts.append(finalContract)

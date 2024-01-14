@@ -1,16 +1,16 @@
-[gd_scene load_steps=35 format=3 uid="uid://dkk1ky06bbfgo"]
+[gd_scene load_steps=33 format=3 uid="uid://dkk1ky06bbfgo"]
 
 [ext_resource type="Script" path="res://Scripts/RepairScript.gd" id="1_7dekd"]
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="3_ls4ia"]
 [ext_resource type="Texture2D" uid="uid://cyifk1880p15o" path="res://Assets/Sprites/InteriorObjects/brakeRepair.png" id="4_ejav2"]
 [ext_resource type="AudioStream" uid="uid://fr35fi0bkaxo" path="res://Assets/Audio/sfx/repairNeeded.wav" id="4_exayi"]
 [ext_resource type="Texture2D" uid="uid://bflq7bk7vrfre" path="res://Assets/Sprites/InteriorObjects/repair_animation.png" id="4_scm5d"]
+[ext_resource type="Texture2D" uid="uid://cudoenfklnewq" path="res://Assets/Sprites/ElevatorBody/EngineNewRepairThing.png" id="5_evel4"]
 [ext_resource type="Texture2D" uid="uid://p7ffxwc48dwh" path="res://Assets/Sprites/InteriorObjects/damagedArm.png" id="5_lbakg"]
 [ext_resource type="Texture2D" uid="uid://c8raugm51adou" path="res://Assets/Sprites/InteriorObjects/brakeDamage.png" id="5_np7dh"]
 [ext_resource type="Texture2D" uid="uid://c1vgbhe5w8ltb" path="res://Assets/Sprites/Net/netDestroyed.png" id="5_vndxq"]
 [ext_resource type="Texture2D" uid="uid://dt3jor3xsn0j0" path="res://Assets/Sprites/Net/netDamaged.png" id="8_u8hlf"]
 [ext_resource type="Texture2D" uid="uid://cusaokirlhjfd" path="res://Assets/Sprites/ElevatorBody/EngineDamaged.png" id="8_xn4s3"]
-[ext_resource type="Texture2D" uid="uid://bwqf2b5fv6cvv" path="res://Assets/Sprites/ElevatorBody/EngineDestroyed.png" id="10_jab2m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qctk"]
 
@@ -46,21 +46,13 @@ region = Rect2(56, 0, 28, 24)
 atlas = ExtResource("4_ejav2")
 region = Rect2(84, 0, 28, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xbwwa"]
-atlas = ExtResource("10_jab2m")
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6wwq"]
+atlas = ExtResource("5_evel4")
 region = Rect2(0, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nghcd"]
-atlas = ExtResource("10_jab2m")
-region = Rect2(256, 0, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_okwvy"]
-atlas = ExtResource("10_jab2m")
-region = Rect2(512, 0, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gfd8j"]
-atlas = ExtResource("10_jab2m")
-region = Rect2(768, 0, 256, 256)
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5q6q"]
+atlas = ExtResource("5_evel4")
+region = Rect2(0, 256, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_02ae5"]
 atlas = ExtResource("5_vndxq")
@@ -132,16 +124,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xbwwa")
+"texture": SubResource("AtlasTexture_q6wwq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nghcd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_okwvy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gfd8j")
+"texture": SubResource("AtlasTexture_s5q6q")
 }],
 "loop": true,
 "name": &"brokenEngine",
@@ -224,7 +210,7 @@ process_material = ExtResource("3_ls4ia")
 
 [node name="RepairAnimatedSprite2D" type="AnimatedSprite2D" parent="RepairArea"]
 sprite_frames = SubResource("SpriteFrames_bjlj8")
-animation = &"brokenArm"
+animation = &"damagedEngine"
 
 [node name="RepairAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="RepairArea"]
 stream = ExtResource("4_exayi")

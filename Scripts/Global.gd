@@ -11,6 +11,8 @@ var player : Node2D
 #current Level Scene. since it is different than root
 var level
 
+var ending = null
+
 var inventoryMatrix : Node2D
 
 enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }
@@ -97,13 +99,14 @@ func checkForCargo() -> bool:
 
 func gameOver():
 	funds = 0
+	anarchyContractsIndex = 1
 	newUser = true
 	modulesUnlocked = [false, false]
 	level = null
 	saveGame()
 
 func winGame(_ending):
-	Global.ending = _ending
+	ending = _ending
 	get_tree().change_scene_to_file("res://Scenes/World/end_screen.tscn")
 
 func exitGame():

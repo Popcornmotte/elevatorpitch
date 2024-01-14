@@ -28,7 +28,11 @@ func _enter_tree():
 func _ready():
 	gameOverText.hide()
 	Global.elevator.moving=true
-	
+
+func setFinishHeight():
+	var destination = Global.currentContract.destination
+	finishHeight = 50 + 25*destination
+
 func setGameOver(state:bool):
 	if state:
 		Global.gameOver()

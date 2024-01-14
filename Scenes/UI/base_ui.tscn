@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://e28fa72bwi24" path="res://Assets/Sprites/UI/OnOff.png" id="3_awf02"]
 [ext_resource type="Texture2D" uid="uid://cfkxuag3tmvx1" path="res://Assets/Sprites/UI/wall/dirtyWall2.png" id="3_m4ml4"]
 [ext_resource type="Texture2D" uid="uid://dbnjeobt6ysqh" path="res://Assets/Sprites/UI/wall/dirtyWall3.png" id="4_yefwp"]
-[ext_resource type="Texture2D" uid="uid://f0kjok64tnbw" path="res://Assets/Sprites/bloodBig.png" id="5_yjv8g"]
+[ext_resource type="Texture2D" uid="uid://ch85iosb86tbj" path="res://Assets/Sprites/UI/PostIt.png" id="5_cvmym"]
 [ext_resource type="FontFile" uid="uid://chq2qqlffg26p" path="res://Fonts/Mont-HeavyDEMO.otf" id="7_2k8x0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_migvv"]
@@ -51,8 +51,9 @@ autoplay = "default"
 [node name="Flavor" type="Sprite2D" parent="."]
 modulate = Color(0.627451, 0.627451, 0.627451, 1)
 z_index = 1
-position = Vector2(1352, 920)
-texture = ExtResource("5_yjv8g")
+position = Vector2(1480, 408)
+scale = Vector2(2, 2)
+texture = ExtResource("5_cvmym")
 
 [node name="Monitor" type="Sprite2D" parent="."]
 position = Vector2(992, 538)
