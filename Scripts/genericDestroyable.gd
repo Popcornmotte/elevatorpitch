@@ -1,9 +1,10 @@
 extends Node2D
 
 class_name GenericDestroyable
-@export var health=5
+@export var health:int=5
 @onready var maxHealth=health
-@export var damagedThreshold=9
+@export var damagedThreshold:int=9
+var explosion = preload("res://Scenes/Objects/explosion.tscn")
 enum OPERATIONMODE {Normal, Damaged, Broken}
 var update=true
 
@@ -19,6 +20,14 @@ func damage(damage:int):
 			update=false
 		disable()
 
+func spawnExplosion(position:Vector2):
+	var newExplosion = explosion.instantiate()
+	newExplosion.global_position = position
+	newExplosion.set_collision_mask_value(3,false)#disable collision
+	newExplosion.set_collision_mask_value(9,false)#disable collision
+	get_parent().call_deferred("add_child",newExplosion)
+	
+			
 func repair():
 	health=maxHealth
 	Global.elevator.newFixedModule()

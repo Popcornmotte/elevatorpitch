@@ -80,6 +80,7 @@ func setControlled(value : bool):
 		updateElbowDir(true)
 
 func disable():
+	super.spawnExplosion(repairStation.global_position)
 	repairStation.visible=true
 	repairStation.enableRepair()
 	functional = false

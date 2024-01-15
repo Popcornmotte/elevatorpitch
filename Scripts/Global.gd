@@ -18,10 +18,12 @@ var inventoryMatrix : Node2D
 enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }
 
 var height = 0
+
 var aliveEnemies = 0
 var enemies : Array[Enemy]
 var inventoryMaxSize = 16
 var inventory = Array()
+var fuelBetweenLevels = 0.0
 var funds=0
 var newUser = true
 var username = ""
@@ -51,7 +53,7 @@ func _ready():
 func addFunds(amount:int):
 	funds += amount
 	return true
-
+		
 func removeFunds(amount:int) -> bool:
 	if (funds >= amount):
 		funds -= amount
@@ -117,6 +119,7 @@ func exitGame():
 func makeSaveDict():
 	var saveDict = {
 		"funds" : funds,
+		"fuel" : fuelBetweenLevels,
 		"masterVolume" : masterVolume,
 		"musicVolume" : musicVolume,
 		"effectsVolume" : effectsVolume,
@@ -152,7 +155,8 @@ func loadGame():
 		#var data = parse_json(file.get_as_text())
 		file.close()
 		if typeof(dict) == TYPE_DICTIONARY:
-			funds=loadDataFromDictSafe(dict, funds, "funds")
+			funds = loadDataFromDictSafe(dict, funds, "funds")
+			fuelBetweenLevels = loadDataFromDictSafe(dict, fuelBetweenLevels, "fuel")
 			masterVolume = loadDataFromDictSafe(dict,masterVolume, "masterVolume")
 			musicVolume = loadDataFromDictSafe(dict,musicVolume, "musicVolume")
 			effectsVolume = loadDataFromDictSafe(dict,effectsVolume, "effectsVolume")

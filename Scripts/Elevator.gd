@@ -22,7 +22,9 @@ var sfxWarning
 @export var moving:bool=true
 @export var chutesDeployed = false
 @export var fuelConsumption=10
-@export var fuel = 15.0
+@export var fuel = 25.0
+var heat=0
+@export var maxHeat=100
 @export var climbingHeight=0
 @export var climbingRate=100
 @export var speedModifier=1
@@ -184,12 +186,23 @@ func updateFuel():
 		brake.unlock()
 	pass
 
+func changeHeat(amount):
+	if (amount<0 and heat>=0) or (amount>0 and heat<maxHeat):
+		heat+=amount
+		get_node("interior/HeatMeter").value=heat
+		var factor = (heat-0.5*maxHeat)/(0.5*maxHeat)
+		if heat<maxHeat*0.5:
+			factor = 0
+		get_node("interior/HeatMeter").set_tint_progress(Color(0.3,0.4,1.0).lerp(Color(1.0,0.3,0.1), factor))
+		if heat>=maxHeat:
+			get_node("HullBody/Engine").damage(maxHeat)#blow engine
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if warningBrokenModules:
 		brokenModulesWarning()
 	if leakingFuel:
-		decrease_fuel(delta* 0.001)
+		decrease_fuel(delta* 0.1)
 	if(dropping):
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta

@@ -1,6 +1,7 @@
 extends GenericDestroyable
 
 @onready var repairStation=find_child("Repair")
+@onready var brake=Global.elevator.get_node("interior/Brake")
 
 var startup = preload("res://Assets/Audio/sfx/engine_start.wav")
 var loop = preload("res://Assets/Audio/sfx/engine_loop.wav")
@@ -44,6 +45,8 @@ func damaged():
 func disable():
 	sprite.pause()
 	$Smoke.emitting = true
+	brake.brokenEngine()#switch from fastest to normal mode in brake
+	super.spawnExplosion(repairStation.global_position)
 	repairStation.visible=true
 	repairStation.enableRepair()
 	Global.elevator.startLeaking()

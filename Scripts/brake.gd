@@ -16,15 +16,31 @@ enum SPEED {Off,Normal,Fast}
 @onready var repairStation=find_child("RepairArea")
 var operatingMode=OPERATIONMODE.Normal
 
+@export var heatModifierOff:float=-3
+@export var heatModifierNormal:float=2
+@export var heatModifierFast:float=6
+
 func _ready():
 	if Global.elevator:
 		Global.elevator.moving=false
+		
+func _process(delta):
+	match currentSpeed:
+		SPEED.Off:
+			Global.elevator.changeHeat(heatModifierOff*delta)
+		SPEED.Normal:
+			Global.elevator.changeHeat(heatModifierNormal*delta)
+		SPEED.Fast:
+			Global.elevator.changeHeat(heatModifierFast*delta)
+	
 func damaged():
 	repairStation.visible=true
 	repairStation.enableOptionalRepair()
 	operatingMode=OPERATIONMODE.Damaged
 
 func disable():
+	print("global position is ",position)
+	super.spawnExplosion(position)
 	repairStation.visible=true
 	repairStation.enableRepair()
 	operatingMode=OPERATIONMODE.Broken
@@ -66,6 +82,12 @@ func switchUp():
 func noFuel():
 	lock(false)
 
+func brokenEngine():
+	if currentSpeed==SPEED.Fast:
+		Audio.playSfx(BRAKESOUND)
+		brakeSprite.play("fast_to_normal")
+		currentSpeed=SPEED.Normal
+			
 func switchDown():
 	if locked:
 			Audio.playSfx(ERROR)

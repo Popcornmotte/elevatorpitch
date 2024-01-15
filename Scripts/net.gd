@@ -28,6 +28,7 @@ func damaged():
 func disable():
 	if not extended:#let net fall down in case it is not deployed to show repair area
 		setDeployment(true)
+	super.spawnExplosion(global_position)
 	repairStation.show()
 	repairStation.enableRepair()
 	operatingMode=OPERATIONMODE.Broken
