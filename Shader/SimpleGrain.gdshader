@@ -30,5 +30,5 @@ void fragment(){
 	vec3 mixer = mix(img.rgb, grainPlate, .1);
 	
 	
-	COLOR = vec4(grainPlate,0.05); 
+	COLOR = vec4(grainPlate,0.04); 
 }
