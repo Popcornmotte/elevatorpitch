@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bqw45igp3yau0" path="res://Scenes/Objects/inventory_matrix.tscn" id="20_ck3aw"]
 [ext_resource type="Texture2D" uid="uid://hobtrqe3h6uh" path="res://Assets/Sprites/InteriorObjects/thermometerBackground.png" id="21_cc27y"]
 [ext_resource type="Texture2D" uid="uid://bs2fcqdscoend" path="res://Assets/Sprites/InteriorObjects/thermometer.png" id="22_khefa"]
-[ext_resource type="Texture2D" uid="uid://gpvmlpt00rvu" path="res://Assets/Sprites/InteriorObjects/thermometerProgress.png" id="23_3aewl"]
+[ext_resource type="Texture2D" uid="uid://y4ea6krbsev6" path="res://Assets/Sprites/InteriorObjects/thermometerProgressOk.png" id="23_m7mgk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqa2i"]
 size = Vector2(208, 19.875)
@@ -484,7 +484,8 @@ offset_left = -67.0
 offset_top = 48.0
 offset_right = -35.0
 offset_bottom = 86.0
+value = 50.0
 fill_mode = 3
 texture_under = ExtResource("21_cc27y")
 texture_over = ExtResource("22_khefa")
-texture_progress = ExtResource("23_3aewl")
+texture_progress = ExtResource("23_m7mgk")

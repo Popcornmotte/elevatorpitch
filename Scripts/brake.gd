@@ -16,7 +16,7 @@ enum SPEED {Off,Normal,Fast}
 @onready var repairStation=find_child("RepairArea")
 var operatingMode=OPERATIONMODE.Normal
 
-@export var heatModifierOff:float=-1
+@export var heatModifierOff:float=-3
 @export var heatModifierNormal:float=2
 @export var heatModifierFast:float=15
 
