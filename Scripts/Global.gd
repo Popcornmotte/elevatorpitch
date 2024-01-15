@@ -57,8 +57,7 @@ func addFunds(amount:int):
 func changeHeat(amount):
 	if (amount<0 and heatMeter>=0) or (amount>0 and heatMeter<maxHeat):
 		heatMeter+=amount
-		if heatMeter>maxHeat/2:
-			Global.elevator.get_node("HullBody/Engine/HeatMeter").energy=(heatMeter-maxHeat/2)/4
+		Global.elevator.get_node("interior/HeatMeter").value=heatMeter
 		if heatMeter>=maxHeat:
 			Global.elevator.get_node("HullBody/Engine").damage(maxHeat)#blow engine
 		
