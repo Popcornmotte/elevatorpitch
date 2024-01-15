@@ -58,8 +58,7 @@ func dropElevator(gameOver=false):#drops the elvator for example on finished gam
 		$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
 		get_parent().spawnFadeOut()
 		if gameOver:
-			$ExplosionTimer1.start()
-			$ExplosionTimer2.start()
+			$ExplosionTimer.start()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control(controlArms)
@@ -237,12 +236,7 @@ func _on_end_timer_timeout():
 func _on_explosion_timer_1_timeout():
 	explosionsTakenPlace+=1
 	if explosionsTakenPlace<explosionAmount:
-		$ExplosionTimer1.start()
+		$ExplosionTimer.start()
 		spawnExplosion()
 
 
-func _on_explosion_timer_2_timeout():
-	explosionsTakenPlace+=1
-	if explosionsTakenPlace<explosionAmount:
-		$ExplosionTimer2.start()
-		spawnExplosion()
