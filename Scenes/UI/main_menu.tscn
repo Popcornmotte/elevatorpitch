@@ -142,6 +142,7 @@ material = SubResource("ShaderMaterial_jd4ms")
 position = Vector2(960, 540)
 scale = Vector2(0.9375, 1.05469)
 texture = ExtResource("1_80y4a")
+metadata/_edit_lock_ = true
 
 [node name="Background" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yrgqr")
@@ -175,7 +176,7 @@ text = " [ Press any key to start ] "
 [node name="PauseMenu" parent="." instance=ExtResource("2_6yq0a")]
 
 [node name="Pause" parent="PauseMenu" index="0"]
-CRTShader = false
+MainMenuVersion = true
 
 [node name="SaveGame" type="HBoxContainer" parent="."]
 modulate = Color(1, 1, 1, 0)
