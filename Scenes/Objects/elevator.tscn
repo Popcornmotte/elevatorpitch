@@ -352,7 +352,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Right/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone"]
 z_index = -2
@@ -364,7 +363,6 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -418,7 +416,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Left/GearBone"]
 position = Vector2(7.00006, -1.52588e-05)
 rest = Transform2D(1, 0, 0, 1, 7.00006, -1.52588e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone"]
 z_index = -2
@@ -429,7 +426,6 @@ texture = ExtResource("3_2k2nk")
 position = Vector2(128.002, 6.10352e-05)
 rotation = 0.616101
 rest = Transform2D(0.984808, -0.173648, 0.173648, 0.984808, 128.002, 6.10352e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -966,6 +962,12 @@ shape = SubResource("RectangleShape2D_xwhif")
 [node name="EndTimer" type="Timer" parent="."]
 wait_time = 20.0
 
+[node name="ExplosionTimer1" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ExplosionTimer2" type="Timer" parent="."]
+wait_time = 0.25
+
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
 [connection signal="firstDestroyed" from="Arms/PhysicalArmRight" to="Tutorial/ArmRepair" method="open"]
 [connection signal="body_entered" from="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea" to="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" method="_on_grab_area_body_entered"]
@@ -981,6 +983,8 @@ wait_time = 20.0
 [connection signal="animation_finished" from="EndAnimation" to="." method="_on_animation_player_elevator_animation_finished"]
 [connection signal="body_entered" from="Tutorial/DispenserTrigger" to="Tutorial/Dispenser" method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]
+[connection signal="timeout" from="ExplosionTimer1" to="." method="_on_explosion_timer_1_timeout"]
+[connection signal="timeout" from="ExplosionTimer2" to="." method="_on_explosion_timer_2_timeout"]
 
 [editable path="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/ModuleAttachment"]
 [editable path="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/ModuleAttachment"]
