@@ -18,7 +18,7 @@ var operatingMode=OPERATIONMODE.Normal
 
 @export var heatModifierOff:float=-3
 @export var heatModifierNormal:float=2
-@export var heatModifierFast:float=15
+@export var heatModifierFast:float=6
 
 func _ready():
 	if Global.elevator:
@@ -27,11 +27,11 @@ func _ready():
 func _process(delta):
 	match currentSpeed:
 		SPEED.Off:
-			Global.changeHeat(heatModifierOff*delta)
+			Global.elevator.changeHeat(heatModifierOff*delta)
 		SPEED.Normal:
-			Global.changeHeat(heatModifierNormal*delta)
+			Global.elevator.changeHeat(heatModifierNormal*delta)
 		SPEED.Fast:
-			Global.changeHeat(heatModifierFast*delta)
+			Global.elevator.changeHeat(heatModifierFast*delta)
 	
 func damaged():
 	repairStation.visible=true

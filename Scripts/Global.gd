@@ -1,8 +1,6 @@
 extends Node
 
 const damageIndicatorPrefab = preload("res://Scenes/Objects/Effects/damage_indicator.tscn")
-const thermometerDanger = preload("res://Assets/Sprites/InteriorObjects/thermometerProgressDanger.png")
-const thermometerOk = preload("res://Assets/Sprites/InteriorObjects/thermometerProgressOk.png")
 const SAVEFILE_NAME = "elevatorpitch.save"
 #Put here all variables that make sense to be globally accessible
 var optionsMenu = null
@@ -20,8 +18,6 @@ var inventoryMatrix : Node2D
 enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }
 
 var height = 0
-var heatMeter=0
-@export var maxHeat=100
 
 var aliveEnemies = 0
 var enemies : Array[Enemy]
@@ -56,18 +52,6 @@ func _ready():
 func addFunds(amount:int):
 	funds += amount
 	return true
-
-func changeHeat(amount):
-	if (amount<0 and heatMeter>=0) or (amount>0 and heatMeter<maxHeat):
-		heatMeter+=amount
-		Global.elevator.get_node("interior/HeatMeter").value=heatMeter
-		if heatMeter>maxHeat*0.75:
-			Global.elevator.get_node("interior/HeatMeter").set_progress_texture(thermometerDanger)
-		else:
-			Global.elevator.get_node("interior/HeatMeter").set_progress_texture(thermometerOk)
-		if heatMeter>=maxHeat:
-			Global.elevator.get_node("HullBody/Engine").damage(maxHeat)#blow engine
-		
 		
 func removeFunds(amount:int) -> bool:
 	if (funds >= amount):
