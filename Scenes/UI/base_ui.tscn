@@ -41,7 +41,7 @@ flashMode = false
 metadata/_edit_lock_ = true
 
 [node name="Wall" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.380392, 0.321569, 0.301961, 1)
+modulate = Color(0.0705882, 0.0509804, 0.0470588, 1)
 z_index = -1
 position = Vector2(960, 540)
 scale = Vector2(15, 8.4375)

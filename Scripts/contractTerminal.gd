@@ -254,7 +254,8 @@ func _on_start_button_pressed():
 
 
 func _on_off_button_pressed():
-	Global.exitGame()
+	Global.saveGame()
+	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 	pass # Replace with function body.
 
 

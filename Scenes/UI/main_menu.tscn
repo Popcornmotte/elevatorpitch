@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp2m2npe5wc3s"]
+
+[ext_resource type="Texture2D" uid="uid://c3ohqqj6ntyj7" path="res://Assets/Sprites/AIelevaotDithered.png" id="1_80y4a"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_qvv6o"]
+[ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="2_6yq0a"]
+[ext_resource type="FontFile" uid="uid://bggqk1owun3w6" path="res://Fonts/Subwich.otf" id="2_mugqw"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qvv6o")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(896, 544)
+texture = ExtResource("1_80y4a")
+metadata/_edit_lock_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -1
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(1920, 1080, 1920, 0, 0, 0, 0, 1080, 0, 1080, 0, 1080, 0, 1080)
+metadata/_edit_lock_ = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_6yq0a")]
+
+[node name="Pause" parent="PauseMenu" index="0"]
+CRTShader = false
+
+[node name="SaveGame" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 1016.0
+offset_right = 448.0
+offset_bottom = 1056.0
+
+[node name="currentSave" type="Label" parent="SaveGame"]
+layout_mode = 2
+text = " Current Save:  no save detected
+"
+
+[node name="VSeparator" type="VSeparator" parent="SaveGame"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="DeleteSaveButton" type="Button" parent="SaveGame"]
+layout_mode = 2
+disabled = true
+text = " DELETE  SAVE "
+
+[node name="VSeparator2" type="VSeparator" parent="SaveGame"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="ResetTutorial" type="Button" parent="SaveGame"]
+layout_mode = 2
+disabled = true
+text = " Reset Tutorial "
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 896.0
+offset_bottom = 1008.0
+metadata/_edit_lock_ = true
+
+[node name="Menu" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.392157, 0.392157, 0.392157, 1)
+theme_override_colors/font_shadow_color = Color(0.713726, 0.509804, 0.137255, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("2_mugqw")
+theme_override_font_sizes/font_size = 60
+text = "Elevatorpitch"
+
+[node name="StartButton" type="Button" parent="CenterContainer/Menu"]
+layout_mode = 2
+text = "[ Start ]"
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/Menu"]
+layout_mode = 2
+text = "[ Options ]"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/Menu"]
+layout_mode = 2
+text = "[ Quit ]"
+
+[connection signal="pressed" from="SaveGame/DeleteSaveButton" to="." method="_on_delete_save_button_pressed"]
+[connection signal="pressed" from="SaveGame/ResetTutorial" to="." method="_on_reset_tutorial_pressed"]
+[connection signal="pressed" from="CenterContainer/Menu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Menu/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Menu/QuitButton" to="." method="_on_quit_button_pressed"]
+
+[editable path="PauseMenu"]

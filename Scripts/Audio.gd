@@ -5,6 +5,7 @@ extends Node
 #const frankenstein = preload("res://Assets/Sounds/music/Of Far Different Nature - Frankenstein (CC-BY).ogg")
 const hangar = preload("res://Assets/Audio/music/kitchenDanceHangarTune.mp3")
 const calmClimb = preload("res://Assets/Audio/music/boringBeat.mp3")
+const mainMenu = preload("res://Assets/Audio/music/mainMenu.mp3")
 
 #Loop should probably be never utilized
 func playSfx(clip : AudioStream, loop : bool = false):
@@ -33,6 +34,8 @@ func playMusic(music : String):
 			$music/MusicPlayer.stream = hangar
 		"calm":
 			$music/MusicPlayer.stream = calmClimb
+		"mainMenu":
+			$music/MusicPlayer.stream = mainMenu
 		_:
 			printerr("[Audio.playMusic] track name "+music+" not recognized")
 			$music/MusicPlayer.stream = null

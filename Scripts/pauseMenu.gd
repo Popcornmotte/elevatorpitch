@@ -6,6 +6,9 @@ extends Control
 @onready var musicSlider = $Polygon2D/MarginContainer/VBoxContainer/MarginContainer2/MusicVolumeSlider
 @onready var effectsLabel = $Polygon2D/MarginContainer/VBoxContainer/EffectsVolumeLabel
 @onready var effectsSlider = $Polygon2D/MarginContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider
+
+@export var CRTShader = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	masterSlider.value = Global.masterVolume
@@ -15,6 +18,14 @@ func _ready():
 	effectsSlider.value = Global.effectsVolume
 	effectsLabel.text = "Effects Volume: "+str(int(Global.effectsVolume*100))
 	Global.optionsMenu = self
+	
+	if CRTShader:
+		$CRT_shader.show()
+		$pauseSprite.show()
+	else:
+		$CRT_shader.hide()
+		$pauseSprite.hide()
+	
 	pass # Replace with function body.
 
 func switch():
@@ -26,8 +37,8 @@ func switch():
 		Global.saveGame()
 	else:
 		Global.saveGame()
-
-		$WhiteNoisePlayer.play()
+		if CRTShader:
+			$WhiteNoisePlayer.play()
 
 		show()
 		get_tree().paused = true
