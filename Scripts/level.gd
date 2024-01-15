@@ -28,6 +28,7 @@ func _enter_tree():
 func _ready():
 	Global.elevator.get_node("interior/Dispenser").locked=false
 	gameOverText.hide()
+	Global.elevator.fuel = max(Global.elevator.fuel,Global.fuelBetweenLevels)
 	Global.elevator.moving=true
 
 func setFinishHeight():
@@ -88,6 +89,7 @@ func endLevel(): #the elevator calls this when the docking animation is finished
 	$Elevator.haltElevator()
 	$LevelFinish.show()
 	cargoCount = Global.countItem(Item.TYPE.Cargo)
+	Global.fuelBetweenLevels = Global.elevator.fuel
 	$LevelFinish/NinePatchRect/CargoLabel.text = " : "+str(cargoCount)
 	pass
 

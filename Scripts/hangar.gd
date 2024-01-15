@@ -21,6 +21,7 @@ func _ready():
 	var spawnAreaRect = crateSpawnArea.shape.get_rect()
 	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
 	Global.elevator.get_node("interior/Dispenser").locked=true
+	Global.elevator.fuel = max(Global.elevator.fuel, Global.fuelBetweenLevels)
 	while takenItem != null:
 		var newCrate = cratePrefab.instantiate()
 		add_child(newCrate)
