@@ -159,6 +159,8 @@ func update_height(climbed):
 	heightMeter.text= str("Height: ", int(climbingHeight), " m")
 
 func decrease_fuel(delta):
+	if fuel<=0:
+		return
 	fuel -= fuelConsumption*delta
 	if fuel<=0:
 		brake.noFuel()#set brake to turned off position
