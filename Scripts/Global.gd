@@ -103,6 +103,7 @@ func gameOver():
 	newUser = true
 	modulesUnlocked = [false, false]
 	level = null
+	username = ""
 	saveGame()
 
 func winGame(_ending):

@@ -248,13 +248,16 @@ func _on_start_button_pressed():
 		Global.armModule=ArmModuleHandler.MODULE.Flamethrower
 	else:
 		Global.armModule=ArmModuleHandler.MODULE.None
+	Audio.stopMusic()
 	get_tree().change_scene_to_file("res://Scenes/World/hangar.tscn")
 	
 	pass # Replace with function body.
 
 
 func _on_off_button_pressed():
-	Global.exitGame()
+	Global.saveGame()
+	Audio.stopMusic()
+	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 	pass # Replace with function body.
 
 

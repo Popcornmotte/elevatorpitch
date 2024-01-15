@@ -1,6 +1,5 @@
 [gd_scene load_steps=12 format=3 uid="uid://cdejgb0kj4otg"]
 
-[ext_resource type="Texture2D" uid="uid://c1h8twtlpunil" path="res://Assets/Sprites/UI/CRT-Monitor.png" id="1_1c46o"]
 [ext_resource type="Script" path="res://Scripts/contractTerminal.gd" id="1_5xgiu"]
 [ext_resource type="Texture2D" uid="uid://ca5d53iyk42sp" path="res://Assets/Sprites/UI/Contract.png" id="2_03vra"]
 [ext_resource type="Texture2D" uid="uid://cxy6c0xxoilr5" path="res://Assets/Sprites/UI/wall/dirtyWall1.png" id="2_bi4ny"]
@@ -8,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cfkxuag3tmvx1" path="res://Assets/Sprites/UI/wall/dirtyWall2.png" id="3_m4ml4"]
 [ext_resource type="Texture2D" uid="uid://dbnjeobt6ysqh" path="res://Assets/Sprites/UI/wall/dirtyWall3.png" id="4_yefwp"]
 [ext_resource type="Texture2D" uid="uid://ch85iosb86tbj" path="res://Assets/Sprites/UI/PostIt.png" id="5_cvmym"]
+[ext_resource type="Texture2D" uid="uid://dg3fsl50kignv" path="res://Assets/Sprites/UI/CRTDitheredBetter.png" id="6_p5uqp"]
 [ext_resource type="FontFile" uid="uid://chq2qqlffg26p" path="res://Fonts/Mont-HeavyDEMO.otf" id="7_2k8x0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_migvv"]
@@ -41,7 +41,7 @@ flashMode = false
 metadata/_edit_lock_ = true
 
 [node name="Wall" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.380392, 0.321569, 0.301961, 1)
+modulate = Color(0.0705882, 0.0509804, 0.0470588, 1)
 z_index = -1
 position = Vector2(960, 540)
 scale = Vector2(15, 8.4375)
@@ -58,7 +58,7 @@ texture = ExtResource("5_cvmym")
 [node name="Monitor" type="Sprite2D" parent="."]
 position = Vector2(992, 538)
 scale = Vector2(1, 1.0037)
-texture = ExtResource("1_1c46o")
+texture = ExtResource("6_p5uqp")
 metadata/_edit_lock_ = true
 
 [node name="Header" type="MarginContainer" parent="Monitor"]

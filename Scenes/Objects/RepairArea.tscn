@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dkk1ky06bbfgo"]
+[gd_scene load_steps=32 format=3 uid="uid://dkk1ky06bbfgo"]
 
 [ext_resource type="Script" path="res://Scripts/RepairScript.gd" id="1_7dekd"]
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="3_ls4ia"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c8raugm51adou" path="res://Assets/Sprites/InteriorObjects/brakeDamage.png" id="5_np7dh"]
 [ext_resource type="Texture2D" uid="uid://c1vgbhe5w8ltb" path="res://Assets/Sprites/Net/netDestroyed.png" id="5_vndxq"]
 [ext_resource type="Texture2D" uid="uid://dt3jor3xsn0j0" path="res://Assets/Sprites/Net/netDamaged.png" id="8_u8hlf"]
-[ext_resource type="Texture2D" uid="uid://cusaokirlhjfd" path="res://Assets/Sprites/ElevatorBody/EngineDamaged.png" id="8_xn4s3"]
+[ext_resource type="Texture2D" uid="uid://e1whvmsyxufy" path="res://Assets/Sprites/ElevatorBody/EngineDamaged1.png" id="9_ic7uq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qctk"]
 
@@ -77,10 +77,6 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2efgu"]
 atlas = ExtResource("5_np7dh")
 region = Rect2(0, 0, 8, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bn3mi"]
-atlas = ExtResource("8_xn4s3")
-region = Rect2(0, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p3jgx"]
 atlas = ExtResource("8_u8hlf")
@@ -168,7 +164,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bn3mi")
+"texture": ExtResource("9_ic7uq")
 }],
 "loop": true,
 "name": &"damagedEngine",

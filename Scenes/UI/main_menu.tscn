@@ -1,0 +1,256 @@
+[gd_scene load_steps=15 format=3 uid="uid://bp2m2npe5wc3s"]
+
+[ext_resource type="Texture2D" uid="uid://c3ohqqj6ntyj7" path="res://Assets/Sprites/AIelevaotDithered.png" id="1_80y4a"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_qvv6o"]
+[ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="2_6yq0a"]
+[ext_resource type="Shader" path="res://Shader/SimpleGrain.gdshader" id="2_j28d0"]
+[ext_resource type="FontFile" uid="uid://bggqk1owun3w6" path="res://Fonts/Subwich.otf" id="2_mugqw"]
+[ext_resource type="Texture2D" uid="uid://bp1qtlfabjxfj" path="res://Assets/Sprites/UI/MenuBackground/titleUnlit.png" id="3_7tsjy"]
+[ext_resource type="Texture2D" uid="uid://dphkc48an6ufl" path="res://Assets/Sprites/UI/MenuBackground/titleUnlitWithElevatorLit.png" id="4_x6bfi"]
+[ext_resource type="Texture2D" uid="uid://ck6s2fercbjp4" path="res://Assets/Sprites/UI/MenuBackground/titleLit.png" id="5_hggyd"]
+[ext_resource type="Texture2D" uid="uid://0kyqaum4k4wa" path="res://Assets/Sprites/UI/MenuBackground/titleLitRed.png" id="6_3qdoi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jd4ms"]
+shader = ExtResource("2_j28d0")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yrgqr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7tsjy")
+}],
+"loop": true,
+"name": &"dark",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_x6bfi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7tsjy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7tsjy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_x6bfi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7tsjy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_x6bfi")
+}],
+"loop": false,
+"name": &"elevatorLit",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_hggyd")
+}],
+"loop": true,
+"name": &"lit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_3qdoi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hggyd")
+}],
+"loop": true,
+"name": &"litWithBlink",
+"speed": 1.0
+}]
+
+[sub_resource type="Animation" id="Animation_pndmq"]
+resource_name = "FadeIn"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MenuContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.431373), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SaveGame:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.431373), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wyt6l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MenuContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SaveGame:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4c17f"]
+_data = {
+"FadeIn": SubResource("Animation_pndmq"),
+"RESET": SubResource("Animation_wyt6l")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qvv6o")
+
+[node name="GrainShader" type="Sprite2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_jd4ms")
+position = Vector2(960, 540)
+scale = Vector2(0.9375, 1.05469)
+texture = ExtResource("1_80y4a")
+metadata/_edit_lock_ = true
+
+[node name="Background" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yrgqr")
+animation = &"lit"
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -1
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(1920, 1080, 1920, 0, 0, 0, 0, 1080, 0, 1080, 0, 1080, 0, 1080)
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4c17f")
+}
+
+[node name="PressAnyKey" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_top = 800.0
+offset_right = 1920.0
+offset_bottom = 1056.0
+
+[node name="Label" type="Label" parent="PressAnyKey"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = " [ Press any key to start ] "
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_6yq0a")]
+
+[node name="Pause" parent="PauseMenu" index="0"]
+MainMenuVersion = true
+
+[node name="SaveGame" type="HBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_left = 8.0
+offset_top = 1016.0
+offset_right = 448.0
+offset_bottom = 1056.0
+
+[node name="currentSave" type="Label" parent="SaveGame"]
+layout_mode = 2
+text = " Current Save:  no save detected
+"
+
+[node name="VSeparator" type="VSeparator" parent="SaveGame"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="DeleteSaveButton" type="Button" parent="SaveGame"]
+layout_mode = 2
+disabled = true
+text = " DELETE  SAVE "
+
+[node name="VSeparator2" type="VSeparator" parent="SaveGame"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="ResetTutorial" type="Button" parent="SaveGame"]
+layout_mode = 2
+disabled = true
+text = " Reset Tutorial "
+
+[node name="MenuContainer" type="CenterContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 1008.0
+
+[node name="Menu" type="VBoxContainer" parent="MenuContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MenuContainer/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.392157, 0.392157, 0.392157, 1)
+theme_override_colors/font_shadow_color = Color(0.713726, 0.509804, 0.137255, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("2_mugqw")
+theme_override_font_sizes/font_size = 60
+text = "Elevator pitch"
+
+[node name="StartButton" type="Button" parent="MenuContainer/Menu"]
+layout_mode = 2
+text = "[ Start ]"
+
+[node name="OptionsButton" type="Button" parent="MenuContainer/Menu"]
+layout_mode = 2
+text = "[ Options ]"
+
+[node name="QuitButton" type="Button" parent="MenuContainer/Menu"]
+layout_mode = 2
+text = "[ Quit ]"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="animation_looped" from="Background" to="." method="_on_background_animation_looped"]
+[connection signal="pressed" from="SaveGame/DeleteSaveButton" to="." method="_on_delete_save_button_pressed"]
+[connection signal="pressed" from="SaveGame/ResetTutorial" to="." method="_on_reset_tutorial_pressed"]
+[connection signal="pressed" from="MenuContainer/Menu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuContainer/Menu/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MenuContainer/Menu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="PauseMenu"]
