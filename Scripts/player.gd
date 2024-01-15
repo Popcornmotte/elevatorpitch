@@ -21,6 +21,7 @@ const DROPSOUND=preload("res://Assets/Audio/sfx/dropObject.wav")
 
 var carryables : Array[Node2D]
 var carrying=false
+var canTakeDamage=false
 var carryingScrap=false
 var canDrop=true #block dropping immediately when interacting with refuelStation
 var carryPos=Vector2(8,1)
@@ -37,11 +38,13 @@ var brakeObject:Node2D
 var refuelEngineObject:Node2D
 var jetpack = false
 var lerpFactor = 0.3
+@export var health=5
 
 func _ready():
 	Global.player = self
 	cameraMargins = $PlayerCam.get_drag_margin(0)
 	zoomIn(startZoomedIn)
+	$Healthbar.hide()
 
 func playPlayerSound(clip : AudioStream):
 	if(sfx):
@@ -60,6 +63,16 @@ func flipAnimation(right):
 		fuelSprite.position=carryPos*Vector2(-1,1)
 		scrapSprite.position=carryPos*Vector2(-1,1)
 
+func takeDamage(damage:int,type):
+	#type is currently ignored in elevator
+	if canTakeDamage:
+		health-=damage
+		$Healthbar/TextureProgressBar.value=health
+		if health<=0:
+			Global.elevator.dropping=true
+			Global.elevator.dropElevator(true)#activate gameover scene
+		pass
+	
 func zoomIn(state : bool):
 	if state:
 		zoomAnimation.play("zoom_in")
@@ -122,6 +135,8 @@ func dropObject():
 func toggleJetpack(state : bool):
 	jetpack = state
 	if state:
+		canTakeDamage=true
+		$Healthbar.show()
 		$Gun.setEnabled(true)
 		$PlayerCam.setMousePeek(true)
 		z_index=10
@@ -130,6 +145,8 @@ func toggleJetpack(state : bool):
 		$jetpackParticles.emitting = true
 		$jetpackSound.play()
 	else:
+		canTakeDamage=false
+		$Healthbar.hide()
 		$Gun.setEnabled(false)
 		$PlayerCam.setMousePeek(false)
 		lerpFactor = 0.3

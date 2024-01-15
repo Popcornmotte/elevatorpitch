@@ -32,8 +32,9 @@ func _on_timer_timeout():
 func _on_body_entered(body):
 	if body.owner != null:
 		if body.owner.name == "Elevator":
-			print("Bullet found its target")
+			#print("Bullet found its target")
 			body.owner.takeDamage(damage, Global.DMG.Piercing)
 	else:
 		if body.has_method("takeDamage"):
+			print("I hit this: "+str(body.name))
 			body.takeDamage(damage,Global.DMG.Piercing)
