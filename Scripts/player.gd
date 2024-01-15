@@ -24,7 +24,7 @@ var carrying=false
 var carryingScrap=false
 var canDrop=true #block dropping immediately when interacting with refuelStation
 var carryPos=Vector2(8,1)
-var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
+@export var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
 var carryType= Item.TYPE.Fuel
 var startRepair=false#block dropping of scrap when in vicinity of repair station
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -61,7 +61,6 @@ func flipAnimation(right):
 		scrapSprite.position=carryPos*Vector2(-1,1)
 
 func zoomIn(state : bool):
-	print("zoom is called: ", state)
 	if state:
 		zoomAnimation.play("zoom_in")
 		for side in range(0,4):
@@ -200,41 +199,42 @@ func climb(direction):
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("Grab"):
-		$Gun.shoot()
-	if Input.is_action_just_pressed("Debug"):
-		toggleJetpack(!jetpack)
-	
-	if refuelEngineObject and Input.is_action_just_released("interact"):
-		refuelEngineObject.stopRefuel()
-	
-	if Input.is_action_just_pressed("interact"):
-		if carrying:
-			dropObject()
-		elif carryables.size() > 0:
-			pickUpObject()
-		#check if player is interacting with something
-		if interactionObject:
-			interactionObject.use()
-		if refuelEngineObject and carrying and carryType==Item.TYPE.Fuel:
-			refuelEngineObject.startRefuel()
-	
-	if carrying and Input.is_action_pressed("repair") and interactionObject:
-		interactionObject.repair()
-	
-	if carrying and Input.is_action_just_released("repair") and interactionObject:
-		interactionObject.pauseRepair()
+	if controlPlayer:
+		if Input.is_action_just_pressed("Grab"):
+			$Gun.shoot()
+		if Input.is_action_just_pressed("Debug"):
+			toggleJetpack(!jetpack)
 		
-	if dispenserObject and Input.is_action_just_pressed("down"):
-		dispenserObject.switchDispenseType()
+		if refuelEngineObject and Input.is_action_just_released("interact"):
+			refuelEngineObject.stopRefuel()
+		
+		if Input.is_action_just_pressed("interact"):
+			if carrying:
+				dropObject()
+			elif carryables.size() > 0:
+				pickUpObject()
+			#check if player is interacting with something
+			if interactionObject:
+				interactionObject.use()
+			if refuelEngineObject and carrying and carryType==Item.TYPE.Fuel:
+				refuelEngineObject.startRefuel()
 	
-	if dispenserObject and Input.is_action_just_pressed("interact"):
-		dispenserObject.dispenseItem()
-	
-	if brakeObject and Input.is_action_just_pressed("up"):
-		brakeObject.switchUp()
-	if brakeObject and Input.is_action_just_pressed("down"):
-		brakeObject.switchDown()
+		if carrying and  carryType==Item.TYPE.Scrap and Input.is_action_pressed("repair") and interactionObject:
+			interactionObject.repair()
+		
+		if carrying and  carryType==Item.TYPE.Scrap and Input.is_action_just_released("repair") and interactionObject:
+			interactionObject.pauseRepair()
+			
+		if dispenserObject and Input.is_action_just_pressed("down"):
+			dispenserObject.switchDispenseType()
+		
+		if dispenserObject and Input.is_action_just_pressed("interact"):
+			dispenserObject.dispenseItem()
+		
+		if brakeObject and Input.is_action_just_pressed("up"):
+			brakeObject.switchUp()
+		if brakeObject and Input.is_action_just_pressed("down"):
+			brakeObject.switchDown()
 			
 func _physics_process(delta):
 	if Global.elevator:

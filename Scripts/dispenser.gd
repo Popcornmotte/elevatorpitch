@@ -4,6 +4,7 @@ enum DispenseItem{FUEL,SCRAP}
 const FUELITEM=preload("res://Scenes/Objects/Items/fuel.tscn")
 const SCRAPITEM=preload("res://Scenes/Objects/Items/scrap.tscn")
 const ERROR = preload("res://Assets/Audio/sfx/error.wav")
+const PLOP=preload("res://Assets/Audio/sfx/plop.wav")
 @onready var funnel=get_node("../DropFunnel")
 @onready var dropPosition=funnel.position+Vector2(0,50)
 @onready var fuelSprite=get_node("FuelSelectionSprite")
@@ -37,6 +38,7 @@ func dispenseItem():
 				var loadedFuel=FUELITEM.instantiate()
 				loadedFuel.position=dropPosition+Vector2(randf_range(-5.0,5.0),0)
 				get_parent().add_child(loadedFuel)
+				Audio.playSfx(PLOP)
 				return
 			else:
 				Audio.playSfx(ERROR)
@@ -46,6 +48,7 @@ func dispenseItem():
 				var loadedScrap=SCRAPITEM.instantiate()
 				loadedScrap.global_position=dropPosition+Vector2(randf_range(-5.0,5.0),0)
 				get_parent().add_child(loadedScrap)
+				Audio.playSfx(PLOP)
 				return
 			else:
 				Audio.playSfx(ERROR)

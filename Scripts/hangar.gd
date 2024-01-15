@@ -20,6 +20,7 @@ func _ready():
 	Audio.playMusic("hangar")
 	var spawnAreaRect = crateSpawnArea.shape.get_rect()
 	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
+	Global.elevator.get_node("interior/Dispenser").locked=true
 	while takenItem != null:
 		var newCrate = cratePrefab.instantiate()
 		add_child(newCrate)
@@ -50,6 +51,8 @@ func onElevatorStarted():
 	$RiseSequence/ElevatorRise.play("elevatorRise")
 	$RiseSequence/TransitionTimer.start()
 	$RiseSequence/FadeTimer.start()
+	Global.elevator.get_node("HullBody").get_node("Hull").visible=true
+	Global.player.controlPlayer=false
 	elevatorRising = true
 	Global.tutorialsCompleted[0] = true
 
