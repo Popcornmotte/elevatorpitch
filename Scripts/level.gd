@@ -128,9 +128,11 @@ func _on_end_timer_timeout():
 	if gameOver:
 		gameOverText.visible=true
 	else:
+		Audio.stopMusic()
 		get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
 
 
 
 func _on_button_pressed():
+	Audio.stopMusic()
 	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
