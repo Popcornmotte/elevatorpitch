@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://m8amm8jcp85v"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/balloonMinion.gd" id="1_7j71k"]
+[ext_resource type="SpriteFrames" uid="uid://8strop1dp8tp" path="res://Assets/Sprites/Enemies/drone_balloon.tres" id="2_gejhl"]
+[ext_resource type="SpriteFrames" uid="uid://ycew4m1ft0c0" path="res://Assets/Sprites/Enemies/drone_body.tres" id="3_04hkh"]
+[ext_resource type="PackedScene" uid="uid://cinrvwpdcrki3" path="res://Scenes/Objects/Enemies/weapons/rocketLauncher.tscn" id="4_y6ipm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3d6d3"]
+radius = 19.0
+height = 84.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0tloo"]
+radius = 18.0
+height = 76.0
+
+[node name="DroneRocket" type="RigidBody2D" node_paths=PackedStringArray("balloon", "balloonShape", "weapon")]
+z_index = -1
+collision_layer = 6
+collision_mask = 6
+gravity_scale = 0.0
+max_contacts_reported = 10
+contact_monitor = true
+angular_damp = 2.0
+script = ExtResource("1_7j71k")
+balloon = NodePath("BalloonSprite")
+balloonShape = NodePath("BalloonShape")
+rangedBehavior = true
+effectiveRange = 800
+effectiveRangeVariance = 200
+weapon = NodePath("WeaponMount/RocketLauncher")
+
+[node name="BalloonSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_gejhl")
+autoplay = "default"
+
+[node name="BalloonShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -31)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3d6d3")
+
+[node name="BodySprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_04hkh")
+autoplay = "default"
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0tloo")
+
+[node name="WeaponMount" type="Marker2D" parent="."]
+
+[node name="RocketLauncher" parent="WeaponMount" instance=ExtResource("4_y6ipm")]
+z_index = -1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
