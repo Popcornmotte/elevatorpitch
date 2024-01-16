@@ -1,14 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://dcoh76g3wvmro"]
+[gd_scene load_steps=14 format=3 uid="uid://dcoh76g3wvmro"]
 
 [ext_resource type="Script" path="res://Scripts/pauseMenu.gd" id="1_8a842"]
 [ext_resource type="Texture2D" uid="uid://byoig3wdgrii1" path="res://Assets/Sprites/UI/Pause.png" id="1_w5qk5"]
 [ext_resource type="Shader" path="res://Shader/VHS.gdshader" id="2_0jj4e"]
+[ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="2_2s3sw"]
 [ext_resource type="Texture2D" uid="uid://cju5hefrsve3b" path="res://Assets/Sprites/UI/RustyPanel.png" id="3_5hu4f"]
 [ext_resource type="Material" uid="uid://cyf4pi32ibgkc" path="res://Shader/crt_material.tres" id="4_7kimd"]
 [ext_resource type="Texture2D" uid="uid://ca27mp3shlyqm" path="res://Assets/Sprites/UI/RustyPanel2.png" id="5_ypjiw"]
 [ext_resource type="FontFile" uid="uid://chq2qqlffg26p" path="res://Fonts/Mont-HeavyDEMO.otf" id="6_tww15"]
 [ext_resource type="AudioStream" uid="uid://dywuvggbn307p" path="res://Assets/Audio/sfx/filmStatic.ogg" id="6_xjtd4"]
 [ext_resource type="FontFile" uid="uid://vwad5mtb1vhk" path="res://Fonts/Mont-ExtraLightDEMO.otf" id="7_hhjpr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rmpra"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2s3sw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_12un6"]
 shader = ExtResource("2_0jj4e")
@@ -43,6 +55,17 @@ script = ExtResource("1_8a842")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
+[node name="Tutorials" type="AnimatedSprite2D" parent="Pause"]
+position = Vector2(936, 520)
+sprite_frames = SubResource("SpriteFrames_rmpra")
+
+[node name="CloseTutorialButton" type="Button" parent="Pause/Tutorials"]
+offset_left = -48.0
+offset_top = 160.0
+offset_right = 66.0
+offset_bottom = 191.0
+text = "Close Tutorial"
+
 [node name="pauseSprite" type="Sprite2D" parent="Pause"]
 position = Vector2(128, 64)
 scale = Vector2(2, 2)
@@ -71,24 +94,25 @@ metadata/_edit_lock_ = true
 process_mode = 3
 stream = ExtResource("6_xjtd4")
 
-[node name="Polygon2D" type="Polygon2D" parent="Pause"]
+[node name="Options" type="Polygon2D" parent="Pause"]
 z_index = -1
 color = Color(0.101961, 0.101961, 0.101961, 1)
 polygon = PackedVector2Array(128, 184, 1792, 184, 1792, 896, 128, 896)
 metadata/_edit_lock_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="Pause/Polygon2D"]
+[node name="OptionsContainer" type="MarginContainer" parent="Pause/Options"]
+visible = false
 offset_left = 320.0
 offset_top = 248.0
 offset_right = 1600.0
 offset_bottom = 832.0
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Pause/Polygon2D/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/Options/OptionsContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_tww15")
 theme_override_font_sizes/font_size = 35
@@ -96,76 +120,76 @@ text = "Options
 "
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="MasterVolumeLabel" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="MasterVolumeLabel" type="Label" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_hhjpr")
 theme_override_font_sizes/font_size = 35
 text = "Master Volume: 100"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 256
 theme_override_constants/margin_right = 256
 
-[node name="MasterVolumeSlider" type="HSlider" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="MasterVolumeSlider" type="HSlider" parent="Pause/Options/OptionsContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 1.0
 ticks_on_borders = true
 
-[node name="MusicVolumeLabel" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="MusicVolumeLabel" type="Label" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_hhjpr")
 theme_override_font_sizes/font_size = 35
 text = "Music Volume: 100"
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 256
 theme_override_constants/margin_right = 256
 
-[node name="MusicVolumeSlider" type="HSlider" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="MusicVolumeSlider" type="HSlider" parent="Pause/Options/OptionsContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 1.0
 ticks_on_borders = true
 
-[node name="EffectsVolumeLabel" type="Label" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="EffectsVolumeLabel" type="Label" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_hhjpr")
 theme_override_font_sizes/font_size = 35
 text = "Effects Volume: 100"
 horizontal_alignment = 1
 
-[node name="MarginContainer3" type="MarginContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 256
 theme_override_constants/margin_right = 256
 
-[node name="EffectsVolumeSlider" type="HSlider" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer3"]
+[node name="EffectsVolumeSlider" type="HSlider" parent="Pause/Options/OptionsContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 1.0
 ticks_on_borders = true
 
-[node name="HSeparator2" type="HSeparator" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="ButtonBox" type="HBoxContainer" parent="Pause/Polygon2D/MarginContainer/VBoxContainer"]
+[node name="ButtonBox" type="HBoxContainer" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="QuitButton" type="Button" parent="Pause/Polygon2D/MarginContainer/VBoxContainer/ButtonBox"]
+[node name="QuitButton" type="Button" parent="Pause/Options/OptionsContainer/VBoxContainer/ButtonBox"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_hhjpr")
 theme_override_font_sizes/font_size = 35
@@ -176,7 +200,8 @@ text = "Quit to Desktop"
 anchor_mode = 0
 enabled = false
 
-[connection signal="value_changed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer/MasterVolumeSlider" to="Pause" method="_on_volume_slider_value_changed"]
-[connection signal="value_changed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer2/MusicVolumeSlider" to="Pause" method="_on_music_volume_slider_value_changed"]
-[connection signal="value_changed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider" to="Pause" method="_on_effects_volume_slider_value_changed"]
-[connection signal="pressed" from="Pause/Polygon2D/MarginContainer/VBoxContainer/ButtonBox/QuitButton" to="Pause" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Pause/Tutorials/CloseTutorialButton" to="Pause" method="_on_close_tutorial_button_pressed"]
+[connection signal="value_changed" from="Pause/Options/OptionsContainer/VBoxContainer/MarginContainer/MasterVolumeSlider" to="Pause" method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="Pause/Options/OptionsContainer/VBoxContainer/MarginContainer2/MusicVolumeSlider" to="Pause" method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="Pause/Options/OptionsContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider" to="Pause" method="_on_effects_volume_slider_value_changed"]
+[connection signal="pressed" from="Pause/Options/OptionsContainer/VBoxContainer/ButtonBox/QuitButton" to="Pause" method="_on_quit_button_pressed"]
