@@ -28,10 +28,9 @@ func _ready():
 	
 	pass # Replace with function body.
 
-func switch():
+func switch( tutorial = -1 ):
 	if visible:
 		$WhiteNoisePlayer.stop()
-
 		hide()
 		get_tree().paused = false
 		Global.saveGame()
@@ -39,7 +38,14 @@ func switch():
 		Global.saveGame()
 		if !MainMenuVersion:
 			$WhiteNoisePlayer.play()
-
+		
+		if tutorial > 0:
+			$Tutorials.show()
+			$Tutorials.play(str(tutorial))
+			$Options/OptionsContainer.hide()
+		else:
+			$Tutorials.hide()
+			$Options/OptionsContainer.show()
 		show()
 		get_tree().paused = true
 	pass
@@ -77,4 +83,9 @@ func _on_effects_volume_slider_value_changed(value):
 	Global.effectsVolume = value #100 turned out to be a little loud...
 	effectsLabel.text = "Effects Volume: "+str(int(value*100))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Effects"), linear_to_db(Global.effectsVolume))
+	pass # Replace with function body.
+
+
+func _on_close_tutorial_button_pressed():
+	switch()
 	pass # Replace with function body.
