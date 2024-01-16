@@ -1,11 +1,11 @@
 extends Control
 
-@onready var masterLabel = $Polygon2D/MarginContainer/VBoxContainer/MasterVolumeLabel
-@onready var masterSlider = $Polygon2D/MarginContainer/VBoxContainer/MarginContainer/MasterVolumeSlider
-@onready var musicLabel = $Polygon2D/MarginContainer/VBoxContainer/MusicVolumeLabel
-@onready var musicSlider = $Polygon2D/MarginContainer/VBoxContainer/MarginContainer2/MusicVolumeSlider
-@onready var effectsLabel = $Polygon2D/MarginContainer/VBoxContainer/EffectsVolumeLabel
-@onready var effectsSlider = $Polygon2D/MarginContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider
+@onready var masterLabel = $Options/OptionsContainer/VBoxContainer/MasterVolumeLabel
+@onready var masterSlider = $Options/OptionsContainer/VBoxContainer/MarginContainer/MasterVolumeSlider
+@onready var musicLabel = $Options/OptionsContainer/VBoxContainer/MusicVolumeLabel
+@onready var musicSlider = $Options/OptionsContainer/VBoxContainer/MarginContainer2/MusicVolumeSlider
+@onready var effectsLabel = $Options/OptionsContainer/VBoxContainer/EffectsVolumeLabel
+@onready var effectsSlider = $Options/OptionsContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider
 
 @export var MainMenuVersion = false
 # Called when the node enters the scene tree for the first time.
@@ -24,7 +24,7 @@ func _ready():
 	else:
 		$CRT_shader.hide()
 		$pauseSprite.hide()
-		$Polygon2D/MarginContainer/VBoxContainer/ButtonBox/QuitButton.text = "Back"
+		$Options/OptionsContainer/VBoxContainer/ButtonBox/QuitButton.text = "Back"
 	
 	pass # Replace with function body.
 
