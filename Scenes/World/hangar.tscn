@@ -204,7 +204,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ButtonArmCanvasGroup/ButtonArm:rotation")
+tracks/0/path = NodePath("ButtonArmStuff/ButtonArm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -216,7 +216,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonArmCanvasGroup/ButtonArm/LowerArm:rotation")
+tracks/1/path = NodePath("ButtonArmStuff/ButtonArm/LowerArm:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -232,7 +232,7 @@ length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ButtonArmCanvasGroup/ButtonArm:rotation")
+tracks/0/path = NodePath("ButtonArmStuff/ButtonArm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -244,7 +244,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonArmCanvasGroup/ButtonArm/LowerArm:rotation")
+tracks/1/path = NodePath("ButtonArmStuff/ButtonArm/LowerArm:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -260,7 +260,7 @@ length = 1.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ButtonArmCanvasGroup/ButtonArm:rotation")
+tracks/0/path = NodePath("ButtonArmStuff/ButtonArm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -272,7 +272,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonArmCanvasGroup/ButtonArm/LowerArm:rotation")
+tracks/1/path = NodePath("ButtonArmStuff/ButtonArm/LowerArm:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -296,7 +296,7 @@ size = Vector2(160, 30)
 script = ExtResource("1_7h618")
 crateSpawnArea = NodePath("spawnAreas/crateSpawnArea")
 brake = NodePath("Elevator/interior/Brake")
-button = NodePath("ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton")
+button = NodePath("ButtonArmStuff/ButtonArm/LowerArm/HatchButton")
 doorAreas = [NodePath("Elevator/interior/Doors/Door4/DoorOpenArea2D"), NodePath("Elevator/interior/Doors/Door3/DoorOpenArea2D")]
 
 [node name="Collision" type="StaticBody2D" parent="."]
@@ -570,9 +570,6 @@ active = false
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" index="0"]
 active = false
 
-[node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Upper" index="0"]
-position = Vector2(12.5, -7)
-
 [node name="Brake" parent="Elevator/interior" index="7"]
 braking = true
 currentSpeed = 0
@@ -637,58 +634,59 @@ wait_time = 3.0
 [node name="FadeTimer" type="Timer" parent="RiseSequence"]
 
 [node name="Truck" type="RigidBody2D" parent="."]
-position = Vector2(239, 180)
+position = Vector2(-314, 180)
 collision_layer = 32899
 collision_mask = 32899
 script = ExtResource("12_b7ptf")
 
 [node name="Sprite2D" type="Sprite2D" parent="Truck"]
 position = Vector2(0, -4)
+scale = Vector2(-1, 1)
 texture = ExtResource("12_t5dm1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Truck"]
 shape = SubResource("RectangleShape2D_gwyhd")
 
 [node name="PointLight2D" type="PointLight2D" parent="Truck"]
-position = Vector2(-82, -2)
-rotation = 1.57079
+position = Vector2(82, 0)
+rotation = -1.5708
 texture = ExtResource("13_rvsa6")
 
-[node name="ButtonArmCanvasGroup" type="CanvasGroup" parent="."]
+[node name="ButtonArmStuff" type="Node2D" parent="."]
+scale = Vector2(-1, 1)
 
-[node name="Mask" type="Sprite2D" parent="ButtonArmCanvasGroup"]
-
-[node name="ButtonArm" type="Node2D" parent="ButtonArmCanvasGroup"]
+[node name="ButtonArm" type="Node2D" parent="ButtonArmStuff"]
 position = Vector2(664, -128)
 rotation = 1.63712
+scale = Vector2(1, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ButtonArmCanvasGroup/ButtonArm"]
+[node name="Sprite2D" type="Sprite2D" parent="ButtonArmStuff/ButtonArm"]
 position = Vector2(0, 64)
 rotation = -1.57079
 texture = ExtResource("14_2xlwc")
 
-[node name="LowerArm" type="Node2D" parent="ButtonArmCanvasGroup/ButtonArm"]
+[node name="LowerArm" type="Node2D" parent="ButtonArmStuff/ButtonArm"]
 position = Vector2(0, 128)
 rotation = 2.87979
 
-[node name="Sprite2D2" type="Sprite2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm"]
+[node name="Sprite2D2" type="Sprite2D" parent="ButtonArmStuff/ButtonArm/LowerArm"]
 position = Vector2(0, 64)
 rotation = -1.57079
 texture = ExtResource("14_2xlwc")
 
-[node name="HatchButton" type="AnimatedSprite2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm"]
+[node name="HatchButton" type="AnimatedSprite2D" parent="ButtonArmStuff/ButtonArm/LowerArm"]
 position = Vector2(0, 128)
 scale = Vector2(2, -2)
 sprite_frames = SubResource("SpriteFrames_uttrf")
 
-[node name="Area2D" type="Area2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton"]
+[node name="Area2D" type="Area2D" parent="ButtonArmStuff/ButtonArm/LowerArm/HatchButton"]
 collision_layer = 32768
 collision_mask = 32768
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ButtonArmStuff/ButtonArm/LowerArm/HatchButton/Area2D"]
 shape = SubResource("RectangleShape2D_ql7la")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ButtonArmCanvasGroup/ButtonArm/LowerArm"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ButtonArmStuff/ButtonArm/LowerArm"]
 z_index = -1
 position = Vector2(-48.4341, 116.463)
 rotation = -1.57079
@@ -696,10 +694,10 @@ sprite_frames = SubResource("SpriteFrames_gfr7m")
 autoplay = "default"
 frame_progress = 0.0324825
 
-[node name="Gradient" type="Sprite2D" parent="ButtonArmCanvasGroup"]
-position = Vector2(608, -88)
+[node name="Gradient" type="Sprite2D" parent="ButtonArmStuff"]
+position = Vector2(608, -120)
 rotation = -1.57079
-scale = Vector2(4, 4)
+scale = Vector2(6, 4)
 texture = ExtResource("26_d12tj")
 
 [node name="ButtonArmAnim" type="AnimationPlayer" parent="."]
@@ -782,10 +780,10 @@ text = "W/S -> Change speed"
 [connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
 [connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
-[connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="open"]
-[connection signal="body_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="ButtonArmStuff/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="ButtonArmStuff/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="open"]
+[connection signal="body_entered" from="ButtonArmStuff/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="ButtonArmStuff/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="_on_area_2d_body_entered"]
 [connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmStationText" method="on_body_entered"]
 [connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmText" method="on_body_entered"]
 

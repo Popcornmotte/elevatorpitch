@@ -31,6 +31,7 @@ var startRepair=false#block dropping of scrap when in vicinity of repair station
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var cameraMargins = 0.0
+var cameraZoom = 1.0
 var sfx
 var interactionObject:Node2D #object that the player is interacting with
 var dispenserObject:Node2D #object that the player is interacting with to dispense fuel or scrap
@@ -75,14 +76,20 @@ func takeDamage(damage:int,type):
 	
 func zoomIn(state : bool):
 	if state:
-		zoomAnimation.play("zoom_in")
+		#zoomAnimation.play("zoom_in")
+		cameraZoom = 3
 		for side in range(0,4):
 			$PlayerCam.set_drag_margin(side, cameraMargins)
 	else:
-		zoomAnimation.play("zoom_out")
+		#zoomAnimation.play("zoom_out")
+		cameraZoom = 1
 		for side in range(0,4):
 			$PlayerCam.set_drag_margin(side, 0)
 	pass
+
+func updateZoom(delta):
+	var newZoom = lerpf($PlayerCam.get_zoom().x, cameraZoom, 4*delta)
+	$PlayerCam.set_zoom(Vector2(newZoom, newZoom))
 	
 # Function that needs to be called after move and slide to provide collision with rigidbodies
 func collideWithRigidbodies():
@@ -216,6 +223,7 @@ func climb(direction):
 
 
 func _process(delta):
+	updateZoom(delta)
 	if controlPlayer:
 		if Input.is_action_just_pressed("Grab"):
 			$Gun.shoot()
