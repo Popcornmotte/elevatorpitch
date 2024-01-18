@@ -23,6 +23,7 @@ var sfxWarning
 @export var chutesDeployed = false
 @export var fuelConsumption=10
 @export var fuel = 25.0
+var maxFuel = 100.0
 var heat=0
 @export var maxHeat=100
 @export var climbingHeight=0

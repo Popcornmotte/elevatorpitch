@@ -21,8 +21,9 @@ const DROPSOUND=preload("res://Assets/Audio/sfx/dropObject.wav")
 
 var carryables : Array[Node2D]
 var carrying=false
+var carriedFuel = 0.0
 var canTakeDamage=false
-var carryingScrap=false
+var justPickedUp = false
 var canDrop=true #block dropping immediately when interacting with refuelStation
 var carryPos=Vector2(8,1)
 @export var controlPlayer=true # the player is controllable when the arms are not, get this information from the elevator if it exists
@@ -114,11 +115,15 @@ func pickUpObject():
 	if typeArg==Item.TYPE.Fuel:
 		fuelSprite.visible=true
 		carryType=Item.TYPE.Fuel
+		carriedFuel = thing.fuel
+		if refuelEngineObject:
+			canDrop=false#dont drop when refuelling
+			refuelEngineObject.prepareRefuel()
 	elif typeArg==Item.TYPE.Scrap:
 		scrapSprite.visible=true
 		carryType=Item.TYPE.Scrap
-		carryingScrap=true
 	carrying=true
+	justPickedUp = true
 	thing.queue_free()
 	Audio.playSfx(PICKUPSOUND)
 	return true
@@ -133,10 +138,10 @@ func dropObject():
 			var loadedFuel=FUEL.instantiate()
 			get_parent().add_child(loadedFuel)
 			loadedFuel.global_position=fuelSprite.get_global_position()
+			carriedFuel = 0.0
 		if carryType==Item.TYPE.Scrap and not startRepair:# do not drop scrap when interacting with repair
 			scrapSprite.visible=false
 			carrying=false
-			carryingScrap=false
 			var loadedScrap=SCRAP.instantiate()
 			get_parent().add_child(loadedScrap)
 			loadedScrap.global_position=scrapSprite.get_global_position()
@@ -202,11 +207,18 @@ func moveWithParent(delta):
 func removeScrap():#called when carrying scrap and repairing something
 	scrapSprite.visible=false
 	carrying=false
-	carryingScrap=false
 	
-func removeFuel():#called when carrying fuel and refuelled 
+func removeFuel(wasted : float):#called when carrying fuel and refuelled 
 	fuelSprite.visible=false
 	carrying=false
+	carriedFuel = 0.0
+	if wasted > 0:
+		var droppedCanister = FUEL.instantiate()
+		add_sibling(droppedCanister)
+		droppedCanister.global_position = global_position - Vector2(0,8)
+		droppedCanister.linear_velocity = Vector2(0,-160).rotated(randf_range(-PI/2,PI/2))
+		droppedCanister.angular_velocity = randf_range(-50,50)
+		droppedCanister.fuel = wasted * 0.75
 
 func fall(direction,delta):
 	velocity.y += gravity * delta
@@ -243,6 +255,9 @@ func _process(delta):
 		if Input.is_action_just_pressed("Debug"):
 			toggleJetpack(!jetpack)
 		
+		if justPickedUp and Input.is_action_just_released("interact"):
+			justPickedUp = false
+		
 		if refuelEngineObject and Input.is_action_just_released("interact"):
 			refuelEngineObject.stopRefuel()
 		
@@ -252,9 +267,9 @@ func _process(delta):
 			elif carryables.size() > 0:
 				pickUpObject()
 			#check if player is interacting with something
-			if interactionObject:
+			if !justPickedUp and interactionObject:
 				interactionObject.use()
-			if refuelEngineObject and carrying and carryType==Item.TYPE.Fuel:
+			if !justPickedUp and refuelEngineObject and carrying and carryType==Item.TYPE.Fuel:
 				refuelEngineObject.startRefuel()
 	
 		if carrying and  carryType==Item.TYPE.Scrap and Input.is_action_pressed("repair") and interactionObject:
@@ -266,7 +281,7 @@ func _process(delta):
 		if dispenserObject and Input.is_action_just_pressed("down"):
 			dispenserObject.switchDispenseType()
 		
-		if dispenserObject and Input.is_action_just_pressed("interact"):
+		if !justPickedUp and dispenserObject and Input.is_action_just_pressed("interact"):
 			dispenserObject.dispenseItem()
 		
 		if brakeObject and Input.is_action_just_pressed("up"):
