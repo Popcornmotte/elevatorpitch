@@ -751,6 +751,7 @@ collision_mask = 4096
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorial/ArmStationTextTrigger"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_uavan")
+disabled = true
 
 [node name="ArmText" parent="Tutorial" instance=ExtResource("16_nd0oi")]
 position = Vector2(120, -120)

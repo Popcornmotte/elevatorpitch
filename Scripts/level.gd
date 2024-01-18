@@ -31,6 +31,7 @@ func _ready():
 	gameOverText.hide()
 	Global.elevator.fuel = max(Global.elevator.fuel,Global.fuelBetweenLevels)
 	Global.elevator.moving=true
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.NET)
 
 func setFinishHeight():
 	var destination = Global.currentContract.destination
@@ -68,7 +69,10 @@ func spawnEnemies():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(combat):
-		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
+		if !Global.TUTORIAL_INDICES.FLING:
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
+		else:
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
 		if Global.aliveEnemies <= 0:
 			combat = false
 			Global.elevator.brake.turnOffLightOnly()
