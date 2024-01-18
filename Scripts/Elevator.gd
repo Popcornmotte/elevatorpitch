@@ -166,6 +166,7 @@ func update_height(climbed):
 
 func decrease_fuel(delta):
 	if fuel<=0:
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FUELING)	
 		return
 	fuel -= fuelConsumption*delta
 	if fuel<=0:

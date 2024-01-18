@@ -16,7 +16,7 @@ var elevatorDropping=false
 @onready var enemies = [D_BARREL,D_RIFLE,D_SAW,D_ROCKET]
 @onready var LevelFinish=get_node("LevelFinish")
 @onready var gameOverText=get_node("GameOver")
-@export var finishHeight=50
+var finishHeight=50
 var cargoCount = 0
 var gainedFunds = 0
 var lastHeight = 0
@@ -68,6 +68,7 @@ func spawnEnemies():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(combat):
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
 		if Global.aliveEnemies <= 0:
 			combat = false
 			Global.elevator.brake.turnOffLightOnly()
@@ -139,3 +140,4 @@ func _on_end_timer_timeout():
 func _on_button_pressed():
 	Audio.stopMusic()
 	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
+

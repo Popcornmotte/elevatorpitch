@@ -29,6 +29,7 @@ func spawnExplosion(position:Vector2):
 	
 			
 func repair():
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.REPAIR)
 	health=maxHealth
 	Global.elevator.newFixedModule()
 	update=true
