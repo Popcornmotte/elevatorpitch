@@ -78,7 +78,6 @@ func _process(delta):
 		if remainingCrates == 0:
 			$HatchTutorialTimer.start()
 			$ButtonArmAnim.play("deployButton")
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.HATCH)
 			buttonDeployed = true
 	if hatchOpen and !elevatorRising and Global.elevator.moving:
 		onElevatorStarted()
