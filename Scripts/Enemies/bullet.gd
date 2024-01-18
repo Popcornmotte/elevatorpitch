@@ -24,7 +24,8 @@ func _process(delta):
 	#velocity += delta * Vector2(0,9.81)
 	position += velocity * delta
 	 
-	rotation = -velocity.normalized().dot(Vector2(0,1))
+	look_at(global_position-velocity)
+	#rotation = -velocity.normalized().dot(Vector2(0,-1))*PI
 	if(global_position.length() > 2000):
 		queue_free()
 	pass
