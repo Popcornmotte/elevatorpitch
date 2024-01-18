@@ -73,10 +73,11 @@ texture = ExtResource("5_x7fd4")
 
 [node name="Station" type="Node2D" parent="ParallaxBackground/CableLayer"]
 visible = false
+position = Vector2(0, -1024)
+scale = Vector2(2, 2)
 
 [node name="BoromirFull" type="Sprite2D" parent="ParallaxBackground/CableLayer/Station"]
 z_index = -5
-position = Vector2(0, -384)
 texture = ExtResource("5_algv1")
 
 [node name="BoromirFullOverlay" type="Sprite2D" parent="ParallaxBackground/CableLayer/Station/BoromirFull"]

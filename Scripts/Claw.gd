@@ -42,7 +42,7 @@ func release(fling = false):
 	if grabbed != null:
 			var vector = self.linear_velocity
 			if fling:
-				vector = global_position.direction_to(target.global_position) * vector.length()
+				vector = global_position.direction_to(target.global_position) * max(vector.length(), 200)
 			grabbed.release(vector)
 			grabbed = null
 			grabbing = false

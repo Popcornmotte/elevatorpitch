@@ -554,19 +554,15 @@ moving = false
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
 rotation = -0.394666
 scale = Vector2(1, 1)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 rotation = -0.0151657
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
 rotation = 3.14159
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
 rotation = -0.0151656
-metadata/_local_pose_override_enabled_ = true
 
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" index="0"]
 active = false
@@ -781,6 +777,7 @@ text = "W/S -> Change speed"
 [node name="PauseMenu" parent="." instance=ExtResource("28_f1l3k")]
 
 [connection signal="timeout" from="Background/LightBlink" to="." method="_on_light_blink_timeout"]
+[connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
 [connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
 [connection signal="area_entered" from="ButtonArmStuff/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]
