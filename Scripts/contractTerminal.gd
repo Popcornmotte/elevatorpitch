@@ -48,25 +48,43 @@ func _ready():
 	while(!file.eof_reached()):
 		cargoList.append(file.get_line())
 	
+	if Global.fuelBetweenLevels >= 95.0:
+		$Monitor/Terminal/Elevator/HBoxContainer/RefuelButton.set_disabled(true)
+	
 	if !flashMode:
 		$Monitor/Terminal/FlashLabel.hide()
 	if(Global.modulesUnlocked[0]):
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightBuyButton.hide()
+		$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/InfoLabel.show()
 		ArclightCheckbox.set_disabled(false)
+	else:
+		$Monitor/Terminal/Elevator/Ammo.hide()
 	if(Global.modulesUnlocked[1]):
+		$Monitor/Terminal/Elevator/Fuel/InfoLabel.text="Used to fuel elevator engine and flamethrower"
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerBuyButton.hide()
+		$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/InfoLabel.show()
 		FlamethrowerCheckbox.set_disabled(false)
+	
+	if Global.armModule != ArmModuleHandler.MODULE.None:
+		match Global.armModule:
+			ArmModuleHandler.MODULE.Arclight:
+				$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightCheckBox.set_pressed(true)
+			ArmModuleHandler.MODULE.Flamethrower:
+				$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerCheckBox.set_pressed(true)
+			_:
+				pass
 	
 	if (!Global.newUser):
 		booting = false
+		$SkipHint.hide()
 		$Monitor/Terminal/LogInContainer.hide()
 		$Monitor/Header.show()
 		$Monitor/Terminal/ContractsView.show()
 	else:
 		Audio.playSfx(BOOTSOUND)
 	
-	updateLabels()
 	generateContracts()
+	updateLabels()
 
 func generateContracts():
 	contractList = $Monitor/Terminal/ContractsView/Contracts
@@ -120,6 +138,9 @@ func getIcon(risk):
 				return RISK0
 
 func updateLabels():
+	var cargoNum = Global.countItem(Item.TYPE.Cargo)
+	if contracts.size() > 0:
+		$Monitor/Terminal/Elevator/ProfitLabel.text = "Expected profit: "+str(contracts[selectedContract].pay*cargoNum)+"$"
 	$Monitor/Header/HBox/Username.text = "User: "+Global.username
 	FundsLabel.text = "Current Account Balance: "+str(Global.funds)+"$"
 	$Monitor/Terminal/Elevator/Fuel/FuelLabel.text = "Fuel Units ("+str(Global.countItem(Item.TYPE.Fuel))+")"
@@ -179,6 +200,9 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed("Debug"):
+		Global.addFunds(200)
+		updateLabels()
 	if flashMode:
 		if(fontSize > 20):
 			fontSize -= delta*25
@@ -186,12 +210,16 @@ func _process(delta):
 		if Input.is_action_just_pressed("Grab"):
 			flashNext()
 	if Global.newUser && booting:
+		if Input.is_action_just_pressed("Fling"):
+			$Monitor/Terminal/LogInContainer/LoginText.visible_characters = -1
 		if $Monitor/Terminal/LogInContainer/LoginText.visible_ratio < 1.0:
 			visChars += 15*delta
 			$Monitor/Terminal/LogInContainer/LoginText.visible_characters = int(visChars)
 		else:
 			booting = false
+			$SkipHint.hide()
 			$Monitor/Terminal/LogInContainer/LineEdit.show()
+			$Monitor/Terminal/LogInContainer/LineEdit.grab_focus()
 	pass
 
 func incrementResource(itemType : Item.TYPE):
@@ -202,6 +230,9 @@ func incrementResource(itemType : Item.TYPE):
 		Audio.playSfx(ERROR)
 
 func decrementResource(itemType : Item.TYPE):
+	if itemType == Item.TYPE.Cargo && Global.countItem(Item.TYPE.Cargo) == 1:
+		Audio.playSfx(ERROR)
+		return
 	if(Global.takeFromInventory(itemType) != null):
 		updateLabels()
 		Audio.playSfx(CLICK)
@@ -211,10 +242,12 @@ func decrementResource(itemType : Item.TYPE):
 
 func _on_contract_item_list_item_clicked(index, at_position, mouse_button_index):
 	#Just for low target but later this should deliver contract ID
-	beep()
-	$Monitor/Terminal/ContractsView.hide()
-	showContractInspector(index)
-	#$Monitor/Terminal/Elevator.show()
+	if mouse_button_index <= 2:
+		beep()
+		#print("mouse button index: "+str(mouse_button_index))
+		$Monitor/Terminal/ContractsView.hide()
+		showContractInspector(index)
+		#$Monitor/Terminal/Elevator.show()
 	pass # Replace with function body.
 
 
@@ -271,6 +304,10 @@ func _on_back_button_pressed():
 
 func _on_accept_button_pressed():
 	var contract = contracts[selectedContract]
+	if Global.countItem(Item.TYPE.Cargo) == 0:
+		incrementResource(Item.TYPE.Cargo)
+		#Global.addToInventory(Item.new(Item.TYPE.Cargo))
+	
 	if ((contract.risk == 4) or (contract.risk == 3 and Global.anarchyContractsIndex == Global.maxAnarchyIndex)):
 		if(Global.removeFunds(finalTicketPrice)):
 			Audio.playSfx(KATSCHING)
@@ -304,8 +341,10 @@ func _on_increment_scrap_button_pressed():
 func _on_arc_light_buy_button_pressed():
 	if(Global.removeFunds(ArclightPrice)):
 		Global.modulesUnlocked[0] = true
+		$Monitor/Terminal/Elevator/Ammo.show()
 		ArclightCheckbox.set_disabled(false)
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightBuyButton.hide()
+		$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/InfoLabel.show()
 		Audio.playSfx(KATSCHING)
 	else:
 		Audio.playSfx(ERROR)
@@ -316,7 +355,9 @@ func _on_flame_thrower_buy_button_pressed():
 	if(Global.removeFunds(FlamethrowerPrice)):
 		Global.modulesUnlocked[1] = true
 		FlamethrowerCheckbox.set_disabled(false)
+		$Monitor/Terminal/Elevator/Fuel/InfoLabel.text="Used to fuel elevator engine and flamethrower"
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerBuyButton.hide()
+		$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/InfoLabel.show()
 		Audio.playSfx(KATSCHING)
 	else:
 		Audio.playSfx(ERROR)
@@ -354,4 +395,15 @@ func _on_line_edit_text_submitted(new_text):
 	$Monitor/Header.show()
 	$Monitor/Terminal/ContractsView.show()
 	$Monitor/Terminal/LogInContainer.hide()
+	pass # Replace with function body.
+
+
+func _on_refuel_button_pressed():
+	if(Global.removeFunds(50)):
+		Audio.playSfx(KATSCHING)
+		Global.fuelBetweenLevels = 100.0
+		updateLabels()
+		$Monitor/Terminal/Elevator/HBoxContainer/RefuelButton.set_disabled(true)
+	else:
+		Audio.playSfx(ERROR)
 	pass # Replace with function body.

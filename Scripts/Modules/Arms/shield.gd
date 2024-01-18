@@ -17,6 +17,7 @@ func activate():
 	$AudioLoop.play()
 	$AudioLoop.seek(audioPos)
 	Audio.playSfxLocalized(deflect, global_position)
+	repellProjectiles()
 	pass
 
 func deactivate():
@@ -56,8 +57,10 @@ func _on_body_exited(body):
 func repellProjectiles():
 	if projectilesInRange.size() > 0:
 		Audio.playSfx(pling)
-	for projectile in projectilesInRange:
-		projectile.velocity = -projectile.velocity
+		for projectile in projectilesInRange:
+			#projectile.velocity = -projectile.velocity
+			projectile.velocity = projectile.velocity.length() * projectile.global_position.direction_to(projectile.origin)
+			projectile.ignoreEnemies = false
 
 func blockProjectiles(projectile):
 	if "isProjectile" in projectile and projectile.isProjectile:

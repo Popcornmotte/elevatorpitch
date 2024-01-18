@@ -49,7 +49,8 @@ func fire(trajectory):
 	get_parent().get_parent().get_parent().add_child(projectileInstance)
 	projectileInstance.velocity = get_parent().get_parent().linear_velocity + trajectory * projectileSpeed
 	projectileInstance.global_position = weaponNozzle.global_position
-	projectileInstance.flipH(flipped)
+	projectileInstance.origin = get_parent().global_position
+	#projectileInstance.flipH(flipped)
 	Audio.playSfxLocalized(weaponFireSound, global_position)
 
 func reload():

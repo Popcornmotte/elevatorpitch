@@ -48,6 +48,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_0tloo")
 
 [node name="WeaponMount" type="Marker2D" parent="."]
+position = Vector2(0, -20)
 
 [node name="RocketLauncher" parent="WeaponMount" instance=ExtResource("4_y6ipm")]
 z_index = -1

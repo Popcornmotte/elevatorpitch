@@ -3,9 +3,11 @@ extends Area2D
 var sprite : Node2D
 var velocity = Vector2(0,0)
 @export var damage = 4
+@export var ignoreEnemies = false
 @export var explodeOnImpact = false
 var Explosion
 var isProjectile = true
+var origin : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,13 +21,11 @@ func flipH(arg : bool):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	velocity += delta * Vector2(0,9.81)
+	#velocity += delta * Vector2(0,9.81)
 	position += velocity * delta
-	
-	var angle = -velocity.normalized().dot(Vector2(0,1))
-	sprite.rotation = angle
-	
-	if(global_position.length() > 1000):
+	 
+	rotation = -velocity.normalized().dot(Vector2(0,1))
+	if(global_position.length() > 2000):
 		queue_free()
 	pass
 
@@ -46,7 +46,7 @@ func _on_body_entered(body):
 				call_deferred("queue_free")
 			else:
 				body.owner.takeDamage(damage, Global.DMG.Piercing)
-	else:
+	elif !ignoreEnemies:
 		if body.has_method("takeDamage"):
 			#print("I hit this: "+str(body.name))
 			if explodeOnImpact:

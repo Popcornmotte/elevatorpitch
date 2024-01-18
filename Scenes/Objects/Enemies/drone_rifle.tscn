@@ -38,6 +38,7 @@ shape = SubResource("CapsuleShape2D_3d6d3")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("3_2tint")
+animation = &"dead"
 autoplay = "default"
 
 [node name="BodyShape" type="CollisionShape2D" parent="."]

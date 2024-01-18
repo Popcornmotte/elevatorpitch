@@ -132,6 +132,7 @@ func chooseTarget():
 	if rangedBehavior:
 		target = global_position.direction_to(elevatorPos).normalized()
 		target = elevatorPos - target * (effectiveRange+randi_range(-effectiveRangeVariance,effectiveRangeVariance))
+		target = target.clamp(Vector2(-950,-530), Vector2(950,530))
 	#Melee enemies should target a random part on the elevator and move towards that
 	else:
 		match state:
@@ -159,6 +160,10 @@ func attackBehavior(delta):
 	if rangedBehavior:
 		if global_position.distance_to(target) <= 10:
 			if (reload<=0):
+				if (elevatorPos.x > global_position.x ):
+					flip(1)
+				else:
+					flip(0)
 				weapon.fire(global_position.direction_to(elevatorPos).normalized())
 				reload = weapon.reloadTime
 	else:

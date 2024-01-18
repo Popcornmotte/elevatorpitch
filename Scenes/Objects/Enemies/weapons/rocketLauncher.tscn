@@ -77,7 +77,7 @@ ranged = true
 projectile = ExtResource("2_s6iws")
 weaponFireSound = ExtResource("3_nbap5")
 weaponReloadSound = ExtResource("4_kgo13")
-projectileSpeed = 1000.0
+projectileSpeed = 600.0
 weaponNozzle = NodePath("Nozzle")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
@@ -94,7 +94,7 @@ position = Vector2(-48, 29)
 shape = SubResource("CircleShape2D_b4fv3")
 
 [node name="Nozzle" type="Marker2D" parent="."]
-position = Vector2(-59, 40)
+position = Vector2(-83, 38)
 
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 8.0

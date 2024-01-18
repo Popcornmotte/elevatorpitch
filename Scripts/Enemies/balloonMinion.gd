@@ -22,13 +22,15 @@ func _ready():
 
 func flip(dir):
 	super(dir)
-	$BalloonSprite.flip_h = dir
-	$BodySprite.flip_h = dir
+	if $BalloonSprite != null and $BodySprite != null:
+		$BalloonSprite.flip_h = dir
+		$BodySprite.flip_h = dir
 
 func die():
 	if dead:
 		return
 	super()
+	$BodySprite.play("dead")
 	if has_node("PinJoint2D"):
 		$PinJoint2D.queue_free()
 	Audio.playSfx(POP)

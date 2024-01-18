@@ -263,6 +263,14 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_atqms")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atqms")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l5x13")
