@@ -35,11 +35,10 @@ func switch( tutorial = -1 ):
 		get_tree().paused = false
 		Global.saveGame()
 	else:
-		Global.saveGame()
-		if !MainMenuVersion:
-			$WhiteNoisePlayer.play()
-		
+		print("Tried Switch(). tutorial argument: "+str(tutorial))
+		print("Global.animatedTutorialsCompleted: "+str(Global.animatedTutorialsCompleted))
 		if tutorial >= 0 :
+			
 			if !Global.animatedTutorialsCompleted[tutorial]:
 				$Tutorials.show()
 				$Tutorials.loadTutorial(tutorial)
@@ -50,6 +49,8 @@ func switch( tutorial = -1 ):
 		else:
 			$Tutorials.hide()
 			$Options/OptionsContainer.show()
+		if !MainMenuVersion:
+			$WhiteNoisePlayer.play()
 		show()
 		get_tree().paused = true
 	pass
