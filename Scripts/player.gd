@@ -30,6 +30,8 @@ var carryType= Item.TYPE.Fuel
 var startRepair=false#block dropping of scrap when in vicinity of repair station
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var movementParent : Node2D
+var lastParentPos : Vector2
 var cameraMargins = 0.0
 var cameraZoom = 1.0
 var sfx
@@ -187,6 +189,16 @@ func move(direction, vertical = 0.0):
 			sprite.play("jetpackIdle")
 			velocity.y = lerpf(velocity.y,0.0,lerpFactor)
 
+func setMovementParent(newParent : Node2D):
+	movementParent = newParent
+	lastParentPos = movementParent.global_position
+
+func moveWithParent(delta):
+	if movementParent == null:
+		return
+	velocity.y = ((movementParent.global_position - lastParentPos) / delta).y * 0.9
+	lastParentPos = movementParent.global_position
+
 func removeScrap():#called when carrying scrap and repairing something
 	scrapSprite.visible=false
 	carrying=false
@@ -224,6 +236,7 @@ func climb(direction):
 
 func _process(delta):
 	updateZoom(delta)
+	moveWithParent(delta)
 	if controlPlayer:
 		if Input.is_action_just_pressed("Grab"):
 			$Gun.shoot()

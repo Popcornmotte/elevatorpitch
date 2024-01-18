@@ -149,6 +149,7 @@ func on_area_entered(area : Area2D):
 func onGoal():
 	$EndAnimation.play("goal")
 	$HullBody.get_node("Hull").visible=true#make hull visible on goal
+	Global.player.setMovementParent(self)
 
 func haltElevator():
 	control(false)
