@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://lxw23nax6ltw"]
+[gd_scene load_steps=29 format=3 uid="uid://lxw23nax6ltw"]
 
 [ext_resource type="Script" path="res://Scripts/refuel_engine.gd" id="1_kn6lk"]
 [ext_resource type="Texture2D" uid="uid://daynns0gxqona" path="res://Assets/Sprites/InteriorObjects/fuelStationNormal.png" id="2_k5hf3"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dxq5cq06d0w4w" path="res://Assets/Sprites/InteriorObjects/fuelStationFilled1.png" id="4_78auj"]
 [ext_resource type="Texture2D" uid="uid://bru77o7b10fb3" path="res://Assets/Sprites/InteriorObjects/fuelStationFilled2.png" id="5_ottbi"]
 [ext_resource type="Texture2D" uid="uid://fhtkynhgcoiu" path="res://Assets/Sprites/InteriorObjects/fuelDrop.png" id="6_gafvk"]
+[ext_resource type="Texture2D" uid="uid://dtuhwbx66hne0" path="res://Assets/Sprites/InteriorObjects/fuelPuddle.png" id="7_hygr3"]
+[ext_resource type="Texture2D" uid="uid://5ad2v2kqf4wr" path="res://Assets/Sprites/InteriorObjects/fuelSplat.png" id="7_ptup8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wejcb"]
 size = Vector2(29, 39)
@@ -95,6 +97,78 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4xl8"]
+atlas = ExtResource("7_ptup8")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmny0"]
+atlas = ExtResource("7_ptup8")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3oix"]
+atlas = ExtResource("7_ptup8")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xogor"]
+atlas = ExtResource("7_ptup8")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pnbwl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4xl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmny0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3oix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xogor")
+}],
+"loop": false,
+"name": &"spill",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84up1"]
+atlas = ExtResource("7_hygr3")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_180ls"]
+atlas = ExtResource("7_hygr3")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbcsx"]
+atlas = ExtResource("7_hygr3")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqqgj"]
+atlas = ExtResource("7_hygr3")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kan0j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84up1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_180ls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbcsx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqqgj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="RefuelEngine" type="Node2D"]
 script = ExtResource("1_kn6lk")
 
@@ -113,9 +187,32 @@ sprite_frames = SubResource("SpriteFrames_kp8xq")
 animation = &"filled2"
 
 [node name="RefuelEngineDropletAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(0, 21)
 sprite_frames = SubResource("SpriteFrames_nrd5h")
+animation = &"droplet"
+frame = 2
+frame_progress = 1.0
+
+[node name="FuelSpill" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 2
+position = Vector2(0, 19)
+sprite_frames = SubResource("SpriteFrames_pnbwl")
+animation = &"spill"
+
+[node name="Puddle" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 2
+position = Vector2(0, 19)
+sprite_frames = SubResource("SpriteFrames_kan0j")
+autoplay = "default"
+
+[node name="FadeTimer" type="Timer" parent="Puddle"]
+wait_time = 5.0
+one_shot = true
 
 [connection signal="body_entered" from="RefuelEngineArea2D" to="." method="_on_refuel_engine_area_2d_body_entered"]
 [connection signal="timeout" from="RefuelEngineTimer" to="." method="_on_refuel_engine_timer_timeout"]
 [connection signal="animation_finished" from="RefuelEngineDropletAnimatedSprite2D" to="." method="_on_refuel_engine_droplet_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="FuelSpill" to="." method="_on_fuel_spill_animation_finished"]
