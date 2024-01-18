@@ -65,7 +65,10 @@ func _on_delete_save_button_pressed():
 
 
 func _on_reset_tutorial_pressed():
-	Global.tutorialsCompleted = [false, false, false, false]
+	for boolean in Global.tutorialsCompleted:
+		boolean = false
+	for boolean in Global.animatedTutorialsCompleted:
+		boolean = false
 	$SaveGame/ResetTutorial.disabled = true
 	pass # Replace with function body.
 
