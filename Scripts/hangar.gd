@@ -101,3 +101,8 @@ func _on_tutorial_timer_timeout():
 
 func _on_hatch_tutorial_timer_timeout():
 	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.HATCH)
+
+
+func _on_open_hatch_animation_finished(anim_name):
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.BRAKE)
+	pass

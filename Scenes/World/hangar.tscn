@@ -292,10 +292,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uavan"]
 size = Vector2(160, 30)
 
-[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button", "doorAreas")]
+[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button")]
 script = ExtResource("1_7h618")
 crateSpawnArea = NodePath("spawnAreas/crateSpawnArea")
 brake = NodePath("Elevator/interior/Brake")
+
 button = NodePath("ButtonArmStuff/ButtonArm/LowerArm/HatchButton")
 doorAreas = [NodePath("Elevator/interior/Doors/Door4/DoorOpenArea2D"), NodePath("Elevator/interior/Doors/Door3/DoorOpenArea2D")]
 
@@ -784,6 +785,7 @@ autostart = true
 wait_time = 3.0
 one_shot = true
 
+[connection signal="animation_finished" from="Background/OpenHatch" to="." method="_on_open_hatch_animation_finished"]
 [connection signal="timeout" from="Background/LightBlink" to="." method="_on_light_blink_timeout"]
 [connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
