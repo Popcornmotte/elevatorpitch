@@ -276,6 +276,7 @@ color_ramp = SubResource("GradientTexture1D_7mmuy")
 z_index = 1
 collision_layer = 4400
 collision_mask = 48
+platform_on_leave = 1
 script = ExtResource("1_mnd8j")
 
 [node name="CollisionShapePlayer" type="CollisionShape2D" parent="."]

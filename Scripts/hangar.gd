@@ -22,6 +22,7 @@ func _ready():
 	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
 	Global.elevator.get_node("interior/Dispenser").locked=true
 	Global.elevator.fuel = max(Global.elevator.fuel, Global.fuelBetweenLevels)
+	Global.elevator.updateFuel()
 	while takenItem != null:
 		var newCrate = cratePrefab.instantiate()
 		add_child(newCrate)
@@ -52,8 +53,9 @@ func onElevatorStarted():
 	$RiseSequence/ElevatorRise.play("elevatorRise")
 	$RiseSequence/TransitionTimer.start()
 	$RiseSequence/FadeTimer.start()
-	Global.elevator.get_node("HullBody").get_node("Hull").visible=true
+	#Global.elevator.get_node("HullBody").get_node("Hull").visible=true
 	Global.player.controlPlayer=false
+	Global.player.setMovementParent(Global.elevator)
 	elevatorRising = true
 	Global.tutorialsCompleted[0] = true
 
@@ -80,12 +82,14 @@ func _process(delta):
 	if hatchOpen and !elevatorRising and Global.elevator.moving:
 		onElevatorStarted()
 	
-	if redLight:
-		redLightFac = min(1, redLightFac + 16*delta)
-	else:
-		redLightFac = max(0, redLightFac - 16*delta)
-	$Background/ParallaxBG/Lit.set_modulate(Color(1,1,1,redLightFac))
+	#if redLight:
+		#redLightFac = min(1, redLightFac + 16*delta)
+	#else:
+		#redLightFac = max(0, redLightFac - 16*delta)
+	#$Background/ParallaxBG/Lit.set_modulate(Color(1,1,1,redLightFac))
 
 
 func _on_light_blink_timeout():
 	redLight = !redLight
+	$Background/ParallaxBG/Lit.visible = redLight
+	$Background/ParallaxBG/Unlit.visible = !redLight

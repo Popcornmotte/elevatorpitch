@@ -18,6 +18,8 @@ texture = ExtResource("2_1dh27")
 [node name="Light" type="PointLight2D" parent="."]
 position = Vector2(1.90735e-06, 0)
 scale = Vector2(1.281, 1.25)
+range_z_min = 0
+range_z_max = 10
 texture = ExtResource("4_6r5cr")
 
 [node name="Background" type="Sprite2D" parent="."]
