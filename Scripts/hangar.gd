@@ -80,12 +80,14 @@ func _process(delta):
 	if hatchOpen and !elevatorRising and Global.elevator.moving:
 		onElevatorStarted()
 	
-	if redLight:
-		redLightFac = min(1, redLightFac + 16*delta)
-	else:
-		redLightFac = max(0, redLightFac - 16*delta)
-	$Background/ParallaxBG/Lit.set_modulate(Color(1,1,1,redLightFac))
+	#if redLight:
+		#redLightFac = min(1, redLightFac + 16*delta)
+	#else:
+		#redLightFac = max(0, redLightFac - 16*delta)
+	#$Background/ParallaxBG/Lit.set_modulate(Color(1,1,1,redLightFac))
 
 
 func _on_light_blink_timeout():
 	redLight = !redLight
+	$Background/ParallaxBG/Lit.visible = redLight
+	$Background/ParallaxBG/Unlit.visible = !redLight

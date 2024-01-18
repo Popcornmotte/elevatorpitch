@@ -14,6 +14,8 @@ var maxFlingVelocity = 0.0
 var maxFlingAlignment = 0.0
 var arm : PhysicalArm
 var flingAccFac = 2.0
+var normalArmAcc = 0.0
+var flingArmAcc = 0.0
 var controlled = false
 var target : Node2D
 var grabLocked = false
@@ -24,6 +26,8 @@ func _ready():
 	while !(node is PhysicalArm) && node.get_parent() != null:
 		node = node.get_parent()
 	arm = node
+	normalArmAcc = arm.acceleration
+	flingArmAcc = arm.acceleration * flingAccFac
 	arm.claw = self
 	pass # Replace with function body.
 
@@ -79,7 +83,7 @@ func _process(delta):
 	if(Input.is_action_just_released("Fling") && aboutToFling):
 		aboutToFling = false
 		flinging = true
-		arm.acceleration *= flingAccFac
+		arm.acceleration = flingArmAcc
 	if !grabLocked and (Input.is_action_just_pressed("Grab")):
 		grab()
 		if Global.elevator.controlArms:
@@ -93,12 +97,13 @@ func _process(delta):
 	
 	var flingAlignment = linear_velocity.normalized().dot(flingTargetDir.normalized())
 	#var maxFlingAlignment = max(maxFlingAlignment, flingAlignment)
-	if(flinging and flingAlignment > 0.9):
+	if(flinging):
 		maxFlingVelocity = max(maxFlingVelocity, linear_velocity.length())
-		if(linear_velocity.length() < max(500,maxFlingVelocity) or global_position.distance_to(target.global_position) < 50):
+		if(linear_velocity.length() < maxFlingVelocity-10 or global_position.distance_to(target.global_position) < 50):
+			print(str(linear_velocity.length()) + " < " + str(maxFlingVelocity))
 			maxFlingVelocity = 0.0
 			flinging = false
-			arm.acceleration /= flingAccFac
+			arm.acceleration = normalArmAcc
 			release(true)
 
 func _on_grab_area_body_entered(body):

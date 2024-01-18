@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dn1h17rgyu5yq"]
+[gd_scene load_steps=66 format=3 uid="uid://dn1h17rgyu5yq"]
 
 [ext_resource type="Script" path="res://Scripts/hangar.gd" id="1_7h618"]
 [ext_resource type="Texture2D" uid="uid://jaoxkqmx7jsf" path="res://Assets/Sprites/Hangar/pipeOverlay.png" id="2_ndkxd"]
@@ -54,13 +54,10 @@ size = Vector2(144, 32)
 size = Vector2(112, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w7vb"]
-size = Vector2(12, 52)
+size = Vector2(28, 52)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sdb8v"]
-size = Vector2(52, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sfxk"]
-size = Vector2(20, 26)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pivyh"]
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_outgl"]
 size = Vector2(192, 104)
@@ -341,21 +338,29 @@ position = Vector2(-160, 148)
 shape = SubResource("RectangleShape2D_0a6lw")
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="Collision"]
-position = Vector2(-102, 118)
+position = Vector2(-94, 118)
 shape = SubResource("RectangleShape2D_4w7vb")
 
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="Collision"]
-position = Vector2(-130, 172)
-shape = SubResource("RectangleShape2D_sdb8v")
+position = Vector2(144, 184)
+shape = SubResource("RectangleShape2D_pivyh")
 
 [node name="CollisionShape2D10" type="CollisionShape2D" parent="Collision"]
-position = Vector2(144, 181)
-shape = SubResource("RectangleShape2D_6sfxk")
+position = Vector2(-144, 184)
+shape = SubResource("RectangleShape2D_pivyh")
 
 [node name="ItemBlockers" type="StaticBody2D" parent="."]
 position = Vector2(0, -448)
-collision_layer = 129
+collision_layer = 524417
 collision_mask = 129
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="ItemBlockers"]
+position = Vector2(-144, 632)
+polygon = PackedVector2Array(-40, 8, -8, -8, 64, -8, 64, 8)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="ItemBlockers"]
+position = Vector2(144, 632)
+polygon = PackedVector2Array(48, 8, 8, -8, -64, -8, -64, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemBlockers"]
 position = Vector2(0, -12)
@@ -423,7 +428,7 @@ factorH = 0.4
 factorV = 1.0
 
 [node name="Lit" type="Node2D" parent="Background/ParallaxBG"]
-modulate = Color(1, 1, 1, 0)
+visible = false
 
 [node name="Layer0" type="Sprite2D" parent="Background/ParallaxBG/Lit"]
 position = Vector2(0, -8)
@@ -565,14 +570,8 @@ active = false
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw" index="0"]
 active = false
 
-[node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Lower" index="0"]
-position = Vector2(-1, 9)
-
 [node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Upper" index="0"]
 position = Vector2(12.5, -7)
-
-[node name="CollisionShape2D" parent="Elevator/interior/floor/edges/Left" index="0"]
-position = Vector2(-5, 15.5)
 
 [node name="Brake" parent="Elevator/interior" index="7"]
 braking = true
@@ -780,6 +779,7 @@ text = "W/S -> Change speed"
 [node name="PauseMenu" parent="." instance=ExtResource("28_f1l3k")]
 
 [connection signal="timeout" from="Background/LightBlink" to="." method="_on_light_blink_timeout"]
+[connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
 [connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
 [connection signal="area_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]

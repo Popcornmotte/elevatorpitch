@@ -45,6 +45,7 @@ func _ready():
 func rotatePart(delta : float, phys : RigidBody2D, ref : Bone2D):
 	var diff = angle_difference(phys.global_rotation, ref.global_rotation)
 	phys.angular_velocity = diff * acceleration * delta
+	phys.angular_velocity = clampf(phys.angular_velocity, -20, 20)
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

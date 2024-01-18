@@ -57,7 +57,7 @@ func move(delta, targetPos : Vector2):
 	return
 
 func isActive():
-	if(Input.is_action_pressed("Fling") && claw.grabbing):
+	if(claw.grabbing):
 		return true
 	if(rightTarget):
 		return Global.elevator.get_local_mouse_position().x > 0.0
@@ -69,6 +69,13 @@ func follow_mouse(delta : float, mousePos : Vector2):
 	if(isControlled):
 		if(isActive()):
 				claw.setControlled(true)
+				
+				var mouseLocalToElevator = Global.elevator.get_local_mouse_position()
+				if(rightTarget):
+					mousePos.x -= min(0,mouseLocalToElevator.x)
+				else:
+					mousePos.x -= max(0,mouseLocalToElevator.x)
+				
 				move(delta, mousePos)
 				move_and_slide()
 		else:
