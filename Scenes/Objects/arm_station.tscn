@@ -20,5 +20,10 @@ collision_mask = 16
 position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_0wwvm")
 
+[node name="ChuteTutorialTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="body_entered" from="ArmStationArea" to="." method="_on_arm_station_area_body_entered"]
 [connection signal="body_exited" from="ArmStationArea" to="." method="_on_arm_station_area_body_exited"]
+[connection signal="timeout" from="ChuteTutorialTimer" to="." method="_on_chute_tutorial_timer_timeout"]

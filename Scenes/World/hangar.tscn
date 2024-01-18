@@ -779,6 +779,14 @@ text = "W/S -> Change speed"
 
 [node name="PauseMenu" parent="." instance=ExtResource("28_f1l3k")]
 
+[node name="TutorialTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="HatchTutorialTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="Background/LightBlink" to="." method="_on_light_blink_timeout"]
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
 [connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
@@ -788,6 +796,8 @@ text = "W/S -> Change speed"
 [connection signal="body_entered" from="ButtonArmCanvasGroup/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="_on_area_2d_body_entered"]
 [connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmStationText" method="on_body_entered"]
 [connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmText" method="on_body_entered"]
+[connection signal="timeout" from="TutorialTimer" to="." method="_on_tutorial_timer_timeout"]
+[connection signal="timeout" from="HatchTutorialTimer" to="." method="_on_hatch_tutorial_timer_timeout"]
 
 [editable path="Elevator"]
 [editable path="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/ModuleAttachment"]
