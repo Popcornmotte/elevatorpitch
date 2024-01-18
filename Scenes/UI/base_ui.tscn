@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdejgb0kj4otg"]
+[gd_scene load_steps=16 format=3 uid="uid://cdejgb0kj4otg"]
 
 [ext_resource type="Script" path="res://Scripts/contractTerminal.gd" id="1_5xgiu"]
 [ext_resource type="Texture2D" uid="uid://ca5d53iyk42sp" path="res://Assets/Sprites/UI/Contract.png" id="2_03vra"]
@@ -29,6 +29,41 @@ animations = [{
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_klupq"]
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_gplsq"]
+color = Color(0.497795, 0.497795, 0.497795, 1)
+thickness = 3
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_656ej"]
+color = Color(0.497795, 0.497795, 0.497795, 1)
+grow_begin = 8.0
+grow_end = 10.0
+thickness = 3
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldsmx"]
+bg_color = Color(0.372549, 0.054902, 0, 1)
+border_width_left = 8
+border_width_top = 4
+border_width_right = 8
+border_width_bottom = 4
+border_color = Color(0.372244, 0.0547036, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1oy8g"]
+bg_color = Color(0.372549, 0.054902, 0, 1)
+border_width_left = 8
+border_width_top = 4
+border_width_right = 8
+border_width_bottom = 4
+border_color = Color(0.859638, 0.179853, 4.81307e-07, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="ContractTerminal" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -52,8 +87,18 @@ autoplay = "default"
 modulate = Color(0.627451, 0.627451, 0.627451, 1)
 z_index = 1
 position = Vector2(1480, 408)
-scale = Vector2(2, 2)
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("5_cvmym")
+
+[node name="SkipHint" type="Label" parent="."]
+z_index = 100
+layout_mode = 0
+offset_left = 704.0
+offset_top = 864.0
+offset_right = 1067.0
+offset_bottom = 906.0
+theme_override_font_sizes/font_size = 30
+text = "Press 'space' to skip boot"
 
 [node name="Monitor" type="Sprite2D" parent="."]
 position = Vector2(992, 538)
@@ -220,123 +265,260 @@ text = "Cargo Capacity: 0/16"
 
 [node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
 
 [node name="Fuel" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
-alignment = 1
-
-[node name="decrementFuelButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
-layout_mode = 2
-text = " [ - ]  "
 
 [node name="FuelLabel" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.866667, 0, 0.160784, 1)
 theme_override_colors/font_shadow_color = Color(0.233925, 0.233925, 0.233925, 1)
 text = "Fuel Units (0)"
 
+[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/Fuel"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "Used to fuel elevator engine"
+
+[node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/Fuel"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="decrementFuelButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
+layout_mode = 2
+text = "  [ - ]  "
+
 [node name="incrementFuelButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
 layout_mode = 2
-text = " [ + ] "
+text = "  [ + ]  "
 
 [node name="Scrap" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
-alignment = 1
-
-[node name="decrementScrapButton" type="Button" parent="Monitor/Terminal/Elevator/Scrap"]
-layout_mode = 2
-text = " [ - ]  "
 
 [node name="ScrapLabel" type="Label" parent="Monitor/Terminal/Elevator/Scrap"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.388235, 0.580392, 0.992157, 1)
 theme_override_colors/font_shadow_color = Color(0.368627, 0.368627, 0.368627, 1)
 text = "Scrap Units (0)"
 
+[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/Scrap"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/Scrap"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "Can be used for repairs"
+
+[node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/Scrap"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="decrementScrapButton" type="Button" parent="Monitor/Terminal/Elevator/Scrap"]
+layout_mode = 2
+text = "  [ - ]  "
+
 [node name="incrementScrapButton" type="Button" parent="Monitor/Terminal/Elevator/Scrap"]
 layout_mode = 2
-text = " [ + ] "
+text = "  [ + ]  "
 
 [node name="Ammo" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
-alignment = 1
-
-[node name="decrementAmmoButton" type="Button" parent="Monitor/Terminal/Elevator/Ammo"]
-layout_mode = 2
-text = " [ - ]  "
 
 [node name="AmmoLabel" type="Label" parent="Monitor/Terminal/Elevator/Ammo"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.709804, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.345098, 0.345098, 0.345098, 1)
 text = "Ammo Units (0)"
 
+[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/Ammo"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/Ammo"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "Used by Arclight Weapon Module"
+
+[node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/Ammo"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="decrementAmmoButton" type="Button" parent="Monitor/Terminal/Elevator/Ammo"]
+layout_mode = 2
+text = "  [ - ]  "
+
 [node name="incrementAmmoButton" type="Button" parent="Monitor/Terminal/Elevator/Ammo"]
 layout_mode = 2
-text = " [ + ] "
+text = "  [ + ]  "
 
 [node name="ContractCargo" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
-alignment = 1
-
-[node name="decrementCargoButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
-layout_mode = 2
-text = " [ - ] "
 
 [node name="CargoLabel" type="Label" parent="Monitor/Terminal/Elevator/ContractCargo"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.839216, 0.509804, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.298039, 0.298039, 0.298039, 1)
 text = "Contracted Cargo (0)"
 
+[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/ContractCargo"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/ContractCargo"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "Deliver at least one cargo crate"
+
+[node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/ContractCargo"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="decrementCargoButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
+layout_mode = 2
+text = "  [ - ]  "
+
 [node name="incrementCargoButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
 layout_mode = 2
-text = " [ + ] "
+text = "  [ + ]  "
 
 [node name="HSeparator2" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
+
+[node name="ProfitLabel" type="Label" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+text = "Expected profit: "
+
+[node name="HSeparator4" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
+
+[node name="HSeparator5" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
+
+[node name="Label" type="Label" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+text = "SHOP"
+horizontal_alignment = 1
+
+[node name="HSeparator6" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
+
+[node name="Label2" type="Label" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+text = "Elevator Weapon Modules"
+horizontal_alignment = 1
 
 [node name="Modules" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
-alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Monitor/Terminal/Elevator/Modules"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer"]
-layout_mode = 2
-text = "Elevator Modular System"
-horizontal_alignment = 1
-
 [node name="ArcLightBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer"]
 layout_mode = 2
 
 [node name="ArcLightCheckBox" type="CheckBox" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 disabled = true
 text = "Arclight"
 alignment = 1
 
+[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox"]
+visible = false
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "Uses 1 Ammo to project a lightning arc"
+
 [node name="ArcLightBuyButton" type="Button" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 text = " [ BUY (200$ ) ] "
+
+[node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
 
 [node name="FlameThrowerBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer"]
 layout_mode = 2
 
 [node name="FlameThrowerCheckBox" type="CheckBox" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 disabled = true
 text = "Flamethrower"
 alignment = 1
 
+[node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox"]
+visible = false
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "Uses fuel directly from the tank to spit flames"
+
 [node name="FlameThrowerBuyButton" type="Button" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 text = " [ BUY (120$ ) ] "
 
-[node name="HSeparator3" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+[node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
+
+[node name="HSeparator3" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+alignment = 1
+
+[node name="RefuelButton" type="Button" parent="Monitor/Terminal/Elevator/HBoxContainer"]
+layout_mode = 2
+text = " [ BUY Full Tank (50$) ] "
+
+[node name="HSeparator7" type="HSeparator" parent="Monitor/Terminal/Elevator"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
 
 [node name="StartButtonHBox" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
@@ -344,6 +526,8 @@ alignment = 1
 
 [node name="StartButton" type="Button" parent="Monitor/Terminal/Elevator/StartButtonHBox"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ldsmx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1oy8g")
 text = "[ START ASCENSION ]"
 
 [node name="OffButton" type="TextureButton" parent="Monitor"]
@@ -371,5 +555,6 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightBuyButton" to="." method="_on_arc_light_buy_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerCheckBox" to="." method="_on_flame_thrower_check_box_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerBuyButton" to="." method="_on_flame_thrower_buy_button_pressed"]
+[connection signal="pressed" from="Monitor/Terminal/Elevator/HBoxContainer/RefuelButton" to="." method="_on_refuel_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/Elevator/StartButtonHBox/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Monitor/OffButton" to="." method="_on_off_button_pressed"]

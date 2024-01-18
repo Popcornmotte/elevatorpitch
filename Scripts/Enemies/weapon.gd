@@ -21,6 +21,7 @@ var elevatorBodyInRange : bool
 var playerBody = null
 #trajectory for ranged attacks
 var trajectory : Vector2
+var flipped = false
 
 func _ready():
 	if ranged:
@@ -28,6 +29,7 @@ func _ready():
 
 func flipH(arg : bool):
 	$Sprite.set_flip_h(arg)
+	flipped = arg
 	if arg:
 		if ranged:
 			$Nozzle.position.x = -nozzlePosX
@@ -47,6 +49,8 @@ func fire(trajectory):
 	get_parent().get_parent().get_parent().add_child(projectileInstance)
 	projectileInstance.velocity = get_parent().get_parent().linear_velocity + trajectory * projectileSpeed
 	projectileInstance.global_position = weaponNozzle.global_position
+	projectileInstance.origin = get_parent().global_position
+	#projectileInstance.flipH(flipped)
 	Audio.playSfxLocalized(weaponFireSound, global_position)
 
 func reload():

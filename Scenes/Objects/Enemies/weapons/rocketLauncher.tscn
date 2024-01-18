@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=3 uid="uid://cinrvwpdcrki3"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/weapon.gd" id="1_gjsyg"]
+[ext_resource type="PackedScene" uid="uid://cyjs5yb7xrbii" path="res://Scenes/Objects/Enemies/rocket.tscn" id="2_s6iws"]
+[ext_resource type="AudioStream" uid="uid://cujr6u3sd6vyx" path="res://Assets/Audio/sfx/rocketLaunch.wav" id="3_nbap5"]
+[ext_resource type="AudioStream" uid="uid://bu7ttu5rhcso0" path="res://Assets/Audio/sfx/shotgunRack.wav" id="4_kgo13"]
+[ext_resource type="Texture2D" uid="uid://bgd0octj783my" path="res://Assets/Sprites/Enemies/RocketLauncher-Sheet.png" id="5_qx1q4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ktap"]
+atlas = ExtResource("5_qx1q4")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkiip"]
+atlas = ExtResource("5_qx1q4")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5kyk"]
+atlas = ExtResource("5_qx1q4")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjba4"]
+atlas = ExtResource("5_qx1q4")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yamwx"]
+atlas = ExtResource("5_qx1q4")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l4lfr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ktap")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkiip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkiip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5kyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5kyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjba4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjba4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yamwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yamwx")
+}],
+"loop": false,
+"name": &"reload",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4fv3"]
+radius = 29.0172
+
+[node name="RocketLauncher" type="Node2D" node_paths=PackedStringArray("weaponNozzle")]
+script = ExtResource("1_gjsyg")
+damage = 10
+reloadTime = 8.0
+ranged = true
+projectile = ExtResource("2_s6iws")
+weaponFireSound = ExtResource("3_nbap5")
+weaponReloadSound = ExtResource("4_kgo13")
+projectileSpeed = 600.0
+weaponNozzle = NodePath("Nozzle")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_l4lfr")
+animation = &"reload"
+autoplay = "reload"
+
+[node name="MeleeArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
+position = Vector2(-48, 29)
+shape = SubResource("CircleShape2D_b4fv3")
+
+[node name="Nozzle" type="Marker2D" parent="."]
+position = Vector2(-83, 38)
+
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+
+[connection signal="body_entered" from="MeleeArea" to="." method="_on_melee_area_body_entered"]
+[connection signal="body_exited" from="MeleeArea" to="." method="_on_melee_area_body_exited"]
+[connection signal="timeout" from="ReloadTimer" to="." method="reload"]
