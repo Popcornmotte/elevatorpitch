@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://76relfo52far"]
+[gd_scene load_steps=15 format=3 uid="uid://76relfo52far"]
 
 [ext_resource type="Script" path="res://Scripts/climbEnvironmentVisuals.gd" id="1_s7ll6"]
 [ext_resource type="Shader" uid="uid://caeowpn5l8teu" path="res://Assets/Shaders/Atmosphere.tres" id="1_ty3bg"]
@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cxg53vakcb674" path="res://Assets/Sprites/Environment/cloud1.png" id="3_s7v75"]
 [ext_resource type="Texture2D" uid="uid://cf2ktxauq7g8u" path="res://Assets/Sprites/Environment/cloud2.png" id="4_ekote"]
 [ext_resource type="Texture2D" uid="uid://boi60j5kqlgi" path="res://Assets/Sprites/Environment/earth.png" id="5_5gv44"]
+[ext_resource type="Texture2D" uid="uid://s2h5f3j2ho3v" path="res://Assets/Sprites/Stations/Boromir/boromirFull.png" id="5_algv1"]
 [ext_resource type="Texture2D" uid="uid://cdocs2sd6mf" path="res://Assets/Sprites/Cable.png" id="5_x7fd4"]
+[ext_resource type="Texture2D" uid="uid://cf1v3w7vw5288" path="res://Assets/Sprites/Stations/Boromir/boromirFullOverlay.png" id="6_dl678"]
 [ext_resource type="Texture2D" uid="uid://tm5n0ilgiy7l" path="res://Assets/Sprites/Environment/stars.png" id="8_gp112"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rg3oo"]
@@ -68,6 +70,18 @@ texture = ExtResource("5_x7fd4")
 [node name="Cable8" type="Sprite2D" parent="ParallaxBackground/CableLayer"]
 position = Vector2(0, 960)
 texture = ExtResource("5_x7fd4")
+
+[node name="Station" type="Node2D" parent="ParallaxBackground/CableLayer"]
+visible = false
+
+[node name="BoromirFull" type="Sprite2D" parent="ParallaxBackground/CableLayer/Station"]
+z_index = -5
+position = Vector2(0, -384)
+texture = ExtResource("5_algv1")
+
+[node name="BoromirFullOverlay" type="Sprite2D" parent="ParallaxBackground/CableLayer/Station/BoromirFull"]
+z_index = 20
+texture = ExtResource("6_dl678")
 
 [node name="CloudsLayer0" type="Node2D" parent="ParallaxBackground" groups=["Clouds"]]
 z_index = 4
