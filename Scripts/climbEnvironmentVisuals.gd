@@ -14,7 +14,7 @@ func _ready():
 func _process(delta):
 	atmosphere.material.set_shader_parameter("Height", Global.height)
 	
-	if Global.height > (Global.level.finishHeight - 1) and !stationSpawned:
+	if Global.height > (Global.level.finishHeight - 2) and !stationSpawned:
 		$ParallaxBackground/CableLayer/Station.global_position = stationPos
 		$ParallaxBackground/CableLayer/Station.visible = true
 		stationSpawned = true

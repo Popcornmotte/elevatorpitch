@@ -42,7 +42,8 @@ func release(fling = false):
 	if grabbed != null:
 			var vector = self.linear_velocity
 			if fling:
-				vector = global_position.direction_to(target.global_position) * max(vector.length(), 200)
+				vector = global_position.direction_to(target.global_position) * max(vector.length(), 3000)
+				#print("Fling release with speed "+str(vector.length()))
 			grabbed.release(vector)
 			grabbed = null
 			grabbing = false
@@ -100,7 +101,7 @@ func _process(delta):
 	if(flinging):
 		maxFlingVelocity = max(maxFlingVelocity, linear_velocity.length())
 		if(linear_velocity.length() < maxFlingVelocity-10 or global_position.distance_to(target.global_position) < 50):
-			print(str(linear_velocity.length()) + " < " + str(maxFlingVelocity))
+			#print(str(linear_velocity.length()) + " < " + str(maxFlingVelocity))
 			maxFlingVelocity = 0.0
 			flinging = false
 			arm.acceleration = normalArmAcc

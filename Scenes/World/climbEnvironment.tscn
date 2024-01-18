@@ -81,7 +81,7 @@ z_index = -5
 texture = ExtResource("5_algv1")
 
 [node name="BoromirFullOverlay" type="Sprite2D" parent="ParallaxBackground/CableLayer/Station/BoromirFull"]
-z_index = 20
+z_index = 75
 texture = ExtResource("6_dl678")
 
 [node name="CloudsLayer0" type="Node2D" parent="ParallaxBackground" groups=["Clouds"]]

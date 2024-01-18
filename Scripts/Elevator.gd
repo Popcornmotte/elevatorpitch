@@ -149,6 +149,8 @@ func on_area_entered(area : Area2D):
 func onGoal():
 	$EndAnimation.play("goal")
 	$HullBody.get_node("Hull").visible=true#make hull visible on goal
+	if brake.currentSpeed == brake.SPEED.Fast:
+		brake.switchDown()
 	Global.player.setMovementParent(self)
 
 func haltElevator():
