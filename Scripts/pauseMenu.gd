@@ -39,10 +39,11 @@ func switch( tutorial = -1 ):
 		if !MainMenuVersion:
 			$WhiteNoisePlayer.play()
 		
-		if tutorial > 0:
+		if tutorial >= 0 and !Global.animatedTutorialsCompleted[tutorial]:
 			$Tutorials.show()
-			$Tutorials.play(str(tutorial))
+			$Tutorials.loadTutorial(tutorial)
 			$Options/OptionsContainer.hide()
+			Global.animatedTutorialsCompleted[tutorial]=true
 		else:
 			$Tutorials.hide()
 			$Options/OptionsContainer.show()

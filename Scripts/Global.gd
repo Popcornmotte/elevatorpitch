@@ -30,8 +30,12 @@ var username = ""
 var armModule = ArmModuleHandler.MODULE.None
 # In order: Arclight, Flamethrower
 var modulesUnlocked = [false, false]
-# In order: Hangar, Fuel, Enemies, Repair
-var tutorialsCompleted = [false, false, false, false]
+# In order: Movement, Bombs, Dispenser, Fueling, Armstation, Chutes, Hatch
+var tutorialsCompleted = [false, false, false, false,false,false,false]#remove
+# In order: Movement, Bombs, Dispenser, Fueling, Armstation, Chutes, Hatch
+enum TUTORIAL_INDICES{MOVEMENT,BOMBS,DISPENSER,FUELING,ARMSTATION,CHUTES,HATCH}
+var animatedTutorialsCompleted=[false, false, false, false,false,false,false]
+
 # AnarchyContracts completed
 var anarchyContractsIndex = 1
 var maxAnarchyIndex = 7
