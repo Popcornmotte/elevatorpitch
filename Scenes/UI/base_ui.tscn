@@ -271,11 +271,11 @@ theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
 layout_mode = 2
 
 [node name="FuelLabel" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.866667, 0, 0.160784, 1)
 theme_override_colors/font_shadow_color = Color(0.233925, 0.233925, 0.233925, 1)
-text = "Fuel Units (0)"
+text = "Fuel Units"
 
 [node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/Fuel"]
 custom_minimum_size = Vector2(32, 0)
@@ -296,6 +296,12 @@ theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
 layout_mode = 2
 text = "  [ - ]  "
 
+[node name="AmountLabel" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "( 0 )"
+horizontal_alignment = 1
+
 [node name="incrementFuelButton" type="Button" parent="Monitor/Terminal/Elevator/Fuel"]
 layout_mode = 2
 text = "  [ + ]  "
@@ -304,11 +310,11 @@ text = "  [ + ]  "
 layout_mode = 2
 
 [node name="ScrapLabel" type="Label" parent="Monitor/Terminal/Elevator/Scrap"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.388235, 0.580392, 0.992157, 1)
 theme_override_colors/font_shadow_color = Color(0.368627, 0.368627, 0.368627, 1)
-text = "Scrap Units (0)"
+text = "Scrap Units"
 
 [node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/Scrap"]
 custom_minimum_size = Vector2(32, 0)
@@ -329,6 +335,12 @@ theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
 layout_mode = 2
 text = "  [ - ]  "
 
+[node name="AmountLabel" type="Label" parent="Monitor/Terminal/Elevator/Scrap"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "( 0 )"
+horizontal_alignment = 1
+
 [node name="incrementScrapButton" type="Button" parent="Monitor/Terminal/Elevator/Scrap"]
 layout_mode = 2
 text = "  [ + ]  "
@@ -337,11 +349,11 @@ text = "  [ + ]  "
 layout_mode = 2
 
 [node name="AmmoLabel" type="Label" parent="Monitor/Terminal/Elevator/Ammo"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.709804, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.345098, 0.345098, 0.345098, 1)
-text = "Ammo Units (0)"
+text = "Ammo Units"
 
 [node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/Ammo"]
 custom_minimum_size = Vector2(32, 0)
@@ -362,6 +374,12 @@ theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
 layout_mode = 2
 text = "  [ - ]  "
 
+[node name="AmountLabel" type="Label" parent="Monitor/Terminal/Elevator/Ammo"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "( 0 )"
+horizontal_alignment = 1
+
 [node name="incrementAmmoButton" type="Button" parent="Monitor/Terminal/Elevator/Ammo"]
 layout_mode = 2
 text = "  [ + ]  "
@@ -370,11 +388,11 @@ text = "  [ + ]  "
 layout_mode = 2
 
 [node name="CargoLabel" type="Label" parent="Monitor/Terminal/Elevator/ContractCargo"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.839216, 0.509804, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.298039, 0.298039, 0.298039, 1)
-text = "Contracted Cargo (0)"
+text = "Contracted Cargo"
 
 [node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/ContractCargo"]
 custom_minimum_size = Vector2(32, 0)
@@ -394,6 +412,12 @@ theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
 [node name="decrementCargoButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
 layout_mode = 2
 text = "  [ - ]  "
+
+[node name="AmountLabel" type="Label" parent="Monitor/Terminal/Elevator/ContractCargo"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "( 0 )"
+horizontal_alignment = 1
 
 [node name="incrementCargoButton" type="Button" parent="Monitor/Terminal/Elevator/ContractCargo"]
 layout_mode = 2
