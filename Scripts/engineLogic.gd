@@ -45,6 +45,8 @@ func damaged():
 func disable():
 	sprite.pause()
 	$Smoke.emitting = true
+	for child in $FuelDrips.get_children():
+		child.emitting = Global.elevator.fuel > 0
 	brake.brokenEngine()#switch from fastest to normal mode in brake
 	super.spawnExplosion(repairStation.global_position)
 	repairStation.visible=true
@@ -53,6 +55,8 @@ func disable():
 
 func repaired():
 	$Smoke.emitting = false
+	for child in $FuelDrips.get_children():
+		child.emitting = false
 	repairStation.visible=false
 	Global.elevator.stopLeaking()
 
@@ -66,3 +70,8 @@ func _on_engine_sound_finished():
 		stopEngine()
 		pass
 	pass # Replace with function body.
+
+func _process(delta):
+	if health <= 0:
+		for child in $FuelDrips.get_children():
+			child.emitting = Global.elevator.fuel > 1.0
