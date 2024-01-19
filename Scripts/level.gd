@@ -51,6 +51,10 @@ func finishedScene():
 	
 func spawnEnemies():
 	combat = true
+	if !Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.FLING]:
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
+	else:
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
 	spawnChance = -1
 	wave += 1
 	#var formation = FORMATION_A.instantiate()
@@ -69,10 +73,7 @@ func spawnEnemies():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(combat):
-		if !Global.TUTORIAL_INDICES.FLING:
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
-		else:
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
+
 		if Global.aliveEnemies <= 0:
 			combat = false
 			Global.elevator.brake.turnOffLightOnly()
