@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://lxw23nax6ltw"]
+[gd_scene load_steps=30 format=3 uid="uid://lxw23nax6ltw"]
 
 [ext_resource type="Script" path="res://Scripts/refuel_engine.gd" id="1_kn6lk"]
 [ext_resource type="Texture2D" uid="uid://daynns0gxqona" path="res://Assets/Sprites/InteriorObjects/fuelStationNormal.png" id="2_k5hf3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://fhtkynhgcoiu" path="res://Assets/Sprites/InteriorObjects/fuelDrop.png" id="6_gafvk"]
 [ext_resource type="Texture2D" uid="uid://dtuhwbx66hne0" path="res://Assets/Sprites/InteriorObjects/fuelPuddle.png" id="7_hygr3"]
 [ext_resource type="Texture2D" uid="uid://5ad2v2kqf4wr" path="res://Assets/Sprites/InteriorObjects/fuelSplat.png" id="7_ptup8"]
+[ext_resource type="Texture2D" uid="uid://cb6ndpq1di1jv" path="res://Assets/Sprites/InteriorObjects/fuelStation_outline.png" id="9_s421s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wejcb"]
 size = Vector2(29, 39)
@@ -171,6 +172,10 @@ animations = [{
 
 [node name="RefuelEngine" type="Node2D"]
 script = ExtResource("1_kn6lk")
+
+[node name="Outline" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("9_s421s")
 
 [node name="RefuelEngineArea2D" type="Area2D" parent="."]
 collision_layer = 48

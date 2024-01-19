@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dytc0ic6y3uun"]
+[gd_scene load_steps=5 format=3 uid="uid://dytc0ic6y3uun"]
 
 [ext_resource type="Script" path="res://Scripts/arm_station.gd" id="1_tg2ed"]
 [ext_resource type="Texture2D" uid="uid://c3q6il0amshp7" path="res://Assets/Sprites/InteriorObjects/armStation.png" id="2_2r5y4"]
+[ext_resource type="Texture2D" uid="uid://cbffrraaarv2p" path="res://Assets/Sprites/InteriorObjects/armStation_outline.png" id="3_ver85"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wwvm"]
 size = Vector2(32, 42)
@@ -19,6 +20,11 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArmStationArea"]
 position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_0wwvm")
+
+[node name="Outline" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 13)
+texture = ExtResource("3_ver85")
 
 [connection signal="body_entered" from="ArmStationArea" to="." method="_on_arm_station_area_body_entered"]
 [connection signal="body_exited" from="ArmStationArea" to="." method="_on_arm_station_area_body_exited"]

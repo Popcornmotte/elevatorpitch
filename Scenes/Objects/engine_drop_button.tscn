@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7pe1q2xscf8x"]
+[gd_scene load_steps=12 format=3 uid="uid://c7pe1q2xscf8x"]
 
 [ext_resource type="Texture2D" uid="uid://dfjliqo6f6v24" path="res://Assets/Sprites/InteriorObjects/dropButtonClosed.png" id="1_gk3yf"]
 [ext_resource type="Script" path="res://Scripts/engine_drop_button.gd" id="1_ie7x4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://tejwfgy0a8h" path="res://Assets/Sprites/UI/CloseButton.png" id="5_m4vwj"]
 [ext_resource type="Texture2D" uid="uid://oqsqojv1cg0d" path="res://Assets/Sprites/UI/CloseButtonHovered.png" id="6_a15ux"]
 [ext_resource type="FontFile" uid="uid://dgd0hsl0u56xs" path="res://Fonts/m5x7.ttf" id="7_fo41v"]
+[ext_resource type="Texture2D" uid="uid://56231j6a7mrm" path="res://Assets/Sprites/InteriorObjects/dropButton_outline.png" id="8_xuxgq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qtg05"]
 size = Vector2(20, 33)
@@ -74,3 +75,8 @@ layout_mode = 2
 layout_mode = 2
 theme = SubResource("Theme_ej45j")
 text = "Press E to abort run"
+
+[node name="Outline" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -2)
+texture = ExtResource("8_xuxgq")

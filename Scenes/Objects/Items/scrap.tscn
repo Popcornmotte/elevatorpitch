@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bowy1locqpytv"]
+[gd_scene load_steps=6 format=3 uid="uid://bowy1locqpytv"]
 
 [ext_resource type="Texture2D" uid="uid://87nwbe24kw8j" path="res://Assets/Sprites/InteriorObjects/scrap.png" id="1_6okr7"]
 [ext_resource type="Script" path="res://Scripts/generic_carryable.gd" id="1_1882i"]
+[ext_resource type="Texture2D" uid="uid://cuqwi6n455m7o" path="res://Assets/Sprites/InteriorObjects/scrap_outline.png" id="3_8l4tk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncagi"]
 size = Vector2(8, 10)
@@ -30,6 +31,10 @@ collision_mask = 160
 
 [node name="ScrapCollisionShape2D" type="CollisionShape2D" parent="ScrapArea2D"]
 shape = SubResource("RectangleShape2D_hdayg")
+
+[node name="Outline" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_8l4tk")
 
 [connection signal="body_entered" from="ScrapArea2D" to="." method="onAreaEntered"]
 [connection signal="body_exited" from="ScrapArea2D" to="." method="onAreaExit"]
