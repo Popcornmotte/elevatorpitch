@@ -17,6 +17,11 @@ func onAreaEntered(other : Node2D):
 		distanceFactor /= 100
 		distanceFactor = 1/(distanceFactor+1)
 		other.takeDamage(damage * distanceFactor, Global.DMG.Force)
+		if other is RigidBody2D:
+			var force = other.global_position - global_position
+			force = force.normalized() * (2000 / (force.length()/100 + 1))
+			other.linear_velocity += force
+			print("Gave force of " + str(force) + " to " + other.name)
 		dealtDamageTo.push_back(other)
 		#print("Dealt " + str(damage * distanceFactor) + " to " + other.name)
 	elif other.get_parent() != null and other.get_parent() is Node2D:
