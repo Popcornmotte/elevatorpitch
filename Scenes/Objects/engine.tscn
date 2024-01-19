@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cuiln8pt5xl01"]
+[gd_scene load_steps=24 format=3 uid="uid://cuiln8pt5xl01"]
 
 [ext_resource type="Script" path="res://Scripts/engineLogic.gd" id="1_v7bh1"]
 [ext_resource type="Texture2D" uid="uid://hi3n6rh8ffcu" path="res://Assets/Sprites/ElevatorBody/TankTest.png" id="2_s7bn1"]
@@ -102,6 +102,20 @@ scale_curve = SubResource("CurveTexture_irdxa")
 color = Color(0.266667, 0.266667, 0.266667, 0.815686)
 color_ramp = SubResource("GradientTexture1D_5roaq")
 
+[sub_resource type="Curve" id="Curve_lwa3d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.70738, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lpkym"]
+curve = SubResource("Curve_lwa3d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ostg"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_lpkym")
+color = Color(0.380392, 0.313726, 0.137255, 1)
+
 [node name="Engine" type="Node2D"]
 script = ExtResource("1_v7bh1")
 
@@ -134,11 +148,30 @@ emitting = false
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_08v0o")
 
-[connection signal="finished" from="EngineSound" to="." method="_on_engine_sound_finished"]
 [node name="HeatMeter" type="PointLight2D" parent="."]
 position = Vector2(-8, -128)
 energy = 0.0
 texture = ExtResource("7_304su")
 
-[connection signal="finished" from="EngineSound" to="EngineSound" method="_on_finished"]
+[node name="FuelDrips" type="Node2D" parent="."]
 
+[node name="FuelDrip" type="GPUParticles2D" parent="FuelDrips"]
+z_index = 9
+position = Vector2(-8, 58)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_3ostg")
+
+[node name="FuelDrip2" type="GPUParticles2D" parent="FuelDrips"]
+z_index = 9
+position = Vector2(-30, 45)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_3ostg")
+
+[node name="FuelDrip3" type="GPUParticles2D" parent="FuelDrips"]
+z_index = 9
+position = Vector2(29, 52)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_3ostg")
+
+[connection signal="finished" from="EngineSound" to="." method="_on_engine_sound_finished"]
+[connection signal="finished" from="EngineSound" to="EngineSound" method="_on_finished"]
