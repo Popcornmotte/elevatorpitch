@@ -16,6 +16,7 @@ func damage(damage:int):
 		damaged()
 	elif health<=0:
 		if update: 
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.REPAIR)
 			Global.elevator.newBrokenModule()
 			update=false
 		disable()
@@ -29,7 +30,6 @@ func spawnExplosion(position:Vector2):
 	
 			
 func repair():
-	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.REPAIR)
 	health=maxHealth
 	Global.elevator.newFixedModule()
 	update=true
