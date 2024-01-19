@@ -4,6 +4,7 @@ class_name GenericDestroyable
 @export var health:int=5
 @onready var maxHealth=health
 @export var damagedThreshold:int=9
+var explodes = true
 var explosion = preload("res://Scenes/Objects/explosion.tscn")
 enum OPERATIONMODE {Normal, Damaged, Broken}
 var update=true
@@ -23,12 +24,13 @@ func damage(damage:int):
 		disable()
 
 func spawnExplosion(position:Vector2):
-	if Global.level:
-		var newExplosion = explosion.instantiate()
-		newExplosion.global_position = position
-		newExplosion.set_collision_mask_value(3,false)#disable collision
-		newExplosion.set_collision_mask_value(9,false)#disable collision
-		get_parent().call_deferred("add_child",newExplosion)
+	if !explodes:
+		return
+	var newExplosion = explosion.instantiate()
+	newExplosion.global_position = position
+	newExplosion.set_collision_mask_value(3,false)#disable collision
+	newExplosion.set_collision_mask_value(9,false)#disable collision
+	get_parent().call_deferred("add_child",newExplosion)
 	
 			
 func repair():
