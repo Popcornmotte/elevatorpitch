@@ -103,9 +103,15 @@ func collideWithRigidbodies():
 
 func addCarryable(thing):
 	carryables.push_back(thing)
+	var outline = thing.find_child("Outline")
+	if outline != null:
+		outline.visible = true
 	
 func removeCarryable(thing):
 	carryables.erase(thing)
+	var outline = thing.find_child("Outline")
+	if outline != null:
+		outline.visible = false
 
 func pickUpObject():
 	if carrying:#in case the player is already holding something, nothing else should be picked up
@@ -331,7 +337,10 @@ func _on_interaction_area_area_entered(area):
 		area.owner.openDoor()
 	elif area.owner and ("interactable" in area.owner):
 		interactionObject=area.owner
-
+	
+	var outline = area.owner.find_child("Outline")
+	if outline != null:
+		outline.visible = true
 
 func _on_interaction_area_area_exited(area):
 	if area.owner==null:
@@ -352,3 +361,7 @@ func _on_interaction_area_area_exited(area):
 	#null check
 	if area.owner and area.owner.get_parent().name=="Doors":
 		area.owner.closeDoor()
+
+	var outline = area.owner.find_child("Outline")
+	if outline != null:
+		outline.visible = false
