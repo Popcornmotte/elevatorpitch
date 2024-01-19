@@ -1,4 +1,4 @@
-extends AnimatedSprite2D
+extends Control
 
 @export var titleText: Array[String]=[]
 @export var explanationText:Array[String]=[]
@@ -6,6 +6,6 @@ extends AnimatedSprite2D
 @onready var header=$Header
 
 func loadTutorial(index):
-	play(str(index))
+	$Animations.play(str(index))
 	explanation.text=explanationText[index]
 	header.text=titleText[index]
