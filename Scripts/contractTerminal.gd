@@ -253,6 +253,9 @@ func decrementResource(itemType : Item.TYPE):
 	if itemType == Item.TYPE.Cargo && Global.countItem(Item.TYPE.Cargo) == 1:
 		Audio.playSfx(ERROR)
 		return
+	if itemType == Item.TYPE.Scrap && Global.countItem(Item.TYPE.Scrap) == 1:
+		Audio.playSfx(ERROR)
+		return
 	if(Global.takeFromInventory(itemType) != null):
 		if itemType == Item.TYPE.Cargo:
 			$AnimationPlayer.play("unprofit")
@@ -328,6 +331,8 @@ func _on_accept_button_pressed():
 	var contract = contracts[selectedContract]
 	if Global.countItem(Item.TYPE.Cargo) == 0:
 		incrementResource(Item.TYPE.Cargo)
+	if Global.countItem(Item.TYPE.Scrap) == 0:
+		incrementResource(Item.TYPE.Scrap)
 		#Global.addToInventory(Item.new(Item.TYPE.Cargo))
 	
 	if ((contract.risk == 4) or (contract.risk == 3 and Global.anarchyContractsIndex == Global.maxAnarchyIndex)):

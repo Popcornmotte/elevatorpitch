@@ -1,11 +1,48 @@
-[gd_scene load_steps=5 format=3 uid="uid://sdnx788wgxud"]
+[gd_scene load_steps=11 format=3 uid="uid://sdnx788wgxud"]
 
 [ext_resource type="Script" path="res://Scripts/Target.gd" id="1_xpcip"]
 [ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="2_3cpto"]
 [ext_resource type="Texture2D" uid="uid://btsxud1jfvfvj" path="res://Assets/Sprites/dottedLine.png" id="3_qukj7"]
+[ext_resource type="Texture2D" uid="uid://doc31ajnp56a4" path="res://Assets/Sprites/target_fling.png" id="4_cf23p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qaus"]
 radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mv2pl"]
+atlas = ExtResource("4_cf23p")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0wo7"]
+atlas = ExtResource("4_cf23p")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vipi"]
+atlas = ExtResource("4_cf23p")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmxgt"]
+atlas = ExtResource("4_cf23p")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fgby2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mv2pl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0wo7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vipi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmxgt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="ArmTarget" type="CharacterBody2D"]
 position = Vector2(464, 0)
@@ -32,3 +69,9 @@ texture_mode = 1
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collision_mask = 524288
+
+[node name="FlingTarget" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_fgby2")
+autoplay = "default"
+frame_progress = 0.954707

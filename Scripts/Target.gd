@@ -92,10 +92,14 @@ func draw_fling_dir():
 		var mousePos = line.get_local_mouse_position()
 		line.points[1].x = mousePos.x
 		line.points[1].y = mousePos.y
+		
+		$FlingTarget.global_position = get_global_mouse_position()
 
 func _physics_process(delta):
 	if(Input.is_action_just_pressed("Fling")):
 		preFlingPos = global_position
+		if claw.grabbing:
+			$FlingTarget.visible = true
 	if(Input.is_action_pressed("Fling") && claw.grabbing):
 		draw_fling_dir()
 		var offsetDir = preFlingPos.direction_to(get_global_mouse_position()) * preFlingPos.distance_to(armAnchorPos) / 2
@@ -115,3 +119,4 @@ func _process(delta):
 		line.points[1].x = 0
 		line.points[1].y = 0
 	
+		$FlingTarget.visible = false
