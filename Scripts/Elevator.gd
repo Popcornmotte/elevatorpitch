@@ -209,6 +209,8 @@ func _process(delta):
 	if leakingFuel:
 		decrease_fuel(delta* 0.1)
 	if(dropping):
+		if sfxWarning!=null:
+			sfxWarning.stop()
 		position -= Vector2(0,speed * delta)
 		speed -= 400 * delta
 	if moving:
