@@ -31,7 +31,8 @@ const finalTicketPrice = 200
 var fontSize = 50.0
 @export var flashMode = true
 @onready var flashLabel = $Monitor/Terminal/FlashLabel
-@onready var FundsLabel = $Monitor/Terminal/Elevator/ShopLabel
+@onready var FundsLabel = $Monitor/Header/HBox/Funds
+@onready var ShopLabel = $Monitor/Terminal/Elevator/ShopLabel
 @onready var ArclightCheckbox = $Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightCheckBox
 @onready var FlamethrowerCheckbox = $Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerCheckBox
 
@@ -69,10 +70,10 @@ func _ready():
 	if Global.armModule != ArmModuleHandler.MODULE.None:
 		match Global.armModule:
 			ArmModuleHandler.MODULE.Arclight:
-				_on_arc_light_check_box_pressed()
+				ArclightCheckbox.button_pressed=true
 				#$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightCheckBox.set_pressed(true)
 			ArmModuleHandler.MODULE.Flamethrower:
-				_on_flame_thrower_check_box_pressed()
+				FlamethrowerCheckbox.button_pressed=true
 				#$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerCheckBox.set_pressed(true)
 			_:
 				pass
@@ -92,7 +93,9 @@ func _ready():
 	updateLabels()
 
 func generateContracts():
+	contracts = []
 	contractList = $Monitor/Terminal/ContractsView/Contracts
+	contractList.clear()
 	var scenarioList = JSON.parse_string(FileAccess.open(SCENARIOLIST,FileAccess.READ).get_as_text())
 	var riskList = JSON.parse_string(FileAccess.open(RISKLIST,FileAccess.READ).get_as_text())
 	
@@ -153,7 +156,8 @@ func updateLabels():
 	if contracts.size() > 0:
 		$Monitor/Terminal/Elevator/HBoxContainer2/ProfitLabel.text = "Expected profit: "+str(contracts[selectedContract].pay*cargoNum)+"$"
 	$Monitor/Header/HBox/Username.text = "   User: "+Global.username
-	FundsLabel.text = "SHOP\nCurrent Account Balance: "+str(Global.funds)+"$"
+	FundsLabel.text = "Current Account Balance: "+str(Global.funds)+"$"
+	ShopLabel.text = "SHOP\nCurrent Account Balance: "+str(Global.funds)+"$"
 	$Monitor/Terminal/Elevator/Fuel/AmountLabel.text = "( "+str(Global.countItem(Item.TYPE.Fuel))+" )"
 	$Monitor/Terminal/Elevator/ContractCargo/AmountLabel.text = "( "+str(Global.countItem(Item.TYPE.Cargo))+" )"
 	$Monitor/Terminal/Elevator/Scrap/AmountLabel.text = "( "+str(Global.countItem(Item.TYPE.Scrap))+" )"
@@ -215,6 +219,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("Debug"):
 		Global.addFunds(200)
 		updateLabels()
+	if Input.is_action_just_pressed("Refresh") && $Monitor/Terminal/ContractsView.visible:
+		_on_reload_contracts_pressed()
 	if flashMode:
 		if(fontSize > 20):
 			fontSize -= delta*25
@@ -340,6 +346,7 @@ func _on_accept_button_pressed():
 		beep()
 		Global.currentContract = contracts[selectedContract]
 		$Monitor/Terminal/ContractInspector.hide()
+		$Monitor/Header/HBox/Funds.hide()
 		$Monitor/Terminal/Elevator.show()
 	pass # Replace with function body.
 
@@ -362,6 +369,7 @@ func _on_arc_light_buy_button_pressed():
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightBuyButton.hide()
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/InfoLabel.show()
 		Audio.playSfx(KATSCHING)
+		ArclightCheckbox.button_pressed=true
 		_on_arc_light_check_box_pressed()
 	else:
 		Audio.playSfx(ERROR)
@@ -376,6 +384,7 @@ func _on_flame_thrower_buy_button_pressed():
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerBuyButton.hide()
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/InfoLabel.show()
 		Audio.playSfx(KATSCHING)
+		FlamethrowerCheckbox.button_pressed=true
 		_on_flame_thrower_check_box_pressed()
 	else:
 		Audio.playSfx(ERROR)
@@ -424,4 +433,15 @@ func _on_refuel_button_pressed():
 		$Monitor/Terminal/Elevator/HBoxContainer/RefuelButton.set_disabled(true)
 	else:
 		Audio.playSfx(ERROR)
+	pass # Replace with function body.
+
+
+func _on_reload_contracts_pressed():
+	if(Global.removeFunds(50)):
+		generateContracts()
+		updateLabels()
+		Audio.playSfx(KATSCHING)
+	else:
+		Audio.playSfx(ERROR)
+		$Monitor/Terminal/ContractsView/ContractsHeader/ReloadContracts.set_disabled(true)
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cdejgb0kj4otg"]
+[gd_scene load_steps=26 format=3 uid="uid://cdejgb0kj4otg"]
 
 [ext_resource type="Script" path="res://Scripts/contractTerminal.gd" id="1_5xgiu"]
 [ext_resource type="Texture2D" uid="uid://ca5d53iyk42sp" path="res://Assets/Sprites/UI/Contract.png" id="2_03vra"]
@@ -9,7 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://ch85iosb86tbj" path="res://Assets/Sprites/UI/PostIt.png" id="5_cvmym"]
 [ext_resource type="Texture2D" uid="uid://dg3fsl50kignv" path="res://Assets/Sprites/UI/CRTDitheredBetter.png" id="6_p5uqp"]
 [ext_resource type="FontFile" uid="uid://chq2qqlffg26p" path="res://Fonts/Mont-HeavyDEMO.otf" id="7_2k8x0"]
+[ext_resource type="Texture2D" uid="uid://d0hniaj2mpdyw" path="res://Assets/Sprites/UI/Reload.png" id="8_kypkc"]
 [ext_resource type="Texture2D" uid="uid://d4fvj3u3xidli" path="res://Assets/Sprites/InteriorObjects/gas_can.png" id="9_gp5gu"]
+[ext_resource type="Texture2D" uid="uid://cqtcyybpcivt8" path="res://Assets/Sprites/UI/ReloadHover3.png" id="9_lnub1"]
+[ext_resource type="Texture2D" uid="uid://ci2wfv3dqbpq" path="res://Assets/Sprites/UI/ReloadHover2.png" id="10_ai77g"]
 [ext_resource type="Texture2D" uid="uid://87nwbe24kw8j" path="res://Assets/Sprites/InteriorObjects/scrap.png" id="10_y5126"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_migvv"]
@@ -29,6 +32,21 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="Animation" id="Animation_rmpxu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Monitor/Terminal/Elevator/HBoxContainer2/ProfitJiggleSeperator:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_mdgd8"]
 resource_name = "profit"
 length = 0.3
@@ -43,21 +61,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(40, 0), Vector2(70, 0), Vector2(40, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_rmpxu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Monitor/Terminal/Elevator/HBoxContainer2/ProfitJiggleSeperator:custom_minimum_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_bbi3o"]
@@ -194,7 +197,6 @@ theme_override_constants/separation = 256
 theme_override_styles/separator = SubResource("StyleBoxEmpty_klupq")
 
 [node name="Funds" type="Label" parent="Monitor/Header/HBox"]
-visible = false
 layout_mode = 2
 text = "Current Account Balance: 0$"
 
@@ -254,7 +256,13 @@ layout_mode = 2
 
 [node name="MenuName" type="Label" parent="Monitor/Terminal/ContractsView/ContractsHeader"]
 layout_mode = 2
-text = "Contracts"
+text = "Contracts (Reload 50$)"
+
+[node name="ReloadContracts" type="TextureButton" parent="Monitor/Terminal/ContractsView/ContractsHeader"]
+layout_mode = 2
+texture_normal = ExtResource("8_kypkc")
+texture_hover = ExtResource("9_lnub1")
+texture_disabled = ExtResource("10_ai77g")
 
 [node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/ContractsView"]
 layout_mode = 2
@@ -645,6 +653,7 @@ stretch_mode = 3
 metadata/_edit_lock_ = true
 
 [connection signal="text_submitted" from="Monitor/Terminal/LogInContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="Monitor/Terminal/ContractsView/ContractsHeader/ReloadContracts" to="." method="_on_reload_contracts_pressed"]
 [connection signal="item_clicked" from="Monitor/Terminal/ContractsView/Contracts" to="." method="_on_contract_item_list_item_clicked"]
 [connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/AcceptButton" to="." method="_on_accept_button_pressed"]

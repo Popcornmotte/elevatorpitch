@@ -34,7 +34,7 @@ var modulesUnlocked = [false, false]
 var tutorialsCompleted =[false, false, true, true]
 # In order: Movement, Bombs, Dispenser, Fueling, Armstation, Chutes, Hatch
 enum TUTORIAL_INDICES{MOVEMENT,BOMBS,DISPENSER,FUELING,ARMSTATION,CHUTES,HATCH,BRAKE,REPAIR,FLING,SCRAPPING,NET}
-var animatedTutorialsCompleted=[true, false, false, true,false,false,false,false,false,false,false,false]
+var animatedTutorialsCompleted=[true, false, false, true, false, false, false, false, false, false, false, false]
 
 # AnarchyContracts completed
 var anarchyContractsIndex = 1
