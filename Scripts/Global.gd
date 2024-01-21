@@ -110,6 +110,7 @@ func gameOver():
 	modulesUnlocked = [false, false]
 	level = null
 	username = ""
+	armModule = ArmModuleHandler.MODULE.None
 	saveGame()
 
 func winGame(_ending):
