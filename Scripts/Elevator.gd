@@ -38,10 +38,18 @@ var heat=0
 var warningBrokenModules=false
 const REPAIRWARNING = preload("res://Assets/Audio/sfx/repairTimer.wav")
 var explosion = preload("res://Scenes/Objects/explosion.tscn")
+var explosionAmount=5
+var explosionsTakenPlace=0
 
 func _enter_tree():
 	Global.elevator = self
 
+func spawnExplosion():
+	var newExplosion = explosion.instantiate()
+	newExplosion.global_position = global_position+Vector2(randf_range(-100,100),randf_range(-100,100))
+	get_parent().call_deferred("add_child",newExplosion)
+				
+				
 func dropElevator(gameOver=false):#drops the elvator for example on finished game
 	if(get_parent().get_node("LevelCam")):#otherwise we are still in the hangar
 		dropping=true
@@ -53,9 +61,7 @@ func dropElevator(gameOver=false):#drops the elvator for example on finished gam
 		$HullBody.get_node("Hull").visible=true#make interior invisible when dropping
 		get_parent().spawnFadeOut()
 		if gameOver:
-			var newExplosion = explosion.instantiate()
-			newExplosion.global_position = global_position
-			get_parent().call_deferred("add_child",newExplosion)
+			$ExplosionTimer.start()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control(controlArms)
@@ -244,3 +250,12 @@ func _on_end_timer_timeout():
 	dropping=true
 	sfxWarning.stop()
 	dropElevator(true)#activate gameover scene
+
+
+func _on_explosion_timer_1_timeout():
+	explosionsTakenPlace+=1
+	if explosionsTakenPlace<explosionAmount:
+		$ExplosionTimer.start()
+		spawnExplosion()
+
+
