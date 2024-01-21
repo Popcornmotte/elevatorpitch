@@ -42,6 +42,7 @@ var brakeObject:Node2D
 var refuelEngineObject:Node2D
 var jetpack = false
 var lerpFactor = 0.3
+var repairing=false
 @export var health=5
 
 func _ready():
@@ -175,6 +176,11 @@ func toggleJetpack(state : bool):
 		$jetpackParticles.emitting = false
 		$jetpackSound.stop()
 
+#needed when reparing outside of elevator
+func reenableGun():
+	if jetpack:
+		$Gun.setEnabled(true)
+	
 func move(direction, vertical = 0.0):
 	if velocity.x >=0:
 		flipAnimation(true)
@@ -182,23 +188,32 @@ func move(direction, vertical = 0.0):
 		flipAnimation(false)
 		
 	if direction or vertical:
-		if is_on_floor():
-			sprite.play("walk")
-			playPlayerSound(WALKINGSOUND)
+		if repairing:
+			sprite.play("repair")
+			$Gun.setEnabled(false)
 		else:
-			sprite.play("jetpack")
+			if is_on_floor():
+				sprite.play("walk")
+				playPlayerSound(WALKINGSOUND)
+			else:
+				sprite.play("jetpack")
 		#allow the player to also move mid jump
 		velocity.x = lerpf(velocity.x, direction*speed, lerpFactor)
 		if jetpack:
 			velocity.y = lerpf(velocity.y,vertical * speed, lerpFactor)
 		
 	else:
-		if is_on_floor():
-			sprite.play("idle")
-		velocity.x = lerpf(velocity.x,0.0,lerpFactor)
-		if jetpack:
-			sprite.play("jetpackIdle")
-			velocity.y = lerpf(velocity.y,0.0,lerpFactor)
+		if repairing:
+			sprite.play("repair")
+			$Gun.setEnabled(false)
+			return
+		else:
+			if is_on_floor():
+				sprite.play("idle")
+			velocity.x = lerpf(velocity.x,0.0,lerpFactor)
+			if jetpack:
+				sprite.play("jetpackIdle")
+				velocity.y = lerpf(velocity.y,0.0,lerpFactor)
 
 func setMovementParent(newParent : Node2D):
 	movementParent = newParent
@@ -228,10 +243,11 @@ func removeFuel(wasted : float):#called when carrying fuel and refuelled
 
 func fall(direction,delta):
 	velocity.y += gravity * delta
-	if jetpack:
-		sprite.play("idle")
-	else:
-		sprite.play("jump")
+	if(!repairing):
+		if jetpack:
+			sprite.play("idle")
+		else:
+			sprite.play("jump")
 
 	#cap falling speed
 	if velocity.y>maxFallingSpeed:
@@ -279,10 +295,16 @@ func _process(delta):
 				refuelEngineObject.startRefuel()
 	
 		if carrying and  carryType==Item.TYPE.Scrap and Input.is_action_pressed("repair") and interactionObject:
+			$Gun.setEnabled(false)
 			interactionObject.repair()
+			scrapSprite.visible=false
+			repairing=true
 		
 		if carrying and  carryType==Item.TYPE.Scrap and Input.is_action_just_released("repair") and interactionObject:
 			interactionObject.pauseRepair()
+			$Gun.setEnabled(true)
+			scrapSprite.visible=true
+			repairing=false
 			
 		if dispenserObject and Input.is_action_just_pressed("down"):
 			dispenserObject.switchDispenseType()
