@@ -324,6 +324,8 @@ func _physics_process(delta):
 
 func _on_interaction_area_area_entered(area):
 	if area.owner and area.owner.name=="Dispenser":
+		if Global.level!=null:
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.DISPENSER)
 		dispenserObject=area.owner #special case, as pressing s will change dispense type
 	if area.owner and area.owner.name=="Brake":
 		brakeObject=area.owner

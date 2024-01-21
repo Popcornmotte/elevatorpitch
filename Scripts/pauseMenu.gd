@@ -1,11 +1,11 @@
 extends Control
 
-@onready var masterLabel = $Polygon2D/MarginContainer/VBoxContainer/MasterVolumeLabel
-@onready var masterSlider = $Polygon2D/MarginContainer/VBoxContainer/MarginContainer/MasterVolumeSlider
-@onready var musicLabel = $Polygon2D/MarginContainer/VBoxContainer/MusicVolumeLabel
-@onready var musicSlider = $Polygon2D/MarginContainer/VBoxContainer/MarginContainer2/MusicVolumeSlider
-@onready var effectsLabel = $Polygon2D/MarginContainer/VBoxContainer/EffectsVolumeLabel
-@onready var effectsSlider = $Polygon2D/MarginContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider
+@onready var masterLabel = $Options/OptionsContainer/VBoxContainer/MasterVolumeLabel
+@onready var masterSlider = $Options/OptionsContainer/VBoxContainer/MarginContainer/MasterVolumeSlider
+@onready var musicLabel = $Options/OptionsContainer/VBoxContainer/MusicVolumeLabel
+@onready var musicSlider = $Options/OptionsContainer/VBoxContainer/MarginContainer2/MusicVolumeSlider
+@onready var effectsLabel = $Options/OptionsContainer/VBoxContainer/EffectsVolumeLabel
+@onready var effectsSlider = $Options/OptionsContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider
 
 @export var MainMenuVersion = false
 # Called when the node enters the scene tree for the first time.
@@ -24,22 +24,33 @@ func _ready():
 	else:
 		$CRT_shader.hide()
 		$pauseSprite.hide()
-		$Polygon2D/MarginContainer/VBoxContainer/ButtonBox/QuitButton.text = "Back"
+		$Options/OptionsContainer/VBoxContainer/ButtonBox/QuitButton.text = "Back"
 	
 	pass # Replace with function body.
 
-func switch():
+func switch( tutorial = -1 ):
 	if visible:
 		$WhiteNoisePlayer.stop()
-
 		hide()
 		get_tree().paused = false
 		Global.saveGame()
 	else:
-		Global.saveGame()
+		print("Tried Switch(). tutorial argument: "+str(tutorial))
+		print("Global.animatedTutorialsCompleted: "+str(Global.animatedTutorialsCompleted))
+		if tutorial >= 0 :
+			
+			if !Global.animatedTutorialsCompleted[tutorial]:
+				$Tutorials.show()
+				$Tutorials.loadTutorial(tutorial)
+				$Options/OptionsContainer.hide()
+				Global.animatedTutorialsCompleted[tutorial]=true
+			else:
+				return
+		else:
+			$Tutorials.hide()
+			$Options/OptionsContainer.show()
 		if !MainMenuVersion:
 			$WhiteNoisePlayer.play()
-
 		show()
 		get_tree().paused = true
 	pass
@@ -77,4 +88,9 @@ func _on_effects_volume_slider_value_changed(value):
 	Global.effectsVolume = value #100 turned out to be a little loud...
 	effectsLabel.text = "Effects Volume: "+str(int(value*100))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Effects"), linear_to_db(Global.effectsVolume))
+	pass # Replace with function body.
+
+
+func _on_close_tutorial_button_pressed():
+	switch()
 	pass # Replace with function body.

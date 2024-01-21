@@ -292,10 +292,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uavan"]
 size = Vector2(160, 30)
 
-[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button", "doorAreas")]
+[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button")]
 script = ExtResource("1_7h618")
 crateSpawnArea = NodePath("spawnAreas/crateSpawnArea")
 brake = NodePath("Elevator/interior/Brake")
+
 button = NodePath("ButtonArmStuff/ButtonArm/LowerArm/HatchButton")
 doorAreas = [NodePath("Elevator/interior/Doors/Door4/DoorOpenArea2D"), NodePath("Elevator/interior/Doors/Door3/DoorOpenArea2D")]
 
@@ -750,6 +751,7 @@ collision_mask = 4096
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorial/ArmStationTextTrigger"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_uavan")
+disabled = true
 
 [node name="ArmText" parent="Tutorial" instance=ExtResource("16_nd0oi")]
 position = Vector2(120, -120)
@@ -776,6 +778,15 @@ text = "W/S -> Change speed"
 
 [node name="PauseMenu" parent="." instance=ExtResource("28_f1l3k")]
 
+[node name="TutorialTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="HatchTutorialTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="animation_finished" from="Background/OpenHatch" to="." method="_on_open_hatch_animation_finished"]
 [connection signal="timeout" from="Background/LightBlink" to="." method="_on_light_blink_timeout"]
 [connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
@@ -786,6 +797,8 @@ text = "W/S -> Change speed"
 [connection signal="body_entered" from="ButtonArmStuff/ButtonArm/LowerArm/HatchButton/Area2D" to="Tutorial/BrakeText" method="_on_area_2d_body_entered"]
 [connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmStationText" method="on_body_entered"]
 [connection signal="body_shape_entered" from="Tutorial/ArmStationTextTrigger" to="Tutorial/ArmText" method="on_body_entered"]
+[connection signal="timeout" from="TutorialTimer" to="." method="_on_tutorial_timer_timeout"]
+[connection signal="timeout" from="HatchTutorialTimer" to="." method="_on_hatch_tutorial_timer_timeout"]
 
 [editable path="Elevator"]
 [editable path="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/ModuleAttachment"]

@@ -32,7 +32,6 @@ func _ready():
 		spawnPos.y = randf_range(spawnAreaRect.position.y, spawnAreaRect.position.y + spawnAreaRect.size.y)
 		newCrate.global_position = spawnPos + crateSpawnArea.global_position
 		takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
-	
 	pass # Replace with function body.
 
 func onHatchButtonHit():
@@ -77,6 +76,7 @@ func _process(delta):
 			if crate != null:
 				remainingCrates += 1
 		if remainingCrates == 0:
+			$HatchTutorialTimer.start()
 			$ButtonArmAnim.play("deployButton")
 			buttonDeployed = true
 	if hatchOpen and !elevatorRising and Global.elevator.moving:
@@ -93,3 +93,16 @@ func _on_light_blink_timeout():
 	redLight = !redLight
 	$Background/ParallaxBG/Lit.visible = redLight
 	$Background/ParallaxBG/Unlit.visible = !redLight
+
+
+func _on_tutorial_timer_timeout():
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.MOVEMENT)
+
+
+func _on_hatch_tutorial_timer_timeout():
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.HATCH)
+
+
+func _on_open_hatch_animation_finished(anim_name):
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.BRAKE)
+	pass

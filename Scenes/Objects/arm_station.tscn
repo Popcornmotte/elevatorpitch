@@ -26,5 +26,10 @@ visible = false
 position = Vector2(0, 13)
 texture = ExtResource("3_ver85")
 
+[node name="ChuteTutorialTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="body_entered" from="ArmStationArea" to="." method="_on_arm_station_area_body_entered"]
 [connection signal="body_exited" from="ArmStationArea" to="." method="_on_arm_station_area_body_exited"]
+[connection signal="timeout" from="ChuteTutorialTimer" to="." method="_on_chute_tutorial_timer_timeout"]

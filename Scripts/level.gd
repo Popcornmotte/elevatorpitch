@@ -16,7 +16,7 @@ var elevatorDropping=false
 @onready var enemies = [D_BARREL,D_RIFLE,D_SAW,D_ROCKET]
 @onready var LevelFinish=get_node("LevelFinish")
 @onready var gameOverText=get_node("GameOver")
-@export var finishHeight=50
+var finishHeight=50
 var cargoCount = 0
 var gainedFunds = 0
 var lastHeight = 0
@@ -31,6 +31,7 @@ func _ready():
 	gameOverText.hide()
 	Global.elevator.fuel = max(Global.elevator.fuel,Global.fuelBetweenLevels)
 	Global.elevator.moving=true
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.NET)
 
 func setFinishHeight():
 	var destination = Global.currentContract.destination
@@ -50,6 +51,10 @@ func finishedScene():
 	
 func spawnEnemies():
 	combat = true
+	if !Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.FLING]:
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
+	else:
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
 	spawnChance = -1
 	wave += 1
 	#var formation = FORMATION_A.instantiate()
@@ -68,6 +73,7 @@ func spawnEnemies():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(combat):
+
 		if Global.aliveEnemies <= 0:
 			combat = false
 			Global.elevator.brake.turnOffLightOnly()
@@ -139,3 +145,4 @@ func _on_end_timer_timeout():
 func _on_button_pressed():
 	Audio.stopMusic()
 	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
+

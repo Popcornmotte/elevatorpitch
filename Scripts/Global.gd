@@ -30,8 +30,12 @@ var username = ""
 var armModule = ArmModuleHandler.MODULE.None
 # In order: Arclight, Flamethrower
 var modulesUnlocked = [false, false]
-# In order: Hangar, Fuel, Enemies, Repair
-var tutorialsCompleted = [false, false, false, false]
+# In order: Movement, Bombs, Dispenser, Fueling, Armstation, Chutes, Hatch
+var tutorialsCompleted =[false, false, true, true]
+# In order: Movement, Bombs, Dispenser, Fueling, Armstation, Chutes, Hatch
+enum TUTORIAL_INDICES{MOVEMENT,BOMBS,DISPENSER,FUELING,ARMSTATION,CHUTES,HATCH,BRAKE,REPAIR,FLING,SCRAPPING,NET}
+var animatedTutorialsCompleted=[true, false, false, true,false,false,false,false,false,false,false,false]
+
 # AnarchyContracts completed
 var anarchyContractsIndex = 1
 var maxAnarchyIndex = 7
@@ -124,6 +128,7 @@ func makeSaveDict():
 		"musicVolume" : musicVolume,
 		"effectsVolume" : effectsVolume,
 		"tutorialsCompleted" : tutorialsCompleted,
+		"animatedTutorialsCompleted" : animatedTutorialsCompleted,
 		"modulesUnlocked" : modulesUnlocked,
 		"newUser" : newUser,
 		"username" : username,
@@ -161,6 +166,7 @@ func loadGame():
 			musicVolume = loadDataFromDictSafe(dict,musicVolume, "musicVolume")
 			effectsVolume = loadDataFromDictSafe(dict,effectsVolume, "effectsVolume")
 			tutorialsCompleted = loadDataFromDictSafe(dict,tutorialsCompleted, "tutorialsCompleted")
+			animatedTutorialsCompleted = loadDataFromDictSafe(dict,animatedTutorialsCompleted, "animatedTutorialsCompleted")
 			modulesUnlocked = loadDataFromDictSafe(dict,modulesUnlocked,"modulesUnlocked")
 			newUser = loadDataFromDictSafe(dict,newUser,"newUser")
 			username = loadDataFromDictSafe(dict,username,"username")

@@ -23,6 +23,8 @@ func use():
 
 func _on_arm_station_area_body_entered(body):
 	if body.name == "player":
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ARMSTATION)
+		$ChuteTutorialTimer.start()
 		playerPresent = true
 	pass # Replace with function body.
 
@@ -30,3 +32,7 @@ func _on_arm_station_area_body_entered(body):
 func _on_arm_station_area_body_exited(body):
 	if body.name == "player":
 		playerPresent = false
+
+
+func _on_chute_tutorial_timer_timeout():
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.CHUTES)
