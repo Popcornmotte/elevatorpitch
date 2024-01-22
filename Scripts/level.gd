@@ -33,7 +33,8 @@ func _ready():
 		$WaveTimer.set_wait_time(10)
 	else:
 		$WaveTimer.set_wait_time(5)
-		Global.optionsMenu.switch(Global.animatedTutorialsCompleted.ARMMODULE)
+		if Global.modulesUnlocked[0] or Global.modulesUnlocked[1]:
+			Global.optionsMenu.switch(Global.animatedTutorialsCompleted.ARMMODULE)
 	maxRocketeersAtOnce = Global.currentContract.risk + 1
 	Global.elevator.get_node("interior/Dispenser").locked=false
 	gameOverText.hide()
