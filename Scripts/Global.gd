@@ -53,6 +53,13 @@ func _enter_tree():
 
 func _ready():
 	revolutionists = REVOLUTIONISTS[randi()%REVOLUTIONISTS.size()]
+	for i in range(modulesUnlocked.size()):
+		if modulesUnlocked[i]:
+			if i == 0:
+				armModule = ArmModuleHandler.MODULE.Arclight
+			elif i == 1:
+				armModule = ArmModuleHandler.MODULE.Flamethrower
+			break
 
 func addFunds(amount:int):
 	funds += amount
