@@ -9,6 +9,8 @@ enum OPERATIONMODE {Normal, Damaged, Broken}
 var update=true
 
 func damage(damage:int):
+	if self.name!="Brake":#so that tutorial for outside repairs can play
+		Global.elevator.outsideRepairNeeded=true
 	if health<0:
 		return
 	health-=damage

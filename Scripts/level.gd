@@ -33,6 +33,7 @@ func _ready():
 		$WaveTimer.set_wait_time(10)
 	else:
 		$WaveTimer.set_wait_time(5)
+		Global.optionsMenu.switch(Global.animatedTutorialsCompleted.ARMMODULE)
 	maxRocketeersAtOnce = Global.currentContract.risk + 1
 	Global.elevator.get_node("interior/Dispenser").locked=false
 	gameOverText.hide()
@@ -115,6 +116,12 @@ func _process(delta):
 			Global.elevator.brake.turnOffLightOnly()
 			Global.elevator.brake.unlock()
 			$WaveTimer.start()
+	else:#only play tutorials when no combat in progress, otherwise player will be confused
+		if Global.elevator.outsideRepairNeeded:
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.OUTSIDEREPAIR)
+		if Global.elevator.refuelNeeded:
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FUELING)
+		
 	#check height for finish
 	if not finishedLevel and Global.height>finishHeight:
 		finishedScene()
