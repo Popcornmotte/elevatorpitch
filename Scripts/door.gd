@@ -42,4 +42,7 @@ func _on_jetpack_off_area_body_entered(body):
 	if jetpackToggle:
 		if body.name == "player":
 			body.toggleJetpack(false)
+	if body.name == "player":
+		print("dispenser tutorial ",Global.TUTORIAL_INDICES.DISPENSER, Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.DISPENSER])
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.DISPENSER)
 	pass # Replace with function body.
