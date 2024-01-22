@@ -701,14 +701,16 @@ rotation = -3.14159
 [node name="RestingPos" type="Marker2D" parent="Arms/Targets"]
 position = Vector2(0, -256)
 
-[node name="RightTarget" parent="Arms/Targets" node_paths=PackedStringArray("restingPosition", "claw") instance=ExtResource("21_fuon1")]
+[node name="RightTarget" parent="Arms/Targets" node_paths=PackedStringArray("restingPosition", "claw", "otherTarget") instance=ExtResource("21_fuon1")]
 restingPosition = NodePath("../RestingPos")
 claw = NodePath("../../PhysicalArmRight/UpperArm/LowerArm/Claw")
+otherTarget = NodePath("../LeftTarget")
 
-[node name="LeftTarget" parent="Arms/Targets" node_paths=PackedStringArray("restingPosition", "claw") instance=ExtResource("21_fuon1")]
+[node name="LeftTarget" parent="Arms/Targets" node_paths=PackedStringArray("restingPosition", "claw", "otherTarget") instance=ExtResource("21_fuon1")]
 restingPosition = NodePath("../RestingPos")
 rightTarget = false
 claw = NodePath("../../PhysicalArmLeft/UpperArm/LowerArm/Claw")
+otherTarget = NodePath("../RightTarget")
 
 [node name="RightArmDeadzoneRight" type="StaticBody2D" parent="Arms"]
 position = Vector2(96, 0)
