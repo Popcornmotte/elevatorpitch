@@ -32,6 +32,7 @@ var fontSize = 50.0
 @export var flashMode = true
 @onready var flashLabel = $Monitor/Terminal/FlashLabel
 @onready var FundsLabel = $Monitor/Header/HBox/Funds
+@onready var ShopLabel = $Monitor/Terminal/Elevator/ShopLabel
 @onready var ArclightCheckbox = $Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightCheckBox
 @onready var FlamethrowerCheckbox = $Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerCheckBox
 
@@ -42,6 +43,7 @@ var flashText = ["SELECT A CONTRACT", "CLIMB UP! DEFEND!", "FALL BACK DOWN!"]
 var contracts = []
 var selectedContract : int
 var contractList
+var guaranteeEasyContract = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var file = FileAccess.open(CARGOLIST, FileAccess.READ)
@@ -68,13 +70,17 @@ func _ready():
 	if Global.armModule != ArmModuleHandler.MODULE.None:
 		match Global.armModule:
 			ArmModuleHandler.MODULE.Arclight:
-				$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightCheckBox.set_pressed(true)
+				ArclightCheckbox.button_pressed=true
+				#$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightCheckBox.set_pressed(true)
 			ArmModuleHandler.MODULE.Flamethrower:
-				$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerCheckBox.set_pressed(true)
+				FlamethrowerCheckbox.button_pressed=true
+				#$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerCheckBox.set_pressed(true)
 			_:
 				pass
 	
 	if (!Global.newUser):
+		guaranteeEasyContract = false
+		flashMode = false
 		booting = false
 		$SkipHint.hide()
 		$Monitor/Terminal/LogInContainer.hide()
@@ -87,11 +93,18 @@ func _ready():
 	updateLabels()
 
 func generateContracts():
+	contracts = []
 	contractList = $Monitor/Terminal/ContractsView/Contracts
+	contractList.clear()
 	var scenarioList = JSON.parse_string(FileAccess.open(SCENARIOLIST,FileAccess.READ).get_as_text())
 	var riskList = JSON.parse_string(FileAccess.open(RISKLIST,FileAccess.READ).get_as_text())
+	
 	for i in range(4):
-		var riskIndex = str(randi_range(1, riskList.get("0")-1))
+		var riskIndex
+		if guaranteeEasyContract:
+			riskIndex = "1"
+		else:
+			riskIndex = str(randi_range(1, riskList.get("0")-1))
 		var cargo = cargoList[randi()%cargoList.size()]
 		var destinationIndex = randi()%(DESTINATIONS.size()-1)
 		var contractDescription = scenarioList.get(str(randi_range(1,scenarioList.get("0")-1)))+riskList.get(riskIndex).get("text")
@@ -102,17 +115,18 @@ func generateContracts():
 		contract.shortDescription = "Deliver "+cargo+" to "+DESTINATIONS[destinationIndex]
 		contracts.append(contract)
 		contractList.add_item(contract.shortDescription, getIcon(contract.risk))
-	
-	var anarchyList = JSON.parse_string(FileAccess.open(ANARCHYLIST,FileAccess.READ).get_as_text()) 
-	var anarchyContractDescr = anarchyList.get(str(Global.anarchyContractsIndex))
-	anarchyContractDescr = anarchyContractDescr.replace("[destination]", DESTINATIONS[randi()%DESTINATIONS.size()])
-	anarchyContractDescr = anarchyContractDescr.replace("[revolutionists]", Global.revolutionists)
-	anarchyContractDescr = anarchyContractDescr.replace("[username]",Global.username)
-	var anarchyContract = Contract.new(anarchyContractDescr,3)
-	anarchyContract.shortDescription = "[REDACTED] #"+str(Global.anarchyContractsIndex)
-	anarchyContract.pay = 5
-	contracts.append(anarchyContract)
-	contractList.add_item(anarchyContract.shortDescription, getIcon(anarchyContract.risk))
+
+	if !guaranteeEasyContract:
+		var anarchyList = JSON.parse_string(FileAccess.open(ANARCHYLIST,FileAccess.READ).get_as_text()) 
+		var anarchyContractDescr = anarchyList.get(str(Global.anarchyContractsIndex))
+		anarchyContractDescr = anarchyContractDescr.replace("[destination]", DESTINATIONS[randi()%DESTINATIONS.size()])
+		anarchyContractDescr = anarchyContractDescr.replace("[revolutionists]", Global.revolutionists)
+		anarchyContractDescr = anarchyContractDescr.replace("[username]",Global.username)
+		var anarchyContract = Contract.new(anarchyContractDescr,3)
+		anarchyContract.shortDescription = "[REDACTED] #"+str(Global.anarchyContractsIndex)
+		anarchyContract.pay = 5
+		contracts.append(anarchyContract)
+		contractList.add_item(anarchyContract.shortDescription, getIcon(anarchyContract.risk))
 	
 	var finalDescription = "With this contract you buy a ticket to Elysium Station for the purpose of Retirement among the stars."
 	var finalContract = Contract.new(finalDescription,4)
@@ -140,9 +154,10 @@ func getIcon(risk):
 func updateLabels():
 	var cargoNum = Global.countItem(Item.TYPE.Cargo)
 	if contracts.size() > 0:
-		$Monitor/Terminal/Elevator/ProfitLabel.text = "Expected profit: "+str(contracts[selectedContract].pay*cargoNum)+"$"
-	$Monitor/Header/HBox/Username.text = "User: "+Global.username
+		$Monitor/Terminal/Elevator/HBoxContainer2/ProfitLabel.text = "Expected profit: "+str(contracts[selectedContract].pay*cargoNum)+"$"
+	$Monitor/Header/HBox/Username.text = "   User: "+Global.username
 	FundsLabel.text = "Current Account Balance: "+str(Global.funds)+"$"
+	ShopLabel.text = "SHOP\nCurrent Account Balance: "+str(Global.funds)+"$"
 	$Monitor/Terminal/Elevator/Fuel/AmountLabel.text = "( "+str(Global.countItem(Item.TYPE.Fuel))+" )"
 	$Monitor/Terminal/Elevator/ContractCargo/AmountLabel.text = "( "+str(Global.countItem(Item.TYPE.Cargo))+" )"
 	$Monitor/Terminal/Elevator/Scrap/AmountLabel.text = "( "+str(Global.countItem(Item.TYPE.Scrap))+" )"
@@ -155,8 +170,9 @@ func flashNext():
 	if index >= flashText.size():
 		flashMode = false
 		flashLabel.hide()
-		$Monitor/Header.show()
-		$Monitor/Terminal/ContractsView.show()
+		#$Monitor/Header.show()
+		#$Monitor/Terminal/ContractsView.show()
+		$Monitor/Terminal/LogInContainer.show()
 		Audio.playSfx(FLASHBULB)
 	else:
 		flashLabel.text = flashText[index]
@@ -203,6 +219,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("Debug"):
 		Global.addFunds(200)
 		updateLabels()
+	if Input.is_action_just_pressed("Refresh") && $Monitor/Terminal/ContractsView.visible:
+		_on_reload_contracts_pressed()
 	if flashMode:
 		if(fontSize > 20):
 			fontSize -= delta*25
@@ -225,6 +243,8 @@ func _process(delta):
 func incrementResource(itemType : Item.TYPE):
 	if(Global.addToInventory(Item.new(itemType))):
 		Audio.playSfx(CLICK)
+		if itemType == Item.TYPE.Cargo:
+			$AnimationPlayer.play("profit")
 		updateLabels()
 	else:
 		Audio.playSfx(ERROR)
@@ -234,6 +254,8 @@ func decrementResource(itemType : Item.TYPE):
 		Audio.playSfx(ERROR)
 		return
 	if(Global.takeFromInventory(itemType) != null):
+		if itemType == Item.TYPE.Cargo:
+			$AnimationPlayer.play("unprofit")
 		updateLabels()
 		Audio.playSfx(CLICK)
 	else:
@@ -324,6 +346,7 @@ func _on_accept_button_pressed():
 		beep()
 		Global.currentContract = contracts[selectedContract]
 		$Monitor/Terminal/ContractInspector.hide()
+		$Monitor/Header/HBox/Funds.hide()
 		$Monitor/Terminal/Elevator.show()
 	pass # Replace with function body.
 
@@ -346,6 +369,8 @@ func _on_arc_light_buy_button_pressed():
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/ArcLightBuyButton.hide()
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/ArcLightBox/InfoLabel.show()
 		Audio.playSfx(KATSCHING)
+		ArclightCheckbox.button_pressed=true
+		_on_arc_light_check_box_pressed()
 	else:
 		Audio.playSfx(ERROR)
 	pass # Replace with function body.
@@ -359,6 +384,8 @@ func _on_flame_thrower_buy_button_pressed():
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/FlameThrowerBuyButton.hide()
 		$Monitor/Terminal/Elevator/Modules/VBoxContainer/FlameThrowerBox/InfoLabel.show()
 		Audio.playSfx(KATSCHING)
+		FlamethrowerCheckbox.button_pressed=true
+		_on_flame_thrower_check_box_pressed()
 	else:
 		Audio.playSfx(ERROR)
 	pass # Replace with function body.
@@ -406,4 +433,15 @@ func _on_refuel_button_pressed():
 		$Monitor/Terminal/Elevator/HBoxContainer/RefuelButton.set_disabled(true)
 	else:
 		Audio.playSfx(ERROR)
+	pass # Replace with function body.
+
+
+func _on_reload_contracts_pressed():
+	if(Global.removeFunds(50)):
+		generateContracts()
+		updateLabels()
+		Audio.playSfx(KATSCHING)
+	else:
+		Audio.playSfx(ERROR)
+		$Monitor/Terminal/ContractsView/ContractsHeader/ReloadContracts.set_disabled(true)
 	pass # Replace with function body.

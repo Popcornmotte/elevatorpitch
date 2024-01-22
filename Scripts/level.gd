@@ -13,9 +13,10 @@ var combat = false
 var wave = 1
 var elevatorDropping=false
 @onready var finishedLevel=false
-@onready var enemies = [D_BARREL,D_RIFLE,D_SAW,D_ROCKET]
+@onready var ENEMIES = [D_BARREL,D_RIFLE,D_SAW,D_ROCKET]
 @onready var LevelFinish=get_node("LevelFinish")
 @onready var gameOverText=get_node("GameOver")
+var maxRocketeersAtOnce = 1
 var finishHeight=50
 var cargoCount = 0
 var gainedFunds = 0
@@ -27,6 +28,7 @@ func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	maxRocketeersAtOnce = Global.currentContract.risk + 1
 	Global.elevator.get_node("interior/Dispenser").locked=false
 	gameOverText.hide()
 	Global.elevator.fuel = max(Global.elevator.fuel,Global.fuelBetweenLevels)
@@ -51,6 +53,8 @@ func finishedScene():
 	
 func spawnEnemies():
 	combat = true
+	var rocketeers = 0
+	var enemies = ENEMIES
 	if !Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.FLING]:
 		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
 	else:
@@ -62,7 +66,12 @@ func spawnEnemies():
 	lastHeight = Global.height
 	var sign
 	for i in range(randi()%6 + wave + Global.currentContract.risk * 3):
-		var enemy = enemies[randi()%enemies.size()].instantiate()
+		var e =  enemies[randi()%enemies.size()]
+		if e == D_ROCKET:
+			rocketeers+=1
+			if rocketeers >= maxRocketeersAtOnce:
+				enemies.pop_back()
+		var enemy = e.instantiate()
 		if(randi()%2 == 0):
 			sign = 1
 		else:

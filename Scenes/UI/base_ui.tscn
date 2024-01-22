@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cdejgb0kj4otg"]
+[gd_scene load_steps=26 format=3 uid="uid://cdejgb0kj4otg"]
 
 [ext_resource type="Script" path="res://Scripts/contractTerminal.gd" id="1_5xgiu"]
 [ext_resource type="Texture2D" uid="uid://ca5d53iyk42sp" path="res://Assets/Sprites/UI/Contract.png" id="2_03vra"]
@@ -9,6 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://ch85iosb86tbj" path="res://Assets/Sprites/UI/PostIt.png" id="5_cvmym"]
 [ext_resource type="Texture2D" uid="uid://dg3fsl50kignv" path="res://Assets/Sprites/UI/CRTDitheredBetter.png" id="6_p5uqp"]
 [ext_resource type="FontFile" uid="uid://chq2qqlffg26p" path="res://Fonts/Mont-HeavyDEMO.otf" id="7_2k8x0"]
+[ext_resource type="Texture2D" uid="uid://d0hniaj2mpdyw" path="res://Assets/Sprites/UI/Reload.png" id="8_kypkc"]
+[ext_resource type="Texture2D" uid="uid://d4fvj3u3xidli" path="res://Assets/Sprites/InteriorObjects/gas_can.png" id="9_gp5gu"]
+[ext_resource type="Texture2D" uid="uid://cqtcyybpcivt8" path="res://Assets/Sprites/UI/ReloadHover3.png" id="9_lnub1"]
+[ext_resource type="Texture2D" uid="uid://ci2wfv3dqbpq" path="res://Assets/Sprites/UI/ReloadHover2.png" id="10_ai77g"]
+[ext_resource type="Texture2D" uid="uid://87nwbe24kw8j" path="res://Assets/Sprites/InteriorObjects/scrap.png" id="10_y5126"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_migvv"]
 animations = [{
@@ -27,6 +32,60 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="Animation" id="Animation_rmpxu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Monitor/Terminal/Elevator/HBoxContainer2/ProfitJiggleSeperator:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mdgd8"]
+resource_name = "profit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Monitor/Terminal/Elevator/HBoxContainer2/ProfitJiggleSeperator:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(40, 0), Vector2(70, 0), Vector2(40, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bbi3o"]
+resource_name = "unprofit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Monitor/Terminal/Elevator/HBoxContainer2/ProfitJiggleSeperator:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(40, 0), Vector2(0, 0), Vector2(40, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1o7ts"]
+_data = {
+"RESET": SubResource("Animation_rmpxu"),
+"profit": SubResource("Animation_mdgd8"),
+"unprofit": SubResource("Animation_bbi3o")
+}
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_klupq"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_gplsq"]
@@ -39,6 +98,8 @@ grow_begin = 8.0
 grow_end = 10.0
 thickness = 3
 vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_odlgu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldsmx"]
 bg_color = Color(0.372549, 0.054902, 0, 1)
@@ -100,6 +161,11 @@ offset_bottom = 906.0
 theme_override_font_sizes/font_size = 30
 text = "Press 'space' to skip boot"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1o7ts")
+}
+
 [node name="Monitor" type="Sprite2D" parent="."]
 position = Vector2(992, 538)
 scale = Vector2(1, 1.0037)
@@ -120,11 +186,10 @@ grow_vertical = 2
 
 [node name="HBox" type="HBoxContainer" parent="Monitor/Header"]
 layout_mode = 2
-alignment = 1
 
 [node name="Username" type="Label" parent="Monitor/Header/HBox"]
 layout_mode = 2
-text = "User: Tav"
+text = "   User: Tav"
 
 [node name="VSeparator" type="VSeparator" parent="Monitor/Header/HBox"]
 layout_mode = 2
@@ -191,7 +256,13 @@ layout_mode = 2
 
 [node name="MenuName" type="Label" parent="Monitor/Terminal/ContractsView/ContractsHeader"]
 layout_mode = 2
-text = "Contracts"
+text = "Contracts (Reload 50$)"
+
+[node name="ReloadContracts" type="TextureButton" parent="Monitor/Terminal/ContractsView/ContractsHeader"]
+layout_mode = 2
+texture_normal = ExtResource("8_kypkc")
+texture_hover = ExtResource("9_lnub1")
+texture_disabled = ExtResource("10_ai77g")
 
 [node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/ContractsView"]
 layout_mode = 2
@@ -261,7 +332,7 @@ layout_mode = 2
 
 [node name="ElevatorHeader" type="Label" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
-text = "Cargo Capacity: 0/16"
+text = "Elevator Inventory Capacity: 0/16"
 
 [node name="HSeparator" type="HSeparator" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
@@ -270,8 +341,13 @@ theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
 [node name="Fuel" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
 
+[node name="TextureRect" type="TextureRect" parent="Monitor/Terminal/Elevator/Fuel"]
+layout_mode = 2
+texture = ExtResource("9_gp5gu")
+expand_mode = 2
+
 [node name="FuelLabel" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(115, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.866667, 0, 0.160784, 1)
 theme_override_colors/font_shadow_color = Color(0.233925, 0.233925, 0.233925, 1)
@@ -285,7 +361,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
 [node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/Fuel"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-text = "Used to fuel elevator engine"
+text = "Canister of reserve fuel"
 
 [node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/Fuel"]
 custom_minimum_size = Vector2(32, 0)
@@ -309,8 +385,13 @@ text = "  [ + ]  "
 [node name="Scrap" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
 
+[node name="TextureRect" type="TextureRect" parent="Monitor/Terminal/Elevator/Scrap"]
+layout_mode = 2
+texture = ExtResource("10_y5126")
+expand_mode = 2
+
 [node name="ScrapLabel" type="Label" parent="Monitor/Terminal/Elevator/Scrap"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(115, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.388235, 0.580392, 0.992157, 1)
 theme_override_colors/font_shadow_color = Color(0.368627, 0.368627, 0.368627, 1)
@@ -324,7 +405,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
 [node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/Scrap"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-text = "Can be used for repairs"
+text = "Can be used to repair broken systems"
 
 [node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/Scrap"]
 custom_minimum_size = Vector2(32, 0)
@@ -353,7 +434,7 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.709804, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.345098, 0.345098, 0.345098, 1)
-text = "Ammo Units"
+text = "Arclight Ammo"
 
 [node name="VSeparator" type="VSeparator" parent="Monitor/Terminal/Elevator/Ammo"]
 custom_minimum_size = Vector2(32, 0)
@@ -363,7 +444,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
 [node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/Ammo"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-text = "Used by Arclight Weapon Module"
+text = "Required for Arclight Weapon Module"
 
 [node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/Ammo"]
 custom_minimum_size = Vector2(32, 0)
@@ -402,7 +483,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_656ej")
 [node name="InfoLabel" type="Label" parent="Monitor/Terminal/Elevator/ContractCargo"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-text = "Deliver at least one cargo crate"
+text = "The Cargo you are contracted to deliver"
 
 [node name="VSeparator2" type="VSeparator" parent="Monitor/Terminal/Elevator/ContractCargo"]
 custom_minimum_size = Vector2(32, 0)
@@ -428,7 +509,14 @@ custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
 
-[node name="ProfitLabel" type="Label" parent="Monitor/Terminal/Elevator"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Monitor/Terminal/Elevator"]
+layout_mode = 2
+
+[node name="ProfitJiggleSeperator" type="VSeparator" parent="Monitor/Terminal/Elevator/HBoxContainer2"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_odlgu")
+
+[node name="ProfitLabel" type="Label" parent="Monitor/Terminal/Elevator/HBoxContainer2"]
 layout_mode = 2
 text = "Expected profit: "
 
@@ -442,9 +530,10 @@ custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_gplsq")
 
-[node name="Label" type="Label" parent="Monitor/Terminal/Elevator"]
+[node name="ShopLabel" type="Label" parent="Monitor/Terminal/Elevator"]
 layout_mode = 2
-text = "SHOP"
+text = "SHOP
+Current Account Balance: 0$"
 horizontal_alignment = 1
 
 [node name="HSeparator6" type="HSeparator" parent="Monitor/Terminal/Elevator"]
@@ -564,6 +653,7 @@ stretch_mode = 3
 metadata/_edit_lock_ = true
 
 [connection signal="text_submitted" from="Monitor/Terminal/LogInContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="Monitor/Terminal/ContractsView/ContractsHeader/ReloadContracts" to="." method="_on_reload_contracts_pressed"]
 [connection signal="item_clicked" from="Monitor/Terminal/ContractsView/Contracts" to="." method="_on_contract_item_list_item_clicked"]
 [connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Monitor/Terminal/ContractInspector/Buttons/AcceptButton" to="." method="_on_accept_button_pressed"]
