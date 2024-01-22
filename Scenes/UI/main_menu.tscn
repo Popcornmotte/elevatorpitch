@@ -178,6 +178,15 @@ text = " [ Press any key to start ] "
 [node name="Pause" parent="PauseMenu" index="0"]
 MainMenuVersion = true
 
+[node name="CloseTutorialButton" parent="PauseMenu/Pause/Tutorials" index="1"]
+layout_mode = 0
+
+[node name="Explanation" parent="PauseMenu/Pause/Tutorials" index="2"]
+layout_mode = 0
+
+[node name="Header" parent="PauseMenu/Pause/Tutorials" index="3"]
+layout_mode = 0
+
 [node name="SaveGame" type="HBoxContainer" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2

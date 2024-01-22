@@ -35,8 +35,6 @@ func switch( tutorial = -1 ):
 		get_tree().paused = false
 		Global.saveGame()
 	else:
-		print("Tried Switch(). tutorial argument: "+str(tutorial))
-		print("Global.animatedTutorialsCompleted: "+str(Global.animatedTutorialsCompleted))
 		if tutorial >= 0 :
 			
 			if !Global.animatedTutorialsCompleted[tutorial]:
