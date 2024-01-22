@@ -38,7 +38,6 @@ func _ready():
 	gameOverText.hide()
 	Global.elevator.fuel = max(Global.elevator.fuel,Global.fuelBetweenLevels)
 	Global.elevator.moving=true
-	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.NET)
 
 func setFinishHeight():
 	var destination = Global.currentContract.destination
@@ -56,23 +55,27 @@ func finishedScene():
 		$LevelCam.make_current()
 		finishedLevel=true
 	
-func spawn(number,types):
+func spawn(number,types,guaranteeRocket=false):
 	var enemies = types
 	var sign
 	var rocketeers = 0
 	for i in range(number):
-			var e =  enemies[randi()%enemies.size()]
-			if e == D_ROCKET:
-				rocketeers+=1
-				if rocketeers >= maxRocketeersAtOnce:
-					enemies.pop_back()
-			var enemy = e.instantiate()
-			if(randi()%2 == 0):
-				sign = 1
-			else:
-				sign =-1
-			enemy.global_position =  Global.elevator.global_position + sign*Vector2(1500-64*i,randi_range(-800,800))
-			add_child(enemy)
+		var e
+		if guaranteeRocket:
+			e=enemies[i%enemies.size()]
+		else:
+			e=enemies[randi()%enemies.size()]
+		if e == D_ROCKET:
+			rocketeers+=1
+			if rocketeers >= maxRocketeersAtOnce:
+				enemies.pop_back()
+		var enemy = e.instantiate()
+		if(randi()%2 == 0):
+			sign = 1
+		else:
+			sign =-1
+		enemy.global_position =  Global.elevator.global_position + sign*Vector2(1500-64*i,randi_range(-800,800))
+		add_child(enemy)
 			
 func spawnEnemies(playTutorials=Global.tutorialLevel):
 	combat = true
@@ -91,7 +94,7 @@ func spawnEnemies(playTutorials=Global.tutorialLevel):
 				spawn(5,[D_SAW,D_BARREL,D_RIFLE])
 			3:
 				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ROCKETS)
-				spawn(6,[D_SAW,D_BARREL,D_RIFLE,D_ROCKET])
+				spawn(6,[D_SAW,D_BARREL,D_RIFLE,D_ROCKET],true)
 				Global.tutorialLevel=false
 		tutorialWaveCounter+=1
 	else:

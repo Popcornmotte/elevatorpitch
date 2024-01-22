@@ -138,6 +138,7 @@ func makeSaveDict():
 		"effectsVolume" : effectsVolume,
 		"tutorialsCompleted" : tutorialsCompleted,
 		"animatedTutorialsCompleted" : animatedTutorialsCompleted,
+		"tutorialLevel" : tutorialLevel,
 		"modulesUnlocked" : modulesUnlocked,
 		"newUser" : newUser,
 		"username" : username,
@@ -176,6 +177,7 @@ func loadGame():
 			effectsVolume = loadDataFromDictSafe(dict,effectsVolume, "effectsVolume")
 			tutorialsCompleted = loadDataFromDictSafe(dict,tutorialsCompleted, "tutorialsCompleted")
 			animatedTutorialsCompleted = loadDataFromDictSafe(dict,animatedTutorialsCompleted, "animatedTutorialsCompleted")
+			tutorialLevel =loadDataFromDictSafe(dict,tutorialLevel,"tutorialLevel")
 			modulesUnlocked = loadDataFromDictSafe(dict,modulesUnlocked,"modulesUnlocked")
 			newUser = loadDataFromDictSafe(dict,newUser,"newUser")
 			username = loadDataFromDictSafe(dict,username,"username")
