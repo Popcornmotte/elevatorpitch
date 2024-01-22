@@ -25,6 +25,7 @@
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="17_epo4g"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="PackedScene" uid="uid://da4m2la28h4n3" path="res://Scenes/Objects/Modules/Arms/moduleAttachment.tscn" id="21_7g4is"]
+[ext_resource type="Texture2D" uid="uid://em8ovy0rq3jl" path="res://Assets/Sprites/FX/cone.png" id="21_56jwc"]
 [ext_resource type="PackedScene" uid="uid://sdnx788wgxud" path="res://Scenes/Objects/arm_target.tscn" id="21_fuon1"]
 [ext_resource type="Texture2D" uid="uid://c5aykdr7678h" path="res://Assets/Sprites/Claws/Test0/TestClaw2.png" id="22_gvx6l"]
 [ext_resource type="Shader" uid="uid://dqaejjhskwfic" path="res://Assets/Shaders/alphaPulse.tres" id="26_3tmyj"]
@@ -671,6 +672,13 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea"]
 shape = SubResource("CircleShape2D_e7x7n")
 
+[node name="PointLight2D" type="PointLight2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw"]
+position = Vector2(6, 0)
+rotation = -1.5708
+texture = ExtResource("21_56jwc")
+offset = Vector2(0, 200)
+texture_scale = 3.0
+
 [node name="RepairArea" parent="Arms/PhysicalArmRight" instance=ExtResource("27_ahenx")]
 visible = false
 z_index = 1
@@ -789,6 +797,12 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/GrabArea"]
 shape = SubResource("CircleShape2D_e7x7n")
+
+[node name="PointLight2D" type="PointLight2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw"]
+rotation = -1.5708
+texture = ExtResource("21_56jwc")
+offset = Vector2(0, 200)
+texture_scale = 3.0
 
 [node name="RepairArea" parent="Arms/PhysicalArmLeft" instance=ExtResource("27_ahenx")]
 visible = false

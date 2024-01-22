@@ -16,6 +16,7 @@ var elevatorDropping=false
 @onready var ENEMIES = [D_BARREL,D_RIFLE,D_SAW,D_ROCKET]
 @onready var LevelFinish=get_node("LevelFinish")
 @onready var gameOverText=get_node("GameOver")
+@export var night = false
 var maxRocketeersAtOnce = 1
 var finishHeight=50
 var cargoCount = 0

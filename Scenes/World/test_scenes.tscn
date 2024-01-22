@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=21 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://76relfo52far" path="res://Scenes/World/climbEnvironment.tscn" id="7_mr16y"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="8_qhk4p"]
 [ext_resource type="FontFile" uid="uid://dgd0hsl0u56xs" path="res://Fonts/m5x7.ttf" id="9_dd0a3"]
+[ext_resource type="Shader" path="res://Shader/simpleFog.gdshader" id="10_frdyw"]
 
 [sub_resource type="Animation" id="Animation_gh5je"]
 resource_name = "FundsWiggle"
@@ -43,8 +44,29 @@ RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.490196)
 RichTextLabel/constants/shadow_outline_size = 0
 RichTextLabel/fonts/normal_font = ExtResource("9_dd0a3")
 
+[sub_resource type="Gradient" id="Gradient_midv0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0q67t"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_seesw"]
+color_ramp = SubResource("Gradient_midv0")
+noise = SubResource("FastNoiseLite_0q67t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x6ass"]
+shader = ExtResource("10_frdyw")
+shader_parameter/octaves = 4
+shader_parameter/starting_amplitude = 0.5
+shader_parameter/starting_frequency = 1.0
+shader_parameter/shift = -0.2
+shader_parameter/velocity = Vector2(20, 1)
+shader_parameter/fog_color = Vector4(1, 1, 1, 2)
+shader_parameter/noise = SubResource("NoiseTexture2D_seesw")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7b7ug"]
+
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
+night = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_6rves")]
 
@@ -52,9 +74,9 @@ script = ExtResource("1_mtyqn")
 visible = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
+color = Color(0.105882, 0.105882, 0.105882, 1)
 
-[node name="CanvasLayer" parent="." instance=ExtResource("6_6rves")]
+[node name="PauseMenu" parent="." instance=ExtResource("6_6rves")]
 
 [node name="WaveTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -119,6 +141,7 @@ wait_time = 3.0
 [node name="FadeIn" parent="." instance=ExtResource("5_em6cv")]
 
 [node name="ClimbEnvironment" parent="." instance=ExtResource("7_mr16y")]
+night = true
 
 [node name="player" parent="." instance=ExtResource("8_qhk4p")]
 z_index = 4
@@ -170,6 +193,13 @@ text = "[center] YOU DIED [/center]"
 fit_content = true
 scroll_active = false
 tab_size = 0
+
+[node name="Fog2" type="Sprite2D" parent="."]
+z_index = 20
+material = SubResource("ShaderMaterial_x6ass")
+position = Vector2(56, 5.72205e-06)
+scale = Vector2(2160, 1152)
+texture = SubResource("PlaceholderTexture2D_7b7ug")
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
 [connection signal="pressed" from="LevelFinish/NinePatchRect/DeliverButton" to="." method="_on_deliver_button_pressed"]
