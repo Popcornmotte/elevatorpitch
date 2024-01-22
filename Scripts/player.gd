@@ -127,6 +127,7 @@ func pickUpObject():
 			canDrop=false#dont drop when refuelling
 			refuelEngineObject.prepareRefuel()
 	elif typeArg==Item.TYPE.Scrap:
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.REPAIR)
 		scrapSprite.visible=true
 		carryType=Item.TYPE.Scrap
 	carrying=true

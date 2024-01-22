@@ -32,6 +32,7 @@ func spawnExplosion(position:Vector2):
 func repair():
 	health=maxHealth
 	Global.elevator.newFixedModule()
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ARMSTATION)
 	Global.player.repairing=false
 	Global.player.reenableGun()
 	update=true
