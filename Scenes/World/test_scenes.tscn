@@ -51,6 +51,11 @@ script = ExtResource("1_mtyqn")
 [node name="ControlLabelHint" parent="PauseMenu/Pause/Options/OptionsContainer/VBoxContainer" index="11"]
 visible = true
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" parent="." instance=ExtResource("6_6rves")]
+
 [node name="WaveTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
