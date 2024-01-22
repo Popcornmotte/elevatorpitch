@@ -1,4 +1,4 @@
-[gd_scene load_steps=598 format=3 uid="uid://dcoh76g3wvmro"]
+[gd_scene load_steps=641 format=3 uid="uid://dcoh76g3wvmro"]
 
 [ext_resource type="Script" path="res://Scripts/pauseMenu.gd" id="1_8a842"]
 [ext_resource type="Texture2D" uid="uid://byoig3wdgrii1" path="res://Assets/Sprites/UI/Pause.png" id="1_w5qk5"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://2qem8ucahl0l" path="res://Assets/Sprites/Tutorial/net.png" id="6_7rabw"]
 [ext_resource type="FontFile" uid="uid://chq2qqlffg26p" path="res://Fonts/Mont-HeavyDEMO.otf" id="6_tww15"]
 [ext_resource type="AudioStream" uid="uid://dywuvggbn307p" path="res://Assets/Audio/sfx/filmStatic.ogg" id="6_xjtd4"]
+[ext_resource type="Texture2D" uid="uid://diskq66q1pp0q" path="res://Assets/Sprites/Tutorial/rockets.png" id="7_1fwbo"]
 [ext_resource type="Script" path="res://Scripts/NewTutorials.gd" id="7_8m3et"]
 [ext_resource type="FontFile" uid="uid://vwad5mtb1vhk" path="res://Fonts/Mont-ExtraLightDEMO.otf" id="7_hhjpr"]
 [ext_resource type="Texture2D" uid="uid://b5y3lhsdm0s1h" path="res://Assets/Sprites/Tutorial/movement.png" id="8_4lk32"]
@@ -763,6 +764,174 @@ region = Rect2(2424, 1536, 404, 256)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rdwhg"]
 atlas = ExtResource("6_7rabw")
 region = Rect2(2828, 1536, 404, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5s3ov"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(0, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4ley"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(384, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qggy"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(768, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oe4cn"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1152, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghiiu"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1536, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxep3"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1920, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv2tg"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(2304, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1q6b"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(0, 1024, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dhh3"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(384, 1024, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_881t2"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(768, 1024, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clov3"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1152, 1024, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6d37"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1536, 1024, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m0l5"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1920, 1024, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fj4t"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(2304, 1024, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i0fq"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(0, 1280, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjfqu"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(384, 1280, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvyep"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(768, 1280, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfyaw"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1152, 1280, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csvo0"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1536, 1280, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3ga6"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1920, 1280, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhnu6"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(2304, 1280, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3us2"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1536, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y652o"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(384, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ddpy"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(768, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2drx"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1152, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1m55"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1536, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxdbc"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1920, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tctlt"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(2304, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7j3n"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(0, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldx0s"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(384, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqs32"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(768, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yshk"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1152, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_km70w"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(0, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ywse"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1920, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6lci"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(2304, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8owbv"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(0, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f38cs"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(384, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0adbg"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(768, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4ci8"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1152, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddbyd"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1536, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2plr2"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(1920, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37v07"]
+atlas = ExtResource("7_1fwbo")
+region = Rect2(2304, 512, 384, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qsvii"]
 atlas = ExtResource("4_2nc05")
@@ -2883,6 +3052,137 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_5s3ov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4ley")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qggy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oe4cn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghiiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxep3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cv2tg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1q6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dhh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_881t2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clov3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6d37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2m0l5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fj4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2i0fq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjfqu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvyep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfyaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csvo0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3ga6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhnu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3us2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y652o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ddpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2drx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1m55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxdbc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tctlt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7j3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldx0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqs32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yshk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_km70w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ywse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6lci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8owbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f38cs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0adbg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4ci8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddbyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2plr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37v07")
+}],
+"loop": true,
+"name": &"12",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qsvii")
 }, {
 "duration": 1.0,
@@ -4125,17 +4425,19 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("7_8m3et")
-titleText = Array[String](["Movement", "BombEnemies", "Dispenser", "Fueling", "Arm Station", "Cargo Chutes", "Open Hangar Hatch", "Speed Lever", "Making Repairs", "Flinging Stuff", "Recycling Enemies", "Trawl Net"])
-explanationText = Array[String](["", "", "Press [S] to cycle through your fuel and scrap. Press [E] to dispense. You can pickup items by standing close and pressing [E]. Fuel is needed to fuel the elevator and scrap is needed for repairs.", "Hold [E] while holding fuel to fuel the elevator. The longer you hold [E], the more you fuel.", "Press [E] to either enter or exit the armstation.", "While in the armstation press [S]/[W] to drop/retract the chutes. Load the cargo into the chutes", "Hold [Space] while grabbing the car with [Left Click] and dragging the mouse onto the button", "The elevator has three speed modes: Off, Normal and Fast. Switch between them using [W] and [S].", "Hold [R] while carrying scrap and being in proximity to the broken component. You can use the jetpack for outside repairs. Move with [W][A][S][D].", "You can grab enemies and fling them by holding [Space] and dragging the mouse in the direction where you want to throw the enemy.", "You can catch enemies in your net. Inserting a bomb enemy into your chutes yields 1 fuel, a balloon enemy yields 1 scrap.", "[Q] toggles the net. It can be moved with [A] and [D]."])
+titleText = Array[String](["Movement", "BombEnemies", "Dispenser", "Fueling", "Arm Station", "Cargo Chutes", "Open Hangar Hatch", "Speed Lever", "Making Repairs", "Flinging Stuff", "Recycling Enemies", "Trawl Net", "Rockets"])
+explanationText = Array[String](["", "", "Press [S] to cycle through your fuel and scrap. Press [E] to dispense. You can pickup items by standing close and pressing [E]. Fuel is needed to fuel the elevator and scrap is needed for repairs.", "Hold [E] while holding fuel to fuel the elevator. The longer you hold [E], the more you fuel.", "Press [E] to either enter or exit the armstation.", "While in the armstation press [S]/[W] to drop/retract the chutes. Load the cargo into the chutes", "Hold [Space] while grabbing the car with [Left Click] and dragging the mouse onto the button", "The elevator has three speed modes: Off, Normal and Fast. Switch between them using [W] and [S].", "Hold [R] while carrying scrap and being in proximity to the broken component. You can use the jetpack for outside repairs. Move with [W][A][S][D].", "You can grab enemies and fling them by holding [Space] and dragging the mouse in the direction where you want to throw the enemy.", "You can catch enemies in your net. Inserting a bomb enemy into your chutes yields 1 fuel, a balloon enemy yields 1 scrap.", "[Q] toggles the net. It can be moved with [A] and [D].", "You defend yourself against rockets by timing your shield with the incoming rockets. The shield can be enabled while in the armstation and by clicking [RMB]. "])
 
 [node name="Animations" type="AnimatedSprite2D" parent="Pause/Tutorials"]
 position = Vector2(957, 510)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_rmpra")
-animation = &"5"
-frame_progress = 0.41575
+animation = &"12"
+frame = 2
+frame_progress = 0.532873
 
 [node name="CloseTutorialButton" type="Button" parent="Pause/Tutorials"]
+layout_mode = 0
 offset_left = 904.0
 offset_top = 800.0
 offset_right = 1018.0
@@ -4143,6 +4445,7 @@ offset_bottom = 831.0
 text = " [ Close Tutorial ] "
 
 [node name="Explanation" type="RichTextLabel" parent="Pause/Tutorials"]
+layout_mode = 0
 offset_left = 1408.0
 offset_top = 256.0
 offset_right = 1728.0
@@ -4152,6 +4455,7 @@ theme_override_font_sizes/normal_font_size = 25
 text = "Hello world"
 
 [node name="Header" type="RichTextLabel" parent="Pause/Tutorials"]
+layout_mode = 0
 offset_left = 704.0
 offset_top = 192.0
 offset_right = 1217.0

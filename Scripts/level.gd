@@ -22,6 +22,8 @@ var cargoCount = 0
 var gainedFunds = 0
 var lastHeight = 0
 var gameOver=false
+var tutorialLevel:bool=true
+var tutorialWaveCounter=0
 var failTrumpetSfx#used to stop trumpet if switching to main scene before the end of the sound
 
 func _enter_tree():
@@ -51,33 +53,64 @@ func finishedScene():
 		$LevelCam.make_current()
 		finishedLevel=true
 	
-func spawnEnemies():
-	combat = true
-	var rocketeers = 0
-	var enemies = ENEMIES
-	if !Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.FLING]:
-		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
-	else:
-		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
-	spawnChance = -1
-	wave += 1
-	#var formation = FORMATION_A.instantiate()
-	Global.elevator.brake.lock(true)
-	lastHeight = Global.height
+func spawn(number,types):
+	var enemies = types
 	var sign
-	for i in range(randi()%6 + wave + Global.currentContract.risk * 3):
-		var e =  enemies[randi()%enemies.size()]
-		if e == D_ROCKET:
-			rocketeers+=1
-			if rocketeers >= maxRocketeersAtOnce:
-				enemies.pop_back()
-		var enemy = e.instantiate()
-		if(randi()%2 == 0):
-			sign = 1
-		else:
-			sign =-1
-		enemy.global_position =  Global.elevator.global_position + sign*Vector2(1500-64*i,randi_range(-800,800))
-		add_child(enemy)
+	var rocketeers = 0
+	for i in range(number):
+			var e =  enemies[randi()%enemies.size()]
+			if e == D_ROCKET:
+				rocketeers+=1
+				if rocketeers >= maxRocketeersAtOnce:
+					enemies.pop_back()
+			var enemy = e.instantiate()
+			if(randi()%2 == 0):
+				sign = 1
+			else:
+				sign =-1
+			enemy.global_position =  Global.elevator.global_position + sign*Vector2(1500-64*i,randi_range(-800,800))
+			add_child(enemy)
+			
+func spawnEnemies(tutorialLevel=false):
+	combat = true
+	if tutorialLevel:
+		match tutorialWaveCounter:
+			0:
+				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
+				spawn(3,[D_SAW])
+			1:
+				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
+				spawn(4,[D_SAW,D_RIFLE])
+			2:
+				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
+				spawn(5,[D_SAW,D_BARREL,D_RIFLE])
+			3:
+				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
+				spawn(6,[D_SAW,D_BARREL,D_RIFLE,D_ROCKET])
+		tutorialWaveCounter+=1
+	else:
+		var rocketeers = 0
+		var enemies = ENEMIES
+		spawnChance = -1
+		wave += 1
+		#var formation = FORMATION_A.instantiate()
+		Global.elevator.brake.lock(true)
+		lastHeight = Global.height
+		var sign
+		spawn(randi()%6 + wave + Global.currentContract.risk * 3, ENEMIES)
+		#for i in range(randi()%6 + wave + Global.currentContract.risk * 3):
+		#	var e =  enemies[randi()%enemies.size()]
+		#	if e == D_ROCKET:
+		#		rocketeers+=1
+		#		if rocketeers >= maxRocketeersAtOnce:
+		#			enemies.pop_back()
+		#	var enemy = e.instantiate()
+		#	if(randi()%2 == 0):
+		#		sign = 1
+		#	else:
+		#		sign =-1
+		#	enemy.global_position =  Global.elevator.global_position + sign*Vector2(1500-64*i,randi_range(-800,800))
+		#	add_child(enemy)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
