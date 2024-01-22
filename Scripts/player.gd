@@ -178,8 +178,7 @@ func toggleJetpack(state : bool):
 
 #needed when reparing outside of elevator
 func reenableGun():
-	if jetpack:
-		$Gun.setEnabled(true)
+	$Gun.setEnabled(jetpack)
 	
 func move(direction, vertical = 0.0):
 	if velocity.x >=0:
