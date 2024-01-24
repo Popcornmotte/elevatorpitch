@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dn1h17rgyu5yq"]
+[gd_scene load_steps=68 format=3 uid="uid://dn1h17rgyu5yq"]
 
 [ext_resource type="Script" path="res://Scripts/hangar.gd" id="1_7h618"]
 [ext_resource type="Texture2D" uid="uid://jaoxkqmx7jsf" path="res://Assets/Sprites/Hangar/pipeOverlay.png" id="2_ndkxd"]
@@ -58,6 +58,12 @@ size = Vector2(28, 52)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pivyh"]
 size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1w3k"]
+size = Vector2(32, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jk8vj"]
+size = Vector2(8, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_outgl"]
 size = Vector2(192, 104)
@@ -296,12 +302,10 @@ size = Vector2(160, 30)
 script = ExtResource("1_7h618")
 crateSpawnArea = NodePath("spawnAreas/crateSpawnArea")
 brake = NodePath("Elevator/interior/Brake")
-
 button = NodePath("ButtonArmStuff/ButtonArm/LowerArm/HatchButton")
-doorAreas = [NodePath("Elevator/interior/Doors/Door4/DoorOpenArea2D"), NodePath("Elevator/interior/Doors/Door3/DoorOpenArea2D")]
 
 [node name="Collision" type="StaticBody2D" parent="."]
-collision_layer = 524305
+collision_layer = 524433
 collision_mask = 524337
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
@@ -321,14 +325,14 @@ position = Vector2(-504, 256)
 shape = SubResource("RectangleShape2D_qlhwc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collision"]
-polygon = PackedVector2Array(384, 192, 512, 0, 384, -320, 96, -408, 96, -512, 640, -512, 640, 192)
+polygon = PackedVector2Array(256, 384, 512, 0, 384, -320, 96, -408, 96, -640, 768, -640, 768, 384)
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="Collision"]
 position = Vector2(-204, 196)
 shape = SubResource("RectangleShape2D_wpda6")
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Collision"]
-polygon = PackedVector2Array(-384, 192, -512, 0, -384, -320, -96, -408, -96, -512, -640, -512, -640, 192)
+polygon = PackedVector2Array(-256, 384, -512, 0, -384, -320, -96, -408, -96, -640, -768, -640, -768, 384)
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Collision"]
 position = Vector2(-232, 304)
@@ -349,6 +353,22 @@ shape = SubResource("RectangleShape2D_pivyh")
 [node name="CollisionShape2D10" type="CollisionShape2D" parent="Collision"]
 position = Vector2(-144, 184)
 shape = SubResource("RectangleShape2D_pivyh")
+
+[node name="LadderLimiters" type="StaticBody2D" parent="."]
+collision_layer = 48
+collision_mask = 0
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="LadderLimiters"]
+position = Vector2(-120, 148)
+shape = SubResource("RectangleShape2D_k1w3k")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="LadderLimiters"]
+position = Vector2(-203, 292)
+shape = SubResource("RectangleShape2D_k1w3k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LadderLimiters"]
+position = Vector2(-108, 120)
+shape = SubResource("RectangleShape2D_jk8vj")
 
 [node name="ItemBlockers" type="StaticBody2D" parent="."]
 position = Vector2(0, -448)
@@ -555,15 +575,19 @@ moving = false
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
 rotation = -0.394666
 scale = Vector2(1, 1)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 rotation = -0.0151657
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
 rotation = 3.14159
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
 rotation = -0.0151656
+metadata/_local_pose_override_enabled_ = true
 
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" index="0"]
 active = false
@@ -586,6 +610,9 @@ monitorable = false
 [node name="DoorOpenArea2D" parent="Elevator/interior/Doors/Door" index="2"]
 monitoring = false
 monitorable = false
+
+[node name="EngineDropButton" parent="Elevator/interior" index="14"]
+locked = true
 
 [node name="Net" parent="Elevator" index="8"]
 locked = true
@@ -615,12 +642,6 @@ position = Vector2(-203, 256)
 [node name="ElevatorLadder" parent="Ladders" instance=ExtResource("2_vpx34")]
 position = Vector2(-120, 112)
 
-[node name="ElevatorLadder2" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-120, 48)
-
-[node name="ElevatorLadder3" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-120, -16)
-
 [node name="RiseSequence" type="Node2D" parent="."]
 
 [node name="ElevatorRise" type="AnimationPlayer" parent="RiseSequence"]
@@ -638,6 +659,7 @@ wait_time = 3.0
 position = Vector2(-314, 180)
 collision_layer = 32899
 collision_mask = 32899
+continuous_cd = 1
 script = ExtResource("12_b7ptf")
 
 [node name="Sprite2D" type="Sprite2D" parent="Truck"]
@@ -788,7 +810,6 @@ one_shot = true
 
 [connection signal="animation_finished" from="Background/OpenHatch" to="." method="_on_open_hatch_animation_finished"]
 [connection signal="timeout" from="Background/LightBlink" to="." method="_on_light_blink_timeout"]
-[connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
 [connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
 [connection signal="area_entered" from="ButtonArmStuff/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]

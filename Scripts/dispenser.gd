@@ -12,6 +12,9 @@ const PLOP=preload("res://Assets/Audio/sfx/plop.wav")
 var dispense:DispenseItem
 @export var locked = false
 
+# To put things on the floor back in the inventory on level change
+var dispensedItems : Array[Node2D]
+
 func _ready():
 	dispense=DispenseItem.FUEL
 	fuelSprite.set_visible(true)
@@ -29,27 +32,35 @@ func switchDispenseType():
 			scrapSprite.set_visible(false)
 	
 func dispenseItem():
-	#if locked:
-	#	Audio.playSfx(ERROR)
-	#	return
+	if locked:
+		Audio.playSfx(ERROR)
+		return false
 	match dispense:
 		DispenseItem.FUEL:
 			if Global.takeFromInventory(Item.TYPE.Fuel):#only dispense fuel if in inventory
 				var loadedFuel=FUELITEM.instantiate()
 				loadedFuel.position=dropPosition+Vector2(randf_range(-5.0,5.0),0)
 				get_parent().add_child(loadedFuel)
+				dispensedItems.push_back(loadedFuel)
 				Audio.playSfx(PLOP)
-				return
+				return true
 			else:
 				Audio.playSfx(ERROR)
-				return
+				return false
 		DispenseItem.SCRAP:
 			if Global.takeFromInventory(Item.TYPE.Scrap):
 				var loadedScrap=SCRAPITEM.instantiate()
 				loadedScrap.global_position=dropPosition+Vector2(randf_range(-5.0,5.0),0)
 				get_parent().add_child(loadedScrap)
+				dispensedItems.push_back(loadedScrap)
 				Audio.playSfx(PLOP)
-				return
+				return true
 			else:
 				Audio.playSfx(ERROR)
-				return
+				return false
+	return false
+
+func returnToInventory():
+	for thing in dispensedItems:
+		if thing and weakref(thing).get_ref():
+			Global.addToInventory(Item.new(thing.type))

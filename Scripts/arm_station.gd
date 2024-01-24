@@ -1,13 +1,14 @@
-extends Node2D
+extends GenericInteractible
 
 var controlArms=false
 var playerPresent = false
 
 
 func _input(event):
-	if Input.is_action_just_pressed("interact"):
-		if playerPresent:
-			use()
+	#if Input.is_action_just_pressed("interact"):
+		#if playerPresent:
+			#use()
+	pass
 
 func use():
 	if !Global.player.get_node("PlayerCam/ZoomAnimation").is_playing():
@@ -31,7 +32,3 @@ func _on_arm_station_area_body_entered(body):
 func _on_arm_station_area_body_exited(body):
 	if body.name == "player":
 		playerPresent = false
-
-
-func _on_chute_tutorial_timer_timeout():
-	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.CHUTES)

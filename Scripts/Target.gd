@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var restingPosition : Node2D
 @export var rightTarget = true
 @export var claw : Node
+@export var otherTarget : Node2D
 
 var SPEED = 10.0
 var LERP_WEIGHT = 0.05
@@ -15,7 +16,8 @@ var speed = 0.0
 var motion = Vector2(0,0)
 var decelerate = false
 
-var isControlled = true
+var playerInArmStation = true
+var mirrorMode = false
 
 var armAnchorPos : Vector2
 var line : Line2D
@@ -37,8 +39,8 @@ func _ready():
 	claw.target = self
 
 func control(isBeingControlled : bool):
-	isControlled = isBeingControlled
-	if (!isControlled):
+	playerInArmStation = isBeingControlled
+	if (!playerInArmStation):
 		global_position = restingPosition.global_position
 
 func move(delta, targetPos : Vector2):
@@ -65,8 +67,7 @@ func isActive():
 		return Global.elevator.get_local_mouse_position().x < 0.0
 
 func follow_mouse(delta : float, mousePos : Vector2):
-	#if mouse is on other side of elevator reset target to rest pos
-	if(isControlled):
+	if(playerInArmStation):
 		if(isActive()):
 				claw.setControlled(true)
 				
@@ -78,13 +79,16 @@ func follow_mouse(delta : float, mousePos : Vector2):
 				
 				move(delta, mousePos)
 				move_and_slide()
-		else:
+		elif !mirrorMode:
 			claw.setControlled(false)
 			global_position = restingPosition.global_position
+		else:
+			global_position.y = otherTarget.global_position.y
+			global_position.x = 2 * Global.elevator.global_position.x - otherTarget.global_position.x
 
 
 func draw_fling_dir():
-	if(isControlled && isActive()):
+	if(playerInArmStation && isActive()):
 		var startPos = preFlingPos - global_position
 		line.points[0].x = startPos.x
 		line.points[0].y = startPos.y
@@ -92,10 +96,15 @@ func draw_fling_dir():
 		var mousePos = line.get_local_mouse_position()
 		line.points[1].x = mousePos.x
 		line.points[1].y = mousePos.y
+		
+		$FlingTarget.global_position = get_global_mouse_position()
 
 func _physics_process(delta):
 	if(Input.is_action_just_pressed("Fling")):
 		preFlingPos = global_position
+		if claw.grabbing:
+			$FlingTarget.visible = true
+			$Sprite2D.visible = false
 	if(Input.is_action_pressed("Fling") && claw.grabbing):
 		draw_fling_dir()
 		var offsetDir = preFlingPos.direction_to(get_global_mouse_position()) * preFlingPos.distance_to(armAnchorPos) / 2
@@ -115,3 +124,8 @@ func _process(delta):
 		line.points[1].x = 0
 		line.points[1].y = 0
 	
+		$FlingTarget.visible = false
+		$Sprite2D.visible = true
+
+	if Input.is_action_just_pressed("ToggleMirror"):
+		mirrorMode = !mirrorMode

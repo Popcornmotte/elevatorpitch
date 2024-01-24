@@ -18,11 +18,8 @@ var redLightFac = 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Audio.playMusic("hangar")
-	if Global.tutorialLevel:#to demonstrate repair mechanic in hangar
-		$Elevator.breakableModules[0].damage(10)
 	var spawnAreaRect = crateSpawnArea.shape.get_rect()
 	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
-	Global.elevator.get_node("interior/Dispenser").locked=true
 	Global.elevator.fuel = max(Global.elevator.fuel, Global.fuelBetweenLevels)
 	Global.elevator.updateFuel()
 	while takenItem != null:
@@ -34,6 +31,10 @@ func _ready():
 		spawnPos.y = randf_range(spawnAreaRect.position.y, spawnAreaRect.position.y + spawnAreaRect.size.y)
 		newCrate.global_position = spawnPos + crateSpawnArea.global_position
 		takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
+	if !Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.REPAIR]:
+		brake.explodes = false
+		brake.disable()
+		brake.explodes = true
 	pass # Replace with function body.
 
 func onHatchButtonHit():
@@ -64,9 +65,10 @@ func _on_area_2d_body_entered(body):
 	onHatchButtonHit()
 
 func _on_transitionTimer_timeout():
+	Global.elevator.find_child("Dispenser").returnToInventory()
 	Audio.stopMusic()
 	get_tree().change_scene_to_file("res://Scenes/World/transition_scene.tscn")
-	
+
 func _on_fadeTimer_timeout():
 	var fadeout = fade.instantiate()
 	add_child(fadeout)

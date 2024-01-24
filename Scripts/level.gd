@@ -186,6 +186,7 @@ func _on_end_timer_timeout():
 	if gameOver:
 		gameOverText.visible=true
 	else:
+		Global.elevator.find_child("Dispenser").returnToInventory()
 		Audio.stopMusic()
 		get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
 

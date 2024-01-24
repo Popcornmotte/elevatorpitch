@@ -36,7 +36,8 @@ func switch( tutorial:float = -1 ):
 		Global.saveGame()
 	else:
 		if tutorial >= 0 :
-			
+			while Global.animatedTutorialsCompleted.size() <= tutorial:
+				Global.animatedTutorialsCompleted.push_back(false)
 			if !Global.animatedTutorialsCompleted[tutorial]:
 				$Tutorials.show()
 				$Tutorials.loadTutorial(tutorial)

@@ -50,16 +50,24 @@ func _ready():
 		shield.flipSprite()
 
 func _process(delta):
-	if module and (Input.is_action_just_pressed("ScrollUp") or Input.is_action_just_pressed("ScrollDown")):
-		moduleSelected = !moduleSelected
-		module.selected = moduleSelected
-		if moduleSelected:
-			module.visible = true
-		shield.selected = !moduleSelected
-		$Extension.play("extend_module" if moduleSelected else "retract_module")
-		Audio.playSfxLocalized(extensionSFX if moduleSelected else retractionSFX, global_position)
-		$Text.text = "Module" if moduleSelected else "Shield"
-		# TODO: visualise which one is active
+	if module:
+		var moduleSelectedPrev = moduleSelected
+		if (Input.is_action_just_pressed("ScrollUp") or Input.is_action_just_pressed("ScrollDown")):
+			moduleSelected = !moduleSelected
+		if Input.is_action_just_pressed("SelectShield"):
+			moduleSelected = false
+		if Input.is_action_just_pressed("SelectModule"):
+			moduleSelected = true
+		
+		if moduleSelectedPrev != moduleSelected:
+			module.selected = moduleSelected
+			if moduleSelected:
+				module.visible = true
+			shield.selected = !moduleSelected
+			$Extension.play("extend_module" if moduleSelected else "retract_module")
+			Audio.playSfxLocalized(extensionSFX if moduleSelected else retractionSFX, global_position)
+			$Text.text = "Module" if moduleSelected else "Shield"
+			# TODO: visualise which one is active
 	pass
 
 func _on_extension_animation_finished(anim_name):

@@ -5,6 +5,7 @@ const OPEN = preload("res://Assets/Audio/sfx/openButton.wav")
 const DROPPING = preload("res://Assets/Audio/sfx/dropElevator.wav")
 var sfxDropping
 var dropping=false
+@export var locked = false
 
 func close():
 	if openButton:
@@ -40,6 +41,8 @@ func _process(delta):
 		else:
 			sfxDropping=Audio.playSfx(DROPPING,true)
 func use():
+	if locked:
+		return
 	if(openButton):
 		pressed()
 		if Global.elevator and Global.height>0 :

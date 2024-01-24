@@ -103,8 +103,15 @@ func collideWithRigidbodies():
 			c.get_collider().apply_central_impulse(-c.get_normal()*pushForce)
 
 func addCarryable(thing):
+	var previousPrime = carryables.back()
+	var outline : Node2D
+	if previousPrime:
+		outline = previousPrime.find_child("Outline")
+		if outline != null:
+			outline.visible = false
+	
 	carryables.push_back(thing)
-	var outline = thing.find_child("Outline")
+	outline = thing.find_child("Outline")
 	if outline != null:
 		outline.visible = true
 	
@@ -206,14 +213,14 @@ func move(direction, vertical = 0.0):
 		if repairing:
 			sprite.play("repair")
 			$Gun.setEnabled(false)
-			return
 		else:
 			if is_on_floor():
 				sprite.play("idle")
-			velocity.x = lerpf(velocity.x,0.0,lerpFactor)
-			if jetpack:
+			elif jetpack:
 				sprite.play("jetpackIdle")
-				velocity.y = lerpf(velocity.y,0.0,lerpFactor)
+		velocity.x = lerpf(velocity.x,0.0,lerpFactor)
+		if jetpack:
+			velocity.y = lerpf(velocity.y,0.0,lerpFactor)
 
 func setMovementParent(newParent : Node2D):
 	movementParent = newParent
@@ -284,15 +291,23 @@ func _process(delta):
 			refuelEngineObject.stopRefuel()
 		
 		if Input.is_action_just_pressed("interact"):
-			if carrying:
-				dropObject()
-			elif carryables.size() > 0:
-				pickUpObject()
 			#check if player is interacting with something
 			if !justPickedUp and interactionObject:
 				interactionObject.use()
+				return
 			if !justPickedUp and refuelEngineObject and carrying and carryType==Item.TYPE.Fuel:
 				refuelEngineObject.startRefuel()
+				return
+			if !justPickedUp and dispenserObject:
+				if dispenserObject.dispenseItem():
+					return
+				
+			if carrying:
+				dropObject()
+				return
+			elif carryables.size() > 0:
+				pickUpObject()
+				return
 	
 		if carrying and  carryType==Item.TYPE.Scrap and Input.is_action_pressed("repair") and interactionObject:
 			$Gun.setEnabled(false)
@@ -309,13 +324,15 @@ func _process(delta):
 		if dispenserObject and Input.is_action_just_pressed("down"):
 			dispenserObject.switchDispenseType()
 		
-		if !justPickedUp and dispenserObject and Input.is_action_just_pressed("interact"):
-			dispenserObject.dispenseItem()
-		
 		if brakeObject and Input.is_action_just_pressed("up"):
 			brakeObject.switchUp()
 		if brakeObject and Input.is_action_just_pressed("down"):
 			brakeObject.switchDown()
+	else:
+		if Input.is_action_just_pressed("interact"):
+			if !justPickedUp and interactionObject:
+				interactionObject.use()
+				return
 			
 func _physics_process(delta):
 	if Global.elevator:
@@ -345,26 +362,31 @@ func _physics_process(delta):
 		
 
 func _on_interaction_area_area_entered(area):
-	if area.owner and area.owner.name=="Dispenser":
+	if !area.owner:
+		return
+	if area.owner.name=="Dispenser":
 		if Global.level!=null:
 			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.DISPENSER)
 		dispenserObject=area.owner #special case, as pressing s will change dispense type
-	if area.owner and area.owner.name=="Brake":
+	if area.owner.name=="Brake":
 		brakeObject=area.owner
-	if area.owner and area.owner.name=="RefuelEngine":
+	if area.owner.name=="RefuelEngine":
 		refuelEngineObject=area.owner#special case, interaction only when holding fuel and pressing e
 		if carrying and carryType==Item.TYPE.Fuel:
 			canDrop=false#dont drop when refuelling
 			refuelEngineObject.prepareRefuel()
+			area.owner.find_child("Outline").visible = true
+		return
 	#special case for doors, they should only open when the elevators is not moving, null checks inserted to not crash game
-	elif Global.elevator and !Global.elevator.moving and area.owner and ("isDoor" in area.owner):
+	elif Global.elevator and !Global.elevator.moving and ("isDoor" in area.owner):
 		area.owner.openDoor()
-	elif area.owner and ("interactable" in area.owner):
+	elif "interactable" in area.owner:
 		interactionObject=area.owner
 	
-	var outline = area.owner.find_child("Outline")
-	if outline != null:
-		outline.visible = true
+	if !("locked" in area.owner) or !area.owner.locked:
+		var outline = area.owner.find_child("Outline")
+		if outline != null:
+			outline.visible = true
 
 func _on_interaction_area_area_exited(area):
 	if area.owner==null:
