@@ -10,6 +10,8 @@ var leakingFuel=false
 var numberOperationalModules=5
 var minOperationalModules=2
 var maximumOperationalModules=5
+var outsideRepairNeeded=false#needed to play tutorial to remind player that they can leave the elevator
+var refuelNeeded=false#needed to play tutorial to fuel 
 var sfxWarning
 #modules which can be broken by incoming damage
 @onready var breakableModules=[$interior/Brake, $Net, $HullBody/Engine]
@@ -166,7 +168,7 @@ func update_height(climbed):
 
 func decrease_fuel(delta):
 	if fuel<=0:
-		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FUELING)	
+		refuelNeeded=true
 		return
 	fuel -= fuelConsumption*delta
 	if fuel<=0:

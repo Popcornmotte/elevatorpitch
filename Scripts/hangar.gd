@@ -18,6 +18,8 @@ var redLightFac = 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Audio.playMusic("hangar")
+	if Global.tutorialLevel:#to demonstrate repair mechanic in hangar
+		$Elevator.breakableModules[0].damage(10)
 	var spawnAreaRect = crateSpawnArea.shape.get_rect()
 	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
 	Global.elevator.get_node("interior/Dispenser").locked=true

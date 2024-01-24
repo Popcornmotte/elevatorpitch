@@ -28,7 +28,7 @@ func _ready():
 	
 	pass # Replace with function body.
 
-func switch( tutorial = -1 ):
+func switch( tutorial:float = -1 ):
 	if visible:
 		$WhiteNoisePlayer.stop()
 		hide()

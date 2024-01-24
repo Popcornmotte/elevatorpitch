@@ -33,9 +33,10 @@ var modulesUnlocked = [false, false]
 # In order: Movement, Bombs, Dispenser, Fueling, Armstation, Chutes, Hatch
 var tutorialsCompleted =[false, false, true, true]
 # In order: Movement, Bombs, Dispenser, Fueling, Armstation, Chutes, Hatch
-enum TUTORIAL_INDICES{MOVEMENT,BOMBS,DISPENSER,FUELING,ARMSTATION,CHUTES,HATCH,BRAKE,REPAIR,FLING,SCRAPPING,NET}
-var animatedTutorialsCompleted=[true, false, false, true, false, false, false, false, false, false, false, false]
+enum TUTORIAL_INDICES{MOVEMENT,BOMBS,DISPENSER,FUELING,ARMSTATION,CHUTES,HATCH,BRAKE,REPAIR,FLING,SCRAPPING,NET,ROCKETS,ARMMODULE,OUTSIDEREPAIR}
+var animatedTutorialsCompleted=[true, false, false, false, false, false, false, false, false, false, false, false,false,false,false]
 
+var tutorialLevel=true
 # AnarchyContracts completed
 var anarchyContractsIndex = 1
 var maxAnarchyIndex = 7
@@ -137,6 +138,7 @@ func makeSaveDict():
 		"effectsVolume" : effectsVolume,
 		"tutorialsCompleted" : tutorialsCompleted,
 		"animatedTutorialsCompleted" : animatedTutorialsCompleted,
+		"tutorialLevel" : tutorialLevel,
 		"modulesUnlocked" : modulesUnlocked,
 		"newUser" : newUser,
 		"username" : username,
@@ -175,6 +177,7 @@ func loadGame():
 			effectsVolume = loadDataFromDictSafe(dict,effectsVolume, "effectsVolume")
 			tutorialsCompleted = loadDataFromDictSafe(dict,tutorialsCompleted, "tutorialsCompleted")
 			animatedTutorialsCompleted = loadDataFromDictSafe(dict,animatedTutorialsCompleted, "animatedTutorialsCompleted")
+			tutorialLevel =loadDataFromDictSafe(dict,tutorialLevel,"tutorialLevel")
 			modulesUnlocked = loadDataFromDictSafe(dict,modulesUnlocked,"modulesUnlocked")
 			newUser = loadDataFromDictSafe(dict,newUser,"newUser")
 			username = loadDataFromDictSafe(dict,username,"username")

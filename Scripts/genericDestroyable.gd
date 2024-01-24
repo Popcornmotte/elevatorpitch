@@ -9,6 +9,8 @@ enum OPERATIONMODE {Normal, Damaged, Broken}
 var update=true
 
 func damage(damage:int):
+	if self.name!="Brake":#so that tutorial for outside repairs can play
+		Global.elevator.outsideRepairNeeded=true
 	if health<0:
 		return
 	health-=damage
@@ -16,22 +18,23 @@ func damage(damage:int):
 		damaged()
 	elif health<=0:
 		if update: 
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.REPAIR)
 			Global.elevator.newBrokenModule()
 			update=false
 		disable()
 
 func spawnExplosion(position:Vector2):
-	var newExplosion = explosion.instantiate()
-	newExplosion.global_position = position
-	newExplosion.set_collision_mask_value(3,false)#disable collision
-	newExplosion.set_collision_mask_value(9,false)#disable collision
-	get_parent().call_deferred("add_child",newExplosion)
+	if Global.level:
+		var newExplosion = explosion.instantiate()
+		newExplosion.global_position = position
+		newExplosion.set_collision_mask_value(3,false)#disable collision
+		newExplosion.set_collision_mask_value(9,false)#disable collision
+		get_parent().call_deferred("add_child",newExplosion)
 	
 			
 func repair():
 	health=maxHealth
 	Global.elevator.newFixedModule()
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ARMSTATION)
 	Global.player.repairing=false
 	Global.player.reenableGun()
 	update=true

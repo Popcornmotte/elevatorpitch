@@ -29,9 +29,9 @@ func switchDispenseType():
 			scrapSprite.set_visible(false)
 	
 func dispenseItem():
-	if locked:
-		Audio.playSfx(ERROR)
-		return
+	#if locked:
+	#	Audio.playSfx(ERROR)
+	#	return
 	match dispense:
 		DispenseItem.FUEL:
 			if Global.takeFromInventory(Item.TYPE.Fuel):#only dispense fuel if in inventory

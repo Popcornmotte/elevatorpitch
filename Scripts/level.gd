@@ -22,18 +22,24 @@ var cargoCount = 0
 var gainedFunds = 0
 var lastHeight = 0
 var gameOver=false
+var tutorialWaveCounter=0
 var failTrumpetSfx#used to stop trumpet if switching to main scene before the end of the sound
 
 func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Global.tutorialLevel:
+		$WaveTimer.set_wait_time(10)
+	else:
+		$WaveTimer.set_wait_time(5)
+		if Global.modulesUnlocked[0] or Global.modulesUnlocked[1]:
+			Global.optionsMenu.switch(Global.animatedTutorialsCompleted.ARMMODULE)
 	maxRocketeersAtOnce = Global.currentContract.risk + 1
 	Global.elevator.get_node("interior/Dispenser").locked=false
 	gameOverText.hide()
 	Global.elevator.fuel = max(Global.elevator.fuel,Global.fuelBetweenLevels)
 	Global.elevator.moving=true
-	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.NET)
 
 func setFinishHeight():
 	var destination = Global.currentContract.destination
@@ -51,22 +57,16 @@ func finishedScene():
 		$LevelCam.make_current()
 		finishedLevel=true
 	
-func spawnEnemies():
-	combat = true
-	var rocketeers = 0
-	var enemies = ENEMIES
-	if !Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.FLING]:
-		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
-	else:
-		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
-	spawnChance = -1
-	wave += 1
-	#var formation = FORMATION_A.instantiate()
-	Global.elevator.brake.lock(true)
-	lastHeight = Global.height
+func spawn(number,types,guaranteeRocket=false):
+	var enemies = types
 	var sign
-	for i in range(randi()%6 + wave + Global.currentContract.risk * 3):
-		var e =  enemies[randi()%enemies.size()]
+	var rocketeers = 0
+	for i in range(number):
+		var e
+		if guaranteeRocket:
+			e=enemies[i%enemies.size()]
+		else:
+			e=enemies[randi()%enemies.size()]
 		if e == D_ROCKET:
 			rocketeers+=1
 			if rocketeers >= maxRocketeersAtOnce:
@@ -78,16 +78,51 @@ func spawnEnemies():
 			sign =-1
 		enemy.global_position =  Global.elevator.global_position + sign*Vector2(1500-64*i,randi_range(-800,800))
 		add_child(enemy)
+			
+func spawnEnemies(playTutorials=Global.tutorialLevel):
+	combat = true
+	Global.elevator.brake.lock(true)
+	lastHeight = Global.height
+	if playTutorials:
+		match tutorialWaveCounter:
+			0:
+				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FLING)
+				spawn(3,[D_SAW,D_RIFLE])
+			1:
+				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.BOMBS)
+				spawn(4,[D_BARREL])
+			2:
+				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.SCRAPPING)
+				spawn(5,[D_SAW,D_BARREL,D_RIFLE])
+			3:
+				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ROCKETS)
+				spawn(6,[D_SAW,D_BARREL,D_RIFLE,D_ROCKET],true)
+				Global.tutorialLevel=false
+		tutorialWaveCounter+=1
+	else:
+		var rocketeers = 0
+		var enemies = ENEMIES
+		spawnChance = -1
+		wave += 1
+		#var formation = FORMATION_A.instantiate()
+		
+		var sign
+		spawn(randi()%6 + wave + Global.currentContract.risk * 3, ENEMIES)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(combat):
-
 		if Global.aliveEnemies <= 0:
 			combat = false
 			Global.elevator.brake.turnOffLightOnly()
 			Global.elevator.brake.unlock()
 			$WaveTimer.start()
+	else:#only play tutorials when no combat in progress, otherwise player will be confused
+		if Global.elevator.outsideRepairNeeded:
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.OUTSIDEREPAIR)
+		if Global.elevator.refuelNeeded:
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FUELING)
+		
 	#check height for finish
 	if not finishedLevel and Global.height>finishHeight:
 		finishedScene()
@@ -111,12 +146,17 @@ func endLevel(): #the elevator calls this when the docking animation is finished
 
 func _on_wave_timer_timeout():
 	if not finishedLevel:# do not spawn new enemies when level is already finished
-		if(randi()%100 <= spawnChance):
-			spawnEnemies()
+		if not Global.tutorialLevel: 
+			if(randi()%100 <= spawnChance):
+				spawnEnemies()
+			else:
+				spawnChance += int((Global.height - lastHeight)) * 2
+				$WaveTimer.start()
 		else:
-			spawnChance += int((Global.height - lastHeight)) * 2
-			$WaveTimer.start()
-		pass # Replace with function body.
+			if Global.height - lastHeight==0:
+				$WaveTimer.start()
+				return
+			spawnEnemies(Global.tutorialLevel)
 
 
 func _on_deliver_button_pressed():
