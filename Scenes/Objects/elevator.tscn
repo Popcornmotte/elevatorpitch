@@ -968,25 +968,49 @@ wait_time = 20.0
 
 [node name="Controls" type="CanvasLayer" parent="."]
 
-[node name="ControlsLabel" type="RichTextLabel" parent="Controls"]
-offset_left = 1431.0
-offset_top = 731.0
-offset_right = 1592.0
-offset_bottom = 842.0
+[node name="FadeParent" type="Control" parent="Controls"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="Polygon2D" parent="Controls/FadeParent"]
+z_index = -1
+position = Vector2(1431, 731)
+scale = Vector2(3, 3)
+color = Color(0, 0, 0, 0.486275)
+polygon = PackedVector2Array(-7.66666, -1, 160.333, -1, 160.333, 116.333, -7.66666, 116.333)
+
+[node name="ControlsLabel" type="RichTextLabel" parent="Controls/FadeParent"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1384.0
+offset_top = 688.0
+offset_right = 1545.0
+offset_bottom = 799.0
+grow_horizontal = 0
+grow_vertical = 0
 scale = Vector2(3, 3)
 theme = ExtResource("31_4d7am")
 bbcode_enabled = true
-text = "[color=#00ff00]E -> Exit arm station[/color]
+text = "E -> Exit arm station
 LMB -> Grab
 RMB -> 2nd arm function
 1/2 -> Select shield or module
 Space -> Prepare fling
 W/S -> Control item chutes
 Q -> Toggle net
-A/D -> Move net"
+A/D -> Move net
+R -> Toggle this text"
+fit_content = true
 script = ExtResource("32_tmxii")
 
-[node name="HighlightTimer" type="Timer" parent="Controls/ControlsLabel"]
+[node name="HighlightTimer" type="Timer" parent="Controls/FadeParent/ControlsLabel"]
+wait_time = 0.5
 autostart = true
 
 [connection signal="area_entered" from="HullBody/DamageReceiver" to="." method="on_area_entered"]
@@ -1004,7 +1028,9 @@ autostart = true
 [connection signal="animation_finished" from="EndAnimation" to="." method="_on_animation_player_elevator_animation_finished"]
 [connection signal="body_entered" from="Tutorial/DispenserTrigger" to="Tutorial/Dispenser" method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]
-[connection signal="timeout" from="Controls/ControlsLabel/HighlightTimer" to="Controls/ControlsLabel" method="onHighlightTimerTimeout"]
+[connection signal="mouse_entered" from="Controls/FadeParent/ControlsLabel" to="Controls/FadeParent/ControlsLabel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Controls/FadeParent/ControlsLabel" to="Controls/FadeParent/ControlsLabel" method="_on_mouse_exited"]
+[connection signal="timeout" from="Controls/FadeParent/ControlsLabel/HighlightTimer" to="Controls/FadeParent/ControlsLabel" method="onHighlightTimerTimeout"]
 
 [editable path="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/ModuleAttachment"]
 [editable path="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/ModuleAttachment"]

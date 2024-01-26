@@ -14,6 +14,7 @@ var spawnedCrates : Array[RigidBody2D]
 var buttonDeployed = false
 var redLight = false
 var redLightFac = 0.0
+var controlsLabel : ControlsLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,6 +23,12 @@ func _ready():
 	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
 	Global.elevator.fuel = max(Global.elevator.fuel, Global.fuelBetweenLevels)
 	Global.elevator.updateFuel()
+	controlsLabel = Global.elevator.find_child("ControlsLabel")
+	controlsLabel.setHighlight(ControlsLabel.LINE.toggleNet, ControlsLabel.HIGHLIGHT.disabled)
+	controlsLabel.setHighlight(ControlsLabel.LINE.moveNet, ControlsLabel.HIGHLIGHT.disabled)
+	controlsLabel.setHighlight(ControlsLabel.LINE.secondary, ControlsLabel.HIGHLIGHT.disabled)
+	controlsLabel.setHighlight(ControlsLabel.LINE.selectModule, ControlsLabel.HIGHLIGHT.disabled)
+	controlsLabel.setHighlight(ControlsLabel.LINE.close, ControlsLabel.HIGHLIGHT.disabled)
 	while takenItem != null:
 		var newCrate = cratePrefab.instantiate()
 		add_child(newCrate)
@@ -47,6 +54,7 @@ func onHatchButtonHit():
 		hatchOpen = true
 		brake.startLocked = false
 		brake.unlock()
+		controlsLabel.setHighlight(ControlsLabel.LINE.exit, ControlsLabel.HIGHLIGHT.highlight)
 		
 		for area in doorAreas:
 			area.call_deferred("queue_free")
