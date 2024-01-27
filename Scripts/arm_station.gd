@@ -32,3 +32,7 @@ func _on_arm_station_area_body_entered(body):
 func _on_arm_station_area_body_exited(body):
 	if body.name == "player":
 		playerPresent = false
+
+
+func _on_chute_tutorial_timer_timeout():
+	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.CHUTES)

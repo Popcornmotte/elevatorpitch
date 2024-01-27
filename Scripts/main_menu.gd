@@ -75,7 +75,7 @@ func _on_reset_tutorial_pressed():
 			Global.animatedTutorialsCompleted[i] = true
 		else:
 			Global.animatedTutorialsCompleted[i] = false
-	#print("Global.animatedTutorialsCompleted: "+str(Global.animatedTutorialsCompleted))
+	Global.tutorialLevel=true
 	Global.saveGame()
 	$SaveGame/ResetTutorial.disabled = true
 	pass # Replace with function body.
