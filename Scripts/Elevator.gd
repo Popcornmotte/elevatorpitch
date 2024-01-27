@@ -133,6 +133,7 @@ func moveNormal():
 func control(isControlled : bool):
 	controlArms=isControlled
 	$HullBody/Hull.visible = isControlled
+	$Controls.visible = isControlled
 	for child in targets.get_children():
 		if child is CharacterBody2D:#check that it is an arm
 			child.control(isControlled)
