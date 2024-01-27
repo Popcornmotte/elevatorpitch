@@ -13,6 +13,8 @@ var level
 
 var ending = null
 
+var jetpackCanBeToggled=false
+
 var inventoryMatrix : Node2D
 
 enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }

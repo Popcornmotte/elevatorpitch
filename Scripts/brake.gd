@@ -39,7 +39,6 @@ func damaged():
 	operatingMode=OPERATIONMODE.Damaged
 
 func disable():
-	print("global position is ",position)
 	super.spawnExplosion(position)
 	repairStation.visible=true
 	repairStation.enableRepair()

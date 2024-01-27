@@ -92,7 +92,6 @@ func disable():
 	lowerArmPhys.mass = 10
 	clawPhys.gravity_scale = 1
 	clawPhys.mass = 10
-	Global.elevator.newBrokenModule()
 	if !Global.tutorialsCompleted[3]:
 		firstDestroyed.emit()
 
