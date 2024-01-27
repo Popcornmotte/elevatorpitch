@@ -69,6 +69,8 @@ func _ready():
 func updateDisplay():
 	if numberOperationalModules>4:
 		operationalDisplay.clear()
+		if Global.optionsMenu!=null:
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ARMSTATION)
 		operationalDisplay.append_text("[color=green]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
 	if numberOperationalModules==4||numberOperationalModules==3:
 		operationalDisplay.clear()
