@@ -66,7 +66,6 @@ shader_parameter/noise = SubResource("NoiseTexture2D_seesw")
 
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
-night = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_6rves")]
 
@@ -141,7 +140,6 @@ wait_time = 3.0
 [node name="FadeIn" parent="." instance=ExtResource("5_em6cv")]
 
 [node name="ClimbEnvironment" parent="." instance=ExtResource("7_mr16y")]
-night = true
 
 [node name="player" parent="." instance=ExtResource("8_qhk4p")]
 z_index = 4
@@ -194,7 +192,7 @@ fit_content = true
 scroll_active = false
 tab_size = 0
 
-[node name="Fog2" type="Sprite2D" parent="."]
+[node name="FogShader" type="Sprite2D" parent="."]
 z_index = 20
 material = SubResource("ShaderMaterial_x6ass")
 position = Vector2(56, 5.72205e-06)

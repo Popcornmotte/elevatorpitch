@@ -38,6 +38,15 @@ func _ready():
 		$WaveTimer.set_wait_time(5)
 		if Global.modulesUnlocked[0] or Global.modulesUnlocked[1]:
 			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ARMMODULE)
+	if !night:
+		$ClimbEnvironment.night = false
+		$CanvasModulate.hide()
+		$FogShader.hide()
+	else:
+		$ClimbEnvironment.night = true
+		$CanvasModulate.show()
+		$FogShader.show()
+		#$ClimbEnvironment.hide()
 	maxRocketeersAtOnce = Global.currentContract.risk + 1
 	Global.elevator.get_node("interior/Dispenser").locked=false
 	gameOverText.hide()
