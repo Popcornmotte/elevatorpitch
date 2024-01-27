@@ -3,16 +3,20 @@ extends Node2D
 @export var atmosphere : Sprite2D
 @onready var stationPos = $ParallaxBackground/CableLayer/Station.global_position
 var stationSpawned = false
-@export var night = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#layers = parallax.get_children()
+	pass # Replace with function body.
+
+func switchNight(night : bool):
 	if night:
 		$ParallaxBackground/EarthLayer.hide()
 		$FarBackground.hide()
 		$FarBackground/Atmosphere.hide()
-	#layers = parallax.get_children()
-	pass # Replace with function body.
-
+	else:
+		$ParallaxBackground/EarthLayer.show()
+		$FarBackground.show()
+		$FarBackground/Atmosphere.show()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -66,6 +66,7 @@ shader_parameter/noise = SubResource("NoiseTexture2D_seesw")
 
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
+night = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_6rves")]
 

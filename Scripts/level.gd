@@ -38,12 +38,14 @@ func _ready():
 		$WaveTimer.set_wait_time(5)
 		if Global.modulesUnlocked[0] or Global.modulesUnlocked[1]:
 			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ARMMODULE)
+	
+	$ClimbEnvironment.switchNight(night)
+	$Elevator.switchLights(night)
+	$player.switchLight(night)
 	if !night:
-		$ClimbEnvironment.night = false
 		$CanvasModulate.hide()
 		$FogShader.hide()
 	else:
-		$ClimbEnvironment.night = true
 		$CanvasModulate.show()
 		$FogShader.show()
 		#$ClimbEnvironment.hide()

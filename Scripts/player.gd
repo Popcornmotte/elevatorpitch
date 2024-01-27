@@ -51,6 +51,12 @@ func _ready():
 	zoomIn(startZoomedIn)
 	$Healthbar.hide()
 
+func switchLight(state : bool):
+	if state:
+		$BodyLight.show()
+	else:
+		$BodyLight.hide()
+
 func playPlayerSound(clip : AudioStream):
 	if(sfx):
 		if(!sfx.playing):

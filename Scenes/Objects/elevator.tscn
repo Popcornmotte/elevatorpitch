@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://sb47ud24jhmx" path="res://Assets/Sprites/Claws/Test0/TestClaw1.png" id="4_hs0s2"]
 [ext_resource type="Texture2D" uid="uid://cps0xktem8rbd" path="res://Assets/Sprites/Claws/Test0/TestClaw0.png" id="5_xhuq0"]
 [ext_resource type="PackedScene" uid="uid://dhy7o2g76nxox" path="res://Scenes/Objects/interior.tscn" id="6_kqtpx"]
+[ext_resource type="Texture2D" uid="uid://b7a7ager24tmc" path="res://Assets/Sprites/ElevatorBody/Floodlight.png" id="7_0c3y6"]
 [ext_resource type="PackedScene" uid="uid://jhsy3xo2g347" path="res://Scenes/Objects/lamp.tscn" id="7_6d2ne"]
 [ext_resource type="Texture2D" uid="uid://bgvy1fuq0ilv1" path="res://Assets/Sprites/ElevatorBody/BodyHullInterior.png" id="7_jbnxu"]
 [ext_resource type="Texture2D" uid="uid://dhl16w2kryxft" path="res://Assets/Sprites/ElevatorBody/Gear0.png" id="7_xkf6p"]
@@ -381,6 +382,27 @@ metadata/_edit_lock_ = true
 shape = SubResource("CapsuleShape2D_ohd1j")
 debug_color = Color(0.984314, 0, 0.34902, 0.419608)
 
+[node name="BodyLightL" type="Sprite2D" parent="HullBody"]
+position = Vector2(-100, -105)
+texture = ExtResource("7_0c3y6")
+
+[node name="PointLight2D" type="PointLight2D" parent="HullBody/BodyLightL"]
+position = Vector2(-86, 140)
+rotation = 0.523599
+texture = ExtResource("21_56jwc")
+texture_scale = 2.5
+
+[node name="BodyLightR" type="Sprite2D" parent="HullBody"]
+position = Vector2(100, -105)
+texture = ExtResource("7_0c3y6")
+flip_h = true
+
+[node name="PointLight2D" type="PointLight2D" parent="HullBody/BodyLightR"]
+position = Vector2(88, 147)
+rotation = -0.523599
+texture = ExtResource("21_56jwc")
+texture_scale = 2.5
+
 [node name="Hull" type="Sprite2D" parent="HullBody"]
 z_index = 4
 texture = ExtResource("1_dtexf")
@@ -453,6 +475,7 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Right/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone"]
 z_index = -2
@@ -464,6 +487,7 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -517,6 +541,7 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Left/GearBone"]
 position = Vector2(7.00006, -1.52588e-05)
 rest = Transform2D(1, 0, 0, 1, 7.00006, -1.52588e-05)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone"]
 z_index = -2
@@ -527,6 +552,7 @@ texture = ExtResource("3_2k2nk")
 position = Vector2(128.002, 6.10352e-05)
 rotation = 0.616101
 rest = Transform2D(0.984808, -0.173648, 0.173648, 0.984808, 128.002, 6.10352e-05)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -672,12 +698,12 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea"]
 shape = SubResource("CircleShape2D_e7x7n")
 
-[node name="PointLight2D" type="PointLight2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw"]
+[node name="FloodlightR" type="PointLight2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw"]
 position = Vector2(6, 0)
 rotation = -1.5708
 texture = ExtResource("21_56jwc")
-offset = Vector2(0, 200)
-texture_scale = 3.0
+offset = Vector2(0, 300)
+texture_scale = 5.0
 
 [node name="RepairArea" parent="Arms/PhysicalArmRight" instance=ExtResource("27_ahenx")]
 visible = false
@@ -798,11 +824,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/GrabArea"]
 shape = SubResource("CircleShape2D_e7x7n")
 
-[node name="PointLight2D" type="PointLight2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw"]
+[node name="FloodlightL" type="PointLight2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw"]
 rotation = -1.5708
 texture = ExtResource("21_56jwc")
-offset = Vector2(0, 200)
-texture_scale = 3.0
+offset = Vector2(0, 300)
+texture_scale = 5.0
 
 [node name="RepairArea" parent="Arms/PhysicalArmLeft" instance=ExtResource("27_ahenx")]
 visible = false

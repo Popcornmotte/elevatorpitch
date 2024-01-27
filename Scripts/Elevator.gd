@@ -71,6 +71,18 @@ func _ready():
 	warningDisplay.hide()
 	pass # Replace with function body.
 
+func switchLights(state : bool):
+	if state:
+		$Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/FloodlightL.show()
+		$Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/FloodlightR.show()
+		$HullBody/BodyLightL.show()
+		$HullBody/BodyLightR.show()
+	else:
+		$Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/FloodlightL.hide()
+		$Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/FloodlightR.hide()
+		$HullBody/BodyLightL.hide()
+		$HullBody/BodyLightR.hide()
+
 func updateDisplay():
 	match numberBrokenModules:
 		0:
