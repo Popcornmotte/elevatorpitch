@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b45146upkkw67"]
+[gd_scene load_steps=22 format=3 uid="uid://b45146upkkw67"]
 
 [ext_resource type="Script" path="res://Scripts/bedroomTerminal.gd" id="1_4p55b"]
 [ext_resource type="Texture2D" uid="uid://bs6u4tqo7rvfm" path="res://Assets/Sprites/Hangar/bedroomBG.png" id="1_fvjdo"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="8_mp683"]
 [ext_resource type="Texture2D" uid="uid://hdftyisajsd3" path="res://Assets/Sprites/InteriorObjects/ladder.png" id="11_n4bv3"]
 [ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="13_gdq3p"]
+[ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="14_7h15m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k2xte"]
 atlas = ExtResource("5_pxl1g")
@@ -164,6 +165,8 @@ offset_bottom = 22.0
 
 [node name="RichTextLabel" parent="MovementText/Textfield/MarginContainer" index="0"]
 text = "A/D -> Move"
+
+[node name="PauseMenu" parent="." instance=ExtResource("14_7h15m")]
 
 [connection signal="body_entered" from="Terminal/Area2D" to="Terminal" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Terminal/Area2D" to="Terminal" method="_on_area_2d_body_exited"]
