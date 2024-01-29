@@ -4937,6 +4937,27 @@ theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "[center]Flinging[/center]"
 
+[node name="Tutoriallist" type="ItemList" parent="Pause/Tutorials"]
+visible = false
+layout_mode = 0
+offset_left = 187.0
+offset_top = 322.0
+offset_right = 422.0
+offset_bottom = 657.0
+item_count = 12
+item_0/text = "Dispenser"
+item_1/text = "Repairing"
+item_2/text = "Fueling"
+item_3/text = "Armstation"
+item_4/text = "Load cargo"
+item_5/text = "Open hangar"
+item_6/text = "Brake"
+item_7/text = "Throwing enemies"
+item_8/text = "Bomb enemies"
+item_9/text = "Recycling enemies"
+item_10/text = "Rocket enemies"
+item_11/text = "Arm modules"
+
 [node name="pauseSprite" type="Sprite2D" parent="Pause"]
 position = Vector2(128, 64)
 scale = Vector2(2, 2)
@@ -5056,6 +5077,17 @@ ticks_on_borders = true
 layout_mode = 2
 theme_override_constants/separation = 64
 
+[node name="TutorialBox" type="HBoxContainer" parent="Pause/Options/OptionsContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TutorialButton" type="Button" parent="Pause/Options/OptionsContainer/VBoxContainer/TutorialBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_hhjpr")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_p7xpb")
+text = "How to play"
+
 [node name="ButtonBox" type="HBoxContainer" parent="Pause/Options/OptionsContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -5072,7 +5104,9 @@ anchor_mode = 0
 enabled = false
 
 [connection signal="pressed" from="Pause/Tutorials/CloseTutorialButton" to="Pause" method="_on_close_tutorial_button_pressed"]
+[connection signal="item_selected" from="Pause/Tutorials/Tutoriallist" to="Pause" method="_on_tutoriallist_item_selected"]
 [connection signal="value_changed" from="Pause/Options/OptionsContainer/VBoxContainer/MarginContainer/MasterVolumeSlider" to="Pause" method="_on_volume_slider_value_changed"]
 [connection signal="value_changed" from="Pause/Options/OptionsContainer/VBoxContainer/MarginContainer2/MusicVolumeSlider" to="Pause" method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="Pause/Options/OptionsContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider" to="Pause" method="_on_effects_volume_slider_value_changed"]
+[connection signal="pressed" from="Pause/Options/OptionsContainer/VBoxContainer/TutorialBox/TutorialButton" to="Pause" method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="Pause/Options/OptionsContainer/VBoxContainer/ButtonBox/QuitButton" to="Pause" method="_on_quit_button_pressed"]

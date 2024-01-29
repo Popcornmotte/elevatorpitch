@@ -25,6 +25,9 @@ func _ready():
 	if !Global.tutorialLevel: 
 		Global.elevator.fuel = max(Global.elevator.fuel, Global.fuelBetweenLevels)
 		Global.elevator.updateFuel()
+	else:
+		Global.elevator.fuel = 0
+		Global.elevator.updateFuel()
 	controlsLabel = Global.elevator.find_child("ControlsLabel")
 	controlsLabel.setHighlight(ControlsLabel.LINE.toggleNet, ControlsLabel.HIGHLIGHT.disabled)
 	controlsLabel.setHighlight(ControlsLabel.LINE.moveNet, ControlsLabel.HIGHLIGHT.disabled)

@@ -60,10 +60,6 @@ func dropElevator(gameOver=false):#drops the elvator for example on finished gam
 			get_parent().call_deferred("add_child",newExplosion)
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Global.tutorialLevel:
-		fuel=0
-	else:
-		fuel=25
 	control(controlArms)
 	updateFuel()#show correct fuel on game start
 	updateDisplay()
