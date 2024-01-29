@@ -8,8 +8,11 @@ var dropping = false
 var speed = 0.0
 var leakingFuel=false
 var numberOperationalModules=5
+var numberBrokenModules=0
 var minOperationalModules=2
 var maximumOperationalModules=5
+var maximumBrokenModules=3
+var minBrokenModules=0
 var outsideRepairNeeded=false#needed to play tutorial to remind player that they can leave the elevator
 var refuelNeeded=false#needed to play tutorial to fuel 
 var sfxWarning
@@ -67,17 +70,16 @@ func _ready():
 	pass # Replace with function body.
 
 func updateDisplay():
-	if numberOperationalModules>4:
-		operationalDisplay.clear()
-		if Global.optionsMenu!=null:
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FUELING)
-		operationalDisplay.append_text("[color=green]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
-	if numberOperationalModules==4||numberOperationalModules==3:
-		operationalDisplay.clear()
-		operationalDisplay.append_text("[color=orange]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
-	if numberOperationalModules<=minOperationalModules:
-		operationalDisplay.clear()
-		operationalDisplay.append_text("[color=red]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
+	match numberBrokenModules:
+		0:
+			operationalDisplay.clear()
+			operationalDisplay.append_text("[color=green]%s[/color]"%["SYSTEMS BROKEN:\n"+str(numberBrokenModules)+ "/3"])
+		1:
+			operationalDisplay.clear()
+			operationalDisplay.append_text("[color=orange]%s[/color]"%["SYSTEMS BROKEN:\n"+str(numberBrokenModules)+ "/3"])
+		2:
+			operationalDisplay.clear()
+			operationalDisplay.append_text("[color=red]%s[/color]"%["SYSTEMS BROKEN:\n"+str(numberBrokenModules)+ "/3"])
 		
 func brokenModulesWarning():
 	warningDisplay.text="FAILURE IN "+ str(roundi(endTimer.get_time_left()))+"\nREPAIR NOW"
@@ -89,14 +91,16 @@ func brokenModulesWarning():
 			
 			
 func newBrokenModule():
-	if numberOperationalModules>0:
-		numberOperationalModules-=1
-		if numberOperationalModules%2==0:
-			statusLamps[2+numberOperationalModules/2].toggle(false)
-		else:
-			statusLamps[2-(numberOperationalModules/2+1)].toggle(false)
-			
-		if numberOperationalModules==minOperationalModules:
+	if numberBrokenModules<maximumBrokenModules:
+		numberBrokenModules+=1
+		match numberBrokenModules:
+			1:
+				statusLamps[0].toggle(false)
+			2:
+				statusLamps[2].toggle(false)
+			3: 
+				statusLamps[1].toggle(false)
+		if numberBrokenModules==maximumBrokenModules:
 			operationalDisplay.hide()
 			warningDisplay.show()
 			warningBrokenModules=true
@@ -104,14 +108,16 @@ func newBrokenModule():
 		updateDisplay()
 	
 func newFixedModule():
-	if numberOperationalModules<maximumOperationalModules:
-		if numberOperationalModules%2==0:
-			statusLamps[2+numberOperationalModules/2].toggle(true)
-		else:
-			statusLamps[2-(numberOperationalModules/2+1)].toggle(true)
-		#statusLamps[numberOperationalModules].toggle(true)
-		numberOperationalModules+=1
-		if numberOperationalModules==minOperationalModules+1:
+	if numberBrokenModules<maximumOperationalModules:
+		numberBrokenModules-=1
+		match numberBrokenModules:
+			1:
+				statusLamps[0].toggle(true)
+			2:
+				statusLamps[2].toggle(true)
+			3: 
+				statusLamps[1].toggle(true)
+		if numberBrokenModules==2:
 			operationalDisplay.show()
 			warningDisplay.hide()
 			if sfxWarning:
