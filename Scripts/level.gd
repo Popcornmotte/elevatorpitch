@@ -1,6 +1,7 @@
 extends Node2D
 
 const KATSCHING = preload("res://Assets/Audio/sfx/katsching.wav")
+const THUNDER = preload("res://Assets/Audio/sfx/thunder.wav")
 #const FORMATION_A = preload("res://Scenes/Objects/Enemies/Formations/formation_drones_a.tscn")
 const D_RIFLE = preload("res://Scenes/Objects/Enemies/drone_rifle.tscn")
 const D_SAW = preload("res://Scenes/Objects/Enemies/drone_saw.tscn")
@@ -25,6 +26,8 @@ var lastHeight = 0
 var gameOver=false
 var tutorialWaveCounter=0
 var failTrumpetSfx#used to stop trumpet if switching to main scene before the end of the sound
+var flash = false
+var modulateCol : Color
 
 func _enter_tree():
 	Global.level = self
@@ -46,14 +49,21 @@ func _ready():
 		$CanvasModulate.hide()
 		$FogShader.hide()
 	else:
+		$LightningTimer.start()
 		$CanvasModulate.show()
-		$FogShader.show()
+		#$FogShader.show()
 		#$ClimbEnvironment.hide()
 	maxRocketeersAtOnce = Global.currentContract.risk + 1
 	Global.elevator.get_node("interior/Dispenser").locked=false
 	gameOverText.hide()
 	Global.elevator.fuel = max(Global.elevator.fuel,Global.fuelBetweenLevels)
 	Global.elevator.moving=true
+
+func lightning():
+	flash = true
+	Audio.playSfx(THUNDER)
+	modulateCol = Color(1.0,1.0,1.0)
+	$CanvasModulate.set_color(modulateCol)
 
 func setFinishHeight():
 	var destination = Global.currentContract.destination
@@ -125,6 +135,15 @@ func spawnEnemies(playTutorials=Global.tutorialLevel):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if flash:
+		if modulateCol.r > 0.3:
+			modulateCol.r -= delta
+			modulateCol.g -= delta
+			modulateCol.b -= delta
+		else:
+			flash = false
+			modulateCol = Color(0.3,0.3,0.3)
+		$CanvasModulate.set_color(modulateCol)
 	if(combat):
 		if Global.aliveEnemies <= 0:
 			combat = false
@@ -205,3 +224,10 @@ func _on_button_pressed():
 	Audio.stopMusic()
 	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
 
+
+
+func _on_lightning_timer_timeout():
+	lightning()
+	$LightningTimer.wait_time = randi_range(3, 16)
+	$LightningTimer.start()
+	pass # Replace with function body.

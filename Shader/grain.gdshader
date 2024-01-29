@@ -109,7 +109,7 @@ vec2 coordRot(vec2 tc, float angle)
     return vec2(rotX,rotY);
 }
 
-if (enabled)
+if (true)
 {
     vec3 rotOffset = vec3(1.425,3.892,5.835); //rotation offset values	
     vec2 rotCoordsR = coordRot(UV, TIME + rotOffset.x);
