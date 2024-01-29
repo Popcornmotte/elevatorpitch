@@ -8,6 +8,11 @@ extends Control
 @onready var effectsSlider = $Options/OptionsContainer/VBoxContainer/MarginContainer3/EffectsVolumeSlider
 
 @export var MainMenuVersion = false
+
+var currentlyLookingAtTutorial=0
+var showTutorials=[Global.TUTORIAL_INDICES.DISPENSER,Global.TUTORIAL_INDICES.REPAIR,Global.TUTORIAL_INDICES.FUELING,
+Global.TUTORIAL_INDICES.ARMSTATION, Global.TUTORIAL_INDICES.CHUTES,Global.TUTORIAL_INDICES.HATCH, Global.TUTORIAL_INDICES.BRAKE, Global.TUTORIAL_INDICES.FLING, 
+Global.TUTORIAL_INDICES.BOMBS,Global.TUTORIAL_INDICES.SCRAPPING,Global.TUTORIAL_INDICES.ROCKETS, Global.TUTORIAL_INDICES.ARMMODULE]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	masterSlider.value = Global.masterVolume
@@ -28,20 +33,29 @@ func _ready():
 	
 	pass # Replace with function body.
 
-func switch( tutorial:float = -1 ):
+func switch( tutorial:float = -1, showTutorials:bool=false ):
 	if visible:
-		$WhiteNoisePlayer.stop()
-		hide()
-		get_tree().paused = false
-		Global.saveGame()
+		if showTutorials:
+			$Tutorials.show()
+			$Tutorials.loadTutorial(tutorial)
+			$Options/OptionsContainer.hide()
+			$Tutorials/Tutoriallist.show()
+		else:
+			$WhiteNoisePlayer.stop()
+			hide()
+			get_tree().paused = false
+			Global.saveGame()
+		
 	else:
 		if tutorial >= 0 :
 			while Global.animatedTutorialsCompleted.size() <= tutorial:
 				Global.animatedTutorialsCompleted.push_back(false)
+			
 			if !Global.animatedTutorialsCompleted[tutorial]:
 				$Tutorials.show()
 				$Tutorials.loadTutorial(tutorial)
 				$Options/OptionsContainer.hide()
+				$Tutorials/Tutoriallist.hide()
 				Global.animatedTutorialsCompleted[tutorial]=true
 			else:
 				return
@@ -93,3 +107,12 @@ func _on_effects_volume_slider_value_changed(value):
 func _on_close_tutorial_button_pressed():
 	switch()
 	pass # Replace with function body.
+
+
+func _on_tutorial_button_pressed():
+	switch(showTutorials[currentlyLookingAtTutorial],true)
+
+
+func _on_tutoriallist_item_selected(index):
+	switch(showTutorials[index],true)
+	currentlyLookingAtTutorial=index

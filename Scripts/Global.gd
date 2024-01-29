@@ -13,6 +13,8 @@ var level
 
 var ending = null
 
+var jetpackCanBeToggled=false
+
 var inventoryMatrix : Node2D
 
 enum DMG {Bludgeoning, Piercing, Force, Fire, Lighting }
@@ -31,10 +33,10 @@ var armModule = ArmModuleHandler.MODULE.None
 # In order: Arclight, Flamethrower
 var modulesUnlocked = [false, false]
 # In order: Movement, Bombs, Dispenser, Fueling, Armstation, Chutes, Hatch
-var tutorialsCompleted =[false, false, true, true]
+var tutorialsCompleted =[false, true, true, true]
 # In order: Movement, Bombs, Dispenser, Fueling, Armstation, Chutes, Hatch
 enum TUTORIAL_INDICES{MOVEMENT,BOMBS,DISPENSER,FUELING,ARMSTATION,CHUTES,HATCH,BRAKE,REPAIR,FLING,SCRAPPING,NET,ROCKETS,ARMMODULE,OUTSIDEREPAIR}
-var animatedTutorialsCompleted=[true, false, false, false, false, false, false, false, false, false, false, false,false,false,false]
+var animatedTutorialsCompleted=[true, false, false, false, false, false, false, false, false, false, false, false,false,false,true]
 
 var tutorialLevel=true
 # AnarchyContracts completed

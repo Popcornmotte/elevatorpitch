@@ -6,7 +6,6 @@ extends Node2D
 @onready var doorOpenedPositionFlipped=Vector2(32,-16)
 const DOOROPEN = preload("res://Assets/Audio/sfx/door_open.wav")
 var isDoor=true#only needed to check for door
-var jetpackToggle = true
 
 func _ready():
 	$DoorClosedSprite.flip_h=flip
@@ -16,8 +15,6 @@ func _ready():
 	if flip:
 		$JetpackOnArea.position.x *= -1
 		$JetpackOffArea.position.x *= -1
-	if Global.level == null:
-		jetpackToggle = false
 
 func openDoor():
 	$DoorClosedSprite.visible=false
@@ -32,17 +29,23 @@ func closeDoor():
 
 
 func _on_jetpack_on_area_body_entered(body):
-	if jetpackToggle:
+	if Global.jetpackCanBeToggled:
 		if body.name == "player":
 			body.toggleJetpack(true)
 	pass # Replace with function body.
 
 
 func _on_jetpack_off_area_body_entered(body):
-	if jetpackToggle:
+	if Global.jetpackCanBeToggled:
 		if body.name == "player":
 			body.toggleJetpack(false)
 	if body.name == "player":
-		print("dispenser tutorial ",Global.TUTORIAL_INDICES.DISPENSER, Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.DISPENSER])
 		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.DISPENSER)
 	pass # Replace with function body.
+
+
+
+func _on_jetpack_on_area_body_exited(body):
+	if body.name == "player":
+		print("enable jetpack")
+		Global.jetpackCanBeToggled = true#once player collides with it(also in the hangar) jetpack should be toggable

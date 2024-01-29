@@ -64,4 +64,5 @@ shape = SubResource("CircleShape2D_nr4tx")
 debug_color = Color(0.996078, 0, 0.211765, 0.419608)
 
 [connection signal="body_entered" from="JetpackOnArea" to="." method="_on_jetpack_on_area_body_entered"]
+[connection signal="body_exited" from="JetpackOnArea" to="." method="_on_jetpack_on_area_body_exited"]
 [connection signal="body_entered" from="JetpackOffArea" to="." method="_on_jetpack_off_area_body_entered"]

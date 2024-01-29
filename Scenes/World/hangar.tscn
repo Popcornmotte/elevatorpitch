@@ -335,10 +335,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uavan"]
 size = Vector2(160, 30)
 
-[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "button")]
+[node name="Hangar" type="Node2D" node_paths=PackedStringArray("crateSpawnArea", "brake", "rightArm", "button")]
 script = ExtResource("1_7h618")
 crateSpawnArea = NodePath("spawnAreas/crateSpawnArea")
 brake = NodePath("Elevator/interior/Brake")
+rightArm = NodePath("Elevator/Arms/PhysicalArmRight")
 button = NodePath("ButtonArmStuff/ButtonArm/LowerArm/HatchButton")
 
 [node name="Collision" type="StaticBody2D" parent="."]
@@ -623,15 +624,19 @@ moving = false
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
 rotation = -0.394666
 scale = Vector2(1, 1)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 rotation = -0.0151657
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
 rotation = 3.14159
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
 rotation = -0.0151656
+metadata/_local_pose_override_enabled_ = true
 
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" index="0"]
 active = false
@@ -646,14 +651,6 @@ locked = true
 
 [node name="BrakeSprite" parent="Elevator/interior/Brake" index="0"]
 animation = &"off_to_normal"
-
-[node name="DoorOpenArea2D" parent="Elevator/interior/Doors/Door2" index="2"]
-monitoring = false
-monitorable = false
-
-[node name="DoorOpenArea2D" parent="Elevator/interior/Doors/Door" index="2"]
-monitoring = false
-monitorable = false
 
 [node name="EngineDropButton" parent="Elevator/interior" index="14"]
 locked = true

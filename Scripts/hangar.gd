@@ -4,6 +4,7 @@ const fade = preload("res://Scenes/UI/fade_out.tscn")
 
 @export var crateSpawnArea : CollisionShape2D
 @export var brake : Node2D
+@export var rightArm:Node2D
 @export var button : AnimatedSprite2D
 @export var doorAreas : Array[Area2D]
 var cratePrefab = preload("res://Scenes/Objects/Items/crate.tscn")
@@ -21,8 +22,12 @@ func _ready():
 	Audio.playMusic("hangar")
 	var spawnAreaRect = crateSpawnArea.shape.get_rect()
 	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
-	Global.elevator.fuel = max(Global.elevator.fuel, Global.fuelBetweenLevels)
-	Global.elevator.updateFuel()
+	if !Global.tutorialLevel: 
+		Global.elevator.fuel = max(Global.elevator.fuel, Global.fuelBetweenLevels)
+		Global.elevator.updateFuel()
+	else:
+		Global.elevator.fuel = 0
+		Global.elevator.updateFuel()
 	controlsLabel = Global.elevator.find_child("ControlsLabel")
 	controlsLabel.setHighlight(ControlsLabel.LINE.toggleNet, ControlsLabel.HIGHLIGHT.disabled)
 	controlsLabel.setHighlight(ControlsLabel.LINE.moveNet, ControlsLabel.HIGHLIGHT.disabled)
@@ -40,8 +45,11 @@ func _ready():
 		takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
 	if !Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.REPAIR]:
 		brake.explodes = false
-		brake.disable()
+		brake.damage(10)
 		brake.explodes = true
+		rightArm.explodes=false
+		rightArm.damage(10)
+		rightArm.explodes=true
 	pass # Replace with function body.
 
 func onHatchButtonHit():
