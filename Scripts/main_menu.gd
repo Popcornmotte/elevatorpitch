@@ -68,8 +68,7 @@ func _on_delete_save_button_pressed():
 
 
 func _on_reset_tutorial_pressed():
-	for i in 2:#only the first two should be reset
-		Global.tutorialsCompleted[i] = false
+	Global.tutorialsCompleted[0] = false #old movement tutorial
 	for i in Global.animatedTutorialsCompleted.size():
 		if i==Global.TUTORIAL_INDICES.MOVEMENT||i==Global.TUTORIAL_INDICES.OUTSIDEREPAIR:#those should not be played
 			Global.animatedTutorialsCompleted[i] = true
