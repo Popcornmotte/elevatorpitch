@@ -72,6 +72,8 @@ func _ready():
 func updateDisplay():
 	match numberBrokenModules:
 		0:
+			if Global.optionsMenu!=null:
+				Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FUELING)
 			operationalDisplay.clear()
 			operationalDisplay.append_text("[color=green]%s[/color]"%["SYSTEMS BROKEN:\n"+str(numberBrokenModules)+ "/3"])
 		1:
@@ -111,11 +113,11 @@ func newFixedModule():
 	if numberBrokenModules<maximumOperationalModules:
 		numberBrokenModules-=1
 		match numberBrokenModules:
-			1:
+			0:
 				statusLamps[0].toggle(true)
-			2:
+			1:
 				statusLamps[2].toggle(true)
-			3: 
+			2: 
 				statusLamps[1].toggle(true)
 		if numberBrokenModules==2:
 			operationalDisplay.show()
