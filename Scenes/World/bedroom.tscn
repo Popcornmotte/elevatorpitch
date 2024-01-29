@@ -118,6 +118,7 @@ texture = ExtResource("6_e5gtt")
 
 [node name="Polygon2D" type="Polygon2D" parent="Visual"]
 z_index = -50
+scale = Vector2(2, 2)
 color = Color(0.164706, 0.12549, 0.164706, 1)
 polygon = PackedVector2Array(-512, -320, 512, -320, 512, 320, -512, 320)
 

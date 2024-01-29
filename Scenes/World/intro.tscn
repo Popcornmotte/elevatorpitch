@@ -228,6 +228,7 @@ Earth is covered in the trash and ruins of the hyperindustrilization of the last
 
 [node name="MouseIndicator" type="AnimatedSprite2D" parent="Canvas"]
 visible = false
+modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(1815, 975)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_g2exg")
