@@ -1,7 +1,7 @@
 extends Node
 
 var texts = ["Year 2302:\nEarth is covered in the trash and ruins of the hyperindustrialization of the last centuries. The ruling upper classes escaped from the giant junkyard up into space.",\
-			"The working class usually keeps production busy on the ground. But some particularly risky employment opportunities lets some daring worker catch glimpses of the higher spheres.",\
+			"The working class usually keeps production busy on the ground. But some particularly risky employment opportunities let daring workers catch glimpses of the higher spheres.",\
 			"Money still rules the world. More so than ever.\nTo keep illusions up on the Ground, the Elysium program gives hope for the every-man to escape some day too. But only very few occupations allow for ever amassing the needed sum to buy the \"ticket to heaven\"."]
 var animation = 0
 var textIndex = 0

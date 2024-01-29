@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b45146upkkw67"]
+[gd_scene load_steps=21 format=3 uid="uid://b45146upkkw67"]
 
 [ext_resource type="Script" path="res://Scripts/bedroomTerminal.gd" id="1_4p55b"]
 [ext_resource type="Texture2D" uid="uid://bs6u4tqo7rvfm" path="res://Assets/Sprites/Hangar/bedroomBG.png" id="1_fvjdo"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cwmgxm5vgqqkf" path="res://Assets/Sprites/Hangar/deskTerminalLit.png" id="6_moi8p"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="8_mp683"]
 [ext_resource type="Texture2D" uid="uid://hdftyisajsd3" path="res://Assets/Sprites/InteriorObjects/ladder.png" id="11_n4bv3"]
+[ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="13_gdq3p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k2xte"]
 atlas = ExtResource("5_pxl1g")
@@ -149,5 +150,22 @@ shape = SubResource("RectangleShape2D_600dm")
 position = Vector2(80, -32)
 shape = SubResource("RectangleShape2D_600dm")
 
+[node name="MovementText" parent="." instance=ExtResource("13_gdq3p")]
+position = Vector2(-67, -47)
+startVisible = true
+
+[node name="TextureButton" parent="MovementText" index="0"]
+offset_left = 72.0
+offset_right = 88.0
+
+[node name="Textfield" parent="MovementText" index="1"]
+offset_right = 72.0
+offset_bottom = 22.0
+
+[node name="RichTextLabel" parent="MovementText/Textfield/MarginContainer" index="0"]
+text = "A/D -> Move"
+
 [connection signal="body_entered" from="Terminal/Area2D" to="Terminal" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Terminal/Area2D" to="Terminal" method="_on_area_2d_body_exited"]
+
+[editable path="MovementText"]
