@@ -1,0 +1,272 @@
+[gd_scene load_steps=20 format=3 uid="uid://b3g0nb05xq1in"]
+
+[ext_resource type="Theme" uid="uid://dhhf30soudvfh" path="res://Fonts/PixelText.tres" id="1_1abep"]
+[ext_resource type="Texture2D" uid="uid://dwkf1t7ninxry" path="res://Assets/Sprites/Intro/KnowYourPlace.png" id="1_c3dn0"]
+[ext_resource type="Script" path="res://Scripts/introSequence.gd" id="1_qd2wq"]
+[ext_resource type="Texture2D" uid="uid://ch25f6n0tnsju" path="res://Assets/Sprites/UI/MouseIndicatorLMB.png" id="2_0i6ll"]
+[ext_resource type="Texture2D" uid="uid://blgs5xw7ngwyw" path="res://Assets/Sprites/Intro/TicketToHeaven.png" id="2_yjyik"]
+[ext_resource type="Texture2D" uid="uid://bh5mv8f15gpkg" path="res://Assets/Sprites/Intro/JobAd.png" id="3_inf7i"]
+[ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="7_hcg3c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwmsh"]
+atlas = ExtResource("2_0i6ll")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5n5c"]
+atlas = ExtResource("2_0i6ll")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2exg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwmsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5n5c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="Animation" id="Animation_qy8bm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Canvas/Text:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Canvas/FadeToBlack:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hfisn"]
+resource_name = "1"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Canvas/Text:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Canvas/FadeToBlack:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v2goh"]
+resource_name = "0"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Canvas/Text:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Canvas/FadeToBlack:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ktd2p"]
+resource_name = "0"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Canvas/FadeToBlack:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Canvas/Text:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2328h"]
+resource_name = "2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Canvas/FadeToBlack:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Canvas/Text:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u7nub"]
+_data = {
+"-1": SubResource("Animation_v2goh"),
+"0": SubResource("Animation_ktd2p"),
+"1": SubResource("Animation_hfisn"),
+"2": SubResource("Animation_2328h"),
+"RESET": SubResource("Animation_qy8bm")
+}
+
+[sub_resource type="Curve" id="Curve_oi84f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.260163, 1), 0.0, 0.0, 0, 0, Vector2(0.735772, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_kwlch"]
+curve = SubResource("Curve_oi84f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fnx6h"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(640, 360, 1)
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.05
+color = Color(0.635294, 0.635294, 0.635294, 1)
+alpha_curve = SubResource("CurveTexture_kwlch")
+
+[node name="Intro" type="Node2D" node_paths=PackedStringArray("posters")]
+script = ExtResource("1_qd2wq")
+posters = [NodePath("Posters/KnowYourPlace"), NodePath("Posters/JobAd"), NodePath("Posters/TicketToHeaven")]
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="FadeToBlack" type="Polygon2D" parent="Canvas"]
+modulate = Color(1, 1, 1, 0)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-56, -64, 1984, -64, 1984, 1160, -64, 1160)
+
+[node name="Text" type="RichTextLabel" parent="Canvas"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -899.0
+offset_top = -277.0
+offset_right = -599.0
+offset_bottom = -172.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(6, 6)
+theme = ExtResource("1_1abep")
+text = "Year 2302:
+Earth is covered in the trash and ruins of the hyperindustrilization of the last centuries.  The ruling upper classes escaped from the giant junkyard up into space"
+
+[node name="MouseIndicator" type="AnimatedSprite2D" parent="Canvas"]
+visible = false
+position = Vector2(1815, 975)
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_g2exg")
+autoplay = "default"
+frame = 1
+frame_progress = 0.0448371
+
+[node name="MouseIndicatorTimer" type="Timer" parent="Canvas"]
+wait_time = 7.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Posters" type="Node2D" parent="."]
+
+[node name="KnowYourPlace" type="Sprite2D" parent="Posters"]
+position = Vector2(0, -0.00012207)
+scale = Vector2(2.1, 2.1)
+texture = ExtResource("1_c3dn0")
+
+[node name="JobAd" type="Sprite2D" parent="Posters"]
+visible = false
+scale = Vector2(2.1, 2.1)
+texture = ExtResource("3_inf7i")
+
+[node name="TicketToHeaven" type="Sprite2D" parent="Posters"]
+visible = false
+scale = Vector2(2.1, 2.1)
+texture = ExtResource("2_yjyik")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u7nub")
+}
+autoplay = "-1"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+scale = Vector2(2, 2)
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_fnx6h")
+texture = ExtResource("7_hcg3c")
+lifetime = 5.0
+
+[connection signal="timeout" from="Canvas/MouseIndicatorTimer" to="." method="onMouseIndicatorTimeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="onAnimationFinished"]
