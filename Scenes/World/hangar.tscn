@@ -624,15 +624,19 @@ moving = false
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone" index="1"]
 rotation = -0.394666
 scale = Vector2(1, 1)
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Right/GearBone/UpperArmBone" index="1"]
 rotation = -0.0151657
+metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone" index="1"]
 rotation = 3.14159
+metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmBone" parent="Elevator/Arms/SkeletonIK_Left/GearBone/UpperArmBone" index="1"]
 rotation = -0.0151656
+metadata/_local_pose_override_enabled_ = true
 
 [node name="ModuleAttachment" parent="Elevator/Arms/PhysicalArmRight/UpperArm/LowerArm/Claw" index="0"]
 active = false
