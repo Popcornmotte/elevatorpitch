@@ -12,6 +12,7 @@ func _ready():
 func toggle(state:bool):#true turns it on, false turns it off
 	if !state:
 		Audio.playSfx(FLASH)
-	onSprite.visible=state
-	light.visible=state
-	offSprite.visible=!state
+	#onSprite.visible=state
+	light.visible=!state
+	#offSprite.visible=!state
+	$Sprite.play("off" if state else "on")

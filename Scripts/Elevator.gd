@@ -39,6 +39,8 @@ var heat=0
 @onready var engine = $HullBody/Engine
 @onready var operationalDisplay= $interior/DisplayText/Operational/MarginContainer/RichTextLabelDisplay
 @onready var warningDisplay= $interior/DisplayText/MarginContainerWarning/RichTextLabelWarning
+@onready var exteriorWarningAnim = $HullBody/ExteriorCountdown/ExteriorCountdownAnimation
+@onready var exteriorWarningCountdown = $HullBody/ExteriorCountdown/AnimatedSprite2D/Progress
 @onready var endTimer=$EndTimer
 var warningBrokenModules=false
 const REPAIRWARNING = preload("res://Assets/Audio/sfx/repairTimer.wav")
@@ -85,6 +87,7 @@ func updateDisplay():
 		
 func brokenModulesWarning():
 	warningDisplay.text="FAILURE IN "+ str(roundi(endTimer.get_time_left()))+"\nREPAIR NOW"
+	exteriorWarningCountdown.material.set_shader_parameter("TimeLeft",endTimer.get_time_left()/endTimer.wait_time)
 	if not dropping:
 		if(!sfxWarning):
 			sfxWarning=Audio.playSfx(REPAIRWARNING,true)
@@ -106,6 +109,7 @@ func newBrokenModule():
 			operationalDisplay.hide()
 			warningDisplay.show()
 			warningBrokenModules=true
+			exteriorWarningAnim.play("deploy")
 			endTimer.start()
 		updateDisplay()
 	
@@ -125,6 +129,7 @@ func newFixedModule():
 			if sfxWarning:
 				sfxWarning.stop()
 			warningBrokenModules=false
+			exteriorWarningAnim.play("retract")
 			endTimer.stop()
 			warningDisplay.clear()
 		updateDisplay()
