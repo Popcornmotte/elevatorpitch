@@ -60,6 +60,10 @@ func dropElevator(gameOver=false):#drops the elvator for example on finished gam
 			get_parent().call_deferred("add_child",newExplosion)
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Global.tutorialLevel:
+		fuel=0
+	else:
+		fuel=25
 	control(controlArms)
 	updateFuel()#show correct fuel on game start
 	updateDisplay()
@@ -70,7 +74,7 @@ func updateDisplay():
 	if numberOperationalModules>4:
 		operationalDisplay.clear()
 		if Global.optionsMenu!=null:
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ARMSTATION)
+			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FUELING)
 		operationalDisplay.append_text("[color=green]%s[/color]"%["SYSTEMS OK: "+str(numberOperationalModules)+ "/5"])
 	if numberOperationalModules==4||numberOperationalModules==3:
 		operationalDisplay.clear()

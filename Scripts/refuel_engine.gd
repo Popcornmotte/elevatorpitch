@@ -92,6 +92,7 @@ func startRefuel():
 	
 func stopRefuel(stoppedFromTimer=false):#special case when stopped from timer
 	if currentlyRefueling:
+		Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ARMSTATION)
 		currentlyRefueling=false
 		refuelling=false
 		if stoppedFromTimer: 
