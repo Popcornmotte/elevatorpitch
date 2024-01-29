@@ -382,6 +382,8 @@ func _on_interaction_area_area_entered(area):
 		area.owner.openDoor()
 	elif "interactable" in area.owner:
 		interactionObject=area.owner
+	elif "interactable" in area.get_parent():
+		interactionObject=area.get_parent()
 	
 	if !("locked" in area.owner) or !area.owner.locked:
 		var outline = area.owner.find_child("Outline")

@@ -7,11 +7,13 @@ var animation = 0
 var textIndex = 0
 var clickable = false
 var endAnimation = false
+var fadeout = 0.0;
 @export var posters : Array[Node2D]
 
 func onAnimationFinished(anim_name):
 	if endAnimation:
-		get_tree().change_scene_to_file("res://Scenes/World/hangar.tscn")
+		Audio.stopMusic()
+		get_tree().change_scene_to_file("res://Scenes/World/bedroom.tscn")
 		return
 	clickable = true
 	$Canvas/MouseIndicatorTimer.start()
@@ -37,5 +39,11 @@ func _process(delta):
 				if textIndex > 0:
 					posters[textIndex-1].visible = false
 				posters[textIndex].visible = true
+			else:
+				$Audio/Footsteps.play()
 			$Canvas/MouseIndicator.visible = false
 			$AnimationPlayer.play(str(animation))
+	if endAnimation:
+		fadeout += delta
+		$Audio/Ambience.volume_db = fadeout * -20
+		$Audio/Footsteps.volume_db = fadeout * -20

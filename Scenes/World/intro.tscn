@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b3g0nb05xq1in"]
+[gd_scene load_steps=22 format=3 uid="uid://b3g0nb05xq1in"]
 
 [ext_resource type="Theme" uid="uid://dhhf30soudvfh" path="res://Fonts/PixelText.tres" id="1_1abep"]
 [ext_resource type="Texture2D" uid="uid://dwkf1t7ninxry" path="res://Assets/Sprites/Intro/KnowYourPlace.png" id="1_c3dn0"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://blgs5xw7ngwyw" path="res://Assets/Sprites/Intro/TicketToHeaven.png" id="2_yjyik"]
 [ext_resource type="Texture2D" uid="uid://bh5mv8f15gpkg" path="res://Assets/Sprites/Intro/JobAd.png" id="3_inf7i"]
 [ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="7_hcg3c"]
+[ext_resource type="AudioStream" uid="uid://cboe1jtmbmi1a" path="res://Assets/Audio/sfx/junkyardAmbience.wav" id="8_b6htc"]
+[ext_resource type="AudioStream" uid="uid://dsv22hcql2o7q" path="res://Assets/Audio/sfx/footsteps.wav" id="9_bgvnh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kwmsh"]
 atlas = ExtResource("2_0i6ll")
@@ -29,61 +31,6 @@ animations = [{
 "name": &"default",
 "speed": 2.0
 }]
-
-[sub_resource type="Animation" id="Animation_qy8bm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Canvas/Text:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Canvas/FadeToBlack:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_hfisn"]
-resource_name = "1"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Canvas/Text:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Canvas/FadeToBlack:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_v2goh"]
 resource_name = "0"
@@ -140,6 +87,34 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_hfisn"]
+resource_name = "1"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Canvas/Text:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Canvas/FadeToBlack:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_2328h"]
 resource_name = "2"
 tracks/0/type = "value"
@@ -158,6 +133,33 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("Canvas/Text:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qy8bm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Canvas/Text:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Canvas/FadeToBlack:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -213,13 +215,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -899.0
-offset_top = -277.0
-offset_right = -599.0
-offset_bottom = -172.0
+offset_left = -597.0
+offset_top = -185.0
+offset_right = -297.0
+offset_bottom = -80.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(6, 6)
+scale = Vector2(4, 4)
 theme = ExtResource("1_1abep")
 text = "Year 2302:
 Earth is covered in the trash and ruins of the hyperindustrilization of the last centuries.  The ruling upper classes escaped from the giant junkyard up into space"
@@ -267,6 +269,16 @@ amount = 16
 process_material = SubResource("ParticleProcessMaterial_fnx6h")
 texture = ExtResource("7_hcg3c")
 lifetime = 5.0
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Ambience" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("8_b6htc")
+autoplay = true
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("9_bgvnh")
+autoplay = true
 
 [connection signal="timeout" from="Canvas/MouseIndicatorTimer" to="." method="onMouseIndicatorTimeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="onAnimationFinished"]
