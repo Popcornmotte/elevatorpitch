@@ -42,7 +42,10 @@ func _input(event):
 
 func _on_start_button_pressed():
 	#Audio.stopMusic()
-	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
+	if Global.newUser:
+		get_tree().change_scene_to_file("res://Scenes/World/intro.tscn")
+	else:
+		get_tree().change_scene_to_file("res://Scenes/World/bedroom.tscn")
 	pass # Replace with function body.
 
 

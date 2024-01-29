@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://dn1h17rgyu5yq"]
+[gd_scene load_steps=72 format=3 uid="uid://dn1h17rgyu5yq"]
 
 [ext_resource type="Script" path="res://Scripts/hangar.gd" id="1_7h618"]
 [ext_resource type="Texture2D" uid="uid://jaoxkqmx7jsf" path="res://Assets/Sprites/Hangar/pipeOverlay.png" id="2_ndkxd"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://bncium1i82qj0" path="res://Assets/Sprites/hatchButtonSign.png" id="15_pntbt"]
 [ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="16_nd0oi"]
 [ext_resource type="Texture2D" uid="uid://bm1fpmmidvm24" path="res://Assets/Sprites/Hangar/hatchLight.png" id="17_7f6go"]
+[ext_resource type="AudioStream" uid="uid://b271r24negybw" path="res://Assets/Audio/sfx/ladderDrop.wav" id="23_kqv74"]
 [ext_resource type="Texture2D" uid="uid://cq61jwury46lg" path="res://Assets/Sprites/Hangar/backgroundGradient.png" id="26_d12tj"]
 [ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="28_f1l3k"]
 
@@ -70,6 +71,42 @@ size = Vector2(192, 104)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8eyn"]
 size = Vector2(160, 80)
+
+[sub_resource type="Animation" id="Animation_afsop"]
+resource_name = "dropLadder"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Ladders/BedLadder3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(2, 0.5, 1.93187, 1),
+"update": 0,
+"values": [Vector2(-203, 227), Vector2(-203, 256), Vector2(-203, 252), Vector2(-203, 256)]
+}
+
+[sub_resource type="Animation" id="Animation_f0grj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Ladders/BedLadder3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-203, 227)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fs34g"]
+_data = {
+"RESET": SubResource("Animation_f0grj"),
+"dropLadder": SubResource("Animation_afsop")
+}
 
 [sub_resource type="Animation" id="Animation_tsr3s"]
 length = 0.001
@@ -534,12 +571,23 @@ position = Vector2(-272, 280)
 texture = ExtResource("13_iue1h")
 
 [node name="Desk" type="Sprite2D" parent="Background/Bedroom"]
-position = Vector2(-184, 280)
+position = Vector2(-178, 276)
 texture = ExtResource("14_26tb0")
 
 [node name="Shelf" type="Sprite2D" parent="Background/Bedroom"]
 position = Vector2(-288, 256)
 texture = ExtResource("15_jls88")
+
+[node name="LadderAnimation" type="AnimationPlayer" parent="Background/Bedroom"]
+libraries = {
+"": SubResource("AnimationLibrary_fs34g")
+}
+autoplay = "dropLadder"
+
+[node name="DropSFX" type="AudioStreamPlayer2D" parent="Background/Bedroom/LadderAnimation"]
+position = Vector2(-203, 281)
+stream = ExtResource("23_kqv74")
+autoplay = true
 
 [node name="BedroomLadderPlug" type="Polygon2D" parent="Background"]
 z_index = 50
@@ -567,7 +615,7 @@ wait_time = 0.5
 
 [node name="player" parent="." instance=ExtResource("3_4b3ci")]
 z_index = 4
-position = Vector2(-224, 280)
+position = Vector2(-190, 280)
 
 [node name="Elevator" parent="." instance=ExtResource("9_yyd37")]
 moving = false
@@ -636,7 +684,7 @@ position = Vector2(-203, 168)
 position = Vector2(-203, 232)
 
 [node name="BedLadder3" parent="Ladders" instance=ExtResource("2_vpx34")]
-position = Vector2(-203, 256)
+position = Vector2(-203, 227)
 
 [node name="ElevatorLadder" parent="Ladders" instance=ExtResource("2_vpx34")]
 position = Vector2(-120, 112)
@@ -809,7 +857,6 @@ one_shot = true
 
 [connection signal="animation_finished" from="Background/OpenHatch" to="." method="_on_open_hatch_animation_finished"]
 [connection signal="timeout" from="Background/LightBlink" to="." method="_on_light_blink_timeout"]
-[connection signal="enemiesDetected" from="Elevator/interior/Brake" to="Elevator/Tutorial/Alert" method="open"]
 [connection signal="timeout" from="RiseSequence/TransitionTimer" to="." method="_on_transitionTimer_timeout"]
 [connection signal="timeout" from="RiseSequence/FadeTimer" to="." method="_on_fadeTimer_timeout"]
 [connection signal="area_entered" from="ButtonArmStuff/ButtonArm/LowerArm/HatchButton/Area2D" to="." method="_on_area_2d_body_entered"]

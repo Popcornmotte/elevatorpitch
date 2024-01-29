@@ -1,0 +1,174 @@
+[gd_scene load_steps=22 format=3 uid="uid://b45146upkkw67"]
+
+[ext_resource type="Script" path="res://Scripts/bedroomTerminal.gd" id="1_4p55b"]
+[ext_resource type="Texture2D" uid="uid://bs6u4tqo7rvfm" path="res://Assets/Sprites/Hangar/bedroomBG.png" id="1_fvjdo"]
+[ext_resource type="Texture2D" uid="uid://b7u6q5wk48nwg" path="res://Assets/Sprites/Hangar/bedroomLadderTube.png" id="2_fv25g"]
+[ext_resource type="Texture2D" uid="uid://cjsn1iurb8bi8" path="res://Assets/Sprites/Hangar/lockers.png" id="3_y42j2"]
+[ext_resource type="Theme" uid="uid://dhhf30soudvfh" path="res://Fonts/PixelText.tres" id="4_sywh7"]
+[ext_resource type="Texture2D" uid="uid://qww0dgjlfkmk" path="res://Assets/Sprites/Hangar/bed.png" id="4_wuo5k"]
+[ext_resource type="Texture2D" uid="uid://b4rjuagncl3u0" path="res://Assets/Sprites/UI/Arrow.png" id="5_n3qjd"]
+[ext_resource type="Texture2D" uid="uid://cl0y40t0wlg7h" path="res://Assets/Sprites/Hangar/desk.png" id="5_pxl1g"]
+[ext_resource type="Texture2D" uid="uid://ug8jrsd5k4es" path="res://Assets/Sprites/Hangar/shelf.png" id="6_e5gtt"]
+[ext_resource type="Texture2D" uid="uid://cwmgxm5vgqqkf" path="res://Assets/Sprites/Hangar/deskTerminalLit.png" id="6_moi8p"]
+[ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="8_mp683"]
+[ext_resource type="Texture2D" uid="uid://hdftyisajsd3" path="res://Assets/Sprites/InteriorObjects/ladder.png" id="11_n4bv3"]
+[ext_resource type="PackedScene" uid="uid://bqvnuucs4llig" path="res://Scenes/Objects/tutorial_textbox.tscn" id="13_gdq3p"]
+[ext_resource type="PackedScene" uid="uid://dcoh76g3wvmro" path="res://Scenes/UI/pause.tscn" id="14_7h15m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2xte"]
+atlas = ExtResource("5_pxl1g")
+region = Rect2(0, 0, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54uq8"]
+atlas = ExtResource("6_moi8p")
+region = Rect2(0, 0, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41hbw"]
+atlas = ExtResource("6_moi8p")
+region = Rect2(32, 0, 32, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tou0q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2xte")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54uq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41hbw")
+}],
+"loop": true,
+"name": &"lit",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1tldk"]
+size = Vector2(31, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aalqd"]
+size = Vector2(176, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_600dm"]
+size = Vector2(16, 64)
+
+[node name="Bedroom" type="Node2D"]
+
+[node name="Terminal" type="Node2D" parent="."]
+script = ExtResource("1_4p55b")
+
+[node name="Desk" type="AnimatedSprite2D" parent="Terminal"]
+z_index = 1
+position = Vector2(54, -12)
+sprite_frames = SubResource("SpriteFrames_tou0q")
+autoplay = "default"
+
+[node name="Hint" type="Node2D" parent="Terminal"]
+visible = false
+z_index = 1
+position = Vector2(56, -24)
+
+[node name="Label" type="RichTextLabel" parent="Terminal/Hint"]
+offset_left = -3.0
+offset_top = -21.0
+offset_right = 5.0
+offset_bottom = -5.0
+theme = ExtResource("4_sywh7")
+text = "E"
+
+[node name="Sprite2D" type="Sprite2D" parent="Terminal/Hint"]
+texture = ExtResource("5_n3qjd")
+
+[node name="Area2D" type="Area2D" parent="Terminal"]
+collision_layer = 16
+collision_mask = 176
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terminal/Area2D"]
+position = Vector2(54.5, -11)
+shape = SubResource("RectangleShape2D_1tldk")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="BedroomBg" type="Sprite2D" parent="Visual"]
+z_index = -3
+position = Vector2(0, -32)
+texture = ExtResource("1_fvjdo")
+
+[node name="BedroomLadderTube" type="Sprite2D" parent="Visual"]
+z_index = 50
+position = Vector2(0, -32)
+texture = ExtResource("2_fv25g")
+
+[node name="Lockers" type="Sprite2D" parent="Visual"]
+position = Vector2(-16, -16)
+texture = ExtResource("3_y42j2")
+
+[node name="Bed" type="Sprite2D" parent="Visual"]
+z_index = 10
+position = Vector2(-40, -8)
+texture = ExtResource("4_wuo5k")
+
+[node name="Shelf" type="Sprite2D" parent="Visual"]
+position = Vector2(-56, -32)
+texture = ExtResource("6_e5gtt")
+
+[node name="Polygon2D" type="Polygon2D" parent="Visual"]
+z_index = -50
+scale = Vector2(2, 2)
+color = Color(0.164706, 0.12549, 0.164706, 1)
+polygon = PackedVector2Array(-512, -320, 512, -320, 512, 320, -512, 320)
+
+[node name="Ladder" type="Sprite2D" parent="Visual"]
+position = Vector2(29, -56)
+texture = ExtResource("11_n4bv3")
+
+[node name="Polygon2D2" type="Polygon2D" parent="Visual"]
+color = Color(0.164706, 0.12549, 0.164706, 1)
+polygon = PackedVector2Array(14, -64, 43, -64, 43, -105, 14, -105)
+
+[node name="player" parent="." instance=ExtResource("8_mp683")]
+position = Vector2(-32, -8)
+
+[node name="Collision" type="StaticBody2D" parent="."]
+collision_layer = 177
+collision_mask = 177
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_aalqd")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collision"]
+position = Vector2(-80, -32)
+shape = SubResource("RectangleShape2D_600dm")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Collision"]
+position = Vector2(80, -32)
+shape = SubResource("RectangleShape2D_600dm")
+
+[node name="MovementText" parent="." instance=ExtResource("13_gdq3p")]
+position = Vector2(-67, -47)
+startVisible = true
+
+[node name="TextureButton" parent="MovementText" index="0"]
+offset_left = 72.0
+offset_right = 88.0
+
+[node name="Textfield" parent="MovementText" index="1"]
+offset_right = 72.0
+offset_bottom = 22.0
+
+[node name="RichTextLabel" parent="MovementText/Textfield/MarginContainer" index="0"]
+text = "A/D -> Move"
+
+[node name="PauseMenu" parent="." instance=ExtResource("14_7h15m")]
+
+[connection signal="body_entered" from="Terminal/Area2D" to="Terminal" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Terminal/Area2D" to="Terminal" method="_on_area_2d_body_exited"]
+
+[editable path="MovementText"]
