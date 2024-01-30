@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://bghg65bpfu3jf"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/enemy.gd" id="1_a3c5p"]
+[ext_resource type="SpriteFrames" uid="uid://ycew4m1ft0c0" path="res://Assets/Sprites/Enemies/drone_body.tres" id="3_g14jf"]
+[ext_resource type="PackedScene" uid="uid://bsa8g0bq1qvsk" path="res://Scenes/Objects/Items/crate.tscn" id="6_lo1yo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0tloo"]
+radius = 27.0
+height = 120.0
+
+[node name="DroneSaw" type="RigidBody2D"]
+z_index = -1
+collision_layer = 6
+collision_mask = 6
+mass = 10.0
+gravity_scale = 0.0
+max_contacts_reported = 10
+contact_monitor = true
+angular_damp = 2.0
+script = ExtResource("1_a3c5p")
+attacksStealCargo = true
+maxSpeed = 100
+despawnOnScreenExitTimer = 5.0
+
+[node name="BodySprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_g14jf")
+autoplay = "default"
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
+shape = SubResource("CapsuleShape2D_0tloo")
+
+[node name="WeaponMount" type="Marker2D" parent="."]
+
+[node name="Crate" parent="." instance=ExtResource("6_lo1yo")]
+visible = false
+position = Vector2(0, 32)
+mass = 0.01
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(0, 19)
+node_a = NodePath("..")
+node_b = NodePath("../Crate")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
