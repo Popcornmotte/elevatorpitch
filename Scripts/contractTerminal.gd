@@ -250,10 +250,10 @@ func incrementResource(itemType : Item.TYPE):
 		Audio.playSfx(ERROR)
 
 func decrementResource(itemType : Item.TYPE):
-	if Global.tutorialLevel:
-		if itemType == Item.TYPE.Cargo && Global.countItem(Item.TYPE.Cargo) == 1:
+	if itemType == Item.TYPE.Cargo && Global.countItem(Item.TYPE.Cargo) == 1:
 			Audio.playSfx(ERROR)
 			return
+	if Global.tutorialLevel:
 		if itemType == Item.TYPE.Scrap && Global.countItem(Item.TYPE.Scrap) == 2:
 			Audio.playSfx(ERROR)
 			return
@@ -333,9 +333,9 @@ func _on_back_button_pressed():
 
 func _on_accept_button_pressed():
 	var contract = contracts[selectedContract]
-	if Global.tutorialLevel:
-		if Global.countItem(Item.TYPE.Cargo) == 0:
+	if Global.countItem(Item.TYPE.Cargo) == 0:
 			incrementResource(Item.TYPE.Cargo)
+	if Global.tutorialLevel:
 		if Global.countItem(Item.TYPE.Scrap) == 0:
 			incrementResource(Item.TYPE.Scrap)
 			incrementResource(Item.TYPE.Scrap)

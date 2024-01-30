@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=20 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://76relfo52far" path="res://Scenes/World/climbEnvironment.tscn" id="7_mr16y"]
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="8_qhk4p"]
 [ext_resource type="FontFile" uid="uid://dgd0hsl0u56xs" path="res://Fonts/m5x7.ttf" id="9_dd0a3"]
-[ext_resource type="Shader" path="res://Shader/foggy.gdshader" id="10_emv6e"]
+[ext_resource type="Shader" path="res://Shader/simpleFog.gdshader" id="10_ox0mk"]
 
 [sub_resource type="Animation" id="Animation_gh5je"]
 resource_name = "FundsWiggle"
@@ -44,10 +44,22 @@ RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.490196)
 RichTextLabel/constants/shadow_outline_size = 0
 RichTextLabel/fonts/normal_font = ExtResource("9_dd0a3")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w48mh"]
+fractal_octaves = 8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pq16b"]
+noise = SubResource("FastNoiseLite_w48mh")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x6ass"]
-shader = ExtResource("10_emv6e")
-shader_parameter/color = Vector3(1, 1, 0.2)
-shader_parameter/OCTAVES = 4
+shader = ExtResource("10_ox0mk")
+shader_parameter/octaves = 4
+shader_parameter/starting_amplitude = 0.5
+shader_parameter/starting_frequency = 0.5
+shader_parameter/shift = -0.1
+shader_parameter/velocity = Vector2(0.01, 0)
+shader_parameter/fog_color = Vector3(1, 0, 0)
+shader_parameter/fog_color4 = Vector4(1, 1, 1, 1)
+shader_parameter/noise = SubResource("NoiseTexture2D_pq16b")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7b7ug"]
 

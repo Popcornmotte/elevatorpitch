@@ -11,13 +11,13 @@ func _ready():
 func switchNight(night : bool):
 	if night:
 		$ParallaxBackground/EarthLayer.hide()
-		$FarBackground.hide()
+		#$FarBackground.hide()
 		$FarBackground/Atmosphere.hide()
 		$ParallaxBackground/CloudsLayer0.hide()
 		$ParallaxBackground/CloudsLayer1.hide()
 	else:
 		$ParallaxBackground/EarthLayer.show()
-		$FarBackground.show()
+		#$FarBackground.show()
 		$FarBackground/Atmosphere.show()
 		$ParallaxBackground/CloudsLayer0.show()
 		$ParallaxBackground/CloudsLayer1.show()

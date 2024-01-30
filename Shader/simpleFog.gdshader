@@ -16,8 +16,8 @@ uniform float shift: hint_range(-1.0, 0.0) = -0.2;
 uniform vec2 velocity = vec2(1.0, 1.0);
 
 // Color of the fog.
-uniform vec4 fog_color = vec4(0.0, 0.0, 0.0, 1.0);
-
+uniform vec3 fog_color = vec3(0.0, 0.0, 0.0);
+uniform vec4 fog_color4 = vec4(0.0, 0.0, 0.0, 1.0);
 // Noise texture; OpenSimplexNoise is great, but any filtered texture is fine.
 uniform sampler2D noise;
 
@@ -35,5 +35,6 @@ float rand(vec2 uv) {
 
 void fragment() {
 	vec2 motion = vec2(rand(UV + TIME * starting_frequency * velocity));
-	COLOR = mix(vec4(0.0), fog_color, rand(UV + motion));
+	COLOR = mix(vec4(0.0), fog_color4, rand(UV + motion));
+	//COLOR = vec4(fog_color,rand(UV+motion));//mix(vec4(0.0), fog_color, rand(UV + motion));
 }

@@ -383,6 +383,7 @@ shape = SubResource("CapsuleShape2D_ohd1j")
 debug_color = Color(0.984314, 0, 0.34902, 0.419608)
 
 [node name="BodyLightL" type="Sprite2D" parent="HullBody"]
+visible = false
 position = Vector2(-100, -105)
 texture = ExtResource("7_0c3y6")
 
@@ -393,6 +394,7 @@ texture = ExtResource("21_56jwc")
 texture_scale = 2.5
 
 [node name="BodyLightR" type="Sprite2D" parent="HullBody"]
+visible = false
 position = Vector2(100, -105)
 texture = ExtResource("7_0c3y6")
 flip_h = true
@@ -475,7 +477,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Right/GearBone"]
 position = Vector2(7.00004, -1.14441e-05)
 rest = Transform2D(1, 0, 0, 1, 7, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone"]
 z_index = -2
@@ -487,7 +488,6 @@ position = Vector2(128.002, 5.72205e-05)
 rotation = -0.174533
 scale = Vector2(1, 1)
 rest = Transform2D(0.737913, -0.674895, 0.674895, 0.737913, 128, 0)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Right/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -541,7 +541,6 @@ texture = ExtResource("2_cbxhb")
 [node name="UpperArmBone" type="Bone2D" parent="Arms/SkeletonIK_Left/GearBone"]
 position = Vector2(7.00006, -1.52588e-05)
 rest = Transform2D(1, 0, 0, 1, 7.00006, -1.52588e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="UpperArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone"]
 z_index = -2
@@ -552,7 +551,6 @@ texture = ExtResource("3_2k2nk")
 position = Vector2(128.002, 6.10352e-05)
 rotation = 0.616101
 rest = Transform2D(0.984808, -0.173648, 0.173648, 0.984808, 128.002, 6.10352e-05)
-metadata/_local_pose_override_enabled_ = true
 
 [node name="LowerArmSprite" type="Sprite2D" parent="Arms/SkeletonIK_Left/GearBone/UpperArmBone/LowerArmBone"]
 z_index = -2
@@ -699,6 +697,7 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_e7x7n")
 
 [node name="FloodlightR" type="PointLight2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw"]
+visible = false
 position = Vector2(6, 0)
 rotation = -1.5708
 texture = ExtResource("21_56jwc")
@@ -825,6 +824,7 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_e7x7n")
 
 [node name="FloodlightL" type="PointLight2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw"]
+visible = false
 rotation = -1.5708
 texture = ExtResource("21_56jwc")
 offset = Vector2(0, 300)

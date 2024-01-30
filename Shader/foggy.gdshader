@@ -6,6 +6,8 @@ float rand(vec2 coord){
 	return fract(sin(dot(coord,vec2(19.421,78.123))*1000.0)*1000.0);
 }
 
+//uniform sampler2D noise;
+
 float noise(vec2 coord){
 	vec2 i = floor(coord);
 	vec2 f = fract(coord);

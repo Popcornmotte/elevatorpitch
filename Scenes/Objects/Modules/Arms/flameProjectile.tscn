@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqp1miq1x3acf"]
+[gd_scene load_steps=6 format=3 uid="uid://dqp1miq1x3acf"]
 
 [ext_resource type="Script" path="res://Scripts/Modules/Arms/flameProjectile.gd" id="1_8r0t3"]
 [ext_resource type="SpriteFrames" uid="uid://uwfycti5gw1f" path="res://Assets/Sprites/Modules/flameProjectile.tres" id="2_tp8wa"]
@@ -9,6 +9,9 @@ point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d3ynb"]
 radius = 32.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t2flt"]
+light_mode = 1
 
 [node name="FlameProjectile" type="Area2D"]
 collision_layer = 0
@@ -29,6 +32,7 @@ wait_time = 2.0
 autostart = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_t2flt")
 scale = Vector2(4, 4)
 sprite_frames = ExtResource("2_tp8wa")
 autoplay = "default"
