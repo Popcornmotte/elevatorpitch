@@ -1,6 +1,6 @@
 [gd_scene load_steps=39 format=3 uid="uid://wcu5m6kai4b7"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/enemy.gd" id="1_3v0nq"]
+[ext_resource type="Script" path="res://Scripts/Enemies/supportBox.gd" id="1_00j88"]
 [ext_resource type="Texture2D" uid="uid://csskdeinjyl6s" path="res://Assets/Sprites/Enemies/support_box_health.png" id="1_rtwux"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pfp07"]
@@ -245,7 +245,13 @@ radius = 772.498
 radius = 320.0
 
 [node name="SupportHealth" type="RigidBody2D"]
-script = ExtResource("1_3v0nq")
+gravity_scale = 0.0
+max_contacts_reported = 10
+contact_monitor = true
+script = ExtResource("1_00j88")
+rangedBehavior = true
+effectiveRange = 800
+effectiveRangeVariance = 100
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_lukfe")
@@ -266,3 +272,9 @@ debug_color = Color(0.776471, 0.403922, 0.466667, 0.419608)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaOfEffect"]
 shape = SubResource("CircleShape2D_jnveb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="MinimumEnemyRange" to="." method="_on_minimum_enemy_range_body_entered"]
+[connection signal="body_exited" from="MinimumEnemyRange" to="." method="_on_minimum_enemy_range_body_exited"]
+[connection signal="body_entered" from="AreaOfEffect" to="." method="_on_area_of_effect_body_entered"]
+[connection signal="body_exited" from="AreaOfEffect" to="." method="_on_area_of_effect_body_exited"]

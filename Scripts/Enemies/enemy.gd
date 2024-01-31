@@ -103,18 +103,26 @@ func die():
 func takeDamage(damage : int, type):
 	if dead:
 		return
-	var factor = damageFactors[type]
-	var dealtDamage = damage * factor
-	dealtDamage = min(hitPoints, dealtDamage)
+	var dealtDamage = 0.0
+	if damage > 0:
+		var factor = damageFactors[type]
+		dealtDamage = damage * factor
+		dealtDamage = min(hitPoints, dealtDamage)
+		hitPoints -= dealtDamage
+		if(!dead && hitPoints <=0 ):
+			die()
+	else:
+		hitPoints -= dealtDamage
+		hitPoints = min(maxHitPoints * 1.5, hitPoints)
+	manageDamageIndicator(dealtDamage)
+
+func manageDamageIndicator(dealtDamage):
 	if !(damageIndicator and weakref(damageIndicator).get_ref()):
 		damageIndicator = Global.damageIndicatorPrefab.instantiate()
 		damageIndicator.parent = self
 		add_sibling(damageIndicator)
 		damageIndicator.global_position = global_position + Vector2(0,-64)
 	damageIndicator.addDamage(dealtDamage)
-	hitPoints -= dealtDamage
-	if(!dead && hitPoints <=0 ):
-		die()
 
 func chooseTarget():
 	if dead:
@@ -195,7 +203,7 @@ func move(delta) -> bool:
 	if(!dead):
 		if rangedBehavior && global_position.distance_to(target) < 10:
 			return false
-		if(!weapon.checkMeleeHit() || state == STATE.Repositioning):
+		if(weapon && !weapon.checkMeleeHit() || state == STATE.Repositioning):
 			angular_velocity = -rotation * 100 * delta
 			var direction = global_position.direction_to(target).normalized()
 			speed = lerpf(linear_velocity.length(),maxSpeed,0.5)
