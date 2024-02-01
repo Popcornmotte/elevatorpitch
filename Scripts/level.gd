@@ -29,6 +29,7 @@ func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.aliveEnemies = 0
 	print("This is a tutorial: ", Global.tutorialLevel)
 	if Global.tutorialLevel:
 		$WaveTimer.set_wait_time(10)
