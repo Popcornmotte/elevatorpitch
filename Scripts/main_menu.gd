@@ -70,10 +70,7 @@ func _on_delete_save_button_pressed():
 func _on_reset_tutorial_pressed():
 	Global.tutorialsCompleted[0] = false #old movement tutorial
 	for i in Global.animatedTutorialsCompleted.size():
-		if i==Global.TUTORIAL_INDICES.MOVEMENT||i==Global.TUTORIAL_INDICES.OUTSIDEREPAIR:#those should not be played
-			Global.animatedTutorialsCompleted[i] = true
-		else:
-			Global.animatedTutorialsCompleted[i] = false
+		Global.animatedTutorialsCompleted[i] = false
 	Global.tutorialLevel=true
 	Global.saveGame()
 	$SaveGame/ResetTutorial.disabled = true

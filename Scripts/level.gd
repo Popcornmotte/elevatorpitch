@@ -119,11 +119,6 @@ func _process(delta):
 			Global.elevator.brake.turnOffLightOnly()
 			Global.elevator.brake.unlock()
 			$WaveTimer.start()
-	else:#only play tutorials when no combat in progress, otherwise player will be confused
-		if Global.elevator.outsideRepairNeeded:
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.OUTSIDEREPAIR)
-		if Global.elevator.refuelNeeded:
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FUELING)
 		
 	#check height for finish
 	if not finishedLevel and Global.height>finishHeight:

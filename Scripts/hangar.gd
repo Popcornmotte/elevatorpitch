@@ -116,7 +116,7 @@ func _on_light_blink_timeout():
 
 
 func _on_tutorial_timer_timeout():
-	Global.optionsMenu.switch(Global.TUTORIAL_INDICES.MOVEMENT)
+	pass
 
 
 func _on_hatch_tutorial_timer_timeout():
