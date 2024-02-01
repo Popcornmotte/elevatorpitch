@@ -5099,6 +5099,14 @@ theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_p7xpb")
 text = "Quit to Desktop"
 
+[node name="ControlLabelHint" type="Label" parent="Pause/Options/OptionsContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_hhjpr")
+theme_override_font_sizes/font_size = 35
+text = "[Tab] - Toggle arm controls list"
+horizontal_alignment = 1
+
 [node name="Camera2D" type="Camera2D" parent="Pause"]
 anchor_mode = 0
 enabled = false

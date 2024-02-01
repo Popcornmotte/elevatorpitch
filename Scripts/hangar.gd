@@ -19,6 +19,7 @@ var controlsLabel : ControlsLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.level = null
 	Audio.playMusic("hangar")
 	var spawnAreaRect = crateSpawnArea.shape.get_rect()
 	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
