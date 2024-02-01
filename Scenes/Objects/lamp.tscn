@@ -1,18 +1,55 @@
-[gd_scene load_steps=6 format=3 uid="uid://jhsy3xo2g347"]
+[gd_scene load_steps=11 format=3 uid="uid://jhsy3xo2g347"]
 
 [ext_resource type="Script" path="res://Scripts/lamp.gd" id="1_8a0dp"]
 [ext_resource type="Texture2D" uid="uid://b6bivbob8h7f0" path="res://Assets/Sprites/ElevatorBody/lampOn.png" id="1_emccm"]
 [ext_resource type="Texture2D" uid="uid://rf03fubhxh7y" path="res://Assets/Sprites/ElevatorBody/lampOff.png" id="2_1dh27"]
 [ext_resource type="Texture2D" uid="uid://dsto81mhaowu4" path="res://Assets/Sprites/ElevatorBody/lamp.png" id="3_kt3rw"]
 [ext_resource type="Texture2D" uid="uid://crxib00gu4kq5" path="res://Assets/Sprites/ElevatorBody/lampLight.png" id="4_6r5cr"]
+[ext_resource type="Texture2D" uid="uid://iy0v5b2in3q8" path="res://Assets/Sprites/ElevatorBody/statusLamp.png" id="6_e35s8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bk0mi"]
+atlas = ExtResource("6_e35s8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eg3iy"]
+atlas = ExtResource("6_e35s8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35ds7"]
+atlas = ExtResource("6_e35s8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pyye8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bk0mi")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eg3iy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35ds7")
+}],
+"loop": true,
+"name": &"on",
+"speed": 4.0
+}]
 
 [node name="Lamp" type="Node2D"]
 script = ExtResource("1_8a0dp")
 
 [node name="On" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_emccm")
 
 [node name="Off" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_1dh27")
 
 [node name="Light" type="PointLight2D" parent="."]
@@ -23,4 +60,11 @@ range_z_max = 10
 texture = ExtResource("4_6r5cr")
 
 [node name="Background" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("3_kt3rw")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pyye8")
+animation = &"off"
+autoplay = "off"
+frame_progress = 0.525343

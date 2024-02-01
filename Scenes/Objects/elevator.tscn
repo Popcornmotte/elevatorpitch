@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=71 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -17,8 +17,11 @@
 [ext_resource type="PackedScene" uid="uid://cuiln8pt5xl01" path="res://Scenes/Objects/engine.tscn" id="8_cxyt7"]
 [ext_resource type="Script" path="res://Scripts/EffectGear.gd" id="9_3heke"]
 [ext_resource type="Script" path="res://Scripts/Claw.gd" id="9_ltb0c"]
+[ext_resource type="Texture2D" uid="uid://dpas0fq4poj14" path="res://Assets/Sprites/ElevatorBody/RepairWatch.png" id="10_57pxd"]
 [ext_resource type="Material" uid="uid://dsthfo1lhc5ao" path="res://ParticleEffects/Sparks.tres" id="10_psx2i"]
+[ext_resource type="Texture2D" uid="uid://b4yq7ew1ng5je" path="res://Assets/Sprites/ElevatorBody/RepairWatchMask.png" id="11_8inum"]
 [ext_resource type="Texture2D" uid="uid://bb36mwhht2hya" path="res://Assets/Sprites/spark.png" id="11_eb7jo"]
+[ext_resource type="Shader" uid="uid://clnm0cgwcng65" path="res://Shader/roundProgressBar.tres" id="11_w7awm"]
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="17_epo4g"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="PackedScene" uid="uid://da4m2la28h4n3" path="res://Scenes/Objects/Modules/Arms/moduleAttachment.tscn" id="21_7g4is"]
@@ -39,6 +42,85 @@ height = 272.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4i8w"]
 size = Vector2(192, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocu63"]
+atlas = ExtResource("10_57pxd")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icxg1"]
+atlas = ExtResource("10_57pxd")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6dqdq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocu63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icxg1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hc2qk"]
+shader = ExtResource("11_w7awm")
+shader_parameter/TimeLeft = 1.0
+
+[sub_resource type="Animation" id="Animation_m4q34"]
+resource_name = "deploy"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(2, 1.93187, 1),
+"update": 0,
+"values": [Vector2(-70, 0), Vector2(-1, 0), Vector2(-3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dpn4t"]
+resource_name = "retract"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 1),
+"transitions": PackedFloat32Array(0.517632, 2.21914, 1),
+"update": 0,
+"values": [Vector2(-3, 0), Vector2(0, 0), Vector2(-70, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_j7efl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-72, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nc1kh"]
+_data = {
+"RESET": SubResource("Animation_j7efl"),
+"deploy": SubResource("Animation_m4q34"),
+"retract": SubResource("Animation_dpn4t")
+}
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_7dktr"]
 execution_mode = 1
@@ -242,7 +324,7 @@ _data = {
 
 [node name="Elevator" type="Node2D" node_paths=PackedStringArray("statusLamps", "fuelBar", "fuelAlert", "heightMeter")]
 script = ExtResource("1_gs4x1")
-statusLamps = [NodePath("HullBody/Hull/Lamps/Lamp"), NodePath("HullBody/Hull/Lamps/Lamp2"), NodePath("HullBody/Hull/Lamps/Lamp3"), NodePath("HullBody/Hull/Lamps/Lamp4"), NodePath("HullBody/Hull/Lamps/Lamp5")]
+statusLamps = [NodePath("HullBody/Hull/Lamps/Lamp"), NodePath("HullBody/Hull/Lamps/Lamp2"), NodePath("HullBody/Hull/Lamps/Lamp3"), null, null]
 fuelBar = NodePath("FuelBar/Fuel")
 fuelAlert = NodePath("FuelBar/AlertOverlay")
 heightMeter = NodePath("Heightmeter/Height")
@@ -305,19 +387,13 @@ texture = ExtResource("1_dtexf")
 [node name="Lamps" type="Node2D" parent="HullBody/Hull"]
 
 [node name="Lamp" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
-position = Vector2(-40, 90)
+position = Vector2(-25, 90)
 
 [node name="Lamp2" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
-position = Vector2(-20, 90)
-
-[node name="Lamp3" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
 position = Vector2(0, 90)
 
-[node name="Lamp4" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
-position = Vector2(20, 90)
-
-[node name="Lamp5" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
-position = Vector2(40, 90)
+[node name="Lamp3" parent="HullBody/Hull/Lamps" instance=ExtResource("7_6d2ne")]
+position = Vector2(25, 90)
 
 [node name="HullBackground" type="Sprite2D" parent="HullBody"]
 z_index = -1
@@ -333,6 +409,28 @@ shape = SubResource("RectangleShape2D_t4i8w")
 [node name="Engine" parent="HullBody" instance=ExtResource("8_cxyt7")]
 z_index = 3
 position = Vector2(0, -146)
+
+[node name="ExteriorCountdown" type="Node2D" parent="HullBody"]
+z_index = -5
+position = Vector2(136, -40)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HullBody/ExteriorCountdown"]
+position = Vector2(-72, 0)
+sprite_frames = SubResource("SpriteFrames_6dqdq")
+autoplay = "default"
+frame_progress = 0.00551043
+
+[node name="Progress" type="Sprite2D" parent="HullBody/ExteriorCountdown/AnimatedSprite2D"]
+modulate = Color(1, 0, 0, 1)
+material = SubResource("ShaderMaterial_hc2qk")
+position = Vector2(0.5, 0.5)
+texture = ExtResource("11_8inum")
+
+[node name="ExteriorCountdownAnimation" type="AnimationPlayer" parent="HullBody/ExteriorCountdown"]
+libraries = {
+"": SubResource("AnimationLibrary_nc1kh")
+}
+autoplay = "RESET"
 
 [node name="Arms" type="Node2D" parent="."]
 
@@ -965,6 +1063,7 @@ shape = SubResource("RectangleShape2D_xwhif")
 
 [node name="EndTimer" type="Timer" parent="."]
 wait_time = 20.0
+one_shot = true
 
 [node name="Controls" type="CanvasLayer" parent="."]
 
