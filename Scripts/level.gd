@@ -9,6 +9,7 @@ const D_ROCKET = preload("res://Scenes/Objects/Enemies/drone_rocket.tscn")
 const D_BARREL = preload("res://Scenes/Objects/Enemies/low_bomb.tscn")
 const FADEOUT=preload("res://Scenes/UI/fade_out.tscn")
 const FAILTRUMPET=preload("res://Assets/Audio/sfx/failTrumpet.wav")
+const RAINFADEOUT=preload("res://Assets/Audio/sfx/rainFadeout.wav")
 var spawnChance = 20
 var combat = false
 var wave = 1
@@ -27,6 +28,7 @@ var gameOver=false
 var tutorialWaveCounter=0
 var failTrumpetSfx#used to stop trumpet if switching to main scene before the end of the sound
 var flash = false
+var fogfade = false
 var modulateCol : Color
 
 func _enter_tree():
@@ -49,6 +51,7 @@ func _ready():
 		$CanvasModulate.hide()
 		$FogShader.hide()
 	else:
+		Audio.playMusic("rain")
 		$LightningTimer.start()
 		$CanvasModulate.show()
 		#$FogShader.show()
@@ -58,6 +61,13 @@ func _ready():
 	gameOverText.hide()
 	Global.elevator.fuel = max(Global.elevator.fuel,Global.fuelBetweenLevels)
 	Global.elevator.moving=true
+
+func weatherFadeout():
+	Audio.stopMusic()
+	Audio.playSfx(RAINFADEOUT)
+	fogfade = true
+	$LightningTimer.stop()
+	$FogShader.ShaderMaterial.set_shader_parameter("fog_color4",Color(1,1,1,0))
 
 func lightning():
 	flash = true
@@ -135,6 +145,10 @@ func spawnEnemies(playTutorials=Global.tutorialLevel):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if !fogfade && Global.height / finishHeight >= 0.8:
+		weatherFadeout()
+		fogfade = true
+	
 	if flash:
 		if modulateCol.r > 0.3:
 			modulateCol.r -= delta

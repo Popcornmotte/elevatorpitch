@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=22 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://xcgdf4cn2vir" path="res://Scenes/Objects/player.tscn" id="8_qhk4p"]
 [ext_resource type="FontFile" uid="uid://dgd0hsl0u56xs" path="res://Fonts/m5x7.ttf" id="9_dd0a3"]
 [ext_resource type="Shader" path="res://Shader/simpleFog.gdshader" id="10_ox0mk"]
+[ext_resource type="Texture2D" uid="uid://btsxud1jfvfvj" path="res://Assets/Sprites/dottedLine.png" id="11_7milx"]
 
 [sub_resource type="Animation" id="Animation_gh5je"]
 resource_name = "FundsWiggle"
@@ -63,6 +64,20 @@ shader_parameter/noise = SubResource("NoiseTexture2D_pq16b")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7b7ug"]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_moc7y"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1028, 1, 1)
+angle_min = 80.0
+angle_max = 85.0
+direction = Vector3(-0.5, 1, 0)
+spread = 0.0
+initial_velocity_min = 800.0
+initial_velocity_max = 800.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
 night = true
@@ -83,7 +98,8 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
-[node name="Elevator" parent="." instance=ExtResource("1_kgkqi")]
+[node name="Elevator" parent="." node_paths=PackedStringArray("statusLamps") instance=ExtResource("1_kgkqi")]
+statusLamps = [NodePath("HullBody/Hull/Lamps/Lamp"), NodePath("HullBody/Hull/Lamps/Lamp2"), NodePath("HullBody/Hull/Lamps/Lamp3"), null, null]
 
 [node name="LevelCam" type="Camera2D" parent="."]
 enabled = false
@@ -202,6 +218,15 @@ texture = SubResource("PlaceholderTexture2D_7b7ug")
 
 [node name="LightningTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="Rain" type="GPUParticles2D" parent="."]
+position = Vector2(0, -536)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_moc7y")
+texture = ExtResource("11_7milx")
+lifetime = 3.0
+preprocess = 2.0
+visibility_rect = Rect2(-100, -100, 500, 700)
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
 [connection signal="pressed" from="LevelFinish/NinePatchRect/DeliverButton" to="." method="_on_deliver_button_pressed"]
