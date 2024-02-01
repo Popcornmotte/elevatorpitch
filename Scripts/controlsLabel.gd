@@ -52,13 +52,13 @@ func _on_mouse_exited():
 	hovered = false
 	
 func _process(delta):
-	if !fadeLocked:
-		if hovered:
-			fade = min(1.0,fade + 8*delta)
-		else:
-			fade = max(0.0, fade - delta/2)
-		get_parent().set_modulate(Color(1,1,1,0.1).lerp(Color(1,1,1,1), fade))
-	if Input.is_action_just_pressed("ToggleLegend"):
+	#if !fadeLocked:
+		#if hovered:
+			#fade = min(1.0,fade + 8*delta)
+		#else:
+			#fade = max(0.0, fade - delta/2)
+		#get_parent().set_modulate(Color(1,1,1,0.1).lerp(Color(1,1,1,1), fade))
+	if Input.is_action_just_pressed("ToggleLegend") and Global.elevator.controlArms:
 		if highlights[LINE.close] != HIGHLIGHT.disabled:
 			toggledVisible = !toggledVisible
 		get_parent().visible = toggledVisible
