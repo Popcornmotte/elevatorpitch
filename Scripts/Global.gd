@@ -26,6 +26,7 @@ var enemies : Array[Enemy]
 var inventoryMaxSize = 16
 var inventory = Array()
 var fuelBetweenLevels = 0.0
+var armControlsVisible = true
 var funds=0
 var newUser = true
 var username = ""

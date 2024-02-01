@@ -16,6 +16,8 @@ func _ready():
 	lines = text.split("\n")
 	for line in lines:
 		highlights.append(HIGHLIGHT.normal)
+	toggledVisible = Global.armControlsVisible
+	get_parent().visible = toggledVisible
 
 func setHighlight(line : LINE, highlight : HIGHLIGHT):
 	highlights[line] = highlight
@@ -62,3 +64,4 @@ func _process(delta):
 		if highlights[LINE.close] != HIGHLIGHT.disabled:
 			toggledVisible = !toggledVisible
 		get_parent().visible = toggledVisible
+		Global.armControlsVisible = toggledVisible

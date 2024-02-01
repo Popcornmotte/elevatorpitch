@@ -34,7 +34,8 @@ func _ready():
 	controlsLabel.setHighlight(ControlsLabel.LINE.moveNet, ControlsLabel.HIGHLIGHT.disabled)
 	controlsLabel.setHighlight(ControlsLabel.LINE.secondary, ControlsLabel.HIGHLIGHT.disabled)
 	controlsLabel.setHighlight(ControlsLabel.LINE.selectModule, ControlsLabel.HIGHLIGHT.disabled)
-	controlsLabel.setHighlight(ControlsLabel.LINE.close, ControlsLabel.HIGHLIGHT.disabled)
+	if !Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.BRAKE]:
+		controlsLabel.setHighlight(ControlsLabel.LINE.close, ControlsLabel.HIGHLIGHT.disabled)
 	while takenItem != null:
 		var newCrate = cratePrefab.instantiate()
 		add_child(newCrate)
