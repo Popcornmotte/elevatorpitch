@@ -21,7 +21,7 @@
 [ext_resource type="Material" uid="uid://dsthfo1lhc5ao" path="res://ParticleEffects/Sparks.tres" id="10_psx2i"]
 [ext_resource type="Texture2D" uid="uid://b4yq7ew1ng5je" path="res://Assets/Sprites/ElevatorBody/RepairWatchMask.png" id="11_8inum"]
 [ext_resource type="Texture2D" uid="uid://bb36mwhht2hya" path="res://Assets/Sprites/spark.png" id="11_eb7jo"]
-[ext_resource type="Shader" uid="uid://clnm0cgwcng65" path="res://Shader/roundProgressBar.tres" id="11_w7awm"]
+[ext_resource type="Shader" uid="uid://76boop8s0tu1" path="res://Shader/roundProgressBar.tres" id="11_w7awm"]
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="17_epo4g"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="PackedScene" uid="uid://da4m2la28h4n3" path="res://Scenes/Objects/Modules/Arms/moduleAttachment.tscn" id="21_7g4is"]
@@ -69,6 +69,21 @@ animations = [{
 shader = ExtResource("11_w7awm")
 shader_parameter/TimeLeft = 1.0
 
+[sub_resource type="Animation" id="Animation_j7efl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-72, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_m4q34"]
 resource_name = "deploy"
 length = 0.5
@@ -98,21 +113,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.517632, 2.21914, 1),
 "update": 0,
 "values": [Vector2(-3, 0), Vector2(0, 0), Vector2(-70, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_j7efl"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-72, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nc1kh"]
@@ -1104,7 +1104,7 @@ Space -> Prepare fling
 W/S -> Control item chutes
 Q -> Toggle net
 A/D -> Move net
-R -> Toggle this text"
+Tab -> Toggle this text"
 fit_content = true
 script = ExtResource("32_tmxii")
 

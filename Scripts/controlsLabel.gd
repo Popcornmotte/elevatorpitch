@@ -7,7 +7,8 @@ var lines : PackedStringArray
 var highlights : Array[HIGHLIGHT]
 var highlightState = false
 var highlighted = 0
-var hovered = true
+var hovered = false
+var toggledVisible = true
 var fade = 0.0
 @export var fadeLocked = false
 
@@ -15,6 +16,8 @@ func _ready():
 	lines = text.split("\n")
 	for line in lines:
 		highlights.append(HIGHLIGHT.normal)
+	toggledVisible = Global.armControlsVisible
+	get_parent().visible = toggledVisible
 
 func setHighlight(line : LINE, highlight : HIGHLIGHT):
 	highlights[line] = highlight
@@ -51,12 +54,14 @@ func _on_mouse_exited():
 	hovered = false
 	
 func _process(delta):
-	if !fadeLocked:
-		if hovered:
-			fade = min(1.0,fade + 8*delta)
-		else:
-			fade = max(0.0, fade - delta/2)
-		get_parent().set_modulate(Color(1,1,1,0).lerp(Color(1,1,1,1), fade))
-	if Input.is_action_just_pressed("repair"):
+	#if !fadeLocked:
+		#if hovered:
+			#fade = min(1.0,fade + 8*delta)
+		#else:
+			#fade = max(0.0, fade - delta/2)
+		#get_parent().set_modulate(Color(1,1,1,0.1).lerp(Color(1,1,1,1), fade))
+	if Input.is_action_just_pressed("ToggleLegend") and Global.elevator.controlArms:
 		if highlights[LINE.close] != HIGHLIGHT.disabled:
-			visible = !visible
+			toggledVisible = !toggledVisible
+		get_parent().visible = toggledVisible
+		Global.armControlsVisible = toggledVisible

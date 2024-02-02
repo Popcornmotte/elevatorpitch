@@ -19,6 +19,7 @@ var controlsLabel : ControlsLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.level = null
 	Audio.playMusic("hangar")
 	var spawnAreaRect = crateSpawnArea.shape.get_rect()
 	var takenItem = Global.takeFromInventory(Item.TYPE.Cargo)
@@ -33,7 +34,8 @@ func _ready():
 	controlsLabel.setHighlight(ControlsLabel.LINE.moveNet, ControlsLabel.HIGHLIGHT.disabled)
 	controlsLabel.setHighlight(ControlsLabel.LINE.secondary, ControlsLabel.HIGHLIGHT.disabled)
 	controlsLabel.setHighlight(ControlsLabel.LINE.selectModule, ControlsLabel.HIGHLIGHT.disabled)
-	controlsLabel.setHighlight(ControlsLabel.LINE.close, ControlsLabel.HIGHLIGHT.disabled)
+	if !Global.animatedTutorialsCompleted[Global.TUTORIAL_INDICES.BRAKE]:
+		controlsLabel.setHighlight(ControlsLabel.LINE.close, ControlsLabel.HIGHLIGHT.disabled)
 	while takenItem != null:
 		var newCrate = cratePrefab.instantiate()
 		add_child(newCrate)
