@@ -119,5 +119,5 @@ func _on_grab_area_body_exited(body):
 	pass # Replace with function body.
 
 func disableArm():
-	arm.disable()
+	arm.damage(10)
 	pass

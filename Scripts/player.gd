@@ -335,7 +335,7 @@ func _process(delta):
 				return
 			
 func _physics_process(delta):
-	if Global.elevator:
+	if weakref(Global.elevator).get_ref():
 		controlPlayer=!Global.elevator.controlArms#control player when not controlling arms
 	if controlPlayer:	
 		#direction is used to flip animations accordingly

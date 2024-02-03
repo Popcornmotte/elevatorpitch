@@ -29,6 +29,7 @@ func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.aliveEnemies = 0
 	print("This is a tutorial: ", Global.tutorialLevel)
 	if Global.tutorialLevel:
 		$WaveTimer.set_wait_time(10)
@@ -118,11 +119,6 @@ func _process(delta):
 			Global.elevator.brake.turnOffLightOnly()
 			Global.elevator.brake.unlock()
 			$WaveTimer.start()
-	else:#only play tutorials when no combat in progress, otherwise player will be confused
-		if Global.elevator.outsideRepairNeeded:
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.OUTSIDEREPAIR)
-		if Global.elevator.refuelNeeded:
-			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.FUELING)
 		
 	#check height for finish
 	if not finishedLevel and Global.height>finishHeight:
