@@ -49,6 +49,7 @@ RichTextLabel/fonts/normal_font = ExtResource("9_dd0a3")
 fractal_octaves = 8
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pq16b"]
+seamless = true
 noise = SubResource("FastNoiseLite_w48mh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x6ass"]
@@ -60,6 +61,7 @@ shader_parameter/shift = -0.1
 shader_parameter/velocity = Vector2(0.01, 0)
 shader_parameter/fog_color = Vector3(1, 0, 0)
 shader_parameter/fog_color4 = Vector4(1, 1, 1, 1)
+shader_parameter/height = 0.0
 shader_parameter/noise = SubResource("NoiseTexture2D_pq16b")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7b7ug"]

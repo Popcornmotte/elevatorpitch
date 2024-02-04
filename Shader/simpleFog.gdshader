@@ -21,12 +21,14 @@ uniform vec4 fog_color4 = vec4(0.0, 0.0, 0.0, 1.0);
 // Noise texture; OpenSimplexNoise is great, but any filtered texture is fine.
 uniform sampler2D noise;
 
+uniform float height = 0.0;
+
 float rand(vec2 uv) {
 	float amplitude = starting_amplitude;
 	float frequency = starting_frequency;
 	float output = 0.0;
 	for (int i = 0; i < octaves; i++) {
-		output += texture(noise, uv * frequency).x * amplitude;
+		output += texture(noise, mod(((uv - vec2(0,height/50.0)) * frequency), vec2(1.0,1.0))).x * amplitude;
 		amplitude /= 2.0;
 		frequency *= 2.0;
 	}

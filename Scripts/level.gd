@@ -149,6 +149,9 @@ func _process(delta):
 		weatherFadeout()
 		fogfade = true
 	
+	if night:
+		$FogShader.material.set_shader_parameter("height", Global.height)
+	
 	if flash:
 		if modulateCol.r > 0.3:
 			modulateCol.r -= delta
