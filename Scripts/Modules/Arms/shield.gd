@@ -16,6 +16,7 @@ func activate():
 	$ShieldSprite.visible = true
 	$AudioLoop.play()
 	$AudioLoop.seek(audioPos)
+	$LaserBlocker/CollisionPolygon2D.set_deferred("disabled", false)
 	Audio.playSfxLocalized(deflect, global_position)
 	repellProjectiles()
 	pass
@@ -27,6 +28,7 @@ func deactivate():
 	$ShieldSprite.visible = false
 	audioPos = $AudioLoop.get_playback_position()
 	$AudioLoop.stop()
+	$LaserBlocker/CollisionPolygon2D.set_deferred("disabled", true)
 
 func _process(delta):
 	super(delta)

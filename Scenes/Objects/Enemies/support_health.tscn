@@ -1,7 +1,13 @@
-[gd_scene load_steps=39 format=3 uid="uid://wcu5m6kai4b7"]
+[gd_scene load_steps=42 format=3 uid="uid://wcu5m6kai4b7"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/supportBox.gd" id="1_00j88"]
 [ext_resource type="Texture2D" uid="uid://csskdeinjyl6s" path="res://Assets/Sprites/Enemies/support_box_health.png" id="1_rtwux"]
+[ext_resource type="Texture2D" uid="uid://b4btjmy64pd6u" path="res://Assets/Sprites/Enemies/support_box_health_dead.png" id="2_npgov"]
+[ext_resource type="PackedScene" uid="uid://bsdjoc5t1gcq3" path="res://Scenes/Objects/Enemies/weapons/dummyWeapon.tscn" id="3_rsn4o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stx12"]
+atlas = ExtResource("2_npgov")
+region = Rect2(0, 0, 160, 160)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pfp07"]
 atlas = ExtResource("1_rtwux")
@@ -135,6 +141,14 @@ region = Rect2(4960, 0, 160, 160)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_stx12")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_pfp07")
 }, {
 "duration": 1.0,
@@ -244,37 +258,53 @@ radius = 772.498
 [sub_resource type="CircleShape2D" id="CircleShape2D_jnveb"]
 radius = 320.0
 
-[node name="SupportHealth" type="RigidBody2D"]
+[node name="SupportHealth" type="RigidBody2D" node_paths=PackedStringArray("weapon")]
+collision_layer = 6
+collision_mask = 6
 gravity_scale = 0.0
 max_contacts_reported = 10
 contact_monitor = true
 script = ExtResource("1_00j88")
 rangedBehavior = true
-effectiveRange = 800
+effectiveRange = 500
 effectiveRangeVariance = 100
+weapon = NodePath("DummyWeapon")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_lukfe")
+animation = &"dead"
 autoplay = "default"
-frame = 11
-frame_progress = 0.494107
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j2m0h")
 
 [node name="MinimumEnemyRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MinimumEnemyRange"]
 shape = SubResource("CircleShape2D_7on8n")
 debug_color = Color(0.776471, 0.403922, 0.466667, 0.419608)
 
 [node name="AreaOfEffect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaOfEffect"]
 shape = SubResource("CircleShape2D_jnveb")
+
+[node name="DummyWeapon" parent="." instance=ExtResource("3_rsn4o")]
+
+[node name="BeamOrigin" type="Node2D" parent="."]
+position = Vector2(0, -58)
+
+[node name="DeathCheckTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="MinimumEnemyRange" to="." method="_on_minimum_enemy_range_body_entered"]
 [connection signal="body_exited" from="MinimumEnemyRange" to="." method="_on_minimum_enemy_range_body_exited"]
 [connection signal="body_entered" from="AreaOfEffect" to="." method="_on_area_of_effect_body_entered"]
 [connection signal="body_exited" from="AreaOfEffect" to="." method="_on_area_of_effect_body_exited"]
+[connection signal="timeout" from="DeathCheckTimer" to="." method="_on_death_check_timer_timeout"]
