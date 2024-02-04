@@ -91,8 +91,6 @@ visible = true
 visible = false
 color = Color(0.158472, 0.158472, 0.158472, 1)
 
-[node name="PauseMenu" parent="." instance=ExtResource("6_6rves")]
-
 [node name="WaveTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
