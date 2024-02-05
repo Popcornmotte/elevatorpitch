@@ -4,6 +4,7 @@ const KATSCHING = preload("res://Assets/Audio/sfx/katsching.wav")
 const THUNDER = preload("res://Assets/Audio/sfx/thunder.wav")
 #const FORMATION_A = preload("res://Scenes/Objects/Enemies/Formations/formation_drones_a.tscn")
 const D_RIFLE = preload("res://Scenes/Objects/Enemies/drone_rifle.tscn")
+const D_LASER = preload("res://Scenes/Objects/Enemies/drone_laser.tscn")
 const D_SAW = preload("res://Scenes/Objects/Enemies/drone_saw.tscn")
 const D_ROCKET = preload("res://Scenes/Objects/Enemies/drone_rocket.tscn")
 const D_BARREL = preload("res://Scenes/Objects/Enemies/low_bomb.tscn")
@@ -16,7 +17,8 @@ var combat = false
 var wave = 1
 var elevatorDropping=false
 @onready var finishedLevel=false
-@onready var ENEMIES = [D_BARREL,D_RIFLE,D_SAW,D_ROCKET,D_SUPPORT_HEALTH]
+@onready var ENEMIES_LOW = [D_BARREL,D_RIFLE,D_SAW,D_ROCKET,D_SUPPORT_HEALTH]
+@onready var ENEMIES_SPACE = [D_BARREL,D_LASER,D_SAW,D_ROCKET,D_SUPPORT_HEALTH]
 @onready var LevelFinish=get_node("LevelFinish")
 @onready var gameOverText=get_node("GameOver")
 @export var night = false
@@ -144,13 +146,13 @@ func spawnEnemies(playTutorials=Global.tutorialLevel):
 		tutorialWaveCounter+=1
 	else:
 		var rocketeers = 0
-		var enemies = ENEMIES
+		var enemies = ENEMIES_LOW if Global.height < 40 else ENEMIES_SPACE
 		spawnChance = -1
 		wave += 1
 		#var formation = FORMATION_A.instantiate()
 		
 		var sign
-		spawn(randi()%6 + wave + Global.currentContract.risk * 3, ENEMIES)
+		spawn(randi()%6 + wave + Global.currentContract.risk * 3, enemies)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
