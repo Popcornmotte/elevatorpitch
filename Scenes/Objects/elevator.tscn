@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=74 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://jhsy3xo2g347" path="res://Scenes/Objects/lamp.tscn" id="7_6d2ne"]
 [ext_resource type="Texture2D" uid="uid://bgvy1fuq0ilv1" path="res://Assets/Sprites/ElevatorBody/BodyHullInterior.png" id="7_jbnxu"]
 [ext_resource type="Texture2D" uid="uid://dhl16w2kryxft" path="res://Assets/Sprites/ElevatorBody/Gear0.png" id="7_xkf6p"]
+[ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="8_8u7wh"]
 [ext_resource type="PackedScene" uid="uid://cuiln8pt5xl01" path="res://Scenes/Objects/engine.tscn" id="8_cxyt7"]
 [ext_resource type="Script" path="res://Scripts/EffectGear.gd" id="9_3heke"]
 [ext_resource type="Script" path="res://Scripts/Claw.gd" id="9_ltb0c"]
@@ -404,6 +405,12 @@ position = Vector2(88, 147)
 rotation = -0.523599
 texture = ExtResource("21_56jwc")
 texture_scale = 2.5
+
+[node name="InteriorLight" type="PointLight2D" parent="HullBody"]
+visible = false
+energy = 0.6
+texture = ExtResource("8_8u7wh")
+texture_scale = 0.75
 
 [node name="Hull" type="Sprite2D" parent="HullBody"]
 z_index = 4

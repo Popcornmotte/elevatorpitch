@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dn314ddhclysm"]
+[gd_scene load_steps=25 format=3 uid="uid://dn314ddhclysm"]
 
 [ext_resource type="PackedScene" uid="uid://bjgjo60texco1" path="res://Scenes/Objects/elevator.tscn" id="1_kgkqi"]
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mtyqn"]
@@ -66,6 +66,43 @@ shader_parameter/noise = SubResource("NoiseTexture2D_pq16b")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7b7ug"]
 
+[sub_resource type="Animation" id="Animation_eatqr"]
+resource_name = "fadeout"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/fog_color4")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector4(1, 1, 1, 1), Vector4(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_keaq7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/fog_color4")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector4(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q0wno"]
+_data = {
+"RESET": SubResource("Animation_keaq7"),
+"fadeout": SubResource("Animation_eatqr")
+}
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_moc7y"]
 particle_flag_disable_z = true
 emission_shape = 3
@@ -82,7 +119,6 @@ scale_max = 2.0
 
 [node name="TestScenes" type="Node2D"]
 script = ExtResource("1_mtyqn")
-night = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_6rves")]
 
@@ -98,8 +134,7 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
-[node name="Elevator" parent="." node_paths=PackedStringArray("statusLamps") instance=ExtResource("1_kgkqi")]
-statusLamps = [NodePath("HullBody/Hull/Lamps/Lamp"), NodePath("HullBody/Hull/Lamps/Lamp2"), NodePath("HullBody/Hull/Lamps/Lamp3"), null, null]
+[node name="Elevator" parent="." instance=ExtResource("1_kgkqi")]
 
 [node name="LevelCam" type="Camera2D" parent="."]
 enabled = false
@@ -215,6 +250,11 @@ material = SubResource("ShaderMaterial_x6ass")
 position = Vector2(56, 5.72205e-06)
 scale = Vector2(2160, 1152)
 texture = SubResource("PlaceholderTexture2D_7b7ug")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FogShader"]
+libraries = {
+"": SubResource("AnimationLibrary_q0wno")
+}
 
 [node name="LightningTimer" type="Timer" parent="."]
 wait_time = 3.0

@@ -35,6 +35,10 @@ func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if(randi()%3==0):
+		night = true
+	else:
+		night = false
 	Global.aliveEnemies = 0
 	print("This is a tutorial: ", Global.tutorialLevel)
 	if Global.tutorialLevel:
@@ -50,10 +54,12 @@ func _ready():
 	if !night:
 		$CanvasModulate.hide()
 		$FogShader.hide()
+		$Rain.emitting = false
 	else:
 		Audio.playMusic("rain")
 		$LightningTimer.start()
 		$CanvasModulate.show()
+		$Rain.emitting = true
 		#$FogShader.show()
 		#$ClimbEnvironment.hide()
 	maxRocketeersAtOnce = Global.currentContract.risk + 1
@@ -67,7 +73,9 @@ func weatherFadeout():
 	Audio.playSfx(RAINFADEOUT)
 	fogfade = true
 	$LightningTimer.stop()
-	$FogShader.ShaderMaterial.set_shader_parameter("fog_color4",Color(1,1,1,0))
+	$FogShader/AnimationPlayer.play("fadeout")
+	$Rain.emitting = false
+	#$FogShader.material.set_shader_parameter("fog_color4", Color(1,1,1,0) )
 
 func lightning():
 	flash = true
@@ -145,7 +153,7 @@ func spawnEnemies(playTutorials=Global.tutorialLevel):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !fogfade && Global.height / finishHeight >= 0.8:
+	if !fogfade && Global.height / finishHeight >= 0.65:
 		weatherFadeout()
 		fogfade = true
 	

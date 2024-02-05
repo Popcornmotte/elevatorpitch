@@ -77,11 +77,13 @@ func switchLights(state : bool):
 		$Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/FloodlightR.show()
 		$HullBody/BodyLightL.show()
 		$HullBody/BodyLightR.show()
+		$HullBody/InteriorLight.show()
 	else:
 		$Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/FloodlightL.hide()
 		$Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/FloodlightR.hide()
 		$HullBody/BodyLightL.hide()
 		$HullBody/BodyLightR.hide()
+		$HullBody/InteriorLight.hide()
 
 func updateDisplay():
 	match numberBrokenModules:

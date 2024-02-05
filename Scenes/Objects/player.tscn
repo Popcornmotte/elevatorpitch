@@ -373,6 +373,8 @@ texture_under = ExtResource("14_mdwmt")
 texture_progress = ExtResource("15_6ko7i")
 
 [node name="BodyLight" type="PointLight2D" parent="."]
+visible = false
+enabled = false
 range_z_min = 0
 range_z_max = 4
 texture = ExtResource("16_1uo80")
