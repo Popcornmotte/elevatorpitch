@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://sdnx788wgxud"]
+[gd_scene load_steps=13 format=3 uid="uid://sdnx788wgxud"]
 
 [ext_resource type="Script" path="res://Scripts/Target.gd" id="1_xpcip"]
 [ext_resource type="Texture2D" uid="uid://qdg436exlg7u" path="res://Assets/Sprites/target.png" id="2_3cpto"]
@@ -7,6 +7,12 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qaus"]
 radius = 16.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oa4xa"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_buyax"]
+light_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mv2pl"]
 atlas = ExtResource("4_cf23p")
@@ -57,6 +63,7 @@ shape = SubResource("CircleShape2D_4qaus")
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_oa4xa")
 texture = ExtResource("2_3cpto")
 metadata/_edit_lock_ = true
 
@@ -72,6 +79,7 @@ collision_mask = 524288
 
 [node name="FlingTarget" type="AnimatedSprite2D" parent="."]
 visible = false
+material = SubResource("CanvasItemMaterial_buyax")
 sprite_frames = SubResource("SpriteFrames_fgby2")
 autoplay = "default"
 frame_progress = 0.954707

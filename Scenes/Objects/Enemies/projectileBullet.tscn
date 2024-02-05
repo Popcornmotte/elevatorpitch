@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwxdwntyg1141"]
+[gd_scene load_steps=9 format=3 uid="uid://dwxdwntyg1141"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/bullet.gd" id="1_wprt0"]
 [ext_resource type="Texture2D" uid="uid://bbr6y1ffopfih" path="res://Assets/Sprites/Enemies/Bullet1.png" id="2_qdkh3"]
@@ -6,6 +6,9 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ol1sf"]
 radius = 4.0
 height = 42.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_74obh"]
+light_mode = 1
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8o7tq"]
 animations = [{
@@ -43,6 +46,7 @@ shape = SubResource("CapsuleShape2D_ol1sf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
+material = SubResource("CanvasItemMaterial_74obh")
 sprite_frames = SubResource("SpriteFrames_8o7tq")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://bjgjo60texco1"]
+[gd_scene load_steps=74 format=3 uid="uid://bjgjo60texco1"]
 
 [ext_resource type="Texture2D" uid="uid://dutcqedxo6rbd" path="res://Assets/Sprites/ElevatorBody/Legs.png" id="1_cufjr"]
 [ext_resource type="Texture2D" uid="uid://cccb36kyj5imy" path="res://Assets/Sprites/ElevatorBody/Body0.png" id="1_dtexf"]
@@ -11,9 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://sb47ud24jhmx" path="res://Assets/Sprites/Claws/Test0/TestClaw1.png" id="4_hs0s2"]
 [ext_resource type="Texture2D" uid="uid://cps0xktem8rbd" path="res://Assets/Sprites/Claws/Test0/TestClaw0.png" id="5_xhuq0"]
 [ext_resource type="PackedScene" uid="uid://dhy7o2g76nxox" path="res://Scenes/Objects/interior.tscn" id="6_kqtpx"]
+[ext_resource type="Texture2D" uid="uid://b7a7ager24tmc" path="res://Assets/Sprites/ElevatorBody/Floodlight.png" id="7_0c3y6"]
 [ext_resource type="PackedScene" uid="uid://jhsy3xo2g347" path="res://Scenes/Objects/lamp.tscn" id="7_6d2ne"]
 [ext_resource type="Texture2D" uid="uid://bgvy1fuq0ilv1" path="res://Assets/Sprites/ElevatorBody/BodyHullInterior.png" id="7_jbnxu"]
 [ext_resource type="Texture2D" uid="uid://dhl16w2kryxft" path="res://Assets/Sprites/ElevatorBody/Gear0.png" id="7_xkf6p"]
+[ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="8_8u7wh"]
 [ext_resource type="PackedScene" uid="uid://cuiln8pt5xl01" path="res://Scenes/Objects/engine.tscn" id="8_cxyt7"]
 [ext_resource type="Script" path="res://Scripts/EffectGear.gd" id="9_3heke"]
 [ext_resource type="Script" path="res://Scripts/Claw.gd" id="9_ltb0c"]
@@ -25,6 +27,7 @@
 [ext_resource type="Material" uid="uid://d3xpwi0up6xh4" path="res://ParticleEffects/PointSparks.tres" id="17_epo4g"]
 [ext_resource type="Script" path="res://Scripts/PhysicalArm.gd" id="17_yi1ig"]
 [ext_resource type="PackedScene" uid="uid://da4m2la28h4n3" path="res://Scenes/Objects/Modules/Arms/moduleAttachment.tscn" id="21_7g4is"]
+[ext_resource type="Texture2D" uid="uid://em8ovy0rq3jl" path="res://Assets/Sprites/FX/cone.png" id="21_56jwc"]
 [ext_resource type="PackedScene" uid="uid://sdnx788wgxud" path="res://Scenes/Objects/arm_target.tscn" id="21_fuon1"]
 [ext_resource type="Texture2D" uid="uid://c5aykdr7678h" path="res://Assets/Sprites/Claws/Test0/TestClaw2.png" id="22_gvx6l"]
 [ext_resource type="Shader" uid="uid://dqaejjhskwfic" path="res://Assets/Shaders/alphaPulse.tres" id="26_3tmyj"]
@@ -380,6 +383,35 @@ metadata/_edit_lock_ = true
 shape = SubResource("CapsuleShape2D_ohd1j")
 debug_color = Color(0.984314, 0, 0.34902, 0.419608)
 
+[node name="BodyLightL" type="Sprite2D" parent="HullBody"]
+visible = false
+position = Vector2(-100, -105)
+texture = ExtResource("7_0c3y6")
+
+[node name="PointLight2D" type="PointLight2D" parent="HullBody/BodyLightL"]
+position = Vector2(-86, 140)
+rotation = 0.523599
+texture = ExtResource("21_56jwc")
+texture_scale = 2.5
+
+[node name="BodyLightR" type="Sprite2D" parent="HullBody"]
+visible = false
+position = Vector2(100, -105)
+texture = ExtResource("7_0c3y6")
+flip_h = true
+
+[node name="PointLight2D" type="PointLight2D" parent="HullBody/BodyLightR"]
+position = Vector2(88, 147)
+rotation = -0.523599
+texture = ExtResource("21_56jwc")
+texture_scale = 2.5
+
+[node name="InteriorLight" type="PointLight2D" parent="HullBody"]
+visible = false
+energy = 0.6
+texture = ExtResource("8_8u7wh")
+texture_scale = 0.75
+
 [node name="Hull" type="Sprite2D" parent="HullBody"]
 z_index = 4
 texture = ExtResource("1_dtexf")
@@ -671,6 +703,14 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw/GrabArea"]
 shape = SubResource("CircleShape2D_e7x7n")
 
+[node name="FloodlightR" type="PointLight2D" parent="Arms/PhysicalArmRight/UpperArm/LowerArm/Claw"]
+visible = false
+position = Vector2(6, 0)
+rotation = -1.5708
+texture = ExtResource("21_56jwc")
+offset = Vector2(0, 300)
+texture_scale = 5.0
+
 [node name="RepairArea" parent="Arms/PhysicalArmRight" instance=ExtResource("27_ahenx")]
 visible = false
 z_index = 1
@@ -789,6 +829,13 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw/GrabArea"]
 shape = SubResource("CircleShape2D_e7x7n")
+
+[node name="FloodlightL" type="PointLight2D" parent="Arms/PhysicalArmLeft/UpperArm/LowerArm/Claw"]
+visible = false
+rotation = -1.5708
+texture = ExtResource("21_56jwc")
+offset = Vector2(0, 300)
+texture_scale = 5.0
 
 [node name="RepairArea" parent="Arms/PhysicalArmLeft" instance=ExtResource("27_ahenx")]
 visible = false

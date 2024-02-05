@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://xcgdf4cn2vir"]
+[gd_scene load_steps=51 format=3 uid="uid://xcgdf4cn2vir"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_mnd8j"]
 [ext_resource type="Texture2D" uid="uid://cj56gvxbatwq7" path="res://Assets/Sprites/Player/PlayerClimb.png" id="2_lc3sb"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c0ur0a1yll1xy" path="res://Scenes/Objects/PlayerGun.tscn" id="12_7oi1g"]
 [ext_resource type="Texture2D" uid="uid://23fcpqdcjp8k" path="res://Assets/Sprites/Player/healthbarBackground.png" id="14_mdwmt"]
 [ext_resource type="Texture2D" uid="uid://dpu5wkk46v1ci" path="res://Assets/Sprites/Player/healthbar.png" id="15_6ko7i"]
+[ext_resource type="Texture2D" uid="uid://cp8fdkl7h7w3m" path="res://Assets/Sprites/FX/PointLightBigNSmooth.png" id="16_1uo80"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tucjc"]
 radius = 5.0
@@ -370,6 +371,14 @@ max_value = 5.0
 value = 5.0
 texture_under = ExtResource("14_mdwmt")
 texture_progress = ExtResource("15_6ko7i")
+
+[node name="BodyLight" type="PointLight2D" parent="."]
+visible = false
+enabled = false
+range_z_min = 0
+range_z_max = 4
+texture = ExtResource("16_1uo80")
+texture_scale = 0.5
 
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]

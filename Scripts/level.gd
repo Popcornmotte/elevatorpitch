@@ -1,6 +1,7 @@
 extends Node2D
 
 const KATSCHING = preload("res://Assets/Audio/sfx/katsching.wav")
+const THUNDER = preload("res://Assets/Audio/sfx/thunder.wav")
 #const FORMATION_A = preload("res://Scenes/Objects/Enemies/Formations/formation_drones_a.tscn")
 const D_RIFLE = preload("res://Scenes/Objects/Enemies/drone_rifle.tscn")
 const D_SAW = preload("res://Scenes/Objects/Enemies/drone_saw.tscn")
@@ -8,6 +9,7 @@ const D_ROCKET = preload("res://Scenes/Objects/Enemies/drone_rocket.tscn")
 const D_BARREL = preload("res://Scenes/Objects/Enemies/low_bomb.tscn")
 const FADEOUT=preload("res://Scenes/UI/fade_out.tscn")
 const FAILTRUMPET=preload("res://Assets/Audio/sfx/failTrumpet.wav")
+const RAINFADEOUT=preload("res://Assets/Audio/sfx/rainFadeout.wav")
 var spawnChance = 20
 var combat = false
 var wave = 1
@@ -16,6 +18,7 @@ var elevatorDropping=false
 @onready var ENEMIES = [D_BARREL,D_RIFLE,D_SAW,D_ROCKET]
 @onready var LevelFinish=get_node("LevelFinish")
 @onready var gameOverText=get_node("GameOver")
+@export var night = false
 var maxRocketeersAtOnce = 1
 var finishHeight=50
 var cargoCount = 0
@@ -24,11 +27,18 @@ var lastHeight = 0
 var gameOver=false
 var tutorialWaveCounter=0
 var failTrumpetSfx#used to stop trumpet if switching to main scene before the end of the sound
+var flash = false
+var fogfade = false
+var modulateCol : Color
 
 func _enter_tree():
 	Global.level = self
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if(randi()%3==0):
+		night = true
+	else:
+		night = false
 	Global.aliveEnemies = 0
 	print("This is a tutorial: ", Global.tutorialLevel)
 	if Global.tutorialLevel:
@@ -37,11 +47,41 @@ func _ready():
 		$WaveTimer.set_wait_time(5)
 		if Global.modulesUnlocked[0] or Global.modulesUnlocked[1]:
 			Global.optionsMenu.switch(Global.TUTORIAL_INDICES.ARMMODULE)
+	
+	$ClimbEnvironment.switchNight(night)
+	$Elevator.switchLights(night)
+	$player.switchLight(night)
+	if !night:
+		$CanvasModulate.hide()
+		$FogShader.hide()
+		$Rain.emitting = false
+	else:
+		Audio.playMusic("rain")
+		$LightningTimer.start()
+		$CanvasModulate.show()
+		$Rain.emitting = true
+		#$FogShader.show()
+		#$ClimbEnvironment.hide()
 	maxRocketeersAtOnce = Global.currentContract.risk + 1
 	Global.elevator.get_node("interior/Dispenser").locked=false
 	gameOverText.hide()
 	Global.elevator.fuel = max(Global.elevator.fuel,Global.fuelBetweenLevels)
 	Global.elevator.moving=true
+
+func weatherFadeout():
+	Audio.stopMusic()
+	Audio.playSfx(RAINFADEOUT)
+	fogfade = true
+	$LightningTimer.stop()
+	$FogShader/AnimationPlayer.play("fadeout")
+	$Rain.emitting = false
+	#$FogShader.material.set_shader_parameter("fog_color4", Color(1,1,1,0) )
+
+func lightning():
+	flash = true
+	Audio.playSfx(THUNDER)
+	modulateCol = Color(1.0,1.0,1.0)
+	$CanvasModulate.set_color(modulateCol)
 
 func setFinishHeight():
 	var destination = Global.currentContract.destination
@@ -113,6 +153,22 @@ func spawnEnemies(playTutorials=Global.tutorialLevel):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if !fogfade && Global.height / finishHeight >= 0.65:
+		weatherFadeout()
+		fogfade = true
+	
+	if night:
+		$FogShader.material.set_shader_parameter("height", Global.height)
+	
+	if flash:
+		if modulateCol.r > 0.3:
+			modulateCol.r -= delta
+			modulateCol.g -= delta
+			modulateCol.b -= delta
+		else:
+			flash = false
+			modulateCol = Color(0.3,0.3,0.3)
+		$CanvasModulate.set_color(modulateCol)
 	if(combat):
 		if Global.aliveEnemies <= 0:
 			combat = false
@@ -193,3 +249,10 @@ func _on_button_pressed():
 	Audio.stopMusic()
 	get_tree().change_scene_to_file("res://Scenes/UI/base_ui.tscn")
 
+
+
+func _on_lightning_timer_timeout():
+	lightning()
+	$LightningTimer.wait_time = randi_range(3, 16)
+	$LightningTimer.start()
+	pass # Replace with function body.
