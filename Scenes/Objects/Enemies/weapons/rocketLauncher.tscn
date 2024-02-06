@@ -82,8 +82,8 @@ weaponNozzle = NodePath("Nozzle")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_l4lfr")
-animation = &"reload"
-autoplay = "reload"
+animation = &"fire"
+autoplay = "fire"
 
 [node name="MeleeArea" type="Area2D" parent="."]
 collision_layer = 0

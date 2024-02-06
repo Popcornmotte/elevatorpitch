@@ -14,6 +14,7 @@ const isEnemyEntity = true
 @export var attacksStealCargo = false
 @export var stealChancePercent = 25
 @export var weapon : Weapon
+@export var skipFirstReload = false
 @export var maxSpeed = 50
 @export var despawnOnScreenExitTimer = 30.0
 @export var attacksPerTurn = 2
@@ -44,6 +45,9 @@ var loot
 var timeSpentInFire = 0.0
 var intersectingFlameParticles = 0
 
+# Start losing overheal if not been healed in a few seconds
+var timeSinceHeal = 0.0
+
 var damageIndicator : DamageIndicator
 var flame : Node2D
 
@@ -56,6 +60,7 @@ func _ready():
 	elevatorPos = Global.elevator.global_position
 	if weapon != null:
 		attackTime = weapon.reloadTime * attacksPerTurn
+		if !skipFirstReload: reload = weapon.reloadTime
 	attackTimer = attackTime
 
 	if(!has_method("_on_body_entered")):
@@ -103,18 +108,30 @@ func die():
 func takeDamage(damage : int, type):
 	if dead:
 		return
-	var factor = damageFactors[type]
-	var dealtDamage = damage * factor
-	dealtDamage = min(hitPoints, dealtDamage)
+	var dealtDamage = 0.0
+	if damage > 0:
+		var factor = damageFactors[type]
+		dealtDamage = damage * factor
+		dealtDamage = min(hitPoints, dealtDamage)
+		hitPoints -= dealtDamage
+		if(!dead && hitPoints <=0 ):
+			die()
+	else:
+		timeSinceHeal = 0.0
+		var hitPointsBefore = hitPoints
+		hitPoints -= damage
+		hitPoints = min(maxHitPoints * 1.5, hitPoints)
+		dealtDamage = min(0,hitPointsBefore - hitPoints)
+	if abs(dealtDamage) > 0:
+		manageDamageIndicator(dealtDamage)
+
+func manageDamageIndicator(dealtDamage):
 	if !(damageIndicator and weakref(damageIndicator).get_ref()):
 		damageIndicator = Global.damageIndicatorPrefab.instantiate()
 		damageIndicator.parent = self
 		add_sibling(damageIndicator)
 		damageIndicator.global_position = global_position + Vector2(0,-64)
 	damageIndicator.addDamage(dealtDamage)
-	hitPoints -= dealtDamage
-	if(!dead && hitPoints <=0 ):
-		die()
 
 func chooseTarget():
 	if dead:
@@ -195,7 +212,7 @@ func move(delta) -> bool:
 	if(!dead):
 		if rangedBehavior && global_position.distance_to(target) < 10:
 			return false
-		if(!weapon.checkMeleeHit() || state == STATE.Repositioning):
+		if(weapon && !weapon.checkMeleeHit() || state == STATE.Repositioning):
 			angular_velocity = -rotation * 100 * delta
 			var direction = global_position.direction_to(target).normalized()
 			speed = lerpf(linear_velocity.length(),maxSpeed,0.5)
@@ -214,7 +231,12 @@ func _process(delta):
 			dbm.queue_free()
 		die()
 		queue_free()
-	if weapon != null:
+	
+	timeSinceHeal += delta
+	if timeSinceHeal > 2.0 and hitPoints > maxHitPoints: # lose overheal over time
+		hitPoints -= min(25*delta, hitPoints - maxHitPoints)
+		
+	if weapon != null and !dead:
 		attackBehavior(delta)
 	move(delta)
 	if(DebugMode && dbm == null):
@@ -237,5 +259,10 @@ func _process(delta):
 	elif timeSpentInFire > 0:
 		timeSpentInFire -= 2 * delta
 
-	if(reload>0):reload-=delta
+	if !rangedBehavior or global_position.distance_to(target) <= 20:
+		if(reload>0):
+			reload-=delta
+			if !skipFirstReload and reload <= 1:
+				weapon.reload()
+				skipFirstReload = true
 	pass

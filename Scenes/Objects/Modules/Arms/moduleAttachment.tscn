@@ -165,10 +165,8 @@ blend_mode = 3
 [node name="ModuleAttachment" type="Node2D"]
 script = ExtResource("1_lx6vx")
 
-[node name="Shield" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
+[node name="Shield" type="Node2D" parent="." node_paths=PackedStringArray("sprite")]
 position = Vector2(24, 0)
-collision_layer = 0
-collision_mask = 8388608
 script = ExtResource("2_xnrre")
 sprite = NodePath("ShieldSprite")
 
@@ -192,9 +190,6 @@ offset_right = 168.0
 offset_bottom = -56.0
 text = "Inactive"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
-shape = SubResource("CircleShape2D_jvgfc")
-
 [node name="AudioLoop" type="AudioStreamPlayer2D" parent="Shield"]
 stream = ExtResource("5_a1g31")
 
@@ -203,6 +198,21 @@ stream = ExtResource("6_om1pr")
 
 [node name="AudioAbsorb" type="AudioStreamPlayer2D" parent="Shield"]
 stream = ExtResource("7_wm4aq")
+
+[node name="ProjectileRepellant" type="Area2D" parent="Shield"]
+collision_layer = 0
+collision_mask = 8388608
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield/ProjectileRepellant"]
+shape = SubResource("CircleShape2D_jvgfc")
+
+[node name="LaserBlocker" type="Area2D" parent="Shield"]
+collision_layer = 8388608
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shield/LaserBlocker"]
+polygon = PackedVector2Array(0, -64, 16, -32, 24, 0, 16, 32, 0, 64, -48, 40, -64, 0, -48, -40)
+disabled = true
 
 [node name="Text" type="RichTextLabel" parent="."]
 visible = false
@@ -226,8 +236,8 @@ material = SubResource("CanvasItemMaterial_c6nhu")
 scale = Vector2(2, 2)
 texture = ExtResource("6_a6ksk")
 
-[connection signal="area_entered" from="Shield" to="Shield" method="_on_area_entered"]
-[connection signal="area_exited" from="Shield" to="Shield" method="_on_area_exited"]
-[connection signal="body_entered" from="Shield" to="Shield" method="_on_body_entered"]
-[connection signal="body_exited" from="Shield" to="Shield" method="_on_body_exited"]
+[connection signal="area_entered" from="Shield/ProjectileRepellant" to="Shield" method="_on_area_entered"]
+[connection signal="area_exited" from="Shield/ProjectileRepellant" to="Shield" method="_on_area_exited"]
+[connection signal="body_entered" from="Shield/ProjectileRepellant" to="Shield" method="_on_body_entered"]
+[connection signal="body_exited" from="Shield/ProjectileRepellant" to="Shield" method="_on_body_exited"]
 [connection signal="animation_finished" from="Extension" to="." method="_on_extension_animation_finished"]

@@ -25,7 +25,7 @@ func addDamage(dealt:int):
 	if damage > 0:
 		$Text.text = "[center][color=#FF2000]-" + str(damage) + "[/color][/center]"
 	else:
-		$Text.text = "[center][color=#20FF00]+" + str(damage) + "[/color][/center]"
+		$Text.text = "[center][color=#20FF00]+" + str(abs(damage)) + "[/color][/center]"
 	$Animation.play("scale")
 
 func _on_cutoff_timer_timeout():

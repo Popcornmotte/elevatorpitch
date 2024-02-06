@@ -28,6 +28,7 @@ rangedBehavior = true
 effectiveRange = 800
 effectiveRangeVariance = 200
 weapon = NodePath("WeaponMount/RocketLauncher")
+skipFirstReload = true
 
 [node name="BalloonSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_gejhl")

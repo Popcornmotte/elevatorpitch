@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsdjoc5t1gcq3"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/dummyWeapon.gd" id="1_vs4jp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d1xus"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e63bj"]
+
+[node name="DummyWeapon" type="Node2D"]
+script = ExtResource("1_vs4jp")
+
+[node name="MeleeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
+shape = SubResource("CircleShape2D_d1xus")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e63bj")
+
+[node name="Nozzle" type="Node2D" parent="."]
+
+[node name="ReloadTimer" type="Timer" parent="."]

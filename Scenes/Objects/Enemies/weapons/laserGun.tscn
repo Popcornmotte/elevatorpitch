@@ -1,50 +1,50 @@
-[gd_scene load_steps=19 format=3 uid="uid://cqt125igrje6t"]
+[gd_scene load_steps=21 format=3 uid="uid://bx4caeqc511u6"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/weapon.gd" id="1_qgjbn"]
-[ext_resource type="PackedScene" uid="uid://dwxdwntyg1141" path="res://Scenes/Objects/Enemies/projectileBullet.tscn" id="2_jqlub"]
-[ext_resource type="AudioStream" uid="uid://cpocfy1arwqow" path="res://Assets/Audio/sfx/shots/rifleShot.wav" id="3_05krn"]
-[ext_resource type="AudioStream" uid="uid://bu7ttu5rhcso0" path="res://Assets/Audio/sfx/shotgunRack.wav" id="4_eekil"]
-[ext_resource type="Texture2D" uid="uid://bsvg2oldsx0dv" path="res://Assets/Sprites/Enemies/low_drone_rifle_reload.png" id="4_f0il8"]
-[ext_resource type="Texture2D" uid="uid://pfjj60r73eop" path="res://Assets/Sprites/Enemies/low_drone_rifle_shoot.png" id="5_d7r8u"]
+[ext_resource type="Script" path="res://Scripts/Enemies/laserGun.gd" id="1_cfvae"]
+[ext_resource type="Shader" uid="uid://ds20jdccrgpyj" path="res://Shader/animatedLine2D.tres" id="4_3ckdq"]
+[ext_resource type="Texture2D" uid="uid://pfjj60r73eop" path="res://Assets/Sprites/Enemies/low_drone_rifle_shoot.png" id="5_qrxng"]
+[ext_resource type="Texture2D" uid="uid://b0umc0whxu63m" path="res://Assets/Sprites/Enemies/laser_charging.png" id="5_vfy7n"]
+[ext_resource type="Texture2D" uid="uid://cpdc1vuaofcnx" path="res://Assets/Sprites/Enemies/laser_firing.png" id="6_58iij"]
+[ext_resource type="Texture2D" uid="uid://bsvg2oldsx0dv" path="res://Assets/Sprites/Enemies/low_drone_rifle_reload.png" id="6_yb2my"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g0kdn"]
-atlas = ExtResource("5_d7r8u")
+atlas = ExtResource("5_qrxng")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m63sd"]
-atlas = ExtResource("5_d7r8u")
+atlas = ExtResource("5_qrxng")
 region = Rect2(0, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7vbnw"]
-atlas = ExtResource("5_d7r8u")
+atlas = ExtResource("5_qrxng")
 region = Rect2(0, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_laml8"]
-atlas = ExtResource("5_d7r8u")
+atlas = ExtResource("5_qrxng")
 region = Rect2(0, 384, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ci5ej"]
-atlas = ExtResource("5_d7r8u")
+atlas = ExtResource("5_qrxng")
 region = Rect2(0, 512, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lipp8"]
-atlas = ExtResource("4_f0il8")
+atlas = ExtResource("6_yb2my")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvbrl"]
-atlas = ExtResource("4_f0il8")
+atlas = ExtResource("6_yb2my")
 region = Rect2(0, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88pav"]
-atlas = ExtResource("4_f0il8")
+atlas = ExtResource("6_yb2my")
 region = Rect2(0, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iu17f"]
-atlas = ExtResource("4_f0il8")
+atlas = ExtResource("6_yb2my")
 region = Rect2(0, 384, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7h38r"]
-atlas = ExtResource("4_f0il8")
+atlas = ExtResource("6_yb2my")
 region = Rect2(0, 512, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l4lfr"]
@@ -93,38 +93,76 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4fv3"]
 radius = 29.0172
 
-[node name="Rifle" type="Node2D" node_paths=PackedStringArray("weaponNozzle")]
-script = ExtResource("1_qgjbn")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ieana"]
+shader = ExtResource("4_3ckdq")
+shader_parameter/Frames = 4
+shader_parameter/FPS = 10.0
+shader_parameter/Modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dyqrh"]
+shader = ExtResource("4_3ckdq")
+shader_parameter/Frames = 4
+shader_parameter/FPS = 20.0
+shader_parameter/Modulate = Color(1, 1, 1, 1)
+
+[node name="LaserGun" type="Node2D"]
+script = ExtResource("1_cfvae")
 damage = 2
-reloadTime = 3.0
+reloadTime = 5.0
 ranged = true
-projectile = ExtResource("2_jqlub")
-weaponFireSound = ExtResource("3_05krn")
-weaponReloadSound = ExtResource("4_eekil")
 projectileSpeed = 1000.0
-weaponNozzle = NodePath("Nozzle")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_l4lfr")
-animation = &"fire"
-autoplay = "fire"
-frame = 4
-frame_progress = 1.0
+animation = &"reload"
+autoplay = "reload"
 
 [node name="MeleeArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
-position = Vector2(-48, 29)
 shape = SubResource("CircleShape2D_b4fv3")
 
 [node name="Nozzle" type="Marker2D" parent="."]
-position = Vector2(-60, 19)
 
 [node name="ReloadTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ChargeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="ChargeBeam" type="Line2D" parent="."]
+visible = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_ieana")
+points = PackedVector2Array(0, 0, 64, 0)
+width = 32.0
+texture = ExtResource("5_vfy7n")
+texture_mode = 1
+
+[node name="FireBeam" type="Line2D" parent="."]
+visible = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_dyqrh")
+points = PackedVector2Array(0, 0, -64, 0)
+width = 32.0
+texture = ExtResource("6_58iij")
+texture_mode = 1
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(-128, 0)
+collision_mask = 8388864
+collide_with_areas = true
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 0.333
 one_shot = true
 
 [connection signal="body_entered" from="MeleeArea" to="." method="_on_melee_area_body_entered"]
 [connection signal="body_exited" from="MeleeArea" to="." method="_on_melee_area_body_exited"]
 [connection signal="timeout" from="ReloadTimer" to="." method="reload"]
+[connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
