@@ -157,7 +157,7 @@ func spawnEnemies(playTutorials=Global.tutorialLevel):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !fogfade && Global.height / finishHeight >= 0.65:
+	if night && !fogfade && Global.height / finishHeight >= 0.65:
 		weatherFadeout()
 		fogfade = true
 	
