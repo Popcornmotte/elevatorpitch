@@ -39,7 +39,8 @@ func _enter_tree():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if(randi()%3==0):
-		night = true
+		if !Global.tutorialLevel:
+			night = true
 	else:
 		night = false
 	Global.aliveEnemies = 0

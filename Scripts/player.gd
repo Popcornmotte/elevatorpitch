@@ -384,7 +384,7 @@ func _on_interaction_area_area_entered(area):
 			area.owner.find_child("Outline").visible = true
 		return
 	#special case for doors, they should only open when the elevators is not moving, null checks inserted to not crash game
-	elif Global.elevator and !Global.elevator.moving and ("isDoor" in area.owner):
+	elif weakref(Global.elevator).get_ref() and !Global.elevator.moving and ("isDoor" in area.owner):
 		area.owner.openDoor()
 	elif "interactable" in area.owner:
 		interactionObject=area.owner
