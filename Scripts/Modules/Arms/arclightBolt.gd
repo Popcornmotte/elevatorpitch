@@ -7,7 +7,7 @@ const spark = preload("res://Assets/Audio/sfx/modules/arcFail.wav")
 
 const audio = [bolt0, bolt1, bolt2]
 
-var maxCharge = 200
+var maxCharge = 1000
 var charge = -1
 var linePoints : PackedVector2Array
 var widths : Array[float]
