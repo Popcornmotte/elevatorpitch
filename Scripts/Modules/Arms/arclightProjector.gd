@@ -30,7 +30,7 @@ func deactivate():
 	var bolt = boltPrefab.instantiate()
 	Global.level.add_child(bolt)
 	bolt.global_position = $Charge.global_position
-	bolt.charge = chargeTime * 100
+	bolt.charge = chargeTime * 500
 	Global.takeFromInventory(Item.TYPE.Ammo)
 	
 	chargeTime = 0.0
